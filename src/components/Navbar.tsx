@@ -49,8 +49,11 @@ const Navbar: React.FC = () => {
           <a href="#about" className="font-medium hover:text-olu-gold transition-colors">
             {t("about")}
           </a>
-          <a href="#portfolio" className="font-medium hover:text-olu-gold transition-colors">
-            {t("portfolio")}
+          <a href="#partners" className="font-medium hover:text-olu-gold transition-colors">
+            {t("partners.title")}
+          </a>
+          <a href="#faq" className="font-medium hover:text-olu-gold transition-colors">
+            {t("faq.title")}
           </a>
           <a href="#contact" className="font-medium hover:text-olu-gold transition-colors">
             {t("contact")}
@@ -100,11 +103,18 @@ const Navbar: React.FC = () => {
               {t("about")}
             </a>
             <a
-              href="#portfolio"
+              href="#partners"
               className="text-lg font-medium py-2"
               onClick={() => setMobileMenuOpen(false)}
             >
-              {t("portfolio")}
+              {t("partners.title")}
+            </a>
+            <a
+              href="#faq"
+              className="text-lg font-medium py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t("faq.title")}
             </a>
             <a
               href="#contact"
