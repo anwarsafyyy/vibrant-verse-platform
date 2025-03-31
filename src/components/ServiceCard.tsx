@@ -13,12 +13,12 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon: Icon, className, style }) => {
   return (
-    <Card className={`service-card hover:border-olu-cyan/50 group ${className}`} style={style}>
+    <Card className={`service-card hover:border-olu-gold/50 group ${className}`} style={style}>
       <CardHeader className="pb-2">
-        <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-olu-blue to-olu-cyan mb-4 text-white group-hover:scale-110 transition-transform">
+        <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-olu-gold to-olu-gold/70 mb-4 text-white group-hover:scale-110 transition-transform">
           <Icon className="h-6 w-6" />
         </div>
-        <CardTitle className="text-xl group-hover:olu-text-gradient transition-all duration-300">{title}</CardTitle>
+        <CardTitle className="text-xl group-hover:text-olu-gold transition-all duration-300">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription className="text-base">{description}</CardDescription>

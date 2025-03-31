@@ -110,8 +110,16 @@
     @apply bg-gradient-to-r from-olu-blue to-olu-cyan;
   }
   
+  .olu-gold-gradient {
+    @apply bg-gradient-to-r from-olu-gold to-olu-gold/80;
+  }
+  
   .olu-text-gradient {
     @apply bg-gradient-to-r from-olu-blue to-olu-cyan bg-clip-text text-transparent;
+  }
+  
+  .olu-gold-text-gradient {
+    @apply bg-gradient-to-r from-olu-gold to-olu-gold/80 bg-clip-text text-transparent;
   }
   
   .service-card {
@@ -120,5 +128,9 @@
   
   .glass-effect {
     @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+  
+  .btn-gold {
+    @apply bg-olu-gold text-white hover:bg-olu-gold/90 transition-colors duration-300 rounded-full;
   }
 }

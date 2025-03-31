@@ -30,7 +30,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
-            <span className="text-2xl font-bold olu-text-gradient">علو</span>
+            <span className="text-2xl font-bold olu-gold-text-gradient">علو</span>
           </a>
         </div>
 
@@ -40,19 +40,19 @@ const Navbar: React.FC = () => {
             dir === "rtl" ? "space-x-reverse" : ""
           }`}
         >
-          <a href="#" className="font-medium hover:text-olu-cyan transition-colors">
+          <a href="#" className="font-medium hover:text-olu-gold transition-colors">
             {t("home")}
           </a>
-          <a href="#services" className="font-medium hover:text-olu-cyan transition-colors">
+          <a href="#services" className="font-medium hover:text-olu-gold transition-colors">
             {t("services")}
           </a>
-          <a href="#about" className="font-medium hover:text-olu-cyan transition-colors">
+          <a href="#about" className="font-medium hover:text-olu-gold transition-colors">
             {t("about")}
           </a>
-          <a href="#portfolio" className="font-medium hover:text-olu-cyan transition-colors">
+          <a href="#portfolio" className="font-medium hover:text-olu-gold transition-colors">
             {t("portfolio")}
           </a>
-          <a href="#contact" className="font-medium hover:text-olu-cyan transition-colors">
+          <a href="#contact" className="font-medium hover:text-olu-gold transition-colors">
             {t("contact")}
           </a>
         </nav>
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
         <div className={`flex items-center ${dir === "rtl" ? "space-x-reverse" : ""} space-x-2`}>
           <LanguageSwitcher />
           <ThemeToggle />
-          <Button className="olu-gradient text-white hidden md:inline-flex">
+          <Button variant="gold" size="pill" className="hidden md:inline-flex">
             {t("cta.button")}
           </Button>
           <Button
@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
             >
               {t("contact")}
             </a>
-            <Button className="olu-gradient text-white w-full mt-4">
+            <Button variant="gold" size="pill" className="w-full mt-4">
               {t("cta.button")}
             </Button>
           </div>

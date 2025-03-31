@@ -28,6 +28,7 @@ export default {
 				olu: {
 					blue: '#2C4B87',
 					cyan: '#00A7E1',
+					gold: '#9D8A62',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
