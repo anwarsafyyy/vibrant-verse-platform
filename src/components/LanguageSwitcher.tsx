@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Globe } from "lucide-react";
 import {
@@ -8,12 +8,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useLanguage } from "@/hooks/useLanguage";
+import { LanguageCode, useLanguage } from "@/hooks/useLanguage";
 
 const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
-  const languages = [
+  const languages: { code: LanguageCode; name: string; dir: "rtl" | "ltr" }[] = [
     { code: "ar", name: "العربية", dir: "rtl" },
     { code: "en", name: "English", dir: "ltr" },
     { code: "fr", name: "Français", dir: "ltr" },
