@@ -21,7 +21,7 @@ const ServicesSection: React.FC = () => {
           </h2>
           <div className="w-24 h-1 bg-olu-gold mx-auto rounded-full"></div>
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
-            {t("services.description", "Our comprehensive suite of IT solutions designed to elevate your business.")}
+            {t("services.description")}
           </p>
         </div>
 
@@ -62,7 +62,7 @@ const ServicesSection: React.FC = () => {
         
         <div className="mt-12 text-center">
           <Button variant="gold" size="pill" className="mt-8 px-10 py-6 text-base">
-            {t("services.viewAll", "عرض الخدمات")}
+            {t("services.viewAll")}
           </Button>
         </div>
       </div>
