@@ -8,11 +8,12 @@ interface ServiceCardProps {
   description: string;
   icon: LucideIcon;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon: Icon, className }) => {
+const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon: Icon, className, style }) => {
   return (
-    <Card className={`service-card hover:border-olu-cyan/50 group ${className}`}>
+    <Card className={`service-card hover:border-olu-cyan/50 group ${className}`} style={style}>
       <CardHeader className="pb-2">
         <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-br from-olu-blue to-olu-cyan mb-4 text-white group-hover:scale-110 transition-transform">
           <Icon className="h-6 w-6" />

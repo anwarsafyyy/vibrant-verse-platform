@@ -8,7 +8,7 @@ const ServicesSection: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="services" className="py-20 relative">
+    <section id="services" className="min-h-screen py-20 relative flex items-center">
       {/* Background elements */}
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent"></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
@@ -27,6 +27,7 @@ const ServicesSection: React.FC = () => {
             description={t("service1.desc")}
             icon={Globe}
             className="animate-fade-in"
+            style={{ animationDelay: "0s" }}
             key="web-dev"
           />
           <ServiceCard
