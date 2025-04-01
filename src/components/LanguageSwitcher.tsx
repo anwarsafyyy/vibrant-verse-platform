@@ -36,8 +36,9 @@ const LanguageSwitcher: React.FC = () => {
             onClick={() => setLanguage(lang.code)}
             className={`${
               language === lang.code ? "bg-muted font-medium" : ""
-            } cursor-pointer`}
+            } cursor-pointer flex items-center gap-2`}
           >
+            <span className="w-6 inline-block">{getLanguageEmoji(lang.code)}</span>
             {lang.name}
           </DropdownMenuItem>
         ))}
@@ -45,5 +46,18 @@ const LanguageSwitcher: React.FC = () => {
     </DropdownMenu>
   );
 };
+
+// Helper function to display emoji flags for each language
+function getLanguageEmoji(code: LanguageCode): string {
+  const flags: Record<LanguageCode, string> = {
+    ar: "🇸🇦",
+    en: "🇺🇸",
+    fr: "🇫🇷",
+    tr: "🇹🇷",
+    zh: "🇨🇳",
+    es: "🇪🇸"
+  };
+  return flags[code] || "🌐";
+}
 
 export default LanguageSwitcher;
