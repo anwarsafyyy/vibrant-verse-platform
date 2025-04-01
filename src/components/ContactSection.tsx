@@ -6,17 +6,71 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+const contactFormSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
+  }),
+});
+
+type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const ContactSection: React.FC = () => {
   const { t, dir } = useLanguage();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: t("contact.successTitle"),
-      description: t("contact.successMessage"),
-    });
+  const form = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (values: ContactFormValues) => {
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from('contact_inquiries')
+        .insert([
+          { 
+            name: values.name,
+            email: values.email,
+            message: values.message
+          }
+        ]);
+      
+      if (error) throw error;
+      
+      toast({
+        title: t("contact.successTitle"),
+        description: t("contact.successMessage"),
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: t("contact.errorTitle"),
+        description: t("contact.errorMessage"),
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleWhatsAppClick = () => {
@@ -41,47 +95,64 @@ const ContactSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="bg-card rounded-2xl shadow-lg p-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  {t("contact.name")}
-                </label>
-                <Input 
-                  id="name" 
-                  type="text" 
-                  placeholder={t("contact.name")} 
-                  className="w-full" 
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("contact.name")}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("contact.name")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  {t("contact.email")}
-                </label>
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder={t("contact.email")} 
-                  className="w-full" 
+                
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("contact.email")}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("contact.email")} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  {t("contact.message")}
-                </label>
-                <Textarea 
-                  id="message" 
-                  placeholder={t("contact.message")} 
-                  className="w-full min-h-[150px]" 
+                
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t("contact.message")}</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder={t("contact.message")} 
+                          className="min-h-[150px]" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              
-              <Button type="submit" className="w-full olu-gold-gradient text-white">
-                {t("contact.submit")}
-                <Send className="ml-2 h-4 w-4" />
-              </Button>
-            </form>
+                
+                <Button 
+                  type="submit" 
+                  className="w-full olu-gold-gradient text-white"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? t("contact.submitting") : t("contact.submit")}
+                  <Send className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+            </Form>
           </div>
           
           {/* Contact Info */}
