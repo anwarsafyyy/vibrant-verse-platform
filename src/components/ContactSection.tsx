@@ -4,15 +4,12 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageSquare, Bot } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const ContactSection: React.FC = () => {
   const { t, dir } = useLanguage();
   const { toast } = useToast();
-  const [aiResponse, setAiResponse] = useState("");
-  const [aiLoading, setAiLoading] = useState(false);
-  const [aiQuery, setAiQuery] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,62 +21,6 @@ const ContactSection: React.FC = () => {
 
   const handleWhatsAppClick = () => {
     window.open(`https://wa.me/966508694899`, '_blank');
-  };
-
-  const handleAiAssistant = async () => {
-    if (!aiQuery.trim()) {
-      toast({
-        title: t("contact.aiEmptyQuery"),
-        description: t("contact.aiEmptyQueryMessage"),
-        variant: "destructive"
-      });
-      return;
-    }
-
-    setAiLoading(true);
-    try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyC2IW1bGht_G18Ry-ymLyYCtAJXgOdYGOw`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                parts: [
-                  {
-                    text: `${aiQuery}\nPlease provide a helpful and concise response. You are an assistant for Olu IT company which provides IT services.`
-                  }
-                ]
-              }
-            ],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 800,
-            }
-          }),
-        }
-      );
-
-      const data = await response.json();
-      
-      if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
-        setAiResponse(data.candidates[0].content.parts[0].text);
-      } else {
-        throw new Error("Failed to get response from AI");
-      }
-    } catch (error) {
-      console.error("AI Assistant Error:", error);
-      toast({
-        title: t("contact.aiError"),
-        description: t("contact.aiErrorMessage"),
-        variant: "destructive"
-      });
-    } finally {
-      setAiLoading(false);
-    }
   };
 
   return (
@@ -180,7 +121,7 @@ const ContactSection: React.FC = () => {
                 </div>
               </div>
               
-              <div className="mt-6 space-y-4">
+              <div className="mt-6">
                 <Button 
                   onClick={handleWhatsAppClick} 
                   className="w-full bg-white text-olu-gold hover:bg-white/90"
@@ -188,30 +129,6 @@ const ContactSection: React.FC = () => {
                   <MessageSquare className="mr-2 h-5 w-5" />
                   {t("contact.whatsapp")}
                 </Button>
-                
-                <div className="bg-white/10 p-4 rounded-lg space-y-4">
-                  <h4 className="font-semibold">{t("contact.aiAssistant")}</h4>
-                  <Input
-                    value={aiQuery}
-                    onChange={(e) => setAiQuery(e.target.value)}
-                    placeholder={t("contact.aiPlaceholder")}
-                    className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
-                  />
-                  <Button 
-                    onClick={handleAiAssistant} 
-                    className="w-full bg-white text-olu-gold hover:bg-white/90"
-                    disabled={aiLoading}
-                  >
-                    <Bot className="mr-2 h-5 w-5" />
-                    {aiLoading ? t("contact.aiProcessing") : t("contact.aiAsk")}
-                  </Button>
-                  
-                  {aiResponse && (
-                    <div className="bg-white/20 p-3 rounded-lg mt-3 text-white">
-                      <p className="text-sm">{aiResponse}</p>
-                    </div>
-                  )}
-                </div>
               </div>
               
               <div className="mt-6">

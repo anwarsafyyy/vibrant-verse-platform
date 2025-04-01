@@ -1,13 +1,14 @@
 
 import React from "react";
 import { useLanguage } from "@/hooks/useLanguage";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 const Footer: React.FC = () => {
   const { t, dir } = useLanguage();
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-r from-olu-blue to-olu-cyan text-white">
+    <footer className="bg-gradient-to-r from-olu-gold to-olu-gold/80 text-white">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
@@ -21,29 +22,36 @@ const Footer: React.FC = () => {
           
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
             <h4 className="text-lg font-semibold mb-4">
-              {dir === "rtl" ? "روابط سريعة" : "Quick Links"}
+              {dir === "rtl" ? "صفحات مهمه" : "Important Pages"}
             </h4>
             <ul className="space-y-2">
               <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">{t("home")}</a></li>
-              <li><a href="#services" className="opacity-80 hover:opacity-100 transition-opacity">{t("services")}</a></li>
               <li><a href="#about" className="opacity-80 hover:opacity-100 transition-opacity">{t("about")}</a></li>
-              <li><a href="#portfolio" className="opacity-80 hover:opacity-100 transition-opacity">{t("portfolio")}</a></li>
+              <li><a href="#services" className="opacity-80 hover:opacity-100 transition-opacity">{t("services")}</a></li>
+              <li><a href="#contact" className="opacity-80 hover:opacity-100 transition-opacity">{t("contact")}</a></li>
             </ul>
           </div>
           
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
             <h4 className="text-lg font-semibold mb-4">
-              {dir === "rtl" ? "تواصل معنا" : "Contact Us"}
+              {dir === "rtl" ? "تواصل معانا" : "Contact Us"}
             </h4>
-            <ul className="space-y-2">
-              <li className="opacity-80">
-                {dir === "rtl" ? "البريد الإلكتروني: info@olu-it.com" : "Email: info@olu-it.com"}
+            <ul className="space-y-3">
+              <li className="flex items-center opacity-80">
+                <MapPin className="h-4 w-4 mr-2 shrink-0" />
+                <span>{dir === "rtl" ? "المملكة العربية السعودية جازان" : "Jazan, Saudi Arabia"}</span>
               </li>
-              <li className="opacity-80">
-                {dir === "rtl" ? "الهاتف: +123 456 7890" : "Phone: +123 456 7890"}
+              <li className="flex items-center opacity-80">
+                <Phone className="h-4 w-4 mr-2 shrink-0" />
+                <span>+966 50 869 4899</span>
               </li>
-              <li className="opacity-80">
-                {dir === "rtl" ? "العنوان: شارع الرياض، المملكة العربية السعودية" : "Address: Riyadh Street, Saudi Arabia"}
+              <li className="flex items-center opacity-80">
+                <Mail className="h-4 w-4 mr-2 shrink-0" />
+                <span>info@olu-it.com</span>
+              </li>
+              <li className="flex items-center opacity-80">
+                <Clock className="h-4 w-4 mr-2 shrink-0" />
+                <span>09am - 05pm Mon-Sat</span>
               </li>
             </ul>
           </div>
@@ -71,6 +79,13 @@ const Footer: React.FC = () => {
                   <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
                 </svg>
               </a>
+            </div>
+            <div className="mt-6">
+              <p className="text-sm opacity-80">
+                {dir === "rtl" 
+                  ? "نحن شركة متخصصة في تطوير المواقع، تحسين محركات البحث، والتسويق الرقمي، نساعدك على النجاح في العالم الرقمي بحلول مبتكرة وتقنيات متقدمة. 🚀" 
+                  : "We are a company specialized in website development, SEO, and digital marketing, helping you succeed in the digital world with innovative solutions and advanced technologies. 🚀"}
+              </p>
             </div>
           </div>
         </div>
