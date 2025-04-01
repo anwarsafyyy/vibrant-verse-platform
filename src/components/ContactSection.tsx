@@ -43,6 +43,8 @@ const ContactSection: React.FC = () => {
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
     try {
+      console.log("Submitting form with values:", values);
+      
       const { error } = await supabase
         .from('contact_inquiries')
         .insert([
@@ -53,7 +55,10 @@ const ContactSection: React.FC = () => {
           }
         ]);
       
-      if (error) throw error;
+      if (error) {
+        console.error("Error submitting form:", error);
+        throw error;
+      }
       
       toast({
         title: t("contact.successTitle"),
@@ -61,11 +66,11 @@ const ContactSection: React.FC = () => {
       });
       
       form.reset();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error submitting form:", error);
       toast({
         title: t("contact.errorTitle"),
-        description: t("contact.errorMessage"),
+        description: error.message || t("contact.errorMessage"),
         variant: "destructive",
       });
     } finally {

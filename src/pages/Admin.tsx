@@ -22,8 +22,9 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { format } from "date-fns";
-import { Eye, EyeOff, Search } from "lucide-react";
+import { Eye, EyeOff, Search, AlertCircle } from "lucide-react";
 import type { Database } from "@/types/supabase";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 type Inquiry = Database['public']['Tables']['contact_inquiries']['Row'];
 
@@ -38,6 +39,10 @@ const AdminPage: React.FC = () => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecking, setAuthChecking] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -126,15 +131,14 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loginLoading, setLoginLoading] = useState(false);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoginLoading(true);
+    setLoginError(null);
     
     try {
+      console.log("Attempting login with:", { email, password });
+      
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -145,6 +149,7 @@ const AdminPage: React.FC = () => {
       setIsAuthenticated(true);
     } catch (error: any) {
       console.error("Login error:", error);
+      setLoginError(error.message || "Please check your credentials");
       toast({
         title: "Login Failed",
         description: error.message || "Please check your credentials",
@@ -171,6 +176,14 @@ const AdminPage: React.FC = () => {
             <h1 className="text-2xl font-bold text-foreground">Admin Login</h1>
             <p className="text-muted-foreground mt-2">Sign in to access the admin panel</p>
           </div>
+          
+          {loginError && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{loginError}</AlertDescription>
+            </Alert>
+          )}
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
@@ -205,6 +218,12 @@ const AdminPage: React.FC = () => {
               {loginLoading ? "Signing in..." : "Sign in"}
             </Button>
           </form>
+          
+          <div className="text-center text-sm text-muted-foreground mt-4">
+            <p>Default credentials:</p>
+            <p>Email: admin@olu-it.com</p>
+            <p>Password: Admin@123</p>
+          </div>
         </div>
       </div>
     );
