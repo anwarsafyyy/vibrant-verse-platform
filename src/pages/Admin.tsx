@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -24,15 +23,9 @@ import {
 } from "@/components/ui/pagination";
 import { format } from "date-fns";
 import { Eye, EyeOff, Search } from "lucide-react";
+import type { Database } from "@/types/supabase";
 
-interface Inquiry {
-  id: string;
-  name: string;
-  email: string;
-  message: string;
-  created_at: string;
-  is_read: boolean;
-}
+type Inquiry = Database['public']['Tables']['contact_inquiries']['Row'];
 
 const AdminPage: React.FC = () => {
   const [inquiries, setInquiries] = useState<Inquiry[]>([]);
@@ -43,7 +36,6 @@ const AdminPage: React.FC = () => {
   const itemsPerPage = 10;
   const { toast } = useToast();
 
-  // Check if user is authenticated
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecking, setAuthChecking] = useState(true);
 
@@ -68,7 +60,6 @@ const AdminPage: React.FC = () => {
         query = query.or(`name.ilike.%${searchTerm}%,email.ilike.%${searchTerm}%,message.ilike.%${searchTerm}%`);
       }
       
-      // Add pagination
       const from = (currentPage - 1) * itemsPerPage;
       const to = from + itemsPerPage - 1;
       
@@ -102,7 +93,7 @@ const AdminPage: React.FC = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setCurrentPage(1); // Reset to first page on new search
+    setCurrentPage(1);
     fetchInquiries();
   };
 
@@ -115,7 +106,6 @@ const AdminPage: React.FC = () => {
       
       if (error) throw error;
       
-      // Update local state
       setInquiries(inquiries.map(inquiry => 
         inquiry.id === id 
           ? { ...inquiry, is_read: !currentStatus } 
@@ -136,7 +126,6 @@ const AdminPage: React.FC = () => {
     }
   };
 
-  // Login form
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
