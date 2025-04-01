@@ -1,13 +1,86 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquare, Bot } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const ContactSection: React.FC = () => {
   const { t, dir } = useLanguage();
+  const { toast } = useToast();
+  const [aiResponse, setAiResponse] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiQuery, setAiQuery] = useState("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: t("contact.successTitle"),
+      description: t("contact.successMessage"),
+    });
+  };
+
+  const handleWhatsAppClick = () => {
+    window.open(`https://wa.me/966508694899`, '_blank');
+  };
+
+  const handleAiAssistant = async () => {
+    if (!aiQuery.trim()) {
+      toast({
+        title: t("contact.aiEmptyQuery"),
+        description: t("contact.aiEmptyQueryMessage"),
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setAiLoading(true);
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyC2IW1bGht_G18Ry-ymLyYCtAJXgOdYGOw`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: `${aiQuery}\nPlease provide a helpful and concise response. You are an assistant for Olu IT company which provides IT services.`
+                  }
+                ]
+              }
+            ],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 800,
+            }
+          }),
+        }
+      );
+
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+        setAiResponse(data.candidates[0].content.parts[0].text);
+      } else {
+        throw new Error("Failed to get response from AI");
+      }
+    } catch (error) {
+      console.error("AI Assistant Error:", error);
+      toast({
+        title: t("contact.aiError"),
+        description: t("contact.aiErrorMessage"),
+        variant: "destructive"
+      });
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   return (
     <section id="contact" className="min-h-screen relative flex items-center py-20">
@@ -18,16 +91,16 @@ const ContactSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="olu-text-gradient">{t("contact.title")}</span>
+            <span className="olu-gold-text-gradient">{t("contact.title")}</span>
           </h2>
           <p className="text-xl text-muted-foreground mb-6">{t("contact.subtitle")}</p>
-          <div className="w-24 h-1 olu-gradient mx-auto rounded-full"></div>
+          <div className="w-24 h-1 olu-gold-gradient mx-auto rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="bg-card rounded-2xl shadow-lg p-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
                   {t("contact.name")}
@@ -63,7 +136,7 @@ const ContactSection: React.FC = () => {
                 />
               </div>
               
-              <Button type="submit" className="w-full olu-gradient text-white">
+              <Button type="submit" className="w-full olu-gold-gradient text-white">
                 {t("contact.submit")}
                 <Send className="ml-2 h-4 w-4" />
               </Button>
@@ -72,8 +145,8 @@ const ContactSection: React.FC = () => {
           
           {/* Contact Info */}
           <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <div className="bg-gradient-to-br from-olu-blue to-olu-cyan rounded-2xl shadow-lg p-8 text-white h-full">
-              <h3 className="text-2xl font-bold mb-6">Get in Touch</h3>
+            <div className="bg-gradient-to-br from-olu-gold to-olu-gold/80 rounded-2xl shadow-lg p-8 text-white h-full">
+              <h3 className="text-2xl font-bold mb-6">{t("contact.getInTouch")}</h3>
               
               <div className="space-y-8">
                 <div className="flex items-start space-x-4">
@@ -81,7 +154,7 @@ const ContactSection: React.FC = () => {
                     <Mail className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Email</h4>
+                    <h4 className="font-semibold mb-1">{t("contact.email")}</h4>
                     <p className="opacity-90">info@olu-it.com</p>
                   </div>
                 </div>
@@ -91,8 +164,8 @@ const ContactSection: React.FC = () => {
                     <Phone className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Phone</h4>
-                    <p className="opacity-90">+123 456 7890</p>
+                    <h4 className="font-semibold mb-1">{t("contact.phone")}</h4>
+                    <p className="opacity-90">+966 50 869 4899</p>
                   </div>
                 </div>
                 
@@ -101,14 +174,48 @@ const ContactSection: React.FC = () => {
                     <MapPin className="h-5 w-5" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Address</h4>
-                    <p className="opacity-90">Riyadh Street, Saudi Arabia</p>
+                    <h4 className="font-semibold mb-1">{t("contact.address")}</h4>
+                    <p className="opacity-90">{t("contact.addressValue")}</p>
                   </div>
                 </div>
               </div>
               
-              <div className="mt-10">
-                <h4 className="font-semibold mb-4">Social Media</h4>
+              <div className="mt-6 space-y-4">
+                <Button 
+                  onClick={handleWhatsAppClick} 
+                  className="w-full bg-white text-olu-gold hover:bg-white/90"
+                >
+                  <MessageSquare className="mr-2 h-5 w-5" />
+                  {t("contact.whatsapp")}
+                </Button>
+                
+                <div className="bg-white/10 p-4 rounded-lg space-y-4">
+                  <h4 className="font-semibold">{t("contact.aiAssistant")}</h4>
+                  <Input
+                    value={aiQuery}
+                    onChange={(e) => setAiQuery(e.target.value)}
+                    placeholder={t("contact.aiPlaceholder")}
+                    className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
+                  />
+                  <Button 
+                    onClick={handleAiAssistant} 
+                    className="w-full bg-white text-olu-gold hover:bg-white/90"
+                    disabled={aiLoading}
+                  >
+                    <Bot className="mr-2 h-5 w-5" />
+                    {aiLoading ? t("contact.aiProcessing") : t("contact.aiAsk")}
+                  </Button>
+                  
+                  {aiResponse && (
+                    <div className="bg-white/20 p-3 rounded-lg mt-3 text-white">
+                      <p className="text-sm">{aiResponse}</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="mt-6">
+                <h4 className="font-semibold mb-4">{t("contact.socialMedia")}</h4>
                 <div className="flex space-x-4">
                   <a href="#" className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors">
                     <span className="sr-only">Twitter</span>
