@@ -192,7 +192,7 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold mb-1">{t("contact.address")}</h4>
-                    <p className="opacity-90">{t("contact.addressValue")}</p>
+                    <p className="opacity-90">Jazan, Saudi Arabia</p>
                   </div>
                 </div>
               </div>
