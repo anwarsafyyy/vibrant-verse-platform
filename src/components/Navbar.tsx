@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -30,7 +29,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
-            <span className="text-2xl font-bold olu-gold-text-gradient">علو</span>
+            <img src="/public/alo.png" alt="Olu Logo" className="h-10 w-auto" />
           </a>
         </div>
 
