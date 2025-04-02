@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
@@ -12,7 +11,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
-            <h3 className="text-2xl font-bold mb-4">علو</h3>
+            <img src="/public/alo.png" alt="Olu Logo" className="h-10 w-auto" />
             <p className="opacity-80">
               {dir === "rtl" 
                 ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
