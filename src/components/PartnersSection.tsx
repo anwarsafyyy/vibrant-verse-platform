@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,10 +7,10 @@ const PartnersSection: React.FC = () => {
   const { t } = useLanguage();
 
   const partners = [
-    { id: 1, name: "Sweet Car", logoUrl: "/public/11.jpeg" },
-    { id: 2, name: "EZCASH", logoUrl: "/public/22.jpeg" },
-    { id: 3, name: "Company 3", logoUrl: "/public/33.jpeg" },
-    { id: 4, name: "WAFI", logoUrl: "/public/44.jpeg" },
+    { id: 1, name: "Sweet Car", logoUrl: "/11.jpeg" },
+    { id: 2, name: "EZCASH", logoUrl: "/22.jpeg" },
+    { id: 3, name: "Company 3", logoUrl: "/33.jpeg" },
+    { id: 4, name: "WAFI", logoUrl: "/44.jpeg" },
   ];
 
   return (
@@ -29,14 +30,13 @@ const PartnersSection: React.FC = () => {
               key={partner.id}
               className="hover:shadow-xl transition-all border border-gray-300 bg-white rounded-lg overflow-hidden flex items-center justify-center p-3"
             >
-             <CardContent className="flex items-center justify-center w-40 h-40">
-  <img
-    src={partner.logoUrl}
-    alt={`${partner.name} Logo`}
-    className="w-full h-full object-contain"
-  />
-</CardContent>
-
+              <CardContent className="flex items-center justify-center w-40 h-40">
+                <img
+                  src={partner.logoUrl}
+                  alt={`${partner.name} Logo`}
+                  className="w-full h-full object-contain"
+                />
+              </CardContent>
             </Card>
           ))}
         </div>
