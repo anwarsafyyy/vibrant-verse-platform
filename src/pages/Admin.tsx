@@ -6,13 +6,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertCircle, LayoutDashboard, LogOut } from "lucide-react";
+import PartnersManager from "@/components/admin/PartnersManager";
+import ServicesManager from "@/components/admin/ServicesManager";
+import PortfolioManager from "@/components/admin/PortfolioManager";
+import ContactInquiries from "@/components/admin/ContactInquiries";
 
 const AdminPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authChecking, setAuthChecking] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -21,13 +27,13 @@ const AdminPage: React.FC = () => {
     const checkAuth = async () => {
       const { data } = await supabase.auth.getSession();
       if (data.session) {
-        navigate('/admin-dashboard');
+        setIsAuthenticated(true);
       }
       setAuthChecking(false);
     };
     
     checkAuth();
-  }, [navigate]);
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +55,7 @@ const AdminPage: React.FC = () => {
         description: "Welcome to the admin dashboard",
       });
       
-      navigate('/admin-dashboard');
+      setIsAuthenticated(true);
     } catch (error: any) {
       console.error("Login error:", error);
       setLoginError(error.message || "Please check your credentials");
@@ -63,6 +69,15 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    setIsAuthenticated(false);
+    toast({
+      title: "Signed out",
+      description: "You have been successfully signed out",
+    });
+  };
+
   if (authChecking) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -71,61 +86,108 @@ const AdminPage: React.FC = () => {
     );
   }
 
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background p-4">
+        <div className="w-full max-w-md p-8 space-y-6 bg-card rounded-xl shadow-lg">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-foreground">Admin Login</h1>
+            <p className="text-muted-foreground mt-2">Sign in to access the admin panel</p>
+          </div>
+          
+          {loginError && (
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertTitle>Error</AlertTitle>
+              <AlertDescription>{loginError}</AlertDescription>
+            </Alert>
+          )}
+          
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div className="space-y-2">
+              <label htmlFor="email" className="text-sm font-medium">Email</label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="admin@example.com"
+                required
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label htmlFor="password" className="text-sm font-medium">Password</label>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+              />
+            </div>
+            
+            <Button 
+              type="submit" 
+              className="w-full olu-gold-gradient"
+              disabled={loginLoading}
+            >
+              {loginLoading ? "Signing in..." : "Sign in"}
+            </Button>
+          </form>
+          
+          <div className="text-center text-sm text-muted-foreground mt-4">
+            <p>Default credentials:</p>
+            <p>Email: admin@olu-it.com</p>
+            <p>Password: Admin@123</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Admin Dashboard when authenticated
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <div className="w-full max-w-md p-8 space-y-6 bg-card rounded-xl shadow-lg">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-foreground">Admin Login</h1>
-          <p className="text-muted-foreground mt-2">Sign in to access the admin panel</p>
-        </div>
-        
-        {loginError && (
-          <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{loginError}</AlertDescription>
-          </Alert>
-        )}
-        
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div className="space-y-2">
-            <label htmlFor="email" className="text-sm font-medium">Email</label>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@example.com"
-              required
-            />
+    <div className="min-h-screen bg-background">
+      <div className="flex border-b border-border">
+        <div className="container mx-auto flex justify-between items-center py-4">
+          <div className="flex items-center gap-2">
+            <LayoutDashboard className="h-6 w-6 text-olu-gold" />
+            <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           </div>
-          
-          <div className="space-y-2">
-            <label htmlFor="password" className="text-sm font-medium">Password</label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              required
-            />
-          </div>
-          
-          <Button 
-            type="submit" 
-            className="w-full olu-gold-gradient"
-            disabled={loginLoading}
-          >
-            {loginLoading ? "Signing in..." : "Sign in"}
+          <Button variant="outline" onClick={handleSignOut}>
+            <LogOut className="h-4 w-4 mr-2" />
+            Sign Out
           </Button>
-        </form>
-        
-        <div className="text-center text-sm text-muted-foreground mt-4">
-          <p>Default credentials:</p>
-          <p>Email: admin@olu-it.com</p>
-          <p>Password: Admin@123</p>
         </div>
+      </div>
+      
+      <div className="container mx-auto py-8">
+        <Tabs defaultValue="partners" className="w-full">
+          <TabsList className="grid grid-cols-4 mb-8">
+            <TabsTrigger value="partners">Partners</TabsTrigger>
+            <TabsTrigger value="services">Services</TabsTrigger>
+            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+            <TabsTrigger value="inquiries">Contact Inquiries</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="partners">
+            <PartnersManager />
+          </TabsContent>
+          
+          <TabsContent value="services">
+            <ServicesManager />
+          </TabsContent>
+          
+          <TabsContent value="portfolio">
+            <PortfolioManager />
+          </TabsContent>
+          
+          <TabsContent value="inquiries">
+            <ContactInquiries />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
