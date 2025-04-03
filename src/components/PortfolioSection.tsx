@@ -61,12 +61,12 @@ const PortfolioSection: React.FC = () => {
           <div className="w-24 h-1 olu-gradient mx-auto rounded-full"></div>
         </div>
 
-        <Carousel className="w-full max-w-6xl mx-auto" opts={{ loop: true }}>
+        <Carousel className="w-full max-w-7xl mx-auto" opts={{ loop: true }}>
           <CarouselContent>
             {loading ? (
               // Loading skeletons
               Array(4).fill(0).map((_, index) => (
-                <CarouselItem key={`skeleton-${index}`} className="md:basis-1/2 lg:basis-1/3 p-1">
+                <CarouselItem key={`skeleton-${index}`} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 p-1">
                   <div className="p-2">
                     <div className="rounded-xl overflow-hidden shadow-lg h-full bg-card">
                       <Skeleton className="aspect-video w-full" />
@@ -86,7 +86,7 @@ const PortfolioSection: React.FC = () => {
             ) : portfolioItems.length > 0 ? (
               // Portfolio item cards
               portfolioItems.map((item) => (
-                <CarouselItem key={item.id} className="md:basis-1/2 lg:basis-1/3 p-1">
+                <CarouselItem key={item.id} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4 p-1">
                   <div className="p-2">
                     <div className="rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2 h-full bg-card">
                       <div className="relative aspect-video overflow-hidden">
