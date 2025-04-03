@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
@@ -47,6 +48,9 @@ const Navbar: React.FC = () => {
           </a>
           <a href="#about" className="font-medium hover:text-olu-gold transition-colors">
             {t("about")}
+          </a>
+          <a href="#portfolio" className="font-medium hover:text-olu-gold transition-colors">
+            {t("portfolio.title")}
           </a>
           <a href="#partners" className="font-medium hover:text-olu-gold transition-colors">
             {t("partners.title")}
@@ -100,6 +104,13 @@ const Navbar: React.FC = () => {
               onClick={() => setMobileMenuOpen(false)}
             >
               {t("about")}
+            </a>
+            <a
+              href="#portfolio"
+              className="text-lg font-medium py-2"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t("portfolio.title")}
             </a>
             <a
               href="#partners"
