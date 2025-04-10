@@ -60,6 +60,22 @@ const AboutSection: React.FC = () => {
     }
   };
 
+  // Helper function to get the translated stat name
+  const getTranslatedStatName = (name: string) => {
+    switch (name) {
+      case "Satisfied Clients":
+        return language === "ar" ? t("stats.clients") : name;
+      case "Completed Projects":
+        return language === "ar" ? t("stats.projects") : name;
+      case "Technologies Used":
+        return language === "ar" ? t("stats.technologies") : name;
+      case "Years Experience":
+        return language === "ar" ? t("stats.experience") : name;
+      default:
+        return name;
+    }
+  };
+
   return (
     <section id="about" className="min-h-screen relative flex items-center">
       {/* Background elements */}
@@ -127,7 +143,7 @@ const AboutSection: React.FC = () => {
                     </div>
                     <h4 className="text-2xl font-bold text-olu-gold">{stat.value}</h4>
                     <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? stat.name : stat.name}
+                      {getTranslatedStatName(stat.name)}
                     </p>
                   </div>
                 ))
@@ -140,7 +156,7 @@ const AboutSection: React.FC = () => {
                     </div>
                     <h4 className="text-2xl font-bold text-olu-gold">100+</h4>
                     <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? "عملاء راضون" : "Satisfied Clients"}
+                      {language === "ar" ? t("stats.clients") : "Satisfied Clients"}
                     </p>
                   </div>
                   
@@ -150,7 +166,7 @@ const AboutSection: React.FC = () => {
                     </div>
                     <h4 className="text-2xl font-bold text-olu-gold">50+</h4>
                     <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? "مشاريع منجزة" : "Completed Projects"}
+                      {language === "ar" ? t("stats.projects") : "Completed Projects"}
                     </p>
                   </div>
                   
@@ -160,7 +176,7 @@ const AboutSection: React.FC = () => {
                     </div>
                     <h4 className="text-2xl font-bold text-olu-gold">4+</h4>
                     <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? "سنين من الخبرة" : "Years Experience"}
+                      {language === "ar" ? t("stats.experience") : "Years Experience"}
                     </p>
                   </div>
                   
@@ -170,7 +186,7 @@ const AboutSection: React.FC = () => {
                     </div>
                     <h4 className="text-2xl font-bold text-olu-gold">25+</h4>
                     <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? "تقنيات مستخدمة" : "Technologies Used"}
+                      {language === "ar" ? t("stats.technologies") : "Technologies Used"}
                     </p>
                   </div>
                 </>
