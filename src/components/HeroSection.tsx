@@ -3,15 +3,27 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useTheme } from "@/hooks/useTheme";
 
 const HeroSection: React.FC = () => {
   const { t, dir } = useLanguage();
+  const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Trigger animation after component mount
     setIsVisible(true);
   }, []);
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    contactSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToServices = () => {
+    const servicesSection = document.getElementById('services');
+    servicesSection?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -35,11 +47,21 @@ const HeroSection: React.FC = () => {
             {t("hero.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-            <Button variant="gold" size="pill" className="text-white">
-              {t("cta.button")}
+            <Button 
+              variant="gold" 
+              size="pill" 
+              className="text-white"
+              onClick={scrollToContact}
+            >
+              {t("contact")}
               <ArrowRight className={`ml-2 ${dir === "rtl" ? "rtl-flip" : ""}`} />
             </Button>
-            <Button size="pill" variant="outline" className="border-olu-gold/30 text-olu-gold hover:text-olu-gold/80 hover:bg-olu-gold/5">
+            <Button 
+              size="pill" 
+              variant="outline" 
+              className="border-olu-gold/30 text-olu-gold hover:text-olu-gold/80 hover:bg-olu-gold/5"
+              onClick={scrollToServices}
+            >
               {t("services")}
             </Button>
           </div>
@@ -60,7 +82,7 @@ const HeroSection: React.FC = () => {
                     <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     <div className="flex-1 text-center">
-                      <span className="text-xs text-gray-500">علو</span>
+                      <span className={`text-md font-bold ${theme === "dark" ? "text-white" : "text-gray-500"}`}>علو</span>
                     </div>
                   </div>
                   <div className="space-y-3">

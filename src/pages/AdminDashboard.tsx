@@ -9,6 +9,7 @@ import PartnersManager from "@/components/admin/PartnersManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import ContactInquiries from "@/components/admin/ContactInquiries";
+import StatsManager from "@/components/admin/StatsManager";
 
 const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -40,10 +41,11 @@ const AdminDashboard: React.FC = () => {
       
       <div className="container mx-auto py-8">
         <Tabs defaultValue="partners" className="w-full">
-          <TabsList className="grid grid-cols-4 mb-8">
+          <TabsList className="grid grid-cols-5 mb-8">
             <TabsTrigger value="partners">Partners</TabsTrigger>
             <TabsTrigger value="services">Services</TabsTrigger>
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+            <TabsTrigger value="stats">Statistics</TabsTrigger>
             <TabsTrigger value="inquiries">Contact Inquiries</TabsTrigger>
           </TabsList>
           
@@ -57,6 +59,10 @@ const AdminDashboard: React.FC = () => {
           
           <TabsContent value="portfolio">
             <PortfolioManager />
+          </TabsContent>
+          
+          <TabsContent value="stats">
+            <StatsManager />
           </TabsContent>
           
           <TabsContent value="inquiries">

@@ -5,11 +5,13 @@ import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useTheme } from "@/hooks/useTheme";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t, dir } = useLanguage();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,7 +32,9 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
-            <img src="/alo.png" alt="Olu Logo" className="h-10 w-auto" />
+            <div className="h-10 flex items-center justify-center">
+              <span className={`text-xl font-bold ${theme === "dark" ? "text-white" : "text-black"}`}>علو</span>
+            </div>
           </a>
         </div>
 
@@ -66,8 +70,16 @@ const Navbar: React.FC = () => {
         <div className={`flex items-center ${dir === "rtl" ? "space-x-reverse" : ""} space-x-2`}>
           <LanguageSwitcher />
           <ThemeToggle />
-          <Button variant="gold" size="pill" className="hidden md:inline-flex">
-            {t("cta.button")}
+          <Button 
+            variant="gold" 
+            size="pill" 
+            className="hidden md:inline-flex"
+            onClick={() => {
+              const contactSection = document.getElementById('contact');
+              contactSection?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            {t("contact")}
           </Button>
           <Button
             variant="ghost"
@@ -133,8 +145,17 @@ const Navbar: React.FC = () => {
             >
               {t("contact")}
             </a>
-            <Button variant="gold" size="pill" className="w-full mt-4">
-              {t("cta.button")}
+            <Button 
+              variant="gold" 
+              size="pill" 
+              className="w-full mt-4"
+              onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+                setMobileMenuOpen(false);
+              }}
+            >
+              {t("contact")}
             </Button>
           </div>
         </div>

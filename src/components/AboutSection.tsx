@@ -3,14 +3,62 @@ import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Users, Award, Clock, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+
+interface StatItem {
+  id: string;
+  name: string;
+  value: string;
+  icon: string;
+}
 
 const AboutSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
+  const [stats, setStats] = useState<StatItem[]>([]);
+  const [loading, setLoading] = useState(true);
   
   useEffect(() => {
     setIsVisible(true);
+    fetchStats();
   }, []);
+
+  const fetchStats = async () => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('stats')
+        .select('*')
+        .order('order_index', { ascending: true });
+        
+      if (error) {
+        console.error("Error fetching stats:", error);
+        return;
+      }
+      
+      setStats(data || []);
+    } catch (error) {
+      console.error("Failed to fetch stats:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Helper function to get the appropriate icon component
+  const getIcon = (iconName: string) => {
+    switch (iconName) {
+      case "users":
+        return <Users className="h-5 w-5" />;
+      case "award":
+        return <Award className="h-5 w-5" />;
+      case "clock":
+        return <Clock className="h-5 w-5" />;
+      case "globe":
+        return <Globe className="h-5 w-5" />;
+      default:
+        return <Users className="h-5 w-5" />;
+    }
+  };
 
   return (
     <section id="about" className="min-h-screen relative flex items-center">
@@ -61,50 +109,80 @@ const AboutSection: React.FC = () => {
             </div>
             
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-8">
-              <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
-                  <Users className="h-5 w-5" />
-                </div>
-                <h4 className="text-2xl font-bold text-olu-gold">100+</h4>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar" ? "عملاء راضون" : "Satisfied Clients"}
-                </p>
-              </div>
-              
-              <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
-                  <Award className="h-5 w-5" />
-                </div>
-                <h4 className="text-2xl font-bold text-olu-gold">50+</h4>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar" ? "مشاريع منجزة" : "Completed Projects"}
-                </p>
-              </div>
-              
-              <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
-                  <Clock className="h-5 w-5" />
-                </div>
-                <h4 className="text-2xl font-bold text-olu-gold">4+</h4>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar" ? "سنين من الخبرة" : "Years Experience"}
-                </p>
-              </div>
-              
-              <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
-                  <Globe className="h-5 w-5" />
-                </div>
-                <h4 className="text-2xl font-bold text-olu-gold">25+</h4>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar" ? "تقنيات مستخدمة" : "Technologies Used"}
-                </p>
-              </div>
+              {loading ? (
+                // Display skeleton loaders while loading
+                Array(4).fill(0).map((_, index) => (
+                  <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg animate-pulse">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2"></div>
+                    <div className="h-6 w-16 bg-muted rounded mb-1"></div>
+                    <div className="h-4 w-24 bg-muted rounded"></div>
+                  </div>
+                ))
+              ) : stats.length > 0 ? (
+                // Display actual statistics from the database
+                stats.map((stat) => (
+                  <div key={stat.id} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                      {getIcon(stat.icon)}
+                    </div>
+                    <h4 className="text-2xl font-bold text-olu-gold">{stat.value}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {language === "ar" ? stat.name : stat.name}
+                    </p>
+                  </div>
+                ))
+              ) : (
+                // Fallback for no data
+                <>
+                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                      <Users className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-olu-gold">100+</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {language === "ar" ? "عملاء راضون" : "Satisfied Clients"}
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                      <Award className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-olu-gold">50+</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {language === "ar" ? "مشاريع منجزة" : "Completed Projects"}
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                      <Clock className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-olu-gold">4+</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {language === "ar" ? "سنين من الخبرة" : "Years Experience"}
+                    </p>
+                  </div>
+                  
+                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                      <Globe className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-2xl font-bold text-olu-gold">25+</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {language === "ar" ? "تقنيات مستخدمة" : "Technologies Used"}
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
             
             <div className="mt-8">
-              <Button variant="gold" size="pill" className="mr-4">
-                {language === "ar" ? "عرض المزيد" : "Learn More"}
+              <Button variant="gold" size="pill" onClick={() => {
+                const contactSection = document.getElementById('contact');
+                contactSection?.scrollIntoView({ behavior: 'smooth' });
+              }}>
+                {language === "ar" ? "اطرح سؤالاً" : "Ask a Question"}
               </Button>
             </div>
           </div>
