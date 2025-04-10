@@ -120,6 +120,33 @@ export type Database = {
         }
         Relationships: []
       }
+      stats: {
+        Row: {
+          created_at: string
+          icon: string
+          id: string
+          name: string
+          order_index: number
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          icon?: string
+          id?: string
+          name: string
+          order_index?: number
+          value: string
+        }
+        Update: {
+          created_at?: string
+          icon?: string
+          id?: string
+          name?: string
+          order_index?: number
+          value?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

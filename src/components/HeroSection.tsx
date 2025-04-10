@@ -56,14 +56,6 @@ const HeroSection: React.FC = () => {
               {t("contact")}
               <ArrowRight className={`ml-2 ${dir === "rtl" ? "rtl-flip" : ""}`} />
             </Button>
-            <Button 
-              size="pill" 
-              variant="outline" 
-              className="border-olu-gold/30 text-olu-gold hover:text-olu-gold/80 hover:bg-olu-gold/5"
-              onClick={scrollToServices}
-            >
-              {t("services")}
-            </Button>
           </div>
         </div>
         
@@ -82,7 +74,11 @@ const HeroSection: React.FC = () => {
                     <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     <div className="flex-1 text-center">
-                      <span className={`text-md font-bold ${theme === "dark" ? "text-white" : "text-gray-500"}`}>علو</span>
+                      <img 
+                        src="/alo.png" 
+                        alt="علو" 
+                        className={`h-6 mx-auto ${theme === "dark" ? "filter brightness-0 invert" : ""}`} 
+                      />
                     </div>
                   </div>
                   <div className="space-y-3">

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import { Globe, Code, Cpu, BarChart, MoreHorizontal } from "lucide-react";
+import { Globe, Code, Cpu, BarChart, MoreHorizontal, LucideIcon } from "lucide-react";
 import ServiceCard from "./ServiceCard";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,8 @@ import type { Database } from "@/types/supabase";
 
 type Service = Database['public']['Tables']['services']['Row'];
 
-const iconMap: Record<string, React.ElementType> = {
+// Define mapping with proper types
+const iconMap: Record<string, LucideIcon> = {
   'globe': Globe,
   'code': Code,
   'cpu': Cpu,
@@ -46,7 +47,7 @@ const ServicesSection: React.FC = () => {
     fetchServices();
   }, []);
 
-  const getIcon = (iconName: string) => {
+  const getIcon = (iconName: string): LucideIcon => {
     return iconMap[iconName] || MoreHorizontal;
   };
 

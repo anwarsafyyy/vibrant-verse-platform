@@ -109,6 +109,32 @@ export type Database = {
           order_index?: number;
         };
       };
+      stats: {
+        Row: {
+          id: string;
+          name: string;
+          value: string;
+          icon: string;
+          order_index: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          value: string;
+          icon?: string;
+          order_index?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          value?: string;
+          icon?: string;
+          order_index?: number;
+          created_at?: string;
+        };
+      };
     };
   };
 };

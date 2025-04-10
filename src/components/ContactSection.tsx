@@ -27,7 +27,7 @@ const contactFormSchema = z.object({
 type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const ContactSection: React.FC = () => {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -153,7 +153,7 @@ const ContactSection: React.FC = () => {
                   className="w-full olu-gold-gradient text-white"
                   disabled={isSubmitting}
                 >
-                  {isSubmitting ? t("contact.submitting") : t("contact.submit")}
+                  {language === "ar" ? "تواصل معنا" : "Contact Us"}
                   <Send className="ml-2 h-4 w-4" />
                 </Button>
               </form>
