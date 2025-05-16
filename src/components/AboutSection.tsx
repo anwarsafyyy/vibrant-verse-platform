@@ -62,17 +62,23 @@ const AboutSection: React.FC = () => {
 
   // Helper function to get the translated stat name
   const getTranslatedStatName = (name: string) => {
-    switch (name) {
-      case "Satisfied Clients":
-        return language === "ar" ? t("stats.clients") : name;
-      case "Completed Projects":
-        return language === "ar" ? t("stats.projects") : name;
-      case "Technologies Used":
-        return language === "ar" ? t("stats.technologies") : name;
-      case "Years Experience":
-        return language === "ar" ? t("stats.experience") : name;
+    // Use the translation function directly with appropriate keys
+    switch (name.toLowerCase()) {
+      case "satisfied clients":
+      case "عملاء راضون":
+        return t("stats.clients");
+      case "completed projects":
+      case "مشاريع مكتملة":
+        return t("stats.projects");
+      case "technologies used":
+      case "تقنيات مستخدمة":
+        return t("stats.technologies");
+      case "years experience":
+      case "سنوات خبرة":
+        return t("stats.experience");
       default:
-        return name;
+        // For any other stats that might be added through the admin panel
+        return language === "ar" ? name : name;
     }
   };
 
@@ -86,11 +92,11 @@ const AboutSection: React.FC = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="olu-gold-text-gradient">
-              {language === "ar" ? "من نحن" : t("about.title")}
+              {t("about.title")}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground mb-6">
-            {language === "ar" ? "نبتكر اليوم، لنرتقي بالغد" : t("about.subtitle")}
+            {t("about.subtitle")}
           </p>
           <div className="w-24 h-1 olu-gradient mx-auto rounded-full mb-10"></div>
         </div>
@@ -98,28 +104,25 @@ const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className={`${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.2s" }}>
             <p className="text-lg mb-6">
-              {language === "ar" 
-                ? "نحن شركة متخصصة في تقديم حلول رقمية متكاملة تدفع الأعمال نحو مستقبل أكثر تطورًا. من تطوير المواقع والتطبيقات إلى الاستشارات التقنية والحلول السحابية، نعمل بشغف لنمنحك الأدوات التي تحتاجها للنجاح في العالم الرقمي. 🚀" 
-                : t("about.description")
-              }
+              {t("about.description")}
             </p>
             
             <div className="grid grid-cols-1 gap-6 mt-8">
               <div className="bg-background border border-border/30 p-4 rounded-lg">
                 <p className="font-semibold mb-2 text-olu-gold">
-                  {language === "ar" ? "الابتكار هو جوهر عملنا" : "Innovation is our core"}
+                  {t("about.innovation")}
                 </p>
               </div>
               
               <div className="bg-background border border-border/30 p-4 rounded-lg">
                 <p className="font-semibold mb-2 text-olu-gold">
-                  {language === "ar" ? "الجودة والاحترافية أولويتنا" : "Quality and professionalism are our priority"}
+                  {t("about.quality")}
                 </p>
               </div>
               
               <div className="bg-background border border-border/30 p-4 rounded-lg">
                 <p className="font-semibold mb-2 text-olu-gold">
-                  {language === "ar" ? "شراكة تدوم معك" : "A lasting partnership with you"}
+                  {t("about.partnership")}
                 </p>
               </div>
             </div>
@@ -198,7 +201,7 @@ const AboutSection: React.FC = () => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}>
-                {language === "ar" ? "اطرح سؤالاً" : "Ask a Question"}
+                {t("about.askQuestion")}
               </Button>
             </div>
           </div>

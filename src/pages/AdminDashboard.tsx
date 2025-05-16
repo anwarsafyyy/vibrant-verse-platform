@@ -32,10 +32,20 @@ const AdminDashboard: React.FC = () => {
             <LayoutDashboard className="h-6 w-6 text-olu-gold" />
             <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           </div>
-          <Button variant="outline" onClick={handleSignOut}>
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
-          </Button>
+          <div className="flex items-center gap-4">
+            <a href="/" className="flex items-center">
+              <img 
+                src="/public/alo.png" 
+                alt="علو Logo" 
+                className="h-8 w-auto mr-2" 
+              />
+              <span className="text-xl font-bold">علو</span>
+            </a>
+            <Button variant="outline" onClick={handleSignOut}>
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
+          </div>
         </div>
       </div>
       

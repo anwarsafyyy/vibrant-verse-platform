@@ -32,7 +32,12 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
-            <div className="h-10 flex items-center justify-center">
+            <img 
+              src="/public/alo.png" 
+              alt="علو Logo" 
+              className="h-10 w-auto"
+            />
+            <div className="h-10 flex items-center justify-center ml-2">
               <span className={`text-2xl font-bold bg-gradient-to-r ${theme === "dark" ? "from-gold-300 to-gold-100 text-transparent bg-clip-text" : "from-olu-gold to-amber-600 text-transparent bg-clip-text"}`}>علو</span>
             </div>
           </a>
