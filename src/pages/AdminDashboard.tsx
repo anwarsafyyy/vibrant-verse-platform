@@ -10,6 +10,12 @@ import ServicesManager from "@/components/admin/ServicesManager";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import ContactInquiries from "@/components/admin/ContactInquiries";
 import StatsManager from "@/components/admin/StatsManager";
+import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
+import HeroContentManager from "@/components/admin/HeroContentManager";
+import AboutContentManager from "@/components/admin/AboutContentManager";
+import SocialLinksManager from "@/components/admin/SocialLinksManager";
+import FooterContentManager from "@/components/admin/FooterContentManager";
+import AnalyticsManager from "@/components/admin/AnalyticsManager";
 
 const AdminDashboard: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -50,17 +56,40 @@ const AdminDashboard: React.FC = () => {
       </div>
       
       <div className="container mx-auto py-8">
-        <Tabs defaultValue="partners" className="w-full">
-          <TabsList className="grid grid-cols-5 mb-8">
-            <TabsTrigger value="partners">Partners</TabsTrigger>
-            <TabsTrigger value="services">Services</TabsTrigger>
-            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
-            <TabsTrigger value="stats">Statistics</TabsTrigger>
-            <TabsTrigger value="inquiries">Contact Inquiries</TabsTrigger>
+        <Tabs defaultValue="site-settings" className="w-full">
+          <TabsList className="grid grid-cols-4 lg:grid-cols-8 mb-8 overflow-x-auto">
+            <TabsTrigger value="site-settings" className="text-xs">إعدادات عامة</TabsTrigger>
+            <TabsTrigger value="hero" className="text-xs">القسم الرئيسي</TabsTrigger>
+            <TabsTrigger value="about" className="text-xs">من نحن</TabsTrigger>
+            <TabsTrigger value="services" className="text-xs">الخدمات</TabsTrigger>
+            <TabsTrigger value="portfolio" className="text-xs">الأعمال</TabsTrigger>
+            <TabsTrigger value="partners" className="text-xs">الشركاء</TabsTrigger>
+            <TabsTrigger value="social" className="text-xs">التواصل</TabsTrigger>
+            <TabsTrigger value="analytics" className="text-xs">التحليلات</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="partners">
-            <PartnersManager />
+          <div className="grid grid-cols-4 lg:grid-cols-8 gap-2 mb-8">
+            <TabsList className="grid grid-cols-1">
+              <TabsTrigger value="footer" className="text-xs">التذييل</TabsTrigger>
+            </TabsList>
+            <TabsList className="grid grid-cols-1">
+              <TabsTrigger value="stats" className="text-xs">الإحصائيات</TabsTrigger>
+            </TabsList>
+            <TabsList className="grid grid-cols-1">
+              <TabsTrigger value="inquiries" className="text-xs">الرسائل</TabsTrigger>
+            </TabsList>
+          </div>
+          
+          <TabsContent value="site-settings">
+            <SiteSettingsManager />
+          </TabsContent>
+          
+          <TabsContent value="hero">
+            <HeroContentManager />
+          </TabsContent>
+          
+          <TabsContent value="about">
+            <AboutContentManager />
           </TabsContent>
           
           <TabsContent value="services">
@@ -71,8 +100,24 @@ const AdminDashboard: React.FC = () => {
             <PortfolioManager />
           </TabsContent>
           
+          <TabsContent value="partners">
+            <PartnersManager />
+          </TabsContent>
+          
+          <TabsContent value="social">
+            <SocialLinksManager />
+          </TabsContent>
+          
+          <TabsContent value="footer">
+            <FooterContentManager />
+          </TabsContent>
+          
           <TabsContent value="stats">
             <StatsManager />
+          </TabsContent>
+          
+          <TabsContent value="analytics">
+            <AnalyticsManager />
           </TabsContent>
           
           <TabsContent value="inquiries">
