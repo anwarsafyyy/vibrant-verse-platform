@@ -1,9 +1,11 @@
 import React from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Footer: React.FC = () => {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
+  const { getFooterContent, getSetting } = useSiteContent();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -11,11 +13,16 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
-            <img src="/alo.png" alt="Olu Logo" className="h-10 w-auto" />
+            <img 
+              src={getSetting('logo_url', language as "ar" | "en") || "/alo.png"} 
+              alt="Olu Logo" 
+              className="h-10 w-auto" 
+            />
             <p className="opacity-80">
-              {dir === "rtl" 
-                ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
-                : "Building a better digital future through innovative tech solutions."}
+              {getFooterContent('company_description_ar', language as "ar" | "en") || 
+                (dir === "rtl" 
+                  ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
+                  : "Building a better digital future through innovative tech solutions.")}
             </p>
           </div>
           
@@ -38,19 +45,24 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li className="flex items-center opacity-80">
                 <MapPin className="h-4 w-4 mr-2 shrink-0" />
-                <span>{dir === "rtl" ? "المملكة العربية السعودية جازان" : "Jazan, Saudi Arabia"}</span>
+                <span>
+                  {getFooterContent('address_ar', language as "ar" | "en") || 
+                    (dir === "rtl" ? "المملكة العربية السعودية جازان" : "Jazan, Saudi Arabia")}
+                </span>
               </li>
               <li className="flex items-center opacity-80">
                 <Phone className="h-4 w-4 mr-2 shrink-0" />
-                <span>+966 50 869 4899</span>
+                <span>{getFooterContent('phone', language as "ar" | "en") || "+966 50 869 4899"}</span>
               </li>
               <li className="flex items-center opacity-80">
                 <Mail className="h-4 w-4 mr-2 shrink-0" />
-                <span>info@olu-it.com</span>
+                <span>{getFooterContent('email', language as "ar" | "en") || "info@olu-it.com"}</span>
               </li>
               <li className="flex items-center opacity-80">
                 <Clock className="h-4 w-4 mr-2 shrink-0" />
-                <span>09am - 05pm Mon-Sat</span>
+                <span>
+                  {getFooterContent('working_hours_ar', language as "ar" | "en") || "09am - 05pm Mon-Sat"}
+                </span>
               </li>
             </ul>
           </div>
@@ -90,7 +102,10 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
-          <p className="opacity-80">© {currentYear} علو (Olu-IT). {t("footer.copyright")}.</p>
+          <p className="opacity-80">
+            {getFooterContent('copyright_text_ar', language as "ar" | "en") || 
+              `© ${currentYear} علو (Olu-IT). ${t("footer.copyright")}.`}
+          </p>
         </div>
       </div>
     </footer>

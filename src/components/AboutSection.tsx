@@ -4,6 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Users, Award, Clock, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 interface StatItem {
   id: string;
@@ -14,6 +15,7 @@ interface StatItem {
 
 const AboutSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
+  const { getAboutContent } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
   const [stats, setStats] = useState<StatItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -92,11 +94,11 @@ const AboutSection: React.FC = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="olu-gold-text-gradient">
-              {t("about.title")}
+              {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
             </span>
           </h2>
           <p className="text-xl text-muted-foreground mb-6">
-            {t("about.subtitle")}
+            {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
           </p>
           <div className="w-24 h-1 olu-gradient mx-auto rounded-full mb-10"></div>
         </div>
@@ -104,25 +106,25 @@ const AboutSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className={`${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.2s" }}>
             <p className="text-lg mb-6">
-              {t("about.description")}
+              {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
             </p>
             
             <div className="grid grid-cols-1 gap-6 mt-8">
               <div className="bg-background border border-border/30 p-4 rounded-lg">
                 <p className="font-semibold mb-2 text-olu-gold">
-                  {t("about.innovation")}
+                  {getAboutContent('innovation_text_ar', language as "ar" | "en") || t("about.innovation")}
                 </p>
               </div>
               
               <div className="bg-background border border-border/30 p-4 rounded-lg">
                 <p className="font-semibold mb-2 text-olu-gold">
-                  {t("about.quality")}
+                  {getAboutContent('quality_text_ar', language as "ar" | "en") || t("about.quality")}
                 </p>
               </div>
               
               <div className="bg-background border border-border/30 p-4 rounded-lg">
                 <p className="font-semibold mb-2 text-olu-gold">
-                  {t("about.partnership")}
+                  {getAboutContent('partnership_text_ar', language as "ar" | "en") || t("about.partnership")}
                 </p>
               </div>
             </div>
@@ -201,7 +203,7 @@ const AboutSection: React.FC = () => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}>
-                {t("about.askQuestion")}
+                {getAboutContent('cta_text_ar', language as "ar" | "en") || t("about.askQuestion")}
               </Button>
             </div>
           </div>

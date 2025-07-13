@@ -4,10 +4,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useTheme } from "@/hooks/useTheme";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HeroSection: React.FC = () => {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
   const { theme } = useTheme();
+  const { getHeroContent, getSetting } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -41,10 +43,12 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.2s" }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="olu-gold-text-gradient">{t("hero.title")}</span>
+            <span className="olu-gold-text-gradient">
+              {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
+            </span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0">
-            {t("hero.subtitle")}
+            {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Button 
@@ -53,7 +57,7 @@ const HeroSection: React.FC = () => {
               className="text-white"
               onClick={scrollToContact}
             >
-              {t("contact")}
+              {getHeroContent('cta_text_ar', language as "ar" | "en") || t("contact")}
               <ArrowRight className={`ml-2 ${dir === "rtl" ? "rtl-flip" : ""}`} />
             </Button>
           </div>
