@@ -48,6 +48,20 @@ const iconOptions = [
   { value: 'code', label: 'Code' },
   { value: 'cpu', label: 'CPU' },
   { value: 'bar-chart', label: 'Bar Chart' },
+  { value: 'monitor', label: 'Monitor' },
+  { value: 'smartphone', label: 'Smartphone' },
+  { value: 'shield', label: 'Shield' },
+  { value: 'zap', label: 'Zap' },
+  { value: 'camera', label: 'Camera' },
+  { value: 'headphones', label: 'Headphones' },
+  { value: 'wifi', label: 'WiFi' },
+  { value: 'database', label: 'Database' },
+  { value: 'cloud', label: 'Cloud' },
+  { value: 'lock', label: 'Lock' },
+  { value: 'users', label: 'Users' },
+  { value: 'trending-up', label: 'Trending Up' },
+  { value: 'settings', label: 'Settings' },
+  { value: 'layers', label: 'Layers' },
 ];
 
 const ServicesManager = () => {

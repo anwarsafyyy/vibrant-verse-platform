@@ -36,7 +36,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-olu-blue/10 blur-3xl animate-float"></div>
       <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-olu-gold/10 blur-3xl animate-float" style={{ animationDelay: "1.5s" }}></div>
       
-      <div className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center">
+      <div className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center">{/* Container made dynamic */}
         {/* Content */}
         <div 
           className={`w-full lg:w-1/2 text-center lg:text-left ${dir === "rtl" ? "lg:order-2" : "lg:order-1"} ${isVisible ? "animate-fade-in" : "opacity-0"}`}

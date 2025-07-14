@@ -90,7 +90,7 @@ const AboutSection: React.FC = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent"></div>
       
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 py-20">{/* Container made dynamic */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             <span className="olu-gold-text-gradient">

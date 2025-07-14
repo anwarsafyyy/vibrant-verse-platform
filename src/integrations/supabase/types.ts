@@ -149,6 +149,42 @@ export type Database = {
         }
         Relationships: []
       }
+      faqs: {
+        Row: {
+          answer_ar: string
+          answer_en: string
+          created_at: string
+          id: string
+          is_active: boolean
+          order_index: number
+          question_ar: string
+          question_en: string
+          updated_at: string
+        }
+        Insert: {
+          answer_ar: string
+          answer_en: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          order_index?: number
+          question_ar: string
+          question_en: string
+          updated_at?: string
+        }
+        Update: {
+          answer_ar?: string
+          answer_en?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          order_index?: number
+          question_ar?: string
+          question_en?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       footer_content: {
         Row: {
           address_ar: string

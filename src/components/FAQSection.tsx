@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,9 +8,48 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
+
+interface FAQ {
+  id: string;
+  question_ar: string;
+  question_en: string;
+  answer_ar: string;
+  answer_en: string;
+  is_active: boolean;
+  order_index: number;
+}
 
 const FAQSection: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const [faqs, setFaqs] = useState<FAQ[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchFAQs();
+  }, []);
+
+  const fetchFAQs = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('faqs')
+        .select('*')
+        .eq('is_active', true)
+        .order('order_index', { ascending: true });
+        
+      if (error) {
+        console.error("Error fetching FAQs:", error);
+        return;
+      }
+      
+      setFaqs(data || []);
+    } catch (error) {
+      console.error("Failed to fetch FAQs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <section id="faq" className="py-20 relative">
@@ -29,32 +68,34 @@ const FAQSection: React.FC = () => {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="text-lg font-medium">{t("faq.q1")}</AccordionTrigger>
-              <AccordionContent className="text-base">
-                {t("faq.a1")}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="text-lg font-medium">{t("faq.q2")}</AccordionTrigger>
-              <AccordionContent className="text-base">
-                {t("faq.a2")}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-3">
-              <AccordionTrigger className="text-lg font-medium">{t("faq.q3")}</AccordionTrigger>
-              <AccordionContent className="text-base">
-                {t("faq.a3")}
-              </AccordionContent>
-            </AccordionItem>
-            <AccordionItem value="item-4">
-              <AccordionTrigger className="text-lg font-medium">{t("faq.q4")}</AccordionTrigger>
-              <AccordionContent className="text-base">
-                {t("faq.a4")}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          {loading ? (
+            <div className="space-y-4">
+              {Array(4).fill(0).map((_, index) => (
+                <div key={`faq-skeleton-${index}`} className="border rounded-lg p-4">
+                  <Skeleton className="h-6 w-3/4 mb-2" />
+                  <Skeleton className="h-4 w-full" />
+                  <Skeleton className="h-4 w-2/3" />
+                </div>
+              ))}
+            </div>
+          ) : faqs.length > 0 ? (
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={faq.id} value={`item-${index}`}>
+                  <AccordionTrigger className="text-lg font-medium">
+                    {language === 'ar' ? faq.question_ar : faq.question_en}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base">
+                    {language === 'ar' ? faq.answer_ar : faq.answer_en}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          ) : (
+            <div className="text-center py-10 text-muted-foreground">
+              {t("faq.noQuestions") || "No questions available."}
+            </div>
+          )}
         </div>
         
         <div className="mt-12 text-center">

@@ -12,6 +12,13 @@ import PartnersManager from "@/components/admin/PartnersManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import ContactInquiries from "@/components/admin/ContactInquiries";
+import HeroContentManager from "@/components/admin/HeroContentManager";
+import AboutContentManager from "@/components/admin/AboutContentManager";
+import FooterContentManager from "@/components/admin/FooterContentManager";
+import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
+import SocialLinksManager from "@/components/admin/SocialLinksManager";
+import StatsManager from "@/components/admin/StatsManager";
+import FAQManager from "@/components/admin/FAQManager";
 
 const AdminPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -164,24 +171,49 @@ const AdminPage: React.FC = () => {
       </div>
       
       <div className="container mx-auto py-8">
-        <Tabs defaultValue="partners" className="w-full">
-          <TabsList className="grid grid-cols-4 mb-8">
-            <TabsTrigger value="partners">Partners</TabsTrigger>
+        <Tabs defaultValue="site-settings" className="w-full">
+          <TabsList className="grid grid-cols-9 mb-8">
+            <TabsTrigger value="site-settings">Site Settings</TabsTrigger>
+            <TabsTrigger value="hero">Hero</TabsTrigger>
+            <TabsTrigger value="about">About</TabsTrigger>
             <TabsTrigger value="services">Services</TabsTrigger>
+            <TabsTrigger value="partners">Partners</TabsTrigger>
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
-            <TabsTrigger value="inquiries">Contact Inquiries</TabsTrigger>
+            <TabsTrigger value="faq">FAQ</TabsTrigger>
+            <TabsTrigger value="social">Social</TabsTrigger>
+            <TabsTrigger value="inquiries">Inquiries</TabsTrigger>
           </TabsList>
           
-          <TabsContent value="partners">
-            <PartnersManager />
+          <TabsContent value="site-settings">
+            <SiteSettingsManager />
+          </TabsContent>
+          
+          <TabsContent value="hero">
+            <HeroContentManager />
+          </TabsContent>
+          
+          <TabsContent value="about">
+            <AboutContentManager />
           </TabsContent>
           
           <TabsContent value="services">
             <ServicesManager />
           </TabsContent>
           
+          <TabsContent value="partners">
+            <PartnersManager />
+          </TabsContent>
+          
           <TabsContent value="portfolio">
             <PortfolioManager />
+          </TabsContent>
+          
+          <TabsContent value="faq">
+            <FAQManager />
+          </TabsContent>
+          
+          <TabsContent value="social">
+            <SocialLinksManager />
           </TabsContent>
           
           <TabsContent value="inquiries">
