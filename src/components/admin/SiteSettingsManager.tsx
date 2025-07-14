@@ -51,12 +51,44 @@ const SiteSettingsManager: React.FC = () => {
   const updateSetting = async (key: string, valueAr: string, valueEn: string) => {
     try {
       setSaving(true);
-      const { error } = await supabase
-        .from('site_settings')
-        .update({ value_ar: valueAr, value_en: valueEn })
-        .eq('key', key);
       
-      if (error) throw error;
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
+      // First check if setting exists
+      const { data: existingSetting } = await supabase
+        .from('site_settings')
+        .select('id')
+        .eq('key', key)
+        .single();
+      
+      if (existingSetting) {
+        // Update existing setting
+        const { error } = await supabase
+          .from('site_settings')
+          .update({ 
+            value_ar: valueAr, 
+            value_en: valueEn,
+            updated_at: new Date().toISOString()
+          })
+          .eq('key', key);
+        
+        if (error) throw error;
+      } else {
+        // Create new setting
+        const { error } = await supabase
+          .from('site_settings')
+          .insert({
+            key,
+            value_ar: valueAr,
+            value_en: valueEn
+          });
+        
+        if (error) throw error;
+      }
       
       toast({
         title: "تم الحفظ",
@@ -64,11 +96,11 @@ const SiteSettingsManager: React.FC = () => {
       });
       
       fetchSettings();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating setting:', error);
       toast({
         title: "خطأ",
-        description: "فشل في حفظ الإعدادات",
+        description: error.message || "فشل في حفظ الإعدادات",
         variant: "destructive",
       });
     } finally {

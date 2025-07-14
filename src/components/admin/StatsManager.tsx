@@ -90,14 +90,20 @@ const StatsManager = () => {
   const handleAddStat = async () => {
     if (!name || !value) {
       toast({
-        title: "Missing Information",
-        description: "Please fill all required fields",
+        title: "معلومات ناقصة",
+        description: "يرجى ملء جميع الحقول المطلوبة",
         variant: "destructive",
       });
       return;
     }
     
     try {
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
       // Get the highest order_index and add 1
       const maxOrderIndex = stats.length > 0 
         ? Math.max(...stats.map(p => p.order_index || 0)) 
@@ -115,8 +121,8 @@ const StatsManager = () => {
       if (error) throw error;
       
       toast({
-        title: "Success",
-        description: "Statistic added successfully",
+        title: "نجح الحفظ",
+        description: "تم إضافة الإحصائية بنجاح",
       });
       
       // Reset form
@@ -128,8 +134,8 @@ const StatsManager = () => {
     } catch (error: any) {
       console.error("Error adding statistic:", error);
       toast({
-        title: "Error",
-        description: error.message || "Failed to add statistic",
+        title: "خطأ",
+        description: error.message || "فشل في إضافة الإحصائية",
         variant: "destructive",
       });
     }

@@ -35,20 +35,25 @@ const FooterContentManager: React.FC = () => {
 
   const fetchFooterContent = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('footer_content')
         .select('*')
         .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+        .limit(1);
       
-      if (error && error.code !== 'PGRST116') throw error;
-      setContent(data);
-    } catch (error) {
+      if (error) throw error;
+      
+      if (data && data.length > 0) {
+        setContent(data[0]);
+      } else {
+        setContent(null);
+      }
+    } catch (error: any) {
       console.error('Error fetching footer content:', error);
       toast({
         title: "خطأ",
-        description: "فشل في تحميل محتوى التذييل",
+        description: error.message || "فشل في تحميل محتوى التذييل",
         variant: "destructive",
       });
     } finally {
@@ -61,6 +66,12 @@ const FooterContentManager: React.FC = () => {
 
     try {
       setSaving(true);
+      
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
       
       if (content.id) {
         const { error } = await supabase
@@ -76,16 +87,33 @@ const FooterContentManager: React.FC = () => {
             working_hours_en: content.working_hours_en,
             copyright_text_ar: content.copyright_text_ar,
             copyright_text_en: content.copyright_text_en,
+            updated_at: new Date().toISOString()
           })
           .eq('id', content.id);
         
         if (error) throw error;
       } else {
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from('footer_content')
-          .insert([content]);
+          .insert([{
+            company_description_ar: content.company_description_ar,
+            company_description_en: content.company_description_en,
+            address_ar: content.address_ar,
+            address_en: content.address_en,
+            phone: content.phone,
+            email: content.email,
+            working_hours_ar: content.working_hours_ar,
+            working_hours_en: content.working_hours_en,
+            copyright_text_ar: content.copyright_text_ar,
+            copyright_text_en: content.copyright_text_en
+          }])
+          .select()
+          .single();
         
         if (error) throw error;
+        if (data) {
+          setContent(data);
+        }
       }
       
       toast({
@@ -93,12 +121,13 @@ const FooterContentManager: React.FC = () => {
         description: "تم حفظ محتوى التذييل بنجاح",
       });
       
+      // Refresh data
       fetchFooterContent();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving footer content:', error);
       toast({
         title: "خطأ",
-        description: "فشل في حفظ المحتوى",
+        description: error.message || "فشل في حفظ المحتوى",
         variant: "destructive",
       });
     } finally {

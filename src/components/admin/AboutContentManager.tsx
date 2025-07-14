@@ -42,21 +42,25 @@ const AboutContentManager: React.FC = () => {
 
   const fetchAboutContent = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('about_content')
         .select('*')
-        .eq('is_active', true)
         .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+        .limit(1);
       
-      if (error && error.code !== 'PGRST116') throw error;
-      setContent(data);
-    } catch (error) {
+      if (error) throw error;
+      
+      if (data && data.length > 0) {
+        setContent(data[0]);
+      } else {
+        setContent(null);
+      }
+    } catch (error: any) {
       console.error('Error fetching about content:', error);
       toast({
         title: "خطأ",
-        description: "فشل في تحميل محتوى قسم من نحن",
+        description: error.message || "فشل في تحميل محتوى قسم من نحن",
         variant: "destructive",
       });
     } finally {
@@ -70,7 +74,19 @@ const AboutContentManager: React.FC = () => {
     try {
       setSaving(true);
       
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
       if (content.id) {
+        // Deactivate all other about content
+        await supabase
+          .from('about_content')
+          .update({ is_active: false })
+          .neq('id', content.id);
+          
         const { error } = await supabase
           .from('about_content')
           .update({
@@ -90,16 +106,46 @@ const AboutContentManager: React.FC = () => {
             cta_text_ar: content.cta_text_ar,
             cta_text_en: content.cta_text_en,
             is_active: content.is_active,
+            updated_at: new Date().toISOString()
           })
           .eq('id', content.id);
         
         if (error) throw error;
       } else {
-        const { error } = await supabase
+        // Deactivate all other about content when creating new one
+        if (content.is_active) {
+          await supabase
+            .from('about_content')
+            .update({ is_active: false });
+        }
+        
+        const { data, error } = await supabase
           .from('about_content')
-          .insert([content]);
+          .insert([{
+            title_ar: content.title_ar,
+            title_en: content.title_en,
+            subtitle_ar: content.subtitle_ar,
+            subtitle_en: content.subtitle_en,
+            description_ar: content.description_ar,
+            description_en: content.description_en,
+            innovation_text_ar: content.innovation_text_ar,
+            innovation_text_en: content.innovation_text_en,
+            quality_text_ar: content.quality_text_ar,
+            quality_text_en: content.quality_text_en,
+            partnership_text_ar: content.partnership_text_ar,
+            partnership_text_en: content.partnership_text_en,
+            image_url: content.image_url,
+            cta_text_ar: content.cta_text_ar,
+            cta_text_en: content.cta_text_en,
+            is_active: content.is_active
+          }])
+          .select()
+          .single();
         
         if (error) throw error;
+        if (data) {
+          setContent(data);
+        }
       }
       
       toast({
@@ -107,12 +153,13 @@ const AboutContentManager: React.FC = () => {
         description: "تم حفظ محتوى قسم من نحن بنجاح",
       });
       
+      // Refresh data
       fetchAboutContent();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving about content:', error);
       toast({
         title: "خطأ",
-        description: "فشل في حفظ المحتوى",
+        description: error.message || "فشل في حفظ المحتوى",
         variant: "destructive",
       });
     } finally {

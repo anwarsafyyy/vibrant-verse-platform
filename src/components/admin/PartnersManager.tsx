@@ -127,14 +127,20 @@ const PartnersManager = () => {
   const handleAddPartner = async () => {
     if (!name) {
       toast({
-        title: "Missing Information",
-        description: "Please provide a partner name",
+        title: "معلومات ناقصة",
+        description: "يرجى إدخال اسم الشريك",
         variant: "destructive",
       });
       return;
     }
     
     try {
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
       let finalLogoUrl = logoUrl;
       
       if (logoFile) {
@@ -143,8 +149,8 @@ const PartnersManager = () => {
       
       if (!finalLogoUrl) {
         toast({
-          title: "Missing Logo",
-          description: "Please upload a logo or provide a URL",
+          title: "شعار مفقود",
+          description: "يرجى رفع شعار أو إدخال رابط",
           variant: "destructive",
         });
         return;
@@ -166,8 +172,8 @@ const PartnersManager = () => {
       if (error) throw error;
       
       toast({
-        title: "Success",
-        description: "Partner added successfully",
+        title: "نجح الحفظ",
+        description: "تم إضافة الشريك بنجاح",
       });
       
       // Reset form
@@ -182,8 +188,8 @@ const PartnersManager = () => {
     } catch (error: any) {
       console.error("Error adding partner:", error);
       toast({
-        title: "Error",
-        description: error.message || "Failed to add partner",
+        title: "خطأ",
+        description: error.message || "فشل في إضافة الشريك",
         variant: "destructive",
       });
     }

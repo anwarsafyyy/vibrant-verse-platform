@@ -102,6 +102,12 @@ const ServicesManager = () => {
     }
     
     try {
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
       // Get the highest order_index and add 1
       const maxOrderIndex = services.length > 0 
         ? Math.max(...services.map(s => s.order_index || 0)) 
@@ -119,8 +125,8 @@ const ServicesManager = () => {
       if (error) throw error;
       
       toast({
-        title: "Success",
-        description: "Service added successfully",
+        title: "نجح الحفظ",
+        description: "تم إضافة الخدمة بنجاح",
       });
       
       // Reset form
@@ -134,8 +140,8 @@ const ServicesManager = () => {
     } catch (error: any) {
       console.error("Error adding service:", error);
       toast({
-        title: "Error",
-        description: error.message || "Failed to add service",
+        title: "خطأ",
+        description: error.message || "فشل في إضافة الخدمة",
         variant: "destructive",
       });
     }
@@ -152,6 +158,12 @@ const ServicesManager = () => {
     }
     
     try {
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
       const { error } = await supabase
         .from('services')
         .update({
@@ -164,8 +176,8 @@ const ServicesManager = () => {
       if (error) throw error;
       
       toast({
-        title: "Success",
-        description: "Service updated successfully",
+        title: "نجح التحديث",
+        description: "تم تحديث الخدمة بنجاح",
       });
       
       // Reset form
@@ -180,8 +192,8 @@ const ServicesManager = () => {
     } catch (error: any) {
       console.error("Error updating service:", error);
       toast({
-        title: "Error",
-        description: error.message || "Failed to update service",
+        title: "خطأ",
+        description: error.message || "فشل في تحديث الخدمة",
         variant: "destructive",
       });
     }

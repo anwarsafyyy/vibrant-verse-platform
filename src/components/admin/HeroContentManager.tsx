@@ -35,21 +35,25 @@ const HeroContentManager: React.FC = () => {
 
   const fetchHeroContent = async () => {
     try {
+      setLoading(true);
       const { data, error } = await supabase
         .from('hero_content')
         .select('*')
-        .eq('is_active', true)
         .order('created_at', { ascending: false })
-        .limit(1)
-        .single();
+        .limit(1);
       
-      if (error && error.code !== 'PGRST116') throw error;
-      setContent(data);
-    } catch (error) {
+      if (error) throw error;
+      
+      if (data && data.length > 0) {
+        setContent(data[0]);
+      } else {
+        setContent(null);
+      }
+    } catch (error: any) {
       console.error('Error fetching hero content:', error);
       toast({
-        title: "خطأ",
-        description: "فشل في تحميل محتوى القسم الرئيسي",
+        title: "خطأ", 
+        description: error.message || "فشل في تحميل محتوى القسم الرئيسي",
         variant: "destructive",
       });
     } finally {
@@ -63,7 +67,19 @@ const HeroContentManager: React.FC = () => {
     try {
       setSaving(true);
       
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        throw new Error('Authentication required');
+      }
+      
       if (content.id) {
+        // Deactivate all other hero content
+        await supabase
+          .from('hero_content')
+          .update({ is_active: false })
+          .neq('id', content.id);
+          
         const { error } = await supabase
           .from('hero_content')
           .update({
@@ -76,16 +92,39 @@ const HeroContentManager: React.FC = () => {
             cta_link: content.cta_link,
             background_image_url: content.background_image_url,
             is_active: content.is_active,
+            updated_at: new Date().toISOString()
           })
           .eq('id', content.id);
         
         if (error) throw error;
       } else {
-        const { error } = await supabase
+        // Deactivate all other hero content when creating new one
+        if (content.is_active) {
+          await supabase
+            .from('hero_content')
+            .update({ is_active: false });
+        }
+        
+        const { data, error } = await supabase
           .from('hero_content')
-          .insert([content]);
+          .insert([{
+            title_ar: content.title_ar,
+            title_en: content.title_en,
+            subtitle_ar: content.subtitle_ar,
+            subtitle_en: content.subtitle_en,
+            cta_text_ar: content.cta_text_ar,
+            cta_text_en: content.cta_text_en,
+            cta_link: content.cta_link,
+            background_image_url: content.background_image_url,
+            is_active: content.is_active
+          }])
+          .select()
+          .single();
         
         if (error) throw error;
+        if (data) {
+          setContent(data);
+        }
       }
       
       toast({
@@ -93,12 +132,13 @@ const HeroContentManager: React.FC = () => {
         description: "تم حفظ محتوى القسم الرئيسي بنجاح",
       });
       
+      // Refresh data
       fetchHeroContent();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error saving hero content:', error);
       toast({
         title: "خطأ",
-        description: "فشل في حفظ المحتوى",
+        description: error.message || "فشل في حفظ المحتوى",
         variant: "destructive",
       });
     } finally {
