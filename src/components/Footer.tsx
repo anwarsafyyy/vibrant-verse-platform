@@ -193,7 +193,7 @@ const Footer: React.FC = () => {
                       <img 
                         src={partner.logo_url} 
                         alt={partner.name}
-                        className="h-8 w-auto object-contain filter brightness-0 invert"
+                        className="h-8 w-auto object-contain"
                         onError={(e) => {
                           e.currentTarget.style.display = 'none';
                         }}
