@@ -145,6 +145,43 @@ const SiteSettingsManager: React.FC = () => {
     }
   };
 
+  const handleHeroImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      const fileExt = file.name.split('.').pop();
+      const fileName = `hero-${Date.now()}.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('admin-uploads')
+        .upload(fileName, file);
+      
+      if (uploadError) throw uploadError;
+      
+      const { data: { publicUrl } } = supabase.storage
+        .from('admin-uploads')
+        .getPublicUrl(fileName);
+      
+      await updateSetting('transformation_image_url', publicUrl, publicUrl);
+      
+      toast({
+        title: "تم الرفع",
+        description: "تم رفع صورة الصفحة الرئيسية بنجاح",
+      });
+    } catch (error) {
+      console.error('Error uploading hero image:', error);
+      toast({
+        title: "خطأ",
+        description: "فشل في رفع صورة الصفحة الرئيسية",
+        variant: "destructive",
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const getSetting = (key: string) => {
     return settings.find(s => s.key === key);
   };
@@ -164,9 +201,10 @@ const SiteSettingsManager: React.FC = () => {
       </div>
 
       <Tabs defaultValue="general" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="general">عام</TabsTrigger>
           <TabsTrigger value="logo">الشعار</TabsTrigger>
+          <TabsTrigger value="hero">الصفحة الرئيسية</TabsTrigger>
           <TabsTrigger value="contact">التواصل</TabsTrigger>
         </TabsList>
 
@@ -303,6 +341,103 @@ const SiteSettingsManager: React.FC = () => {
                   <p className="text-sm text-muted-foreground">
                     يُفضل أن يكون الشعار بصيغة PNG أو SVG بخلفية شفافة
                   </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="hero" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>إدارة الصفحة الرئيسية</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-4">
+                <div className="flex items-center justify-center w-48 h-32 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50">
+                  {getSetting('transformation_image_url')?.value_ar ? (
+                    <img
+                      src={getSetting('transformation_image_url')?.value_ar || ''}
+                      alt="صورة الصفحة الرئيسية"
+                      className="max-w-full max-h-full object-contain rounded"
+                    />
+                  ) : (
+                    <ImageIcon className="h-8 w-8 text-gray-400" />
+                  )}
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="hero_image_upload">رفع صورة الصفحة الرئيسية</Label>
+                  <div className="flex items-center gap-2">
+                    <Input
+                      id="hero_image_upload"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleHeroImageUpload}
+                      disabled={uploading}
+                    />
+                    <Button disabled={uploading} variant="outline">
+                      {uploading ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Upload className="h-4 w-4" />
+                      )}
+                      رفع
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    يُفضل أن تكون الصورة بصيغة PNG أو JPG
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="hero_title_ar">عنوان الصفحة الرئيسية (عربي)</Label>
+                  <Input
+                    id="hero_title_ar"
+                    value={getSetting('hero_title')?.value_ar || ''}
+                    onChange={(e) => {
+                      updateSetting('hero_title', e.target.value, getSetting('hero_title')?.value_en || '');
+                    }}
+                    placeholder="أدخل عنوان الصفحة الرئيسية بالعربية"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="hero_title_en">عنوان الصفحة الرئيسية (إنجليزي)</Label>
+                  <Input
+                    id="hero_title_en"
+                    value={getSetting('hero_title')?.value_en || ''}
+                    onChange={(e) => {
+                      updateSetting('hero_title', getSetting('hero_title')?.value_ar || '', e.target.value);
+                    }}
+                    placeholder="Enter hero title in English"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="hero_description_ar">وصف الصفحة الرئيسية (عربي)</Label>
+                  <Textarea
+                    id="hero_description_ar"
+                    value={getSetting('hero_description')?.value_ar || ''}
+                    onChange={(e) => {
+                      updateSetting('hero_description', e.target.value, getSetting('hero_description')?.value_en || '');
+                    }}
+                    placeholder="أدخل وصف الصفحة الرئيسية بالعربية"
+                    rows={3}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="hero_description_en">وصف الصفحة الرئيسية (إنجليزي)</Label>
+                  <Textarea
+                    id="hero_description_en"
+                    value={getSetting('hero_description')?.value_en || ''}
+                    onChange={(e) => {
+                      updateSetting('hero_description', getSetting('hero_description')?.value_ar || '', e.target.value);
+                    }}
+                    placeholder="Enter hero description in English"
+                    rows={3}
+                  />
                 </div>
               </div>
             </CardContent>
