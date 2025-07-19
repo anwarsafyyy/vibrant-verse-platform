@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
@@ -19,16 +20,26 @@ import AnalyticsManager from "@/components/admin/AnalyticsManager";
 import FAQManager from "@/components/admin/FAQManager";
 
 const AdminDashboard: React.FC = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    setIsAuthenticated(false);
-    toast({
-      title: "Signed out",
-      description: "You have been successfully signed out",
-    });
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: "Signed out",
+        description: "You have been successfully signed out",
+      });
+      // Redirect to home page after sign out
+      navigate("/");
+    } catch (error) {
+      console.error("Sign out error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to sign out",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
