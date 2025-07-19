@@ -144,11 +144,6 @@ const AdminPage: React.FC = () => {
             </Button>
           </form>
           
-          <div className="text-center text-sm text-muted-foreground mt-4">
-            <p>Default credentials:</p>
-            <p>Email: admin@olu-it.com</p>
-            <p>Password: Admin@123</p>
-          </div>
         </div>
       </div>
     );
