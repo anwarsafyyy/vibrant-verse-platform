@@ -48,7 +48,7 @@ const DigitalTransformationSection: React.FC = () => {
                   description: language === 'ar' ? "دعم فني مستمر وصيانة دورية" : "Continuous technical support and regular maintenance"
                 }
               ].map((feature, index) => (
-                <div key={index} className="flex items-start space-x-3 space-x-reverse" data-aos="fade-up" data-aos-delay={100 * index}>
+                <div key={index} className="flex items-start gap-3" data-aos="fade-up" data-aos-delay={100 * index}>
                   <div className="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></div>
                   <div>
                     <h4 className="font-semibold text-foreground mb-1">{feature.title}</h4>
