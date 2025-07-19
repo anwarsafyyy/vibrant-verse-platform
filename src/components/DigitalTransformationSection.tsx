@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSiteContent } from "@/hooks/useSiteContent";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Stat {
+  id: string;
+  name: string;
+  value: string;
+  icon: string;
+  order_index: number;
+}
 
 const DigitalTransformationSection: React.FC = () => {
   const { language, dir } = useLanguage();
   const { getSetting } = useSiteContent();
+  const [stats, setStats] = useState<Stat[]>([]);
   
   const transformationImageUrl = getSetting('transformation_image_url', language as "ar" | "en") || "/lovable-uploads/43d54ca4-23e5-4237-86f8-517a1cc8e3dc.png";
+
+  useEffect(() => {
+    fetchStats();
+  }, []);
+
+  const fetchStats = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('stats')
+        .select('*')
+        .order('order_index', { ascending: true });
+        
+      if (error) {
+        console.error("Error fetching stats:", error);
+        return;
+      }
+      
+      setStats(data || []);
+    } catch (error) {
+      console.error("Failed to fetch stats:", error);
+    }
+  };
 
   return (
     <section className="relative min-h-screen flex items-center bg-gradient-to-br from-background via-primary/5 to-secondary/10 overflow-hidden" dir={dir}>
@@ -20,43 +52,48 @@ const DigitalTransformationSection: React.FC = () => {
           {/* Content */}
           <div className="space-y-8 animate-fade-in">
             <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
-              ✨ {language === 'ar' ? 'نحو التميز الرقمي' : 'Towards Digital Excellence'}
+              ✨ {language === 'ar' 
+                ? getSetting('hero_badge_text', 'ar') || 'نحو التميز الرقمي'
+                : getSetting('hero_badge_text', 'en') || 'Towards Digital Excellence'
+              }
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
               {language === 'ar' 
-                ? getSetting('transformation_title', 'ar') || "نقود التحول الرقمي من خلال الابتكار"
-                : getSetting('transformation_title', 'en') || "Driving Digital Transformation Through Innovation"
+                ? getSetting('hero_title', 'ar') || "نقود التحول الرقمي من خلال الابتكار"
+                : getSetting('hero_title', 'en') || "Driving Digital Transformation Through Innovation"
               }
             </h1>
             
             <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
               {language === 'ar'
-                ? getSetting('transformation_description', 'ar') || "نقدم حلول تقنية متكاملة تجمع بين الإبداع والتميز لمساعدة الشركات على النمو في العصر الرقمي."
-                : getSetting('transformation_description', 'en') || "We offer fully integrated tech solutions that combine creativity and excellence to help businesses grow in the digital era."
+                ? getSetting('hero_description', 'ar') || "شراكة حقيقية مع عملائنا لضمان النجاح"
+                : getSetting('hero_description', 'en') || "True partnership with our clients to ensure success"
               }
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover-scale">
-                {language === 'ar' ? 'ابدأ رحلتك الرقمية' : 'Start Your Digital Journey'}
+                {language === 'ar' 
+                  ? getSetting('hero_cta_primary', 'ar') || 'ابدأ رحلتك الرقمية'
+                  : getSetting('hero_cta_primary', 'en') || 'Start Your Digital Journey'
+                }
               </button>
               <button className="px-8 py-4 border border-border rounded-lg font-semibold hover:bg-muted transition-all duration-300 hover-scale">
-                {language === 'ar' ? 'تعرف على خدماتنا' : 'Explore Our Services'}
+                {language === 'ar' 
+                  ? getSetting('hero_cta_secondary', 'ar') || 'تعرف على خدماتنا'
+                  : getSetting('hero_cta_secondary', 'en') || 'Explore Our Services'
+                }
               </button>
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-border/50">
-              {[
-                { number: "100+", label: language === 'ar' ? "مشروع مكتمل" : "Projects Completed" },
-                { number: "50+", label: language === 'ar' ? "عميل راضٍ" : "Happy Clients" },
-                { number: "5+", label: language === 'ar' ? "سنوات خبرة" : "Years Experience" }
-              ].map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="text-2xl font-bold text-primary">{stat.number}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-border/50">
+              {stats.map((stat, index) => (
+                <div key={stat.id} className="text-center">
+                  <div className="text-2xl font-bold text-primary">{stat.value}</div>
+                  <div className="text-sm text-muted-foreground">{stat.name}</div>
                 </div>
               ))}
             </div>
