@@ -1,6 +1,27 @@
 
 import React, { useEffect, useState } from "react";
-import { Globe, Code, Cpu, BarChart, MoreHorizontal, LucideIcon } from "lucide-react";
+import { 
+  Globe, 
+  Code, 
+  Cpu, 
+  BarChart, 
+  MoreHorizontal, 
+  LucideIcon,
+  Monitor,
+  Smartphone,
+  Shield,
+  Zap,
+  Camera,
+  Headphones,
+  Wifi,
+  Database as DatabaseIcon,
+  Cloud,
+  Lock,
+  Users,
+  TrendingUp,
+  Settings,
+  Layers
+} from "lucide-react";
 import ServiceCard from "./ServiceCard";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
@@ -16,20 +37,20 @@ const iconMap: Record<string, LucideIcon> = {
   'code': Code,
   'cpu': Cpu,
   'bar-chart': BarChart,
-  'monitor': require('lucide-react').Monitor,
-  'smartphone': require('lucide-react').Smartphone,
-  'shield': require('lucide-react').Shield,
-  'zap': require('lucide-react').Zap,
-  'camera': require('lucide-react').Camera,
-  'headphones': require('lucide-react').Headphones,
-  'wifi': require('lucide-react').Wifi,
-  'database': require('lucide-react').Database,
-  'cloud': require('lucide-react').Cloud,
-  'lock': require('lucide-react').Lock,
-  'users': require('lucide-react').Users,
-  'trending-up': require('lucide-react').TrendingUp,
-  'settings': require('lucide-react').Settings,
-  'layers': require('lucide-react').Layers,
+  'monitor': Monitor,
+  'smartphone': Smartphone,
+  'shield': Shield,
+  'zap': Zap,
+  'camera': Camera,
+  'headphones': Headphones,
+  'wifi': Wifi,
+  'database': DatabaseIcon,
+  'cloud': Cloud,
+  'lock': Lock,
+  'users': Users,
+  'trending-up': TrendingUp,
+  'settings': Settings,
+  'layers': Layers,
 };
 
 const ServicesSection: React.FC = () => {
