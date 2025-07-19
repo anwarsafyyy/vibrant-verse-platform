@@ -101,7 +101,7 @@ export const useSiteContent = () => {
         .eq('is_active', true)
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
       
       setHeroContent(heroData);
 
@@ -112,7 +112,7 @@ export const useSiteContent = () => {
         .eq('is_active', true)
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
       
       setAboutContent(aboutData);
 
@@ -131,7 +131,7 @@ export const useSiteContent = () => {
         .select('*')
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
       
       setFooterContent(footerData);
 
