@@ -2,6 +2,7 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import DigitalTransformationSection from "@/components/DigitalTransformationSection";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
@@ -16,15 +17,18 @@ const Index = () => {
   
   return (
     <main className="min-h-screen bg-background overflow-x-hidden">
-      <Navbar />
-      <HeroSection />
-      <ServicesSection />
-      <AboutSection />
-      <PartnersSection />
-      <PortfolioSection />
-      <FAQSection />
-      <ContactSection />
-      <Footer />
+      <div className="container mx-auto">
+        <Navbar />
+        <HeroSection />
+        <DigitalTransformationSection />
+        <ServicesSection />
+        <AboutSection />
+        <PartnersSection />
+        <PortfolioSection />
+        <FAQSection />
+        <ContactSection />
+        <Footer />
+      </div>
     </main>
   );
 };

@@ -177,17 +177,38 @@ const SiteSettingsManager: React.FC = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="site_title_ar">عنوان الموقع (عربي)</Label>
+                <Label htmlFor="site_name_ar">اسم الموقع (عربي)</Label>
                 <Input
-                  id="site_title_ar"
-                  value={getSetting('site_title')?.value_ar || ''}
+                  id="site_name_ar"
+                  value={getSetting('site_name')?.value_ar || ''}
                   onChange={(e) => {
-                    const setting = getSetting('site_title');
-                    if (setting) {
-                      updateSetting('site_title', e.target.value, setting.value_en || '');
-                    }
+                    updateSetting('site_name', e.target.value, getSetting('site_name')?.value_en || '');
                   }}
-                  placeholder="أدخل عنوان الموقع بالعربية"
+                  placeholder="أدخل اسم الموقع بالعربية"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="site_name_en">اسم الموقع (إنجليزي)</Label>
+                <Input
+                  id="site_name_en"
+                  value={getSetting('site_name')?.value_en || ''}
+                  onChange={(e) => {
+                    updateSetting('site_name', getSetting('site_name')?.value_ar || '', e.target.value);
+                  }}
+                  placeholder="Enter site name in English"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="favicon_url">رابط الأيقونة المفضلة</Label>
+                <Input
+                  id="favicon_url"
+                  value={getSetting('favicon_url')?.value_ar || ''}
+                  onChange={(e) => {
+                    updateSetting('favicon_url', e.target.value, e.target.value);
+                  }}
+                  placeholder="https://example.com/favicon.png"
                 />
               </div>
               
