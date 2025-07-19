@@ -1,7 +1,7 @@
 
 import React from "react";
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
+import DigitalTransformationSection from "@/components/DigitalTransformationSection";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import FAQSection from "@/components/FAQSection";
@@ -18,7 +18,7 @@ const Index = () => {
     <main className="min-h-screen bg-background overflow-x-hidden">
       <div className="container mx-auto">
         <Navbar />
-        <HeroSection />
+        <DigitalTransformationSection />
         <ServicesSection />
         <AboutSection />
         <PartnersSection />
