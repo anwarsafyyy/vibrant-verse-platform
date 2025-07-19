@@ -30,8 +30,8 @@ const AdminDashboard: React.FC = () => {
         title: "Signed out",
         description: "You have been successfully signed out",
       });
-      // Redirect to home page after sign out
-      navigate("/");
+      // Redirect to admin login page after sign out
+      navigate("/admin");
     } catch (error) {
       console.error("Sign out error:", error);
       toast({
