@@ -18,7 +18,9 @@ const Index = () => {
     <main className="min-h-screen bg-background overflow-x-hidden">
       <div className="container mx-auto">
         <Navbar />
-        <DigitalTransformationSection />
+      </div>
+      <DigitalTransformationSection />
+      <div className="container mx-auto">
         <ServicesSection />
         <AboutSection />
         <PartnersSection />
