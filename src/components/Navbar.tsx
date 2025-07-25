@@ -6,12 +6,14 @@ import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useTheme } from "@/hooks/useTheme";
+import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t, dir } = useLanguage();
   const { theme } = useTheme();
+  const { getSetting } = useSiteContent();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,11 +34,13 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
-            <img 
-              src="/public/alo.png" 
-              alt="علو Logo" 
-              className="h-10 w-auto"
-            />
+            {getSetting('logo_url', 'ar') && (
+              <img 
+                src={getSetting('logo_url', 'ar')} 
+                alt="علو Logo" 
+                className="h-10 w-auto"
+              />
+            )}
             <div className="h-10 flex items-center justify-center ml-2">
               <span className={`text-2xl font-bold bg-gradient-to-r ${theme === "dark" ? "from-gold-300 to-gold-100 text-transparent bg-clip-text" : "from-olu-gold to-amber-600 text-transparent bg-clip-text"}`}>علو</span>
             </div>
