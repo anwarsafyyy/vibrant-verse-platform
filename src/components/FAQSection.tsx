@@ -97,12 +97,6 @@ const FAQSection: React.FC = () => {
             </div>
           )}
         </div>
-        
-        <div className="mt-12 text-center">
-          <Button variant="gold" size="pill" className="mt-8 px-10 py-6 text-base">
-            {t("faq.askButton")}
-          </Button>
-        </div>
       </div>
     </section>
   );
