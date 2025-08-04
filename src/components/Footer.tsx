@@ -227,7 +227,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
-          <p className="opacity-80">
+          <p className="opacity-80 text-lg">
             {getFooterContent('copyright_text_ar', language as "ar" | "en") || 
               (dir === "rtl" 
                 ? "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو"
