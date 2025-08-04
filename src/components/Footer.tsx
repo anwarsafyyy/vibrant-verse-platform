@@ -229,7 +229,9 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
           <p className="opacity-80">
             {getFooterContent('copyright_text_ar', language as "ar" | "en") || 
-              `© ${currentYear} علو (Olu-IT). ${t("footer.copyright")}.`}
+              (dir === "rtl" 
+                ? "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو"
+                : `© ${currentYear} Olu Information Technology Company. All rights reserved. Developed by Olu Team`)}
           </p>
         </div>
       </div>
