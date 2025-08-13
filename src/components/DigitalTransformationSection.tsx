@@ -41,7 +41,7 @@ const DigitalTransformationSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-gradient-to-br from-background via-primary/5 to-secondary/10 overflow-hidden" dir={dir}>
+    <section className="relative min-h-screen flex items-center bg-white overflow-hidden" dir={dir}>
       {/* Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
@@ -71,32 +71,6 @@ const DigitalTransformationSection: React.FC = () => {
                 : getSetting('hero_description', 'en') || "True partnership with our clients to ensure success"
               }
             </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all duration-300 hover-scale">
-                {language === 'ar' 
-                  ? getSetting('hero_cta_primary', 'ar') || 'ابدأ رحلتك الرقمية'
-                  : getSetting('hero_cta_primary', 'en') || 'Start Your Digital Journey'
-                }
-              </button>
-              <button className="px-8 py-4 border border-border rounded-lg font-semibold hover:bg-muted transition-all duration-300 hover-scale">
-                {language === 'ar' 
-                  ? getSetting('hero_cta_secondary', 'ar') || 'تعرف على خدماتنا'
-                  : getSetting('hero_cta_secondary', 'en') || 'Explore Our Services'
-                }
-              </button>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-8 border-t border-border/50">
-              {stats.map((stat, index) => (
-                <div key={stat.id} className="text-center">
-                  <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.name}</div>
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Image */}
@@ -108,19 +82,6 @@ const DigitalTransformationSection: React.FC = () => {
                 alt={language === 'ar' ? "التحول الرقمي" : "Digital Transformation"}
                 className="w-full h-auto rounded-3xl shadow-2xl hover-scale"
               />
-            </div>
-            
-            {/* Floating Cards */}
-            <div className="absolute -top-6 -left-6 bg-card border border-border rounded-2xl p-4 shadow-lg animate-float">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium">{language === 'ar' ? 'متصل' : 'Online'}</span>
-              </div>
-            </div>
-            
-            <div className="absolute -bottom-6 -right-6 bg-card border border-border rounded-2xl p-4 shadow-lg animate-float" style={{ animationDelay: '1s' }}>
-              <div className="text-2xl font-bold text-primary">99%</div>
-              <div className="text-xs text-muted-foreground">{language === 'ar' ? 'نجاح المشاريع' : 'Success Rate'}</div>
             </div>
           </div>
         </div>

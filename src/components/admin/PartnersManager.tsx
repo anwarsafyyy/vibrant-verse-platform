@@ -253,16 +253,41 @@ const PartnersManager = () => {
     if (!confirm("Are you sure you want to delete this partner?")) return;
     
     try {
+      // First, get the partner to access its logo URL
+      const { data: partner, error: fetchError } = await supabase
+        .from('partners')
+        .select('logo_url')
+        .eq('id', id)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      // Delete the partner record
       const { error } = await supabase
         .from('partners')
         .delete()
         .eq('id', id);
         
       if (error) throw error;
+
+      // Delete the logo file from storage if it exists
+      if (partner?.logo_url) {
+        try {
+          // Extract filename from URL
+          const logoFileName = partner.logo_url.split('/').pop();
+          if (logoFileName) {
+            await supabase.storage
+              .from('partners')
+              .remove([logoFileName]);
+          }
+        } catch (storageError) {
+          console.warn("Could not delete logo file from storage:", storageError);
+        }
+      }
       
       toast({
         title: "Success",
-        description: "Partner deleted successfully",
+        description: "Partner and associated files deleted successfully!",
       });
       
       // Refresh list

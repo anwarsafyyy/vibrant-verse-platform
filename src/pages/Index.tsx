@@ -15,20 +15,25 @@ const Index = () => {
   useDynamicHead();
   
   return (
-    <main className="min-h-screen bg-background overflow-x-hidden">
-      <div className="container mx-auto">
-        <Navbar />
+    <main className="min-h-screen bg-white">
+      {/* Outer frame with logo gradient colors */}
+      <div className="p-4 min-h-screen bg-gradient-to-br from-olu-blue via-olu-cyan to-olu-gold">
+        <div className="bg-white rounded-2xl min-h-[calc(100vh-2rem)] overflow-hidden shadow-2xl">
+          <div className="container mx-auto">
+            <Navbar />
+          </div>
+          <DigitalTransformationSection />
+          <div className="container mx-auto">
+            <ServicesSection />
+            <AboutSection />
+            <PartnersSection />
+            <PortfolioSection />
+            <FAQSection />
+            <ContactSection />
+          </div>
+          <Footer />
+        </div>
       </div>
-      <DigitalTransformationSection />
-      <div className="container mx-auto">
-        <ServicesSection />
-        <AboutSection />
-        <PartnersSection />
-        <PortfolioSection />
-        <FAQSection />
-        <ContactSection />
-      </div>
-      <Footer />
     </main>
   );
 };

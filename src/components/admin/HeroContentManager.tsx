@@ -183,6 +183,34 @@ const HeroContentManager: React.FC = () => {
     }
   };
 
+  const handleRemoveImage = async () => {
+    if (!content?.background_image_url) return;
+    
+    try {
+      // Extract filename from URL
+      const imageFileName = content.background_image_url.split('/').pop();
+      if (imageFileName) {
+        await supabase.storage
+          .from('admin-uploads')
+          .remove([imageFileName]);
+      }
+
+      setContent({ ...content, background_image_url: null });
+      
+      toast({
+        title: "تم الحذف",
+        description: "تم حذف الصورة بنجاح",
+      });
+    } catch (error) {
+      console.error('Error removing image:', error);
+      toast({
+        title: "خطأ",
+        description: "فشل في حذف الصورة",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -349,12 +377,19 @@ const HeroContentManager: React.FC = () => {
               </Button>
             </div>
             {content.background_image_url && (
-              <div className="mt-2">
+              <div className="mt-2 flex items-center gap-2">
                 <img
                   src={content.background_image_url}
                   alt="صورة الخلفية"
                   className="max-w-32 h-20 object-cover rounded border"
                 />
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => handleRemoveImage()}
+                >
+                  إزالة الصورة
+                </Button>
               </div>
             )}
           </div>

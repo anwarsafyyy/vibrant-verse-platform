@@ -266,16 +266,41 @@ const PortfolioManager = () => {
     if (!confirm("Are you sure you want to delete this portfolio item?")) return;
     
     try {
+      // First, get the portfolio item to access its image URL
+      const { data: portfolioItem, error: fetchError } = await supabase
+        .from('portfolio_items')
+        .select('image_url')
+        .eq('id', id)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      // Delete the portfolio item record
       const { error } = await supabase
         .from('portfolio_items')
         .delete()
         .eq('id', id);
         
       if (error) throw error;
+
+      // Delete the image file from storage if it exists
+      if (portfolioItem?.image_url) {
+        try {
+          // Extract filename from URL
+          const imageFileName = portfolioItem.image_url.split('/').pop();
+          if (imageFileName) {
+            await supabase.storage
+              .from('portfolio')
+              .remove([imageFileName]);
+          }
+        } catch (storageError) {
+          console.warn("Could not delete image file from storage:", storageError);
+        }
+      }
       
       toast({
         title: "Success",
-        description: "Portfolio item deleted successfully",
+        description: "Portfolio item and associated files deleted successfully!",
       });
       
       // Refresh list
