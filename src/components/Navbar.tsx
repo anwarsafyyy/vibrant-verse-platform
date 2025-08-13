@@ -2,17 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
-import { useTheme } from "@/hooks/useTheme";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t, dir } = useLanguage();
-  const { theme } = useTheme();
   const { getSetting } = useSiteContent();
 
   useEffect(() => {
@@ -75,8 +72,7 @@ const Navbar: React.FC = () => {
 
         <div className={`flex items-center ${dir === "rtl" ? "space-x-reverse" : ""} space-x-2`}>
           <LanguageSwitcher />
-          <ThemeToggle />
-          <Button 
+          <Button
             variant="light"
             size="pill" 
             className="hidden md:inline-flex"

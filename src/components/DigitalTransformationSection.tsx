@@ -52,7 +52,7 @@ const DigitalTransformationSection: React.FC = () => {
           {/* Content */}
           <div className="space-y-8 animate-fade-in">
             
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
               {language === 'ar' 
                 ? getSetting('hero_title', 'ar') || "نقود التحول الرقمي من خلال الابتكار"
                 : getSetting('hero_title', 'en') || "Driving Digital Transformation Through Innovation"
