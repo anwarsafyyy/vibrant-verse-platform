@@ -107,6 +107,42 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_settings: {
+        Row: {
+          address_ar: string
+          address_en: string
+          created_at: string
+          email: string
+          id: string
+          is_active: boolean
+          map_embed_url: string | null
+          phone: string
+          updated_at: string
+        }
+        Insert: {
+          address_ar: string
+          address_en: string
+          created_at?: string
+          email: string
+          id?: string
+          is_active?: boolean
+          map_embed_url?: string | null
+          phone: string
+          updated_at?: string
+        }
+        Update: {
+          address_ar?: string
+          address_en?: string
+          created_at?: string
+          email?: string
+          id?: string
+          is_active?: boolean
+          map_embed_url?: string | null
+          phone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cta_buttons: {
         Row: {
           created_at: string

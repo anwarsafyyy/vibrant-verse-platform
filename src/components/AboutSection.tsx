@@ -103,150 +103,119 @@ const AboutSection: React.FC = () => {
           <div className="w-24 h-1 olu-gradient mx-auto rounded-full mb-10"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className={`${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.2s" }}>
-            <p className="text-lg mb-6">
-              {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
-            </p>
-            
-            <div className="grid grid-cols-1 gap-6 mt-8">
-              <div className="bg-background border border-border/30 p-4 rounded-lg">
-                <p className="font-semibold mb-2 text-olu-purple-dark">
-                  {getAboutContent('innovation_text_ar', language as "ar" | "en") || t("about.innovation")}
-                </p>
-              </div>
-              
-              <div className="bg-background border border-border/30 p-4 rounded-lg">
-                <p className="font-semibold mb-2 text-olu-purple-dark">
-                  {getAboutContent('quality_text_ar', language as "ar" | "en") || t("about.quality")}
-                </p>
-              </div>
-              
-              <div className="bg-background border border-border/30 p-4 rounded-lg">
-                <p className="font-semibold mb-2 text-olu-purple-dark">
-                  {getAboutContent('partnership_text_ar', language as "ar" | "en") || t("about.partnership")}
-                </p>
-              </div>
+        <div className={`${isVisible ? "animate-fade-in" : "opacity-0"} text-center`} style={{ animationDelay: "0.2s" }}>
+          <p className="text-lg mb-8 max-w-4xl mx-auto">
+            {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+            <div className="bg-background border border-border/30 p-4 rounded-lg">
+              <p className="font-semibold text-olu-purple-dark">
+                {getAboutContent('innovation_text_ar', language as "ar" | "en") || t("about.innovation")}
+              </p>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-8">
-              {loading ? (
-                // Display skeleton loaders while loading
-                Array(4).fill(0).map((_, index) => (
-                  <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg animate-pulse">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2"></div>
-                    <div className="h-6 w-16 bg-muted rounded mb-1"></div>
-                    <div className="h-4 w-24 bg-muted rounded"></div>
-                  </div>
-                ))
-              ) : stats.length > 0 ? (
-                // Display actual statistics from the database
-                stats.map((stat) => (
-                  <div key={stat.id} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                      {getIcon(stat.icon)}
-                    </div>
-                    <h4 className="text-2xl font-bold text-olu-purple-dark">{stat.value}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {getTranslatedStatName(stat.name)}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                // Fallback for no data
-                <>
-                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                      <Users className="h-5 w-5" />
-                    </div>
-                    <h4 className="text-2xl font-bold text-olu-purple-dark">100+</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? t("stats.clients") : "Satisfied Clients"}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                      <Award className="h-5 w-5" />
-                    </div>
-                    <h4 className="text-2xl font-bold text-olu-purple-dark">50+</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? t("stats.projects") : "Completed Projects"}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                      <Clock className="h-5 w-5" />
-                    </div>
-                    <h4 className="text-2xl font-bold text-olu-purple-dark">4+</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? t("stats.experience") : "Years Experience"}
-                    </p>
-                  </div>
-                  
-                  <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                      <Globe className="h-5 w-5" />
-                    </div>
-                    <h4 className="text-2xl font-bold text-olu-purple-dark">25+</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {language === "ar" ? t("stats.technologies") : "Technologies Used"}
-                    </p>
-                  </div>
-                </>
-              )}
+            <div className="bg-background border border-border/30 p-4 rounded-lg">
+              <p className="font-semibold text-olu-purple-dark">
+                {getAboutContent('quality_text_ar', language as "ar" | "en") || t("about.quality")}
+              </p>
             </div>
             
-            <div className="mt-8">
-              <Button variant="light" size="pill" onClick={() => {
-                const contactSection = document.getElementById('contact');
-                contactSection?.scrollIntoView({ behavior: 'smooth' });
-              }}>
-                {getAboutContent('cta_text_ar', language as "ar" | "en") || t("about.askQuestion")}
-              </Button>
+            <div className="bg-background border border-border/30 p-4 rounded-lg">
+              <p className="font-semibold text-olu-purple-dark">
+                {getAboutContent('partnership_text_ar', language as "ar" | "en") || t("about.partnership")}
+              </p>
             </div>
           </div>
 
-          <div className={`${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.4s" }}>
-            <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-xl">
-              {getAboutContent('image_url', language as "ar" | "en") ? (
+          {getAboutContent('image_url', language as "ar" | "en") && (
+            <div className="mb-8">
+              <div className="relative w-full max-w-2xl h-[400px] rounded-xl overflow-hidden shadow-xl mx-auto">
                 <img 
                   src={String(getAboutContent('image_url', language as "ar" | "en"))} 
                   alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
                   className="w-full h-full object-cover"
                 />
-              ) : (
-                <>
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-500 opacity-20"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-full max-w-md aspect-video bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
-                      <div className="flex items-center mb-4">
-                        <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                        <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                        <div className="flex-1 text-center">
-                          <span className="text-xs text-gray-500">علو</span>
-                        </div>
-                      </div>
-                      <div className="space-y-3">
-                        <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                        <div className="w-5/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                        <div className="w-4/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                        <div className="grid grid-cols-2 gap-2 mt-6">
-                          <div className="bg-gray-400/10 dark:bg-gray-400/20 h-20 rounded-lg flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-full bg-gray-400/30 dark:bg-gray-400/40"></div>
-                          </div>
-                          <div className="bg-gray-400/10 dark:bg-gray-400/20 h-20 rounded-lg flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-full bg-gray-400/30 dark:bg-gray-400/40"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              )}
+              </div>
             </div>
+          )}
+          
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-8 max-w-4xl mx-auto">
+            {loading ? (
+              // Display skeleton loaders while loading
+              Array(4).fill(0).map((_, index) => (
+                <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg animate-pulse">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2"></div>
+                  <div className="h-6 w-16 bg-muted rounded mb-1"></div>
+                  <div className="h-4 w-24 bg-muted rounded"></div>
+                </div>
+              ))
+            ) : stats.length > 0 ? (
+              // Display actual statistics from the database
+              stats.map((stat) => (
+                <div key={stat.id} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
+                    {getIcon(stat.icon)}
+                  </div>
+                  <h4 className="text-2xl font-bold text-olu-purple-dark">{stat.value}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {getTranslatedStatName(stat.name)}
+                  </p>
+                </div>
+              ))
+            ) : (
+              // Fallback for no data
+              <>
+                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
+                    <Users className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-olu-purple-dark">100+</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {language === "ar" ? t("stats.clients") : "Satisfied Clients"}
+                  </p>
+                </div>
+                
+                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
+                    <Award className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-olu-purple-dark">50+</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {language === "ar" ? t("stats.projects") : "Completed Projects"}
+                  </p>
+                </div>
+                
+                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
+                    <Clock className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-olu-purple-dark">4+</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {language === "ar" ? t("stats.experience") : "Years Experience"}
+                  </p>
+                </div>
+                
+                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
+                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
+                    <Globe className="h-5 w-5" />
+                  </div>
+                  <h4 className="text-2xl font-bold text-olu-purple-dark">25+</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {language === "ar" ? t("stats.technologies") : "Technologies Used"}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+          
+          <div className="mt-8">
+            <Button variant="light" size="pill" onClick={() => {
+              const contactSection = document.getElementById('contact');
+              contactSection?.scrollIntoView({ behavior: 'smooth' });
+            }}>
+              {getAboutContent('cta_text_ar', language as "ar" | "en") || t("about.askQuestion")}
+            </Button>
           </div>
         </div>
       </div>

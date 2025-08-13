@@ -10,6 +10,7 @@ import PartnersManager from "@/components/admin/PartnersManager";
 import ServicesManager from "@/components/admin/ServicesManager";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import ContactInquiries from "@/components/admin/ContactInquiries";
+import ContactSettingsManager from "@/components/admin/ContactSettingsManager";
 import StatsManager from "@/components/admin/StatsManager";
 import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
 import HeroContentManager from "@/components/admin/HeroContentManager";
@@ -81,7 +82,10 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="analytics" className="text-xs">التحليلات</TabsTrigger>
           </TabsList>
           
-          <div className="grid grid-cols-3 gap-2 mb-8">
+          <div className="grid grid-cols-4 gap-2 mb-8">
+            <TabsList className="grid grid-cols-1">
+              <TabsTrigger value="contact-settings" className="text-xs">إعدادات التواصل</TabsTrigger>
+            </TabsList>
             <TabsList className="grid grid-cols-1">
               <TabsTrigger value="footer" className="text-xs">التذييل</TabsTrigger>
             </TabsList>
@@ -123,6 +127,10 @@ const AdminDashboard: React.FC = () => {
           
           <TabsContent value="faq">
             <FAQManager />
+          </TabsContent>
+          
+          <TabsContent value="contact-settings">
+            <ContactSettingsManager />
           </TabsContent>
           
           <TabsContent value="footer">
