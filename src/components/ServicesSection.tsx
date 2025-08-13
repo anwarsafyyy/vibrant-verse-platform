@@ -86,6 +86,18 @@ const ServicesSection: React.FC = () => {
     return iconMap[iconName] || MoreHorizontal;
   };
 
+  // Define colorful gradients (avoiding purple, black, gray, white)
+  const colorGradients = [
+    "from-blue-500 to-cyan-600",        // Blue to Cyan
+    "from-emerald-500 to-teal-600",     // Emerald to Teal
+    "from-orange-500 to-red-600",       // Orange to Red
+    "from-indigo-500 to-blue-600",      // Indigo to Blue
+    "from-green-500 to-emerald-600",    // Green to Emerald
+    "from-pink-500 to-rose-600",        // Pink to Rose
+    "from-amber-500 to-orange-600",     // Amber to Orange
+    "from-cyan-500 to-blue-600",        // Cyan to Blue
+  ];
+
   return (
     <section id="services" className="min-h-screen py-20 relative flex items-center">
       {/* Background elements */}
@@ -123,6 +135,7 @@ const ServicesSection: React.FC = () => {
                 icon={getIcon(service.icon)}
                 className="animate-fade-in"
                 style={{ animationDelay: `${index * 0.2}s` }}
+                gradientColors={colorGradients[index % colorGradients.length]}
               />
             ))
           ) : (
