@@ -9,6 +9,7 @@ import PartnersSection from "@/components/PartnersSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import PortfolioSection from "@/components/PortfolioSection";
+import GoogleMap from "@/components/GoogleMap";
 import { useDynamicHead } from "@/hooks/useDynamicHead";
 
 const Index = () => {
@@ -31,6 +32,7 @@ const Index = () => {
             <FAQSection />
             <ContactSection />
           </div>
+          <GoogleMap />
           <Footer />
         </div>
       </div>

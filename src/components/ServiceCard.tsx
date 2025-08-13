@@ -19,7 +19,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon: Ico
       style={style}
     >
       <CardHeader className="pb-2">
-        <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gradient-to-br from-gray-400 to-gray-500 mb-6 text-white group-hover:scale-110 transition-transform">
+        <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gradient-to-br from-olu-purple to-olu-purple-dark mb-6 text-white group-hover:scale-110 transition-transform">
           <Icon className="h-8 w-8" />
         </div>
         <CardTitle className="text-xl lg:text-2xl group-hover:text-olu-purple-dark transition-all duration-300">{title}</CardTitle>

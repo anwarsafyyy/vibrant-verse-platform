@@ -97,72 +97,10 @@ const ContactSection: React.FC = () => {
           <div className="w-24 h-1 olu-gradient-light mx-auto rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
-          {/* Contact Form */}
-          <div className="bg-card rounded-2xl shadow-lg p-8 animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("contact.name")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t("contact.name")} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("contact.email")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t("contact.email")} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{t("contact.message")}</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder={t("contact.message")} 
-                          className="min-h-[150px]" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <Button 
-                  type="submit" 
-                  className="w-full bg-olu-purple-dark text-white hover:bg-olu-purple-dark/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-                  disabled={isSubmitting}
-                >
-                  {language === "ar" ? "تواصل معنا" : "Contact Us"}
-                  <Send className="ml-2 h-4 w-4" />
-                </Button>
-              </form>
-            </Form>
-          </div>
-          
+        <div className="flex justify-center">
           {/* Contact Info */}
-          <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <div className="bg-gradient-to-br from-olu-purple-dark to-olu-purple-dark/90 rounded-2xl shadow-lg p-8 text-white h-full">
+          <div className="animate-fade-in max-w-md" style={{ animationDelay: "0.4s" }}>
+            <div className="bg-gradient-to-br from-olu-purple-dark to-olu-purple-dark/90 rounded-2xl shadow-lg p-8 text-white">
               <h3 className="text-2xl font-bold mb-6">{t("contact.getInTouch")}</h3>
               
               <div className="space-y-8">
@@ -197,13 +135,23 @@ const ContactSection: React.FC = () => {
                 </div>
               </div>
               
-              <div className="mt-6">
+              <div className="flex gap-3 mt-6">
+                <Button 
+                  onClick={() => {
+                    const mapSection = document.querySelector('section:has(iframe)');
+                    mapSection?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="flex-1 bg-white text-olu-purple-dark hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  {t("contact.contactUs") || (language === 'ar' ? 'تواصل معنا' : 'Contact Us')}
+                </Button>
+                
                 <Button 
                   onClick={handleWhatsAppClick} 
-                  className="w-full bg-white text-olu-purple-dark hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="flex-1 bg-green-600 hover:bg-green-700 text-white transition-all duration-300 shadow-lg hover:shadow-xl"
                 >
                   <MessageSquare className="mr-2 h-5 w-5" />
-                  {t("contact.whatsapp")}
+                  {language === 'ar' ? 'واتساب' : 'WhatsApp'}
                 </Button>
               </div>
               

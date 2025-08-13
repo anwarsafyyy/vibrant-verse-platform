@@ -45,6 +45,9 @@ const PartnersSection: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
             <span className="olu-text-gradient-dark">{t("partners.title")}</span>
           </h2>
+          <p className="text-lg text-muted-foreground mb-6">
+            نفخر بشراكاتنا مع نخبة من الجهات الرائدة التي تسهم معنا في بناء مستقبل رقمي أكثر تطورًا وكفاءة.
+          </p>
           <div className="w-20 h-1 bg-gray-400 mx-auto rounded-full"></div>
         </div>
 

@@ -122,11 +122,6 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
-            <img 
-              src={getSetting('logo_url', language as "ar" | "en") || "/alo.png"} 
-              alt="Olu Logo" 
-              className="h-10 w-auto" 
-            />
             <p className="opacity-80">
               {getFooterContent('company_description_ar', language as "ar" | "en") || 
                 (dir === "rtl" 
@@ -228,8 +223,7 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
           <p className="opacity-80 text-lg">
-            {getFooterContent('copyright_text_ar', language as "ar" | "en") || 
-              "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو"}
+            جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو
           </p>
         </div>
       </div>
