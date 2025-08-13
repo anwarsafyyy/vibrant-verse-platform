@@ -51,12 +51,6 @@ const DigitalTransformationSection: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="space-y-8 animate-fade-in">
-            <div className="inline-flex items-center px-4 py-2 bg-primary/10 rounded-full text-primary font-medium text-sm">
-              ✨ {language === 'ar' 
-                ? getSetting('hero_badge_text', 'ar') || 'نحو التميز الرقمي'
-                : getSetting('hero_badge_text', 'en') || 'Towards Digital Excellence'
-              }
-            </div>
             
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
               {language === 'ar' 
