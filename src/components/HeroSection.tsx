@@ -34,7 +34,7 @@ const HeroSection: React.FC = () => {
       
       {/* Animated circles */}
       <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-olu-purple/10 blur-3xl animate-float"></div>
-      <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-olu-gold/10 blur-3xl animate-float" style={{ animationDelay: "1.5s" }}></div>
+      <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-gray-400/10 blur-3xl animate-float" style={{ animationDelay: "1.5s" }}></div>
       
       <div className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center">{/* Container made dynamic */}
         {/* Content */}
@@ -43,7 +43,7 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.2s" }}
         >
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="olu-gold-text-gradient">
+            <span className="olu-text-gradient-dark">
               {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
             </span>
           </h1>
@@ -52,7 +52,7 @@ const HeroSection: React.FC = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Button 
-              variant="gold" 
+              variant="light" 
               size="pill" 
               className="text-white"
               onClick={scrollToContact}
@@ -69,7 +69,7 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.4s" }}
         >
           <div className="relative mx-auto w-full max-w-md aspect-square">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-olu-purple to-olu-gold opacity-20 blur-2xl animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-olu-purple to-gray-400 opacity-20 blur-2xl animate-pulse"></div>
             <div className="relative z-10 w-full h-full flex items-center justify-center">
               <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden w-full max-w-md transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="p-6">
@@ -90,8 +90,8 @@ const HeroSection: React.FC = () => {
                     <div className="w-5/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
                     <div className="w-4/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
                     <div className="grid grid-cols-2 gap-2 mt-6">
-                      <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
+                        <div className="bg-gray-400/10 dark:bg-gray-400/20 h-20 rounded-lg flex items-center justify-center">
+                        <div className="w-8 h-8 rounded-full bg-gray-400/30 dark:bg-gray-400/40"></div>
                       </div>
                       <div className="bg-olu-cyan/10 dark:bg-olu-cyan/20 h-20 rounded-lg flex items-center justify-center">
                         <div className="w-8 h-8 rounded-full bg-olu-cyan/30 dark:bg-olu-cyan/40"></div>

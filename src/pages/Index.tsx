@@ -17,8 +17,8 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* Outer frame with logo gradient colors */}
-      <div className="p-4 min-h-screen bg-gradient-to-br from-olu-purple via-olu-purple-dark to-olu-purple">
-        <div className="bg-white rounded-2xl min-h-[calc(100vh-2rem)] overflow-hidden shadow-2xl">
+      <div className="p-8 min-h-screen bg-gradient-to-br from-olu-purple via-olu-purple-dark to-olu-purple">
+        <div className="bg-white rounded-3xl min-h-[calc(100vh-4rem)] overflow-hidden shadow-2xl border-4 border-white/20">
           <div className="container mx-auto">
             <Navbar />
           </div>

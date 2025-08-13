@@ -93,7 +93,7 @@ const AboutSection: React.FC = () => {
       <div className="container mx-auto px-4 py-20">{/* Container made dynamic */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="olu-gold-text-gradient">
+            <span className="olu-text-gradient-dark">
               {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
             </span>
           </h2>
@@ -111,19 +111,19 @@ const AboutSection: React.FC = () => {
             
             <div className="grid grid-cols-1 gap-6 mt-8">
               <div className="bg-background border border-border/30 p-4 rounded-lg">
-                <p className="font-semibold mb-2 text-olu-gold">
+                <p className="font-semibold mb-2 text-olu-purple-dark">
                   {getAboutContent('innovation_text_ar', language as "ar" | "en") || t("about.innovation")}
                 </p>
               </div>
               
               <div className="bg-background border border-border/30 p-4 rounded-lg">
-                <p className="font-semibold mb-2 text-olu-gold">
+                <p className="font-semibold mb-2 text-olu-purple-dark">
                   {getAboutContent('quality_text_ar', language as "ar" | "en") || t("about.quality")}
                 </p>
               </div>
               
               <div className="bg-background border border-border/30 p-4 rounded-lg">
-                <p className="font-semibold mb-2 text-olu-gold">
+                <p className="font-semibold mb-2 text-olu-purple-dark">
                   {getAboutContent('partnership_text_ar', language as "ar" | "en") || t("about.partnership")}
                 </p>
               </div>
@@ -134,7 +134,7 @@ const AboutSection: React.FC = () => {
                 // Display skeleton loaders while loading
                 Array(4).fill(0).map((_, index) => (
                   <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg animate-pulse">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2"></div>
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2"></div>
                     <div className="h-6 w-16 bg-muted rounded mb-1"></div>
                     <div className="h-4 w-24 bg-muted rounded"></div>
                   </div>
@@ -143,10 +143,10 @@ const AboutSection: React.FC = () => {
                 // Display actual statistics from the database
                 stats.map((stat) => (
                   <div key={stat.id} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
                       {getIcon(stat.icon)}
                     </div>
-                    <h4 className="text-2xl font-bold text-olu-gold">{stat.value}</h4>
+                    <h4 className="text-2xl font-bold text-olu-purple-dark">{stat.value}</h4>
                     <p className="text-sm text-muted-foreground">
                       {getTranslatedStatName(stat.name)}
                     </p>
@@ -156,40 +156,40 @@ const AboutSection: React.FC = () => {
                 // Fallback for no data
                 <>
                   <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
                       <Users className="h-5 w-5" />
                     </div>
-                    <h4 className="text-2xl font-bold text-olu-gold">100+</h4>
+                    <h4 className="text-2xl font-bold text-olu-purple-dark">100+</h4>
                     <p className="text-sm text-muted-foreground">
                       {language === "ar" ? t("stats.clients") : "Satisfied Clients"}
                     </p>
                   </div>
                   
                   <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
                       <Award className="h-5 w-5" />
                     </div>
-                    <h4 className="text-2xl font-bold text-olu-gold">50+</h4>
+                    <h4 className="text-2xl font-bold text-olu-purple-dark">50+</h4>
                     <p className="text-sm text-muted-foreground">
                       {language === "ar" ? t("stats.projects") : "Completed Projects"}
                     </p>
                   </div>
                   
                   <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
                       <Clock className="h-5 w-5" />
                     </div>
-                    <h4 className="text-2xl font-bold text-olu-gold">4+</h4>
+                    <h4 className="text-2xl font-bold text-olu-purple-dark">4+</h4>
                     <p className="text-sm text-muted-foreground">
                       {language === "ar" ? t("stats.experience") : "Years Experience"}
                     </p>
                   </div>
                   
                   <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-olu-gold/10 text-olu-gold mb-2">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
                       <Globe className="h-5 w-5" />
                     </div>
-                    <h4 className="text-2xl font-bold text-olu-gold">25+</h4>
+                    <h4 className="text-2xl font-bold text-olu-purple-dark">25+</h4>
                     <p className="text-sm text-muted-foreground">
                       {language === "ar" ? t("stats.technologies") : "Technologies Used"}
                     </p>
@@ -199,7 +199,7 @@ const AboutSection: React.FC = () => {
             </div>
             
             <div className="mt-8">
-              <Button variant="gold" size="pill" onClick={() => {
+              <Button variant="light" size="pill" onClick={() => {
                 const contactSection = document.getElementById('contact');
                 contactSection?.scrollIntoView({ behavior: 'smooth' });
               }}>
@@ -218,7 +218,7 @@ const AboutSection: React.FC = () => {
                 />
               ) : (
                 <>
-                  <div className="absolute inset-0 bg-gradient-to-br from-olu-gold to-olu-gold/60 opacity-20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-500 opacity-20"></div>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-full max-w-md aspect-video bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
                       <div className="flex items-center mb-4">
@@ -234,11 +234,11 @@ const AboutSection: React.FC = () => {
                         <div className="w-5/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
                         <div className="w-4/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
                         <div className="grid grid-cols-2 gap-2 mt-6">
-                          <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
+                          <div className="bg-gray-400/10 dark:bg-gray-400/20 h-20 rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-gray-400/30 dark:bg-gray-400/40"></div>
                           </div>
-                          <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
-                            <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
+                          <div className="bg-gray-400/10 dark:bg-gray-400/20 h-20 rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-gray-400/30 dark:bg-gray-400/40"></div>
                           </div>
                         </div>
                       </div>

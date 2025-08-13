@@ -95,9 +95,9 @@ const ServicesSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="olu-gold-text-gradient">{t("services.title")}</span>
+            <span className="olu-text-gradient-dark">{t("services.title")}</span>
           </h2>
-          <div className="w-24 h-1 bg-olu-gold mx-auto rounded-full"></div>
+          <div className="w-24 h-1 bg-gray-400 mx-auto rounded-full"></div>
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
             {t("services.description")}
           </p>

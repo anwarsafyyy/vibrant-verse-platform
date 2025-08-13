@@ -183,7 +183,7 @@ const AnalyticsManager: React.FC = () => {
                 <p className="text-sm font-medium text-muted-foreground">مجموع الزيارات</p>
                 <p className="text-2xl font-bold">{analytics.totalPageViews.toLocaleString()}</p>
               </div>
-              <BarChart3 className="h-8 w-8 text-olu-gold" />
+              <BarChart3 className="h-8 w-8 text-gray-400" />
             </div>
           </CardContent>
         </Card>
@@ -274,13 +274,13 @@ const AnalyticsManager: React.FC = () => {
                 {analytics.popularPages.map((page, index) => (
                   <div key={page.page_path} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
                     <div className="flex items-center gap-3">
-                      <span className="bg-olu-gold text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium">
+                      <span className="bg-gray-400 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-medium">
                         {index + 1}
                       </span>
                       <p className="font-medium">{page.page_path}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-olu-gold">
+                      <p className="text-lg font-bold text-olu-purple-dark">
                         {page.count.toLocaleString()}
                       </p>
                       <p className="text-sm text-muted-foreground">زيارة</p>

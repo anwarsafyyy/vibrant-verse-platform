@@ -50,25 +50,25 @@ const Navbar: React.FC = () => {
             dir === "rtl" ? "space-x-reverse" : ""
           }`}
         >
-          <a href="#" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("home")}
           </a>
-          <a href="#services" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#services" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("services")}
           </a>
-          <a href="#about" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#about" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("about")}
           </a>
-          <a href="#portfolio" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#portfolio" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("portfolio.title")}
           </a>
-          <a href="#partners" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#partners" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("partners.title")}
           </a>
-          <a href="#faq" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#faq" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("faq.title")}
           </a>
-          <a href="#contact" className="font-medium hover:text-olu-gold transition-colors">
+          <a href="#contact" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("contact")}
           </a>
         </nav>
@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
           <LanguageSwitcher />
           <ThemeToggle />
           <Button 
-            variant="gold" 
+            variant="light"
             size="pill" 
             className="hidden md:inline-flex"
             onClick={() => {
@@ -152,7 +152,7 @@ const Navbar: React.FC = () => {
               {t("contact")}
             </a>
             <Button 
-              variant="gold" 
+              variant="light" 
               size="pill" 
               className="w-full mt-4"
               onClick={() => {

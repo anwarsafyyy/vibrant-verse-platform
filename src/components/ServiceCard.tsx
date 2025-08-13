@@ -15,19 +15,19 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon: Icon, className, style }) => {
   return (
     <Card 
-      className={`service-card hover:shadow-lg hover:border-olu-gold/50 group transition-all duration-300 ${className}`} 
+      className={`service-card hover:shadow-lg hover:border-gray-400/50 group transition-all duration-300 ${className}`} 
       style={style}
     >
       <CardHeader className="pb-2">
-        <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gradient-to-br from-olu-gold to-olu-gold/70 mb-6 text-white group-hover:scale-110 transition-transform">
+        <div className="w-16 h-16 rounded-lg flex items-center justify-center bg-gradient-to-br from-gray-400 to-gray-500 mb-6 text-white group-hover:scale-110 transition-transform">
           <Icon className="h-8 w-8" />
         </div>
-        <CardTitle className="text-xl lg:text-2xl group-hover:text-olu-gold transition-all duration-300">{title}</CardTitle>
+        <CardTitle className="text-xl lg:text-2xl group-hover:text-olu-purple-dark transition-all duration-300">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <CardDescription className="text-base">{description}</CardDescription>
         <div className="mt-6 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Button variant="ghost" className="text-olu-gold hover:text-olu-gold/80 hover:bg-olu-gold/5 p-0">
+          <Button variant="ghost" className="text-olu-purple-dark hover:text-olu-purple-dark/80 hover:bg-olu-purple-dark/5 p-0">
             اقرأ المزيد
           </Button>
         </div>

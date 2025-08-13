@@ -43,9 +43,9 @@ const PartnersSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
-            <span className="olu-gold-text-gradient">{t("partners.title")}</span>
+            <span className="olu-text-gradient-dark">{t("partners.title")}</span>
           </h2>
-          <div className="w-20 h-1 bg-olu-gold mx-auto rounded-full"></div>
+          <div className="w-20 h-1 bg-gray-400 mx-auto rounded-full"></div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">

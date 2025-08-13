@@ -47,7 +47,7 @@ const AdminDashboard: React.FC = () => {
       <div className="flex border-b border-border">
         <div className="container mx-auto flex justify-between items-center py-4">
           <div className="flex items-center gap-2">
-            <LayoutDashboard className="h-6 w-6 text-olu-gold" />
+            <LayoutDashboard className="h-6 w-6 text-gray-400" />
             <h1 className="text-2xl font-bold">Admin Dashboard</h1>
           </div>
           <div className="flex items-center gap-4">
