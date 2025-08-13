@@ -51,8 +51,14 @@ const DigitalTransformationSection: React.FC = () => {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <div className="space-y-8 animate-fade-in">
+            <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-6">
+              <span className="text-2xl">✨</span>
+              <span className="text-primary font-medium">
+                {language === 'ar' ? 'نحو التميز الرقمي' : 'Towards Digital Excellence'}
+              </span>
+            </div>
             
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
               {language === 'ar' 
                 ? getSetting('hero_title', 'ar') || "نقود التحول الرقمي من خلال الابتكار"
                 : getSetting('hero_title', 'en') || "Driving Digital Transformation Through Innovation"
