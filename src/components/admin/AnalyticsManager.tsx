@@ -195,7 +195,7 @@ const AnalyticsManager: React.FC = () => {
                 <p className="text-sm font-medium text-muted-foreground">زيارات اليوم</p>
                 <p className="text-2xl font-bold">{analytics.todayPageViews.toLocaleString()}</p>
               </div>
-              <Users className="h-8 w-8 text-olu-blue" />
+              <Users className="h-8 w-8 text-olu-purple-dark" />
             </div>
           </CardContent>
         </Card>

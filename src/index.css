@@ -107,7 +107,7 @@
 
 @layer components {
   .olu-gradient {
-    @apply bg-gradient-to-r from-olu-blue to-olu-cyan;
+    @apply bg-gradient-to-r from-olu-purple to-olu-purple-dark;
   }
   
   .olu-gold-gradient {
@@ -115,7 +115,7 @@
   }
   
   .olu-text-gradient {
-    @apply bg-gradient-to-r from-olu-blue to-olu-cyan bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-olu-purple-dark to-olu-purple bg-clip-text text-transparent;
   }
   
   .olu-gold-text-gradient {

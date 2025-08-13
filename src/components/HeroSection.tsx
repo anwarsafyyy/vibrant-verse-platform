@@ -30,10 +30,10 @@ const HeroSection: React.FC = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-olu-blue/5 to-olu-cyan/5 dark:from-olu-blue/10 dark:to-olu-cyan/10 -z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-b from-olu-purple/5 to-olu-purple-dark/5 dark:from-olu-purple/10 dark:to-olu-purple-dark/10 -z-10"></div>
       
       {/* Animated circles */}
-      <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-olu-blue/10 blur-3xl animate-float"></div>
+      <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-olu-purple/10 blur-3xl animate-float"></div>
       <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-olu-gold/10 blur-3xl animate-float" style={{ animationDelay: "1.5s" }}></div>
       
       <div className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center">{/* Container made dynamic */}
@@ -69,7 +69,7 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.4s" }}
         >
           <div className="relative mx-auto w-full max-w-md aspect-square">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-olu-blue to-olu-gold opacity-20 blur-2xl animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-olu-purple to-olu-gold opacity-20 blur-2xl animate-pulse"></div>
             <div className="relative z-10 w-full h-full flex items-center justify-center">
               <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden w-full max-w-md transform rotate-3 hover:rotate-0 transition-transform duration-500">
                 <div className="p-6">

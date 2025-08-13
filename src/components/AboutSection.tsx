@@ -210,32 +210,42 @@ const AboutSection: React.FC = () => {
 
           <div className={`${isVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDelay: "0.4s" }}>
             <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-olu-gold to-olu-gold/60 opacity-20"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-full max-w-md aspect-video bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <div className="flex-1 text-center">
-                      <span className="text-xs text-gray-500">علو</span>
+              {getAboutContent('image_url', language as "ar" | "en") ? (
+                <img 
+                  src={String(getAboutContent('image_url', language as "ar" | "en"))} 
+                  alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <>
+                  <div className="absolute inset-0 bg-gradient-to-br from-olu-gold to-olu-gold/60 opacity-20"></div>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-full max-w-md aspect-video bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden p-6">
+                      <div className="flex items-center mb-4">
+                        <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="flex-1 text-center">
+                          <span className="text-xs text-gray-500">علو</span>
+                        </div>
+                      </div>
+                      <div className="space-y-3">
+                        <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                        <div className="w-5/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                        <div className="w-4/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                        <div className="grid grid-cols-2 gap-2 mt-6">
+                          <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
+                          </div>
+                          <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="w-5/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="w-4/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="grid grid-cols-2 gap-2 mt-6">
-                      <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
-                      </div>
-                      <div className="bg-olu-gold/10 dark:bg-olu-gold/20 h-20 rounded-lg flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-olu-gold/30 dark:bg-olu-gold/40"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </>
+              )}
             </div>
           </div>
         </div>

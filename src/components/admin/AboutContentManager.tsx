@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
-import { Upload, Save, Loader2, Eye, EyeOff } from "lucide-react";
+import { Upload, Save, Loader2, Eye, EyeOff, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -201,6 +201,34 @@ const AboutContentManager: React.FC = () => {
       });
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleRemoveImage = async () => {
+    if (!content?.image_url) return;
+    
+    try {
+      // Extract filename from URL for deletion
+      const fileName = content.image_url.split('/').pop();
+      if (fileName) {
+        await supabase.storage
+          .from('admin-uploads')
+          .remove([fileName]);
+      }
+      
+      setContent({ ...content, image_url: '' });
+      
+      toast({
+        title: "تم الحذف",
+        description: "تم حذف الصورة بنجاح",
+      });
+    } catch (error) {
+      console.error('Error removing image:', error);
+      toast({
+        title: "خطأ",
+        description: "فشل في حذف الصورة",
+        variant: "destructive",
+      });
     }
   };
 
@@ -447,12 +475,20 @@ const AboutContentManager: React.FC = () => {
               </Button>
             </div>
             {content.image_url && (
-              <div className="mt-2">
+              <div className="mt-2 relative inline-block">
                 <img
                   src={content.image_url}
                   alt="صورة القسم"
                   className="max-w-32 h-20 object-cover rounded border"
                 />
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  onClick={handleRemoveImage}
+                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
+                >
+                  <X className="h-3 w-3" />
+                </Button>
               </div>
             )}
           </div>

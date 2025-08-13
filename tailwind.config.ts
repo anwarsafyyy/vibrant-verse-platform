@@ -26,9 +26,11 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				olu: {
-					blue: '#2C4B87',
-					cyan: '#00A7E1',
-					gold: '#9D8A62',
+					blue: 'hsl(221, 53%, 35%)',
+					cyan: 'hsl(196, 100%, 44%)',
+					gold: 'hsl(45, 25%, 51%)',
+					purple: 'hsl(270, 50%, 40%)',
+					'purple-dark': 'hsl(270, 60%, 25%)',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
