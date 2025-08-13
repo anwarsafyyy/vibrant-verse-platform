@@ -454,9 +454,34 @@ const AboutContentManager: React.FC = () => {
         <CardHeader>
           <CardTitle>صورة القسم</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
+          {/* Direct URL Input */}
           <div className="space-y-2">
-            <Label htmlFor="section_image">رفع صورة جديدة</Label>
+            <Label htmlFor="image_url">رابط الصورة المباشر</Label>
+            <div className="flex items-center gap-2">
+              <Input
+                id="image_url"
+                type="url"
+                value={content.image_url || ''}
+                onChange={(e) => setContent({ ...content, image_url: e.target.value })}
+                placeholder="https://example.com/image.jpg"
+                className="flex-1"
+              />
+              <Button 
+                onClick={handleRemoveImage}
+                variant="outline"
+                size="sm"
+                disabled={!content.image_url}
+              >
+                <X className="h-4 w-4" />
+                حذف
+              </Button>
+            </div>
+          </div>
+          
+          {/* File Upload */}
+          <div className="space-y-2">
+            <Label htmlFor="section_image">أو رفع صورة جديدة</Label>
             <div className="flex items-center gap-2">
               <Input
                 id="section_image"
@@ -474,24 +499,21 @@ const AboutContentManager: React.FC = () => {
                 رفع
               </Button>
             </div>
-            {content.image_url && (
-              <div className="mt-2 relative inline-block">
+          </div>
+          
+          {/* Image Preview */}
+          {content.image_url && (
+            <div className="space-y-2">
+              <Label>معاينة الصورة</Label>
+              <div className="relative inline-block">
                 <img
                   src={content.image_url}
                   alt="صورة القسم"
-                  className="max-w-32 h-20 object-cover rounded border"
+                  className="max-w-48 h-32 object-cover rounded border shadow-sm"
                 />
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={handleRemoveImage}
-                  className="absolute -top-2 -right-2 h-6 w-6 rounded-full p-0"
-                >
-                  <X className="h-3 w-3" />
-                </Button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

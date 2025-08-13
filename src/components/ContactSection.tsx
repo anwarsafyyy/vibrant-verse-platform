@@ -83,10 +83,10 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen relative flex items-center py-20">
+    <section id="contact" className="min-h-screen relative flex items-center py-20 bg-gradient-to-br from-gray-100 to-gray-200">
       {/* Background elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent"></div>
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background/50 to-transparent"></div>
       
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
@@ -150,7 +150,7 @@ const ContactSection: React.FC = () => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full olu-gradient-light text-white"
+                  className="w-full bg-olu-purple-dark text-white hover:bg-olu-purple-dark/90 transition-all duration-300 shadow-lg hover:shadow-xl"
                   disabled={isSubmitting}
                 >
                   {language === "ar" ? "تواصل معنا" : "Contact Us"}
@@ -162,7 +162,7 @@ const ContactSection: React.FC = () => {
           
           {/* Contact Info */}
           <div className="animate-fade-in" style={{ animationDelay: "0.4s" }}>
-            <div className="bg-gradient-to-br from-gray-400 to-gray-500 rounded-2xl shadow-lg p-8 text-white h-full">
+            <div className="bg-gradient-to-br from-olu-purple-dark to-olu-purple-dark/90 rounded-2xl shadow-lg p-8 text-white h-full">
               <h3 className="text-2xl font-bold mb-6">{t("contact.getInTouch")}</h3>
               
               <div className="space-y-8">
@@ -200,7 +200,7 @@ const ContactSection: React.FC = () => {
               <div className="mt-6">
                 <Button 
                   onClick={handleWhatsAppClick} 
-                  className="w-full bg-white text-olu-purple-dark hover:bg-white/90"
+                  className="w-full bg-white text-olu-purple-dark hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   <MessageSquare className="mr-2 h-5 w-5" />
                   {t("contact.whatsapp")}
