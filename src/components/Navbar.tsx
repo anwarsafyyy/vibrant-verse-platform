@@ -25,9 +25,9 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`sticky top-8 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm py-2"
+          ? "bg-background/80 backdrop-blur-md shadow-sm py-2 rounded-2xl mx-8"
           : "bg-transparent py-4"
       }`}
     >
@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="علو Logo" 
-                className="h-10 w-auto"
+                className="h-10 w-10 object-cover rounded-full border-2 border-olu-purple-dark/20"
               />
             )}
           </a>

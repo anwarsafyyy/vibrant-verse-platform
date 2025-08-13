@@ -118,7 +118,7 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-gradient-to-r from-gray-400 to-gray-500 text-white">
+    <footer className="bg-gradient-to-r from-gray-100 to-gray-200 text-olu-purple-dark">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
@@ -229,9 +229,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
           <p className="opacity-80 text-lg">
             {getFooterContent('copyright_text_ar', language as "ar" | "en") || 
-              (dir === "rtl" 
-                ? "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو"
-                : `© ${currentYear} Olu Information Technology Company. All rights reserved. Developed by Olu Team`)}
+              "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو"}
           </p>
         </div>
       </div>
