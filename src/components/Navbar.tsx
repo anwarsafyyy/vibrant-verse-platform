@@ -53,15 +53,15 @@ const Navbar: React.FC = () => {
           <a href="#services" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("services")}
           </a>
-          <a href="#about" className="font-medium hover:text-olu-purple-dark transition-colors">
-            {t("about")}
-          </a>
-          <a href="#portfolio" className="font-medium hover:text-olu-purple-dark transition-colors">
-            {t("portfolio.title")}
-          </a>
-          <a href="#partners" className="font-medium hover:text-olu-purple-dark transition-colors">
-            {t("partners.title")}
-          </a>
+           <a href="#about" className="font-medium hover:text-olu-purple-dark transition-colors">
+             {t("about")}
+           </a>
+           <a href="#partners" className="font-medium hover:text-olu-purple-dark transition-colors">
+             {t("partners.title")}
+           </a>
+           <a href="#portfolio" className="font-medium hover:text-olu-purple-dark transition-colors">
+             {t("portfolio.title")}
+           </a>
           <a href="#faq" className="font-medium hover:text-olu-purple-dark transition-colors">
             {t("faq.title")}
           </a>
@@ -112,27 +112,27 @@ const Navbar: React.FC = () => {
             >
               {t("services")}
             </a>
-            <a
-              href="#about"
-              className="text-lg font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("about")}
-            </a>
-            <a
-              href="#portfolio"
-              className="text-lg font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("portfolio.title")}
-            </a>
-            <a
-              href="#partners"
-              className="text-lg font-medium py-2"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {t("partners.title")}
-            </a>
+             <a
+               href="#about"
+               className="text-lg font-medium py-2"
+               onClick={() => setMobileMenuOpen(false)}
+             >
+               {t("about")}
+             </a>
+             <a
+               href="#partners"
+               className="text-lg font-medium py-2"
+               onClick={() => setMobileMenuOpen(false)}
+             >
+               {t("partners.title")}
+             </a>
+             <a
+               href="#portfolio"
+               className="text-lg font-medium py-2"
+               onClick={() => setMobileMenuOpen(false)}
+             >
+               {t("portfolio.title")}
+             </a>
             <a
               href="#faq"
               className="text-lg font-medium py-2"
