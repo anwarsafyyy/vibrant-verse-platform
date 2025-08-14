@@ -79,7 +79,7 @@ const ContactSection: React.FC = () => {
   };
 
   const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/966508694899`, '_blank');
+    window.open(`https://wa.me/966535656226`, '_blank');
   };
 
   return (

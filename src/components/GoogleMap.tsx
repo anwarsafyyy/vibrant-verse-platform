@@ -17,7 +17,7 @@ const GoogleMap: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-xl overflow-hidden shadow-lg border">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.0892456796834!2d46.6753812!3d24.7135517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee2d8c5b89b45%3A0x1f7a8b48c8a1a7a8!2sRiyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1624529450456!5m2!1sen!2s"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3790.7236193827087!2d42.5507656!3d16.8892434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x160f8b5f5d5a5a5a%3A0x5a5a5a5a5a5a5a5a!2sJazan%2C%20Saudi%20Arabia!5e0!3m2!1sen!2s!4v1624529450456!5m2!1sen!2s"
               width="100%"
               height="400"
               style={{ border: 0 }}
