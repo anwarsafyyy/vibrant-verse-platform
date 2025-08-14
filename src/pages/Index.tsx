@@ -27,8 +27,8 @@ const Index = () => {
           <div className="container mx-auto">
             <ServicesSection />
             <AboutSection />
-            <PartnersSection />
             <PortfolioSection />
+            <PartnersSection />
             <FAQSection />
             <ContactSection />
           </div>

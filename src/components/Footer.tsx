@@ -227,27 +227,6 @@ const Footer: React.FC = () => {
               ))}
             </div>
             
-            {partners.length > 0 && (
-              <div>
-                <h4 className="text-lg font-semibold mb-4">
-                  {dir === "rtl" ? "شركاؤنا" : "Our Partners"}
-                </h4>
-                <div className="grid grid-cols-2 gap-4">
-                  {partners.slice(0, 4).map((partner) => (
-                    <div key={partner.id} className="bg-white/10 rounded-lg p-2 flex items-center justify-center">
-                      <img 
-                        src={partner.logo_url} 
-                        alt={partner.name}
-                        className="h-8 w-auto object-contain"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
             <div className="mt-6">
               <p className="text-sm opacity-80">
                 {dir === "rtl" 
