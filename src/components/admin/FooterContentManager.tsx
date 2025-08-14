@@ -149,8 +149,8 @@ const FooterContentManager: React.FC = () => {
         <p className="text-muted-foreground mb-4">لا يوجد محتوى للتذييل</p>
         <Button onClick={() => setContent({
           id: '',
-          company_description_ar: 'نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة',
-          company_description_en: 'Building a better digital future through innovative technology solutions',
+          company_description_ar: 'نحن شركة متخصصة في تطوير المواقع، تحسين محركات البحث، والتسويق الرقمي، نساعدك على النجاح في العالم الرقمي بحلول مبتكرة وتقنيات متقدمة. 🚀',
+          company_description_en: 'We are a company specialized in website development, search engine optimization, and digital marketing. We help you succeed in the digital world with innovative solutions and advanced technologies. 🚀',
           address_ar: 'المملكة العربية السعودية، جازان',
           address_en: 'Saudi Arabia, Jazan',
           phone: '+966535656226',

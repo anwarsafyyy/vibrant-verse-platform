@@ -455,65 +455,68 @@ const AboutContentManager: React.FC = () => {
           <CardTitle>صورة القسم</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* Current Image Preview */}
+          {content.image_url && (
+            <div className="space-y-2">
+              <Label>الصورة الحالية</Label>
+              <div className="relative inline-block">
+                <img 
+                  src={content.image_url} 
+                  alt="About section image" 
+                  className="max-w-xs h-auto rounded-lg border"
+                />
+                <Button 
+                  onClick={handleRemoveImage}
+                  variant="destructive"
+                  size="sm"
+                  className="absolute top-2 right-2"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          )}
+          
           {/* Direct URL Input */}
           <div className="space-y-2">
             <Label htmlFor="image_url">رابط الصورة المباشر</Label>
-            <div className="flex items-center gap-2">
-              <Input
-                id="image_url"
-                type="url"
-                value={content.image_url || ''}
-                onChange={(e) => setContent({ ...content, image_url: e.target.value })}
-                placeholder="https://example.com/image.jpg"
-                className="flex-1"
-              />
-              <Button 
-                onClick={handleRemoveImage}
-                variant="outline"
-                size="sm"
-                disabled={!content.image_url}
-              >
-                <X className="h-4 w-4" />
-                حذف
-              </Button>
-            </div>
+            <Input
+              id="image_url"
+              type="url"
+              value={content.image_url || ''}
+              onChange={(e) => setContent({ ...content, image_url: e.target.value })}
+              placeholder="https://example.com/image.jpg"
+              className="w-full"
+            />
           </div>
           
           {/* File Upload */}
-          <div className="space-y-2">
-            <Label htmlFor="section_image">أو رفع صورة جديدة</Label>
-            <div className="flex items-center gap-2">
-              <Input
+          <div className="space-y-4">
+            <Label htmlFor="section_image">أو رفع صورة جديدة من جهازك</Label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+              <input
                 id="section_image"
                 type="file"
                 accept="image/*"
                 onChange={handleImageUpload}
                 disabled={uploading}
+                className="hidden"
               />
-              <Button disabled={uploading} variant="outline">
-                {uploading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Upload className="h-4 w-4" />
-                )}
-                رفع
-              </Button>
+              <label htmlFor="section_image" className="cursor-pointer">
+                <div className="flex flex-col items-center space-y-2">
+                  {uploading ? (
+                    <Loader2 className="h-12 w-12 animate-spin text-gray-400" />
+                  ) : (
+                    <Upload className="h-12 w-12 text-gray-400" />
+                  )}
+                  <p className="text-sm text-gray-600">
+                    {uploading ? 'جاري الرفع...' : 'انقر لاختيار صورة أو اسحب وأفلت هنا'}
+                  </p>
+                  <p className="text-xs text-gray-500">PNG, JPG, GIF حتى 10MB</p>
+                </div>
+              </label>
             </div>
           </div>
-          
-          {/* Image Preview */}
-          {content.image_url && (
-            <div className="space-y-2">
-              <Label>معاينة الصورة</Label>
-              <div className="relative inline-block">
-                <img
-                  src={content.image_url}
-                  alt="صورة القسم"
-                  className="max-w-48 h-32 object-cover rounded border shadow-sm"
-                />
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>

@@ -45,11 +45,12 @@ const FooterLinksManager = () => {
   
   const createDefaultLinks = async () => {
     const defaultLinks: Omit<FooterLink, 'id'>[] = [
-      { name_ar: 'سياسة الخصوصية', name_en: 'Privacy Policy', link: '#privacy', category: 'legal', is_active: true, order_index: 1 },
-      { name_ar: 'شروط الاستخدام', name_en: 'Terms of Use', link: '#terms', category: 'legal', is_active: true, order_index: 2 },
-      { name_ar: 'سياسة الإلغاء', name_en: 'Cancellation Policy', link: '#cancellation', category: 'legal', is_active: true, order_index: 3 },
-      { name_ar: 'عن الشركة', name_en: 'About Company', link: '#about', category: 'company', is_active: true, order_index: 4 },
-      { name_ar: 'المدونة', name_en: 'Blog', link: '#blog', category: 'content', is_active: true, order_index: 5 },
+      { name_ar: 'سياسة الخصوصية', name_en: 'Privacy Policy', link: '/privacy', category: 'legal', is_active: true, order_index: 1 },
+      { name_ar: 'شروط الاستخدام', name_en: 'Terms of Use', link: '/terms', category: 'legal', is_active: true, order_index: 2 },
+      { name_ar: 'سياسة الإلغاء', name_en: 'Cancellation Policy', link: '/cancellation', category: 'legal', is_active: true, order_index: 3 },
+      { name_ar: 'عن الشركة', name_en: 'About Company', link: '/about', category: 'company', is_active: true, order_index: 4 },
+      { name_ar: 'المدونة', name_en: 'Blog', link: '/blog', category: 'content', is_active: true, order_index: 5 },
+      { name_ar: 'تواصل معنا', name_en: 'Contact Us', link: '/contact', category: 'general', is_active: true, order_index: 6 },
     ];
 
     try {
