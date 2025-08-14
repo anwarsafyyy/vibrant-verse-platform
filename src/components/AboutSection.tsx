@@ -91,16 +91,44 @@ const AboutSection: React.FC = () => {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent"></div>
       
       <div className="container mx-auto px-4 py-20">{/* Container made dynamic */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="olu-text-gradient-dark">
-              {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground mb-6">
-            {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
-          </p>
-          <div className="w-24 h-1 olu-gradient mx-auto rounded-full mb-10"></div>
+        <div className="mb-16">
+          {getAboutContent('image_url', language as "ar" | "en") ? (
+            // Layout with image next to title
+            <div className="flex flex-col lg:flex-row items-center gap-8 mb-8">
+              <div className={`flex-1 ${dir === "rtl" ? "lg:order-2" : "lg:order-1"} text-center lg:text-${dir === "rtl" ? "right" : "left"}`}>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  <span className="olu-text-gradient-dark">
+                    {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
+                  </span>
+                </h2>
+                <p className="text-xl text-muted-foreground">
+                  {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
+                </p>
+              </div>
+              <div className={`flex-1 ${dir === "rtl" ? "lg:order-1" : "lg:order-2"}`}>
+                <div className="relative w-full max-w-md h-[300px] lg:h-[400px] rounded-xl overflow-hidden shadow-xl mx-auto">
+                  <img 
+                    src={String(getAboutContent('image_url', language as "ar" | "en"))} 
+                    alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Layout without image (centered)
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                <span className="olu-text-gradient-dark">
+                  {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
+                </span>
+              </h2>
+              <p className="text-xl text-muted-foreground mb-6">
+                {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
+              </p>
+            </div>
+          )}
+          <div className="w-24 h-1 olu-gradient mx-auto rounded-full"></div>
         </div>
 
         <div className={`${isVisible ? "animate-fade-in" : "opacity-0"} text-center`} style={{ animationDelay: "0.2s" }}>
@@ -128,17 +156,6 @@ const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          {getAboutContent('image_url', language as "ar" | "en") && (
-            <div className="mb-8">
-              <div className="relative w-full max-w-2xl h-[400px] rounded-xl overflow-hidden shadow-xl mx-auto">
-                <img 
-                  src={String(getAboutContent('image_url', language as "ar" | "en"))} 
-                  alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          )}
           
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-8 max-w-4xl mx-auto">
             {loading ? (
