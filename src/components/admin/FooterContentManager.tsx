@@ -149,16 +149,16 @@ const FooterContentManager: React.FC = () => {
         <p className="text-muted-foreground mb-4">لا يوجد محتوى للتذييل</p>
         <Button onClick={() => setContent({
           id: '',
-          company_description_ar: '',
-          company_description_en: '',
-          address_ar: '',
-          address_en: '',
-          phone: '',
-          email: '',
-          working_hours_ar: '',
-          working_hours_en: '',
-          copyright_text_ar: '',
-          copyright_text_en: ''
+          company_description_ar: 'نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة',
+          company_description_en: 'Building a better digital future through innovative technology solutions',
+          address_ar: 'المملكة العربية السعودية، جازان',
+          address_en: 'Saudi Arabia, Jazan',
+          phone: '+966535656226',
+          email: 'info@olu-it.com',
+          working_hours_ar: '09 صباحاً - 05 مساءً من السبت إلى الخميس',
+          working_hours_en: '09 AM - 05 PM Saturday to Thursday',
+          copyright_text_ar: 'جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو',
+          copyright_text_en: 'All Rights Reserved © 2025 Olu Information Technology Company. Developed by Olu Team'
         })}>
           إنشاء محتوى جديد
         </Button>

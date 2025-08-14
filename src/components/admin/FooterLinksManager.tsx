@@ -42,6 +42,41 @@ const FooterLinksManager = () => {
     is_active: true,
     order_index: 0,
   });
+  
+  const createDefaultLinks = async () => {
+    const defaultLinks: Omit<FooterLink, 'id'>[] = [
+      { name_ar: 'سياسة الخصوصية', name_en: 'Privacy Policy', link: '#privacy', category: 'legal', is_active: true, order_index: 1 },
+      { name_ar: 'شروط الاستخدام', name_en: 'Terms of Use', link: '#terms', category: 'legal', is_active: true, order_index: 2 },
+      { name_ar: 'سياسة الإلغاء', name_en: 'Cancellation Policy', link: '#cancellation', category: 'legal', is_active: true, order_index: 3 },
+      { name_ar: 'عن الشركة', name_en: 'About Company', link: '#about', category: 'company', is_active: true, order_index: 4 },
+      { name_ar: 'المدونة', name_en: 'Blog', link: '#blog', category: 'content', is_active: true, order_index: 5 },
+    ];
+
+    try {
+      setSaving(true);
+      const { error } = await supabase
+        .from('footer_links')
+        .insert(defaultLinks);
+
+      if (error) throw error;
+
+      toast({
+        title: 'تم إنشاء الروابط',
+        description: 'تم إنشاء روابط الفوتر الافتراضية بنجاح',
+      });
+
+      fetchFooterLinks();
+    } catch (error: any) {
+      console.error('Error creating default links:', error);
+      toast({
+        title: 'خطأ في الإنشاء',
+        description: error.message || 'حدث خطأ أثناء إنشاء الروابط الافتراضية',
+        variant: 'destructive',
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
   const [isAdding, setIsAdding] = useState(false);
   const { toast } = useToast();
 
@@ -217,6 +252,22 @@ const FooterLinksManager = () => {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {footerLinks.length === 0 && (
+            <div className="text-center p-8">
+              <p className="text-muted-foreground mb-4">لا توجد روابط في الفوتر</p>
+              <Button onClick={createDefaultLinks} disabled={saving}>
+                {saving ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    جاري الإنشاء...
+                  </>
+                ) : (
+                  'إنشاء روابط افتراضية'
+                )}
+              </Button>
+            </div>
+          )}
+
           {footerLinks.map((link, index) => (
             <Card key={link.id} className="p-4">
               <div className="space-y-4">
