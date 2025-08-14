@@ -11,12 +11,13 @@ import ServicesManager from "@/components/admin/ServicesManager";
 import PortfolioManager from "@/components/admin/PortfolioManager";
 import ContactInquiries from "@/components/admin/ContactInquiries";
 import ContactSettingsManager from "@/components/admin/ContactSettingsManager";
+import FooterContentManager from "@/components/admin/FooterContentManager";
+import FooterLinksManager from "@/components/admin/FooterLinksManager";
 import StatsManager from "@/components/admin/StatsManager";
 import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
 import HeroContentManager from "@/components/admin/HeroContentManager";
 import AboutContentManager from "@/components/admin/AboutContentManager";
 import SocialLinksManager from "@/components/admin/SocialLinksManager";
-import FooterContentManager from "@/components/admin/FooterContentManager";
 import AnalyticsManager from "@/components/admin/AnalyticsManager";
 import FAQManager from "@/components/admin/FAQManager";
 
@@ -134,7 +135,10 @@ const AdminDashboard: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="footer">
-            <FooterContentManager />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <FooterContentManager />
+              <FooterLinksManager />
+            </div>
           </TabsContent>
           
           <TabsContent value="stats">

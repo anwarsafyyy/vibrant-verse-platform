@@ -20,16 +20,28 @@ interface Partner {
   order_index: number;
 }
 
+interface FooterLink {
+  id: string;
+  name_ar: string;
+  name_en: string;
+  link: string;
+  category: string;
+  is_active: boolean;
+  order_index: number;
+}
+
 const Footer: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const { getFooterContent, getSetting } = useSiteContent();
   const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
   const [partners, setPartners] = useState<Partner[]>([]);
+  const [footerLinks, setFooterLinks] = useState<FooterLink[]>([]);
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     fetchSocialLinks();
     fetchPartners();
+    fetchFooterLinks();
   }, []);
 
   const fetchSocialLinks = async () => {
@@ -66,6 +78,25 @@ const Footer: React.FC = () => {
       setPartners(data || []);
     } catch (error) {
       console.error("Failed to fetch partners:", error);
+    }
+  };
+
+  const fetchFooterLinks = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('footer_links')
+        .select('*')
+        .eq('is_active', true)
+        .order('order_index', { ascending: true });
+        
+      if (error) {
+        console.error("Error fetching footer links:", error);
+        return;
+      }
+      
+      setFooterLinks(data || []);
+    } catch (error) {
+      console.error("Failed to fetch footer links:", error);
     }
   };
 
@@ -132,13 +163,19 @@ const Footer: React.FC = () => {
           
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
             <h4 className="text-lg font-semibold mb-4">
-              {dir === "rtl" ? "صفحات مهمه" : "Important Pages"}
+              {dir === "rtl" ? "روابط مهمة" : "Important Links"}
             </h4>
             <ul className="space-y-2">
-              <li><a href="#" className="opacity-80 hover:opacity-100 transition-opacity">{t("home")}</a></li>
-              <li><a href="#about" className="opacity-80 hover:opacity-100 transition-opacity">{t("about")}</a></li>
-              <li><a href="#services" className="opacity-80 hover:opacity-100 transition-opacity">{t("services")}</a></li>
-              <li><a href="#contact" className="opacity-80 hover:opacity-100 transition-opacity">{t("contact")}</a></li>
+              {footerLinks.map((link) => (
+                <li key={link.id}>
+                  <a 
+                    href={link.link} 
+                    className="opacity-80 hover:opacity-100 transition-opacity"
+                  >
+                    {language === 'ar' ? link.name_ar : link.name_en}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
           
@@ -151,12 +188,12 @@ const Footer: React.FC = () => {
                 <MapPin className="h-4 w-4 mr-2 shrink-0" />
                 <span>
                   {getFooterContent('address_ar', language as "ar" | "en") || 
-                    (dir === "rtl" ? "المملكة العربية السعودية جازان" : "Jazan, Saudi Arabia")}
+                    (dir === "rtl" ? "جازان، المملكة العربية السعودية" : "Jazan, Saudi Arabia")}
                 </span>
               </li>
               <li className="flex items-center opacity-80">
                 <Phone className="h-4 w-4 mr-2 shrink-0" />
-                <span>{getFooterContent('phone', language as "ar" | "en") || "+966 50 869 4899"}</span>
+                <span>{getFooterContent('phone', language as "ar" | "en") || "+966535656226"}</span>
               </li>
               <li className="flex items-center opacity-80">
                 <Mail className="h-4 w-4 mr-2 shrink-0" />

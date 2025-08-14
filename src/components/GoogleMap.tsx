@@ -32,17 +32,17 @@ const GoogleMap: React.FC = () => {
           <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <h3 className="font-semibold text-olu-purple-dark mb-2">العنوان</h3>
-              <p className="text-muted-foreground">الرياض، المملكة العربية السعودية</p>
+              <p className="text-muted-foreground">جازان، المملكة العربية السعودية</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <h3 className="font-semibold text-olu-purple-dark mb-2">الهاتف</h3>
-              <p className="text-muted-foreground">+966 50 123 4567</p>
+              <p className="text-muted-foreground">+966535656226</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm border">
               <h3 className="font-semibold text-olu-purple-dark mb-2">البريد الإلكتروني</h3>
-              <p className="text-muted-foreground">info@olu.com.sa</p>
+              <p className="text-muted-foreground">info@olu-it.com</p>
             </div>
           </div>
         </div>
