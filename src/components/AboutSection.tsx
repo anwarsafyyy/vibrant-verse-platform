@@ -92,26 +92,28 @@ const AboutSection: React.FC = () => {
       
       <div className="container mx-auto px-4 py-20">{/* Container made dynamic */}
         <div className="mb-16">
-          {/* Layout with image always next to title */}
-          <div className="flex flex-col lg:flex-row items-center gap-8 mb-8">
-            <div className={`flex-1 ${dir === "rtl" ? "lg:order-2" : "lg:order-1"} text-center lg:text-${dir === "rtl" ? "right" : "left"}`}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                <span className="olu-text-gradient-dark">
-                  {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
-                </span>
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
-              </p>
-            </div>
-            <div className={`w-32 lg:w-40 ${dir === "rtl" ? "lg:order-1" : "lg:order-2"} flex-shrink-0`}>
-              <div className="relative w-full h-32 lg:h-40 rounded-xl overflow-hidden shadow-xl mx-auto">
-                <img 
-                  src={String(getAboutContent('image_url', language as "ar" | "en")) || "/alo.png"} 
-                  alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          {/* Header Section - Title and Subtitle */}
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <span className="olu-text-gradient-dark">
+                {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground mb-6">
+              {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
+            </p>
+            <div className="w-24 h-1 olu-gradient mx-auto rounded-full mb-8"></div>
+          </div>
+          
+          {/* Image Section - Below title */}
+          <div className="flex justify-center mb-8">
+            <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl">
+              <img 
+                src={String(getAboutContent('image_url', language as "ar" | "en")) || "/alo.png"} 
+                alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
           </div>
           <div className="w-24 h-1 olu-gradient mx-auto rounded-full"></div>
