@@ -28,6 +28,8 @@ interface FooterLink {
   category: string;
   is_active: boolean;
   order_index: number;
+  icon?: string;
+  target?: string;
 }
 
 const Footer: React.FC = () => {
@@ -165,18 +167,48 @@ const Footer: React.FC = () => {
             <h4 className="text-lg font-semibold mb-4">
               {dir === "rtl" ? "روابط مهمة" : "Important Links"}
             </h4>
-            <ul className="space-y-2">
-              {footerLinks.map((link) => (
-                <li key={link.id}>
-                  <a 
-                    href={link.link} 
-                    className="opacity-80 hover:opacity-100 transition-opacity"
-                  >
-                    {language === 'ar' ? link.name_ar : link.name_en}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-4">
+              {['Privacy Policy', 'Terms of Use', 'Cancellation Policy', 'About the Company', 'Blog'].map((category) => {
+                const categoryLinks = footerLinks.filter(link => link.category === category);
+                if (categoryLinks.length === 0) return null;
+                
+                return (
+                  <div key={category} className="space-y-2">
+                    <h5 className="text-sm font-medium opacity-90">
+                      {dir === "rtl" 
+                        ? category === 'Privacy Policy' ? 'سياسة الخصوصية' 
+                          : category === 'Terms of Use' ? 'شروط الاستخدام'
+                          : category === 'Cancellation Policy' ? 'سياسة الإلغاء'
+                          : category === 'About the Company' ? 'عن الشركة'
+                          : category === 'Blog' ? 'المدونة' : category
+                        : category
+                      }
+                    </h5>
+                    <ul className="space-y-1 ml-2">
+                      {categoryLinks.map((link) => (
+                        <li key={link.id}>
+                          <a 
+                            href={link.link} 
+                            target={link.target || '_self'}
+                            className="text-sm opacity-80 hover:opacity-100 transition-opacity flex items-center gap-2"
+                          >
+                            {link.icon && (
+                              <span className="w-3 h-3 flex-shrink-0">
+                                {/* Simple icon representation */}
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+                                  <circle cx="12" cy="12" r="2" />
+                                </svg>
+                              </span>
+                            )}
+                            {language === 'ar' ? link.name_ar : link.name_en}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
           </div>
           
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>

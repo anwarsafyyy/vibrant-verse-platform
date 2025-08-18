@@ -135,9 +135,22 @@ const AdminDashboard: React.FC = () => {
           </TabsContent>
           
           <TabsContent value="footer">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <FooterContentManager />
-              <FooterLinksManager />
+            <div className="space-y-6">
+              <div className="text-center p-6 bg-muted/50 rounded-lg">
+                <h2 className="text-2xl font-semibold mb-2">إدارة الفوتر</h2>
+                <p className="text-muted-foreground">
+                  إدارة شاملة للروابط المهمة والمحتوى في أسفل الموقع
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-8">
+                <div className="order-2 lg:order-1">
+                  <FooterLinksManager />
+                </div>
+                <div className="order-1 lg:order-2">
+                  <FooterContentManager />
+                </div>
+              </div>
             </div>
           </TabsContent>
           

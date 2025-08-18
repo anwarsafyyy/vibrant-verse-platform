@@ -28,6 +28,8 @@ interface FooterLink {
   category: string;
   is_active: boolean;
   order_index: number;
+  icon?: string;
+  target?: string;
 }
 
 const FooterLinksManager = () => {
@@ -38,9 +40,11 @@ const FooterLinksManager = () => {
     name_ar: '',
     name_en: '',
     link: '',
-    category: 'general',
+    category: 'Privacy Policy',
     is_active: true,
     order_index: 0,
+    icon: '',
+    target: '_self',
   });
   
   const createDefaultLinks = async () => {
@@ -120,6 +124,8 @@ const FooterLinksManager = () => {
             category: link.category,
             is_active: link.is_active,
             order_index: link.order_index,
+            icon: link.icon,
+            target: link.target,
           })
           .eq('id', link.id);
 
@@ -145,9 +151,11 @@ const FooterLinksManager = () => {
           name_ar: '',
           name_en: '',
           link: '',
-          category: 'general',
+          category: 'Privacy Policy',
           is_active: true,
           order_index: 0,
+          icon: '',
+          target: '_self',
         });
         setIsAdding(false);
       }
@@ -225,11 +233,102 @@ const FooterLinksManager = () => {
   };
 
   const categories = [
-    { value: 'legal', label: 'قانوني' },
-    { value: 'company', label: 'الشركة' },
-    { value: 'content', label: 'المحتوى' },
-    { value: 'general', label: 'عام' }
+    { value: 'Privacy Policy', label: 'سياسة الخصوصية', label_en: 'Privacy Policy' },
+    { value: 'Terms of Use', label: 'شروط الاستخدام', label_en: 'Terms of Use' },
+    { value: 'Cancellation Policy', label: 'سياسة الإلغاء', label_en: 'Cancellation Policy' },
+    { value: 'About the Company', label: 'عن الشركة', label_en: 'About the Company' },
+    { value: 'Blog', label: 'المدونة', label_en: 'Blog' }
   ];
+
+  const iconOptions = [
+    'shield', 'file-text', 'x-circle', 'building', 'book-open', 'link', 
+    'external-link', 'user', 'settings', 'info', 'help-circle'
+  ];
+
+  const targetOptions = [
+    { value: '_self', label: 'نفس النافذة' },
+    { value: '_blank', label: 'نافذة جديدة' }
+  ];
+
+  // Group links by category
+  const groupedLinks = categories.reduce((acc, category) => {
+    acc[category.value] = footerLinks.filter(link => link.category === category.value);
+    return acc;
+  }, {} as Record<string, FooterLink[]>);
+
+  const createBackup = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('footer_links')
+        .select('*')
+        .order('order_index', { ascending: true });
+      
+      if (error) throw error;
+      
+      localStorage.setItem('footer_links_backup', JSON.stringify({
+        timestamp: new Date().toISOString(),
+        data: data
+      }));
+      
+      toast({
+        title: 'تم إنشاء النسخة الاحتياطية',
+        description: 'تم حفظ النسخة الاحتياطية بنجاح',
+      });
+    } catch (error: any) {
+      console.error('Error creating backup:', error);
+      toast({
+        title: 'خطأ في النسخ الاحتياطي',
+        description: error.message || 'حدث خطأ أثناء إنشاء النسخة الاحتياطية',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const restoreBackup = async () => {
+    try {
+      const backupStr = localStorage.getItem('footer_links_backup');
+      if (!backupStr) {
+        toast({
+          title: 'لا توجد نسخة احتياطية',
+          description: 'لم يتم العثور على نسخة احتياطية للاستعادة',
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      const backup = JSON.parse(backupStr);
+      setSaving(true);
+
+      // Delete current links
+      await supabase.from('footer_links').delete().neq('id', '00000000-0000-0000-0000-000000000000');
+      
+      // Restore backup data
+      const { error } = await supabase
+        .from('footer_links')
+        .insert(backup.data.map((link: any) => ({
+          ...link,
+          id: undefined // Let Supabase generate new IDs
+        })));
+
+      if (error) throw error;
+
+      toast({
+        title: 'تمت الاستعادة',
+        description: `تمت استعادة النسخة الاحتياطية من ${new Date(backup.timestamp).toLocaleString('ar')}`,
+      });
+
+      fetchFooterLinks();
+    } catch (error: any) {
+      console.error('Error restoring backup:', error);
+      toast({
+        title: 'خطأ في الاستعادة',
+        description: error.message || 'حدث خطأ أثناء استعادة النسخة الاحتياطية',
+        variant: 'destructive',
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -252,7 +351,18 @@ const FooterLinksManager = () => {
             إدارة الروابط التي تظهر في أسفل الموقع
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-6">
+          <div className="flex justify-between items-center mb-4">
+            <div className="flex gap-2">
+              <Button onClick={createBackup} variant="outline" size="sm">
+                إنشاء نسخة احتياطية
+              </Button>
+              <Button onClick={restoreBackup} variant="outline" size="sm" disabled={saving}>
+                استعادة النسخة الاحتياطية
+              </Button>
+            </div>
+          </div>
+
           {footerLinks.length === 0 && (
             <div className="text-center p-8">
               <p className="text-muted-foreground mb-4">لا توجد روابط في الفوتر</p>
@@ -269,7 +379,14 @@ const FooterLinksManager = () => {
             </div>
           )}
 
-          {footerLinks.map((link, index) => (
+          {/* Display links grouped by category */}
+          {categories.map((category) => (
+            <div key={category.value} className="space-y-4">
+              <h3 className="text-lg font-semibold text-primary border-b pb-2">
+                {category.label} ({category.label_en})
+              </h3>
+              
+              {groupedLinks[category.value]?.map((link, index) => (
             <Card key={link.id} className="p-4">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -332,59 +449,118 @@ const FooterLinksManager = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
-                    <Label htmlFor={`name_ar_${index}`}>الاسم (عربي)</Label>
+                    <Label htmlFor={`name_ar_${category.value}_${index}`}>الاسم (عربي)</Label>
                     <Input
-                      id={`name_ar_${index}`}
+                      id={`name_ar_${category.value}_${index}`}
                       value={link.name_ar}
-                      onChange={(e) => updateLink(index, 'name_ar', e.target.value)}
+                      onChange={(e) => {
+                        const globalIndex = footerLinks.findIndex(l => l.id === link.id);
+                        updateLink(globalIndex, 'name_ar', e.target.value);
+                      }}
                       placeholder="سياسة الخصوصية"
                     />
                   </div>
                   <div>
-                    <Label htmlFor={`name_en_${index}`}>الاسم (إنجليزي)</Label>
+                    <Label htmlFor={`name_en_${category.value}_${index}`}>الاسم (إنجليزي)</Label>
                     <Input
-                      id={`name_en_${index}`}
+                      id={`name_en_${category.value}_${index}`}
                       value={link.name_en}
-                      onChange={(e) => updateLink(index, 'name_en', e.target.value)}
+                      onChange={(e) => {
+                        const globalIndex = footerLinks.findIndex(l => l.id === link.id);
+                        updateLink(globalIndex, 'name_en', e.target.value);
+                      }}
                       placeholder="Privacy Policy"
                     />
                   </div>
                   <div>
-                    <Label htmlFor={`link_${index}`}>الرابط</Label>
+                    <Label htmlFor={`link_${category.value}_${index}`}>الرابط</Label>
                     <Input
-                      id={`link_${index}`}
+                      id={`link_${category.value}_${index}`}
                       value={link.link}
-                      onChange={(e) => updateLink(index, 'link', e.target.value)}
-                      placeholder="#privacy"
+                      onChange={(e) => {
+                        const globalIndex = footerLinks.findIndex(l => l.id === link.id);
+                        updateLink(globalIndex, 'link', e.target.value);
+                      }}
+                      placeholder="/privacy-policy"
                     />
+                  </div>
+                  <div>
+                    <Label htmlFor={`target_${category.value}_${index}`}>الهدف</Label>
+                    <select
+                      id={`target_${category.value}_${index}`}
+                      value={link.target || '_self'}
+                      onChange={(e) => {
+                        const globalIndex = footerLinks.findIndex(l => l.id === link.id);
+                        updateLink(globalIndex, 'target', e.target.value);
+                      }}
+                      className="w-full p-2 border border-border rounded-md"
+                    >
+                      {targetOptions.map((target) => (
+                        <option key={target.value} value={target.value}>
+                          {target.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor={`category_${index}`}>الفئة</Label>
-                  <select
-                    id={`category_${index}`}
-                    value={link.category}
-                    onChange={(e) => updateLink(index, 'category', e.target.value)}
-                    className="w-full p-2 border border-border rounded-md"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.label}
-                      </option>
-                    ))}
-                  </select>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor={`icon_${category.value}_${index}`}>الأيقونة</Label>
+                    <select
+                      id={`icon_${category.value}_${index}`}
+                      value={link.icon || ''}
+                      onChange={(e) => {
+                        const globalIndex = footerLinks.findIndex(l => l.id === link.id);
+                        updateLink(globalIndex, 'icon', e.target.value);
+                      }}
+                      className="w-full p-2 border border-border rounded-md"
+                    >
+                      <option value="">بدون أيقونة</option>
+                      {iconOptions.map((icon) => (
+                        <option key={icon} value={icon}>
+                          {icon}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <Label htmlFor={`category_${category.value}_${index}`}>نقل إلى فئة</Label>
+                    <select
+                      id={`category_${category.value}_${index}`}
+                      value={link.category}
+                      onChange={(e) => {
+                        const globalIndex = footerLinks.findIndex(l => l.id === link.id);
+                        updateLink(globalIndex, 'category', e.target.value);
+                      }}
+                      className="w-full p-2 border border-border rounded-md"
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
               </div>
             </Card>
+              )) || (
+                <p className="text-sm text-muted-foreground p-4 bg-muted/50 rounded-md">
+                  لا توجد روابط في هذه الفئة. استخدم "إضافة رابط جديد" لإضافة روابط.
+                </p>
+              )}
+            </div>
           ))}
 
           {isAdding && (
-            <Card className="p-4 border-dashed">
+            <Card className="p-4 border-dashed border-primary/30">
               <div className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <h4 className="font-semibold text-primary">إضافة رابط جديد</h4>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                   <div>
                     <Label htmlFor="new_name_ar">الاسم (عربي)</Label>
                     <Input
@@ -409,25 +585,58 @@ const FooterLinksManager = () => {
                       id="new_link"
                       value={newLink.link}
                       onChange={(e) => setNewLink({ ...newLink, link: e.target.value })}
-                      placeholder="#new-page"
+                      placeholder="/new-page"
                     />
+                  </div>
+                  <div>
+                    <Label htmlFor="new_target">الهدف</Label>
+                    <select
+                      id="new_target"
+                      value={newLink.target || '_self'}
+                      onChange={(e) => setNewLink({ ...newLink, target: e.target.value })}
+                      className="w-full p-2 border border-border rounded-md"
+                    >
+                      {targetOptions.map((target) => (
+                        <option key={target.value} value={target.value}>
+                          {target.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="new_category">الفئة</Label>
-                  <select
-                    id="new_category"
-                    value={newLink.category}
-                    onChange={(e) => setNewLink({ ...newLink, category: e.target.value })}
-                    className="w-full p-2 border border-border rounded-md"
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat.value} value={cat.value}>
-                        {cat.label}
-                      </option>
-                    ))}
-                  </select>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="new_category">الفئة</Label>
+                    <select
+                      id="new_category"
+                      value={newLink.category}
+                      onChange={(e) => setNewLink({ ...newLink, category: e.target.value })}
+                      className="w-full p-2 border border-border rounded-md"
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat.value} value={cat.value}>
+                          {cat.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <Label htmlFor="new_icon">الأيقونة</Label>
+                    <select
+                      id="new_icon"
+                      value={newLink.icon || ''}
+                      onChange={(e) => setNewLink({ ...newLink, icon: e.target.value })}
+                      className="w-full p-2 border border-border rounded-md"
+                    >
+                      <option value="">بدون أيقونة</option>
+                      {iconOptions.map((icon) => (
+                        <option key={icon} value={icon}>
+                          {icon}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-2">

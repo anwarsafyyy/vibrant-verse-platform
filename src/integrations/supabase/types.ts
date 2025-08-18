@@ -273,34 +273,40 @@ export type Database = {
         Row: {
           category: string | null
           created_at: string
+          icon: string | null
           id: string
           is_active: boolean
           link: string
           name_ar: string
           name_en: string
           order_index: number
+          target: string | null
           updated_at: string
         }
         Insert: {
           category?: string | null
           created_at?: string
+          icon?: string | null
           id?: string
           is_active?: boolean
           link: string
           name_ar: string
           name_en: string
           order_index?: number
+          target?: string | null
           updated_at?: string
         }
         Update: {
           category?: string | null
           created_at?: string
+          icon?: string | null
           id?: string
           is_active?: boolean
           link?: string
           name_ar?: string
           name_en?: string
           order_index?: number
+          target?: string | null
           updated_at?: string
         }
         Relationships: []
