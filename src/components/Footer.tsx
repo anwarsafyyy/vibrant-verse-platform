@@ -239,7 +239,8 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-white/20 mt-8 pt-8 text-center">
           <p className="opacity-80 text-lg">
-            جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو
+            {getFooterContent('copyright_text_ar', language as "ar" | "en") || 
+              "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات. تطوير بواسطة فريق علو"}
           </p>
         </div>
       </div>
