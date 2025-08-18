@@ -159,6 +159,12 @@ export const useSiteContent = () => {
 
   const getAboutContent = (field: keyof AboutContent, language: 'ar' | 'en' = 'ar') => {
     if (!aboutContent) return '';
+    
+    // Handle fields without language variants
+    if (field === 'image_url' || field === 'id' || field === 'is_active') {
+      return aboutContent[field] || '';
+    }
+    
     if (field.endsWith('_ar') || field.endsWith('_en')) {
       return aboutContent[field] || '';
     }
