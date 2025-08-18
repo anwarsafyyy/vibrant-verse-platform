@@ -164,29 +164,51 @@ const Footer: React.FC = () => {
           </div>
           
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>
-            <a 
-              href="/important-links"
-              className="block group"
-            >
-              <h4 className="text-lg font-semibold mb-4 group-hover:text-primary transition-colors cursor-pointer">
-                {dir === "rtl" ? "روابط مهمة" : "Important Links"}
-              </h4>
-            </a>
-            <p className="text-sm opacity-80 mb-4">
-              {dir === "rtl" 
-                ? "اطلع على جميع السياسات والمعلومات المهمة الخاصة بشركتنا"
-                : "View all important policies and company information"
-              }
-            </p>
-            <a 
-              href="/important-links"
-              className="inline-flex items-center text-sm text-primary hover:text-primary/80 transition-colors"
-            >
-              {dir === "rtl" ? "عرض جميع الروابط" : "View All Links"}
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+            <h4 className="text-lg font-semibold mb-4">
+              {dir === "rtl" ? "روابط مهمة" : "Important Links"}
+            </h4>
+            <ul className="space-y-3">
+              <li>
+                <a 
+                  href="/privacy-policy"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity hover:text-primary"
+                >
+                  {dir === "rtl" ? "سياسة الخصوصية" : "Privacy Policy"}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/terms-of-use"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity hover:text-primary"
+                >
+                  {dir === "rtl" ? "شروط الاستخدام" : "Terms of Use"}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/cancellation-policy"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity hover:text-primary"
+                >
+                  {dir === "rtl" ? "سياسة الإلغاء" : "Cancellation Policy"}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/about-company"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity hover:text-primary"
+                >
+                  {dir === "rtl" ? "عن الشركة" : "About the Company"}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/blog"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity hover:text-primary"
+                >
+                  {dir === "rtl" ? "المدونة" : "Blog"}
+                </a>
+              </li>
+            </ul>
           </div>
           
           <div className={`${dir === "rtl" ? "text-right" : "text-left"}`}>

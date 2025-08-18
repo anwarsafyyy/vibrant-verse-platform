@@ -9,6 +9,11 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Admin from "./pages/Admin";
 import ImportantLinks from "./pages/ImportantLinks";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
+import CancellationPolicy from "./pages/CancellationPolicy";
+import AboutCompany from "./pages/AboutCompany";
+import Blog from "./pages/Blog";
 import { LanguageProvider } from "@/hooks/useLanguage";
 
 const queryClient = new QueryClient();
@@ -25,6 +30,11 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/important-links" element={<ImportantLinks />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
+              <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+              <Route path="/about-company" element={<AboutCompany />} />
+              <Route path="/blog" element={<Blog />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
