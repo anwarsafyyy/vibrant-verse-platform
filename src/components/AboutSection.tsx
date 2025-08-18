@@ -108,11 +108,24 @@ const AboutSection: React.FC = () => {
           {/* Image Section - Below title */}
           <div className="flex justify-center mb-8">
             <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl">
-              <img 
-                src={String(getAboutContent('image_url', language as "ar" | "en")) || "/alo.png"} 
-                alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
+              {getAboutContent('image_url', language as "ar" | "en") ? (
+                <img 
+                  src={String(getAboutContent('image_url', language as "ar" | "en"))} 
+                  alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-br from-olu-purple/20 to-olu-purple-dark/20 flex items-center justify-center">
+                  <div className="text-center text-muted-foreground">
+                    <p className="text-lg mb-2">
+                      {language === 'ar' ? 'لا توجد صورة مرفوعة' : 'No image uploaded'}
+                    </p>
+                    <p className="text-sm">
+                      {language === 'ar' ? 'يمكنك رفع صورة من لوحة التحكم' : 'Upload an image from the dashboard'}
+                    </p>
+                  </div>
+                </div>
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
             </div>
           </div>
