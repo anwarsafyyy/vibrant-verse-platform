@@ -71,7 +71,7 @@ const AdminDashboard: React.FC = () => {
       
       <div className="container mx-auto py-8">
         <Tabs defaultValue="site-settings" className="w-full">
-          <TabsList className="grid grid-cols-4 lg:grid-cols-9 mb-8 overflow-x-auto">
+          <TabsList className="grid grid-cols-4 lg:grid-cols-10 mb-8 overflow-x-auto">
             <TabsTrigger value="site-settings" className="text-xs">إعدادات عامة</TabsTrigger>
             <TabsTrigger value="hero" className="text-xs">القسم الرئيسي</TabsTrigger>
             <TabsTrigger value="about" className="text-xs">من نحن</TabsTrigger>
@@ -79,16 +79,14 @@ const AdminDashboard: React.FC = () => {
             <TabsTrigger value="portfolio" className="text-xs">الأعمال</TabsTrigger>
             <TabsTrigger value="partners" className="text-xs">الشركاء</TabsTrigger>
             <TabsTrigger value="social" className="text-xs">التواصل</TabsTrigger>
+            <TabsTrigger value="footer" className="text-xs">التذييل</TabsTrigger>
             <TabsTrigger value="faq" className="text-xs">الأسئلة</TabsTrigger>
             <TabsTrigger value="analytics" className="text-xs">التحليلات</TabsTrigger>
           </TabsList>
           
-          <div className="grid grid-cols-4 gap-2 mb-8">
+          <div className="grid grid-cols-3 gap-2 mb-8">
             <TabsList className="grid grid-cols-1">
               <TabsTrigger value="contact-settings" className="text-xs">إعدادات التواصل</TabsTrigger>
-            </TabsList>
-            <TabsList className="grid grid-cols-1">
-              <TabsTrigger value="footer" className="text-xs">التذييل</TabsTrigger>
             </TabsList>
             <TabsList className="grid grid-cols-1">
               <TabsTrigger value="stats" className="text-xs">الإحصائيات</TabsTrigger>
