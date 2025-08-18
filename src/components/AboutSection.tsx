@@ -112,7 +112,7 @@ const AboutSection: React.FC = () => {
                 <img 
                   src={String(getAboutContent('image_url', language as "ar" | "en"))} 
                   alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-olu-purple/20 to-olu-purple-dark/20 flex items-center justify-center">
