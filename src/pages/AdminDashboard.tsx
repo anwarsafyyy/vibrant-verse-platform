@@ -4,22 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { auth } from "@/lib/firebase";
+import { signOut } from "firebase/auth";
 import { LayoutDashboard, LogOut } from "lucide-react";
-import PartnersManager from "@/components/admin/PartnersManager";
-import ServicesManager from "@/components/admin/ServicesManager";
-import PortfolioManager from "@/components/admin/PortfolioManager";
-import ContactInquiries from "@/components/admin/ContactInquiries";
-import ContactSettingsManager from "@/components/admin/ContactSettingsManager";
-import FooterContentManager from "@/components/admin/FooterContentManager";
-import FooterLinksManager from "@/components/admin/FooterLinksManager";
-import StatsManager from "@/components/admin/StatsManager";
-import SiteSettingsManager from "@/components/admin/SiteSettingsManager";
-import HeroContentManager from "@/components/admin/HeroContentManager";
-import AboutContentManager from "@/components/admin/AboutContentManager";
-import SocialLinksManager from "@/components/admin/SocialLinksManager";
-import AnalyticsManager from "@/components/admin/AnalyticsManager";
-import FAQManager from "@/components/admin/FAQManager";
 
 const AdminDashboard: React.FC = () => {
   const { toast } = useToast();
@@ -27,18 +14,99 @@ const AdminDashboard: React.FC = () => {
 
   const handleSignOut = async () => {
     try {
-      await supabase.auth.signOut();
+      await signOut(auth);
       toast({
-        title: "Signed out",
-        description: "You have been successfully signed out",
+        title: "تم تسجيل الخروج",
+        description: "تم تسجيل الخروج بنجاح",
       });
-      // Redirect to admin login page after sign out
       navigate("/admin");
     } catch (error) {
       console.error("Sign out error:", error);
       toast({
-        title: "Error",
-        description: "Failed to sign out",
+        title: "خطأ",
+        description: "فشل تسجيل الخروج",
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      <div className="flex border-b border-border">
+        <div className="container mx-auto flex justify-between items-center py-4">
+          <div className="flex items-center gap-2">
+            <LayoutDashboard className="h-6 w-6" />
+            <h1 className="text-xl font-semibold">لوحة التحكم - Admin Dashboard</h1>
+          </div>
+          <Button variant="outline" onClick={handleSignOut}>
+            <LogOut className="h-4 w-4 mr-2" />
+            تسجيل الخروج
+          </Button>
+        </div>
+      </div>
+
+      <div className="container mx-auto p-6">
+        <div className="bg-card p-8 rounded-lg border" dir="rtl">
+          <h2 className="text-2xl font-bold mb-4">مرحباً بك في لوحة التحكم</h2>
+          <p className="text-muted-foreground mb-4">
+            تم الانتقال بنجاح إلى Firebase. يمكنك الآن إدارة المحتوى من Firebase Console:
+          </p>
+          <div className="space-y-2">
+            <a 
+              href="https://console.firebase.google.com/project/oluwe-95bb0/firestore" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-600 hover:underline"
+            >
+              📊 Firestore Database - إدارة قاعدة البيانات
+            </a>
+            <a 
+              href="https://console.firebase.google.com/project/oluwe-95bb0/authentication/users" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-600 hover:underline"
+            >
+              👥 Authentication - إدارة المستخدمين
+            </a>
+            <a 
+              href="https://console.firebase.google.com/project/oluwe-95bb0/storage" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block text-blue-600 hover:underline"
+            >
+              📁 Storage - إدارة الملفات
+            </a>
+          </div>
+          <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded">
+            <p className="text-sm text-yellow-800">
+              💡 ملاحظة: يمكنك إضافة البيانات مباشرة من Firebase Console أو تطوير مكونات الإدارة لاحقاً
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminDashboard;
+
+const AdminDashboard: React.FC = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      toast({
+        title: "تم تسجيل الخروج",
+        description: "تم تسجيل الخروج بنجاح",
+      });
+      navigate("/admin");
+    } catch (error) {
+      console.error("Sign out error:", error);
+      toast({
+        title: "خطأ",
+        description: "فشل تسجيل الخروج",
         variant: "destructive",
       });
     }

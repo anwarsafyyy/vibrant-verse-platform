@@ -8,7 +8,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { supabase } from "@/integrations/supabase/client";
+import { db } from "@/lib/firebase";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface FAQ {
@@ -32,18 +33,17 @@ const FAQSection: React.FC = () => {
 
   const fetchFAQs = async () => {
     try {
-      const { data, error } = await supabase
-        .from('faqs')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching FAQs:", error);
-        return;
-      }
-      
-      setFaqs(data || []);
+      const q = query(
+        collection(db, 'faqs'),
+        where('is_active', '==', true),
+        orderBy('order_index', 'asc')
+      );
+      const snapshot = await getDocs(q);
+      const faqsData: FAQ[] = [];
+      snapshot.forEach(doc => {
+        faqsData.push({ id: doc.id, ...doc.data() } as FAQ);
+      });
+      setFaqs(faqsData);
     } catch (error) {
       console.error("Failed to fetch FAQs:", error);
     } finally {

@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Users, Award, Clock, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/integrations/supabase/client";
+import { db } from "@/lib/firebase";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
 interface StatItem {
@@ -28,17 +29,16 @@ const AboutSection: React.FC = () => {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('stats')
-        .select('*')
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching stats:", error);
-        return;
-      }
-      
-      setStats(data || []);
+      const q = query(
+        collection(db, 'stats'),
+        orderBy('order_index', 'asc')
+      );
+      const snapshot = await getDocs(q);
+      const statsData: StatItem[] = [];
+      snapshot.forEach(doc => {
+        statsData.push({ id: doc.id, ...doc.data() } as StatItem);
+      });
+      setStats(statsData);
     } catch (error) {
       console.error("Failed to fetch stats:", error);
     } finally {

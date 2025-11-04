@@ -2,11 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Card, CardContent } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
+import { db } from "@/lib/firebase";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Database } from "@/types/supabase";
 
-type Partner = Database['public']['Tables']['partners']['Row'];
+interface Partner {
+  id: string;
+  name: string;
+  logo_url: string;
+  order_index: number;
+  created_at: any;
+}
 
 const PartnersSection: React.FC = () => {
   const { t } = useLanguage();
@@ -16,17 +22,16 @@ const PartnersSection: React.FC = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const { data, error } = await supabase
-          .from('partners')
-          .select('*')
-          .order('order_index', { ascending: true });
-          
-        if (error) {
-          console.error("Error fetching partners:", error);
-          return;
-        }
-        
-        setPartners(data || []);
+        const q = query(
+          collection(db, 'partners'),
+          orderBy('order_index', 'asc')
+        );
+        const snapshot = await getDocs(q);
+        const partnersData: Partner[] = [];
+        snapshot.forEach(doc => {
+          partnersData.push({ id: doc.id, ...doc.data() } as Partner);
+        });
+        setPartners(partnersData);
       } catch (error) {
         console.error("Failed to fetch partners:", error);
       } finally {

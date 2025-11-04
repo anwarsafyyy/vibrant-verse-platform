@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { supabase } from "@/integrations/supabase/client";
+import { db } from "@/lib/firebase";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 
 interface Stat {
   id: string;
@@ -24,17 +25,16 @@ const DigitalTransformationSection: React.FC = () => {
 
   const fetchStats = async () => {
     try {
-      const { data, error } = await supabase
-        .from('stats')
-        .select('*')
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching stats:", error);
-        return;
-      }
-      
-      setStats(data || []);
+      const q = query(
+        collection(db, 'stats'),
+        orderBy('order_index', 'asc')
+      );
+      const snapshot = await getDocs(q);
+      const statsData: Stat[] = [];
+      snapshot.forEach(doc => {
+        statsData.push({ id: doc.id, ...doc.data() } as Stat);
+      });
+      setStats(statsData);
     } catch (error) {
       console.error("Failed to fetch stats:", error);
     }
@@ -42,47 +42,54 @@ const DigitalTransformationSection: React.FC = () => {
 
   return (
     <section className="relative min-h-screen flex items-center bg-white overflow-hidden" dir={dir}>
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-      <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          {/* Content */}
-          <div className="space-y-8 animate-fade-in">
-            <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-6">
-              <span className="text-2xl">✨</span>
-              <span className="text-primary font-medium">
-                {language === 'ar' ? 'نحو التميز الرقمي' : 'Towards Digital Excellence'}
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-6 animate-[fadeIn_1s_ease-in]">
+            <div className="inline-block">
+              <span className="px-4 py-2 rounded-full bg-gradient-to-r from-olu-purple/10 to-olu-accent/10 text-olu-purple text-sm font-semibold">
+                {language === 'ar' ? 'التحول الرقمي' : 'Digital Transformation'}
               </span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent leading-tight">
-              {language === 'ar' 
-                ? getSetting('hero_title', 'ar') || "نقود التحول الرقمي من خلال الابتكار"
-                : getSetting('hero_title', 'en') || "Driving Digital Transformation Through Innovation"
-              }
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span className="olu-text-gradient">
+                {language === 'ar' ? 'نقود التحول الرقمي' : 'Leading Digital Transformation'}
+              </span>
+              <br />
+              <span className="text-foreground">
+                {language === 'ar' ? 'بالابتكار والتميز' : 'Through Innovation'}
+              </span>
             </h1>
             
-            <p className="text-xl text-muted-foreground leading-relaxed max-w-lg">
-              {language === 'ar'
-                ? getSetting('hero_description', 'ar') || "شراكة حقيقية مع عملائنا لضمان النجاح"
-                : getSetting('hero_description', 'en') || "True partnership with our clients to ensure success"
-              }
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
+              {language === 'ar' 
+                ? 'نساعدك على استشراف المستقبل وتحقيق أهدافك من خلال حلول رقمية متكاملة تجمع بين الابتكار والكفاءة'
+                : 'We help you envision the future and achieve your goals through integrated digital solutions that combine innovation and efficiency'}
             </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
+              {stats.map((stat) => (
+                <div key={stat.id} className="text-center">
+                  <div className="text-3xl font-bold olu-text-gradient mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    {stat.name}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Image */}
-          <div className="relative animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <div className="relative z-10">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-secondary/20 rounded-3xl"></div>
-              <img
-                src={transformationImageUrl}
-                alt={language === 'ar' ? "التحول الرقمي" : "Digital Transformation"}
-                className="w-full h-auto rounded-3xl shadow-2xl hover-scale"
-              />
-            </div>
+          <div className="relative animate-[fadeIn_1.5s_ease-in]">
+            <div className="absolute inset-0 bg-gradient-to-r from-olu-purple/20 to-olu-accent/20 rounded-3xl blur-3xl"></div>
+            <img 
+              src={transformationImageUrl}
+              alt={language === 'ar' ? 'التحول الرقمي' : 'Digital Transformation'}
+              className="relative rounded-3xl shadow-2xl w-full h-auto object-cover"
+            />
           </div>
         </div>
       </div>

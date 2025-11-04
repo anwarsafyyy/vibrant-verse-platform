@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { db } from '@/lib/firebase';
+import { 
+  collection, 
+  getDocs, 
+  query, 
+  where, 
+  orderBy, 
+  limit 
+} from 'firebase/firestore';
 
 export interface SiteSettings {
   [key: string]: {
@@ -81,59 +89,67 @@ export const useSiteContent = () => {
       setLoading(true);
       
       // Fetch site settings
-      const { data: settingsData } = await supabase
-        .from('site_settings')
-        .select('*');
-      
+      const settingsSnapshot = await getDocs(collection(db, 'site_settings'));
       const settingsMap: SiteSettings = {};
-      settingsData?.forEach(setting => {
-        settingsMap[setting.key] = {
-          value_ar: setting.value_ar,
-          value_en: setting.value_en
+      settingsSnapshot.forEach(doc => {
+        const data = doc.data();
+        settingsMap[data.key] = {
+          value_ar: data.value_ar || null,
+          value_en: data.value_en || null
         };
       });
       setSiteSettings(settingsMap);
 
       // Fetch hero content
-      const { data: heroData } = await supabase
-        .from('hero_content')
-        .select('*')
-        .eq('is_active', true)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
-      
-      setHeroContent(heroData);
+      const heroQuery = query(
+        collection(db, 'hero_content'),
+        where('is_active', '==', true),
+        orderBy('created_at', 'desc'),
+        limit(1)
+      );
+      const heroSnapshot = await getDocs(heroQuery);
+      if (!heroSnapshot.empty) {
+        const doc = heroSnapshot.docs[0];
+        setHeroContent({ id: doc.id, ...doc.data() } as HeroContent);
+      }
 
       // Fetch about content
-      const { data: aboutData } = await supabase
-        .from('about_content')
-        .select('*')
-        .eq('is_active', true)
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
-      
-      setAboutContent(aboutData);
+      const aboutQuery = query(
+        collection(db, 'about_content'),
+        where('is_active', '==', true),
+        orderBy('created_at', 'desc'),
+        limit(1)
+      );
+      const aboutSnapshot = await getDocs(aboutQuery);
+      if (!aboutSnapshot.empty) {
+        const doc = aboutSnapshot.docs[0];
+        setAboutContent({ id: doc.id, ...doc.data() } as AboutContent);
+      }
 
       // Fetch social links
-      const { data: socialData } = await supabase
-        .from('social_links')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index');
-      
-      setSocialLinks(socialData || []);
+      const socialQuery = query(
+        collection(db, 'social_links'),
+        where('is_active', '==', true),
+        orderBy('order_index')
+      );
+      const socialSnapshot = await getDocs(socialQuery);
+      const socialData: SocialLink[] = [];
+      socialSnapshot.forEach(doc => {
+        socialData.push({ id: doc.id, ...doc.data() } as SocialLink);
+      });
+      setSocialLinks(socialData);
 
       // Fetch footer content
-      const { data: footerData } = await supabase
-        .from('footer_content')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(1)
-        .maybeSingle();
-      
-      setFooterContent(footerData);
+      const footerQuery = query(
+        collection(db, 'footer_content'),
+        orderBy('created_at', 'desc'),
+        limit(1)
+      );
+      const footerSnapshot = await getDocs(footerQuery);
+      if (!footerSnapshot.empty) {
+        const doc = footerSnapshot.docs[0];
+        setFooterContent({ id: doc.id, ...doc.data() } as FooterContent);
+      }
 
     } catch (error) {
       console.error('Error fetching site content:', error);

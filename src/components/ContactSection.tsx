@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -45,20 +46,13 @@ const ContactSection: React.FC = () => {
     try {
       console.log("Submitting form with values:", values);
       
-      const { error } = await supabase
-        .from('contact_inquiries')
-        .insert([
-          { 
-            name: values.name,
-            email: values.email,
-            message: values.message
-          }
-        ]);
-      
-      if (error) {
-        console.error("Error submitting form:", error);
-        throw error;
-      }
+      await addDoc(collection(db, 'contact_inquiries'), {
+        name: values.name,
+        email: values.email,
+        message: values.message,
+        is_read: false,
+        created_at: serverTimestamp()
+      });
       
       toast({
         title: t("contact.successTitle"),

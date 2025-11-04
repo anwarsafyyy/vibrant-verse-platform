@@ -11,11 +11,20 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { supabase } from "@/integrations/supabase/client";
+import { db } from "@/lib/firebase";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-import type { Database } from "@/types/supabase";
 
-type PortfolioItem = Database['public']['Tables']['portfolio_items']['Row'];
+interface PortfolioItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  image_url: string;
+  technologies: string[];
+  order_index: number;
+  created_at: any;
+}
 
 const PortfolioSection: React.FC = () => {
   const { t, dir } = useLanguage();
@@ -25,17 +34,16 @@ const PortfolioSection: React.FC = () => {
   useEffect(() => {
     const fetchPortfolioItems = async () => {
       try {
-        const { data, error } = await supabase
-          .from('portfolio_items')
-          .select('*')
-          .order('order_index', { ascending: true });
-          
-        if (error) {
-          console.error("Error fetching portfolio items:", error);
-          return;
-        }
-        
-        setPortfolioItems(data || []);
+        const q = query(
+          collection(db, 'portfolio_items'),
+          orderBy('order_index', 'asc')
+        );
+        const snapshot = await getDocs(q);
+        const itemsData: PortfolioItem[] = [];
+        snapshot.forEach(doc => {
+          itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
+        });
+        setPortfolioItems(itemsData);
       } catch (error) {
         console.error("Failed to fetch portfolio items:", error);
       } finally {
