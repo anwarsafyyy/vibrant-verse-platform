@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { getCollection } from "@/lib/firebaseHelpers";
 
 interface FooterLink {
   id: string;
@@ -27,17 +27,12 @@ const ImportantLinks: React.FC = () => {
 
   const fetchFooterLinks = async () => {
     try {
-      const { data, error } = await supabase
-        .from('footer_links')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching footer links:", error);
-        return;
-      }
-      
+      const data = await getCollection<FooterLink>(
+        'footer_links',
+        [{ field: 'is_active', operator: '==', value: true }],
+        'order_index',
+        'asc'
+      );
       setFooterLinks(data || []);
     } catch (error) {
       console.error("Failed to fetch footer links:", error);

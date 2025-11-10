@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
-import { supabase } from "@/integrations/supabase/client";
+import { getCollection } from "@/lib/firebaseHelpers";
 
 interface SocialLink {
   id: string;
@@ -48,17 +48,12 @@ const Footer: React.FC = () => {
 
   const fetchSocialLinks = async () => {
     try {
-      const { data, error } = await supabase
-        .from('social_links')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching social links:", error);
-        return;
-      }
-      
+      const data = await getCollection<SocialLink>(
+        'social_links',
+        [{ field: 'is_active', operator: '==', value: true }],
+        'order_index',
+        'asc'
+      );
       setSocialLinks(data || []);
     } catch (error) {
       console.error("Failed to fetch social links:", error);
@@ -67,16 +62,12 @@ const Footer: React.FC = () => {
 
   const fetchPartners = async () => {
     try {
-      const { data, error } = await supabase
-        .from('partners')
-        .select('*')
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching partners:", error);
-        return;
-      }
-      
+      const data = await getCollection<Partner>(
+        'partners',
+        undefined,
+        'order_index',
+        'asc'
+      );
       setPartners(data || []);
     } catch (error) {
       console.error("Failed to fetch partners:", error);
@@ -85,17 +76,12 @@ const Footer: React.FC = () => {
 
   const fetchFooterLinks = async () => {
     try {
-      const { data, error } = await supabase
-        .from('footer_links')
-        .select('*')
-        .eq('is_active', true)
-        .order('order_index', { ascending: true });
-        
-      if (error) {
-        console.error("Error fetching footer links:", error);
-        return;
-      }
-      
+      const data = await getCollection<FooterLink>(
+        'footer_links',
+        [{ field: 'is_active', operator: '==', value: true }],
+        'order_index',
+        'asc'
+      );
       setFooterLinks(data || []);
     } catch (error) {
       console.error("Failed to fetch footer links:", error);
