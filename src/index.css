@@ -5,35 +5,45 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 47% 11%;
+    --background: 220 26% 97%;
+    --foreground: 224 71% 4%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 224 71% 4%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover-foreground: 224 71% 4%;
 
-    --primary: 221 53% 35%;
+    --primary: 262 83% 58%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 196 100% 44%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 224 71% 4%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 262 83% 58%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 222 84% 5%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
+    
+    /* Modern gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(245 75% 64%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(262 83% 58% / 0.1) 0%, hsl(245 75% 64% / 0.05) 100%);
+    
+    /* Modern shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1);
   }
 
 
@@ -43,6 +53,11 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
   }
 
   /* RTL Support */
@@ -73,31 +88,32 @@
 
 @layer components {
   .olu-gradient {
-    @apply bg-gradient-to-r from-olu-purple to-olu-purple-dark;
+    background: var(--gradient-primary);
   }
   
   .olu-gradient-light {
-    @apply bg-gradient-to-r from-gray-100 to-gray-200;
+    @apply bg-gradient-to-br from-secondary/50 to-secondary/20;
   }
   
   .olu-text-gradient {
-    @apply bg-gradient-to-r from-olu-purple-dark to-olu-purple bg-clip-text text-transparent;
+    background: var(--gradient-primary);
+    @apply bg-clip-text text-transparent;
   }
   
   .olu-text-gradient-dark {
-    @apply bg-gradient-to-r from-olu-purple-dark to-olu-purple-dark bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
   }
   
   .service-card {
-    @apply rounded-2xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+    @apply rounded-xl p-6 bg-card border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/30;
   }
   
   .glass-effect {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl;
+    @apply bg-background/80 backdrop-blur-xl border border-border/50 shadow-xl;
   }
   
   .btn-light {
-    @apply bg-gray-100 text-olu-purple-dark hover:bg-gray-200 transition-colors duration-300 rounded-full;
+    @apply bg-secondary text-foreground hover:bg-secondary/80 transition-all duration-300 rounded-lg;
   }
 }
 

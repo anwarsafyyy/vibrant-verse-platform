@@ -29,8 +29,8 @@ export default {
 					blue: 'hsl(221, 53%, 35%)',
 					cyan: 'hsl(196, 100%, 44%)',
 					gold: 'hsl(45, 25%, 51%)',
-					purple: 'hsl(270, 50%, 40%)',
-					'purple-dark': 'hsl(270, 60%, 25%)',
+					purple: 'hsl(262, 83%, 58%)',
+					'purple-dark': 'hsl(245, 75%, 64%)',
 				},
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
@@ -70,6 +70,9 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			fontFamily: {
+				sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
