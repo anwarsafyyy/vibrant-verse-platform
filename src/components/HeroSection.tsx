@@ -156,7 +156,7 @@ const HeroSection: React.FC = () => {
             <img 
               src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
               alt="Company Logo" 
-              className="h-[512px] w-auto md:h-[768px] lg:h-[1024px] object-contain drop-shadow-2xl animate-scale-in"
+              className="h-[768px] w-auto md:h-[1152px] lg:h-[1536px] object-contain drop-shadow-2xl animate-scale-in"
             />
           </div>
           

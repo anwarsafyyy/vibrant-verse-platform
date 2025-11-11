@@ -406,7 +406,7 @@ const translations: TranslationsType = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<LanguageCode>("en");
+  const [language, setLanguage] = useState<LanguageCode>("ar");
   const [dir, setDir] = useState<DirectionType>("ltr");
 
   useEffect(() => {
