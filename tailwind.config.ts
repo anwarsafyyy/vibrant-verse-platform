@@ -72,8 +72,8 @@ export default {
 				}
 			},
 		fontFamily: {
-			sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
-			heading: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+			sans: ['Lama Sans', 'system-ui', '-apple-system', 'sans-serif'],
+			heading: ['Lama Sans', 'system-ui', '-apple-system', 'sans-serif'],
 		},
 			borderRadius: {
 				lg: 'var(--radius)',
