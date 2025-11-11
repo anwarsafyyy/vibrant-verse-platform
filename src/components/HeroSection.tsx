@@ -34,18 +34,69 @@ const HeroSection: React.FC = () => {
       
       {/* Floating tech elements */}
       <div className="absolute inset-0 -z-5 overflow-hidden">
-        {/* Holographic icons */}
-        <div className="floating-element absolute top-1/4 left-1/4 w-12 h-12 opacity-20">
-          <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg animate-float blur-sm" style={{ animationDelay: '0s', animationDuration: '8s' }}></div>
+        {/* Dev Icons - React */}
+        <div className="floating-element absolute top-1/4 left-1/4 opacity-30 animate-float" style={{ animationDelay: '0s', animationDuration: '8s' }}>
+          <svg className="w-12 h-12 text-cyan-400" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="2" />
+            <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="currentColor" strokeWidth="1" transform="rotate(60 12 12)" />
+            <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="currentColor" strokeWidth="1" transform="rotate(-60 12 12)" />
+            <ellipse cx="12" cy="12" rx="8" ry="3" fill="none" stroke="currentColor" strokeWidth="1" />
+          </svg>
         </div>
-        <div className="floating-element absolute top-1/3 right-1/4 w-16 h-16 opacity-15">
-          <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 rounded-full animate-float blur-sm" style={{ animationDelay: '2s', animationDuration: '10s' }}></div>
+        
+        {/* Dev Icons - Code Brackets */}
+        <div className="floating-element absolute top-1/3 right-1/4 opacity-25 animate-float" style={{ animationDelay: '2s', animationDuration: '10s' }}>
+          <svg className="w-14 h-14 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
+          </svg>
         </div>
-        <div className="floating-element absolute bottom-1/3 left-1/3 w-10 h-10 opacity-20">
-          <div className="w-full h-full bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg animate-float blur-sm" style={{ animationDelay: '4s', animationDuration: '12s' }}></div>
+        
+        {/* Dev Icons - Node/Hexagon */}
+        <div className="floating-element absolute bottom-1/3 left-1/3 opacity-30 animate-float" style={{ animationDelay: '4s', animationDuration: '12s' }}>
+          <svg className="w-10 h-10 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.5L19.5 8 12 11.5 4.5 8 12 4.5zM4 9.5l7 3.5v7l-7-3.5v-7zm16 0v7l-7 3.5v-7l7-3.5z" opacity="0.6"/>
+          </svg>
         </div>
-        <div className="floating-element absolute top-1/2 right-1/3 w-14 h-14 opacity-15">
-          <div className="w-full h-full bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full animate-float blur-sm" style={{ animationDelay: '1s', animationDuration: '9s' }}></div>
+        
+        {/* Dev Icons - Database */}
+        <div className="floating-element absolute top-1/2 right-1/3 opacity-25 animate-float" style={{ animationDelay: '1s', animationDuration: '9s' }}>
+          <svg className="w-12 h-12 text-orange-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
+            <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+          </svg>
+        </div>
+        
+        {/* Dev Icons - Mobile Phone */}
+        <div className="floating-element absolute top-3/4 left-1/5 opacity-30 animate-float" style={{ animationDelay: '3s', animationDuration: '11s' }}>
+          <svg className="w-10 h-10 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12" y2="18"/>
+          </svg>
+        </div>
+        
+        {/* Dev Icons - Terminal */}
+        <div className="floating-element absolute bottom-1/4 right-1/5 opacity-25 animate-float" style={{ animationDelay: '5s', animationDuration: '13s' }}>
+          <svg className="w-12 h-12 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <polyline points="4 17 10 11 4 5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+        </div>
+        
+        {/* Dev Icons - Git Branch */}
+        <div className="floating-element absolute top-2/3 left-2/3 opacity-30 animate-float" style={{ animationDelay: '6s', animationDuration: '14s' }}>
+          <svg className="w-11 h-11 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="6" cy="6" r="3"/>
+            <circle cx="18" cy="18" r="3"/>
+            <path d="M6 9v6c0 3 3 3 6 3h3"/>
+          </svg>
+        </div>
+        
+        {/* Dev Icons - API/Cloud */}
+        <div className="floating-element absolute top-1/5 right-2/5 opacity-25 animate-float" style={{ animationDelay: '7s', animationDuration: '15s' }}>
+          <svg className="w-13 h-13 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+          </svg>
         </div>
         
         {/* Circuit lines */}

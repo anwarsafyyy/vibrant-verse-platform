@@ -31,11 +31,13 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
-            <img 
-              src="/olu-logo.png" 
-              alt="علو Logo" 
-              className="h-16 w-auto object-contain"
-            />
+            {getSetting('logo_url', 'ar') && (
+              <img 
+                src={getSetting('logo_url', 'ar')} 
+                alt="علو Logo" 
+                className="h-16 w-auto object-contain"
+              />
+            )}
           </a>
         </div>
 
