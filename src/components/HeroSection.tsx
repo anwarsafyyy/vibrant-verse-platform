@@ -113,12 +113,12 @@ const HeroSection: React.FC = () => {
           className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
-          {/* Logo from database */}
-          <div className="mb-8 flex justify-center">
+          {/* Logo from database - Fixed top-right */}
+          <div className="fixed top-20 right-4 md:top-24 md:right-8 z-10 animate-fade-in">
             <img 
               src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
-              alt="Logo" 
-              className="h-24 w-auto object-contain"
+              alt="Company Logo" 
+              className="h-20 w-auto md:h-32 lg:h-40 object-contain drop-shadow-lg"
             />
           </div>
           
