@@ -29,12 +29,14 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-olu-purple/5 to-olu-purple-dark/5 dark:from-olu-purple/10 dark:to-olu-purple-dark/10 -z-10"></div>
+      {/* Modern gradient background */}
+      <div className="absolute inset-0 olu-gradient-hero -z-10"></div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] -z-10"></div>
       
-      {/* Animated circles */}
-      <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full bg-olu-purple/10 blur-3xl animate-float"></div>
-      <div className="absolute bottom-1/4 -right-24 w-96 h-96 rounded-full bg-gray-400/10 blur-3xl animate-float" style={{ animationDelay: "1.5s" }}></div>
+      {/* Animated gradient orbs */}
+      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl animate-float"></div>
+      <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-accent/20 to-transparent blur-3xl animate-float" style={{ animationDelay: "2s" }}></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/10 via-accent/10 to-transparent blur-3xl animate-pulse"></div>
       
       <div className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center">{/* Container made dynamic */}
         {/* Content */}
@@ -42,23 +44,29 @@ const HeroSection: React.FC = () => {
           className={`w-full lg:w-1/2 text-center lg:text-left ${dir === "rtl" ? "lg:order-2" : "lg:order-1"} ${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-            <span className="olu-text-gradient-dark">
+          <h1 className="font-bold mb-6 leading-tight">
+            <span className="olu-text-gradient">
               {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto lg:mx-0">
+          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
             {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
             <Button 
               variant="light" 
-              size="pill" 
-              className="text-white"
+              size="lg"
               onClick={scrollToContact}
             >
               {getHeroContent('cta_text_ar', language as "ar" | "en") || t("contact")}
               <ArrowRight className={`ml-2 ${dir === "rtl" ? "rtl-flip" : ""}`} />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={scrollToServices}
+            >
+              {t("services.title")}
             </Button>
           </div>
         </div>
@@ -69,11 +77,11 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.4s" }}
         >
           <div className="relative mx-auto w-full max-w-md aspect-square">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-olu-purple to-gray-400 opacity-20 blur-2xl animate-pulse"></div>
+            <div className="absolute inset-0 rounded-full olu-gradient opacity-20 blur-3xl animate-pulse"></div>
             <div className="relative z-10 w-full h-full flex items-center justify-center">
-              <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden w-full max-w-md transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                <div className="p-6">
-                  <div className="flex items-center mb-4">
+              <div className="bg-card rounded-3xl overflow-hidden w-full max-w-md transform hover:scale-105 transition-all duration-500" style={{ boxShadow: 'var(--shadow-xl)' }}>
+                <div className="p-8">
+                  <div className="flex items-center mb-6">
                     <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500"></div>
@@ -85,16 +93,16 @@ const HeroSection: React.FC = () => {
                       />
                     </div>
                   </div>
-                  <div className="space-y-3">
-                    <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="w-5/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="w-4/6 h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="grid grid-cols-2 gap-2 mt-6">
-                        <div className="bg-gray-400/10 dark:bg-gray-400/20 h-20 rounded-lg flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-gray-400/30 dark:bg-gray-400/40"></div>
+                  <div className="space-y-4">
+                    <div className="w-full h-4 bg-muted rounded-lg animate-pulse"></div>
+                    <div className="w-5/6 h-4 bg-muted rounded-lg animate-pulse"></div>
+                    <div className="w-4/6 h-4 bg-muted rounded-lg animate-pulse"></div>
+                    <div className="grid grid-cols-2 gap-3 mt-8">
+                      <div className="bg-gradient-to-br from-primary/10 to-primary/5 h-24 rounded-xl flex items-center justify-center border border-primary/10">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent"></div>
                       </div>
-                      <div className="bg-olu-cyan/10 dark:bg-olu-cyan/20 h-20 rounded-lg flex items-center justify-center">
-                        <div className="w-8 h-8 rounded-full bg-olu-cyan/30 dark:bg-olu-cyan/40"></div>
+                      <div className="bg-gradient-to-br from-accent/10 to-accent/5 h-24 rounded-xl flex items-center justify-center border border-accent/10">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-primary"></div>
                       </div>
                     </div>
                   </div>

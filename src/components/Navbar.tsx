@@ -22,9 +22,9 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-8 z-50 transition-all duration-300 ${
+      className={`sticky top-6 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-background/80 backdrop-blur-md shadow-sm py-2 rounded-2xl mx-8"
+          ? "glass-effect py-3 rounded-3xl mx-6 md:mx-8"
           : "bg-transparent py-4"
       }`}
     >
@@ -47,25 +47,25 @@ const Navbar: React.FC = () => {
             dir === "rtl" ? "space-x-reverse" : ""
           }`}
         >
-          <a href="#" className="font-medium hover:text-olu-purple-dark transition-colors">
+          <a href="#" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
             {t("home")}
           </a>
-          <a href="#services" className="font-medium hover:text-olu-purple-dark transition-colors">
+          <a href="#services" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
             {t("services")}
           </a>
-           <a href="#about" className="font-medium hover:text-olu-purple-dark transition-colors">
+           <a href="#about" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
              {t("about")}
            </a>
-           <a href="#partners" className="font-medium hover:text-olu-purple-dark transition-colors">
+           <a href="#partners" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
              {t("partners.title")}
            </a>
-           <a href="#portfolio" className="font-medium hover:text-olu-purple-dark transition-colors">
+           <a href="#portfolio" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
              {t("portfolio.title")}
            </a>
-          <a href="#faq" className="font-medium hover:text-olu-purple-dark transition-colors">
+          <a href="#faq" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
             {t("faq.title")}
           </a>
-          <a href="#contact" className="font-medium hover:text-olu-purple-dark transition-colors">
+          <a href="#contact" className="font-medium hover:text-primary transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
             {t("contact")}
           </a>
         </nav>
@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
           <LanguageSwitcher />
           <Button
             variant="light"
-            size="pill" 
+            size="default" 
             className="hidden md:inline-flex"
             onClick={() => {
               const contactSection = document.getElementById('contact');

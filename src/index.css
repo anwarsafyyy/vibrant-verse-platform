@@ -13,45 +13,89 @@
 
 @layer base {
   :root {
-    --background: 220 26% 97%;
-    --foreground: 224 71% 4%;
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 262 83% 58%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 224 71% 4%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 262 83% 58%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 262 83% 58%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 221 83% 53%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
     
-    /* Modern gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262 83% 58%) 0%, hsl(245 75% 64%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(262 83% 58% / 0.1) 0%, hsl(245 75% 64% / 0.05) 100%);
+    /* Tech-inspired gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(199 89% 48%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(221 83% 53% / 0.08) 0%, hsl(199 89% 48% / 0.08) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53% / 0.1) 0%, hsl(199 89% 48% / 0.05) 50%, transparent 100%);
     
-    /* Modern shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
-    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1);
-    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1);
+    /* Premium shadows */
+    --shadow-sm: 0 2px 4px 0 hsl(221 83% 53% / 0.04);
+    --shadow-md: 0 4px 12px 0 hsl(221 83% 53% / 0.08);
+    --shadow-lg: 0 8px 24px 0 hsl(221 83% 53% / 0.12);
+    --shadow-xl: 0 16px 48px 0 hsl(221 83% 53% / 0.16);
+    --shadow-glow: 0 0 40px hsl(199 89% 48% / 0.2);
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 15%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 15%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 199 89% 48%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 221 83% 53%;
+
+    /* Dark mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(199 89% 48%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(221 83% 53% / 0.15) 0%, hsl(199 89% 48% / 0.1) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53% / 0.15) 0%, hsl(199 89% 48% / 0.1) 50%, transparent 100%);
+    
+    /* Dark mode shadows */
+    --shadow-sm: 0 2px 4px 0 hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 12px 0 hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 8px 24px 0 hsl(0 0% 0% / 0.5);
+    --shadow-xl: 0 16px 48px 0 hsl(0 0% 0% / 0.6);
+    --shadow-glow: 0 0 40px hsl(199 89% 48% / 0.3);
   }
 
 
@@ -59,15 +103,35 @@
     scroll-behavior: smooth;
   }
 
+  * {
+    @apply border-border;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
     font-family: 'Lama Sans', system-ui, -apple-system, sans-serif;
     font-optical-sizing: auto;
+    font-feature-settings: 'cv11', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold tracking-tight;
+    @apply font-bold tracking-tight;
     font-family: 'Lama Sans', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
   }
 
   /* RTL Support */
@@ -102,7 +166,11 @@
   }
   
   .olu-gradient-light {
-    @apply bg-gradient-to-br from-secondary/50 to-secondary/20;
+    background: var(--gradient-secondary);
+  }
+  
+  .olu-gradient-hero {
+    background: var(--gradient-hero);
   }
   
   .olu-text-gradient {
@@ -111,19 +179,40 @@
   }
   
   .olu-text-gradient-dark {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    background: var(--gradient-primary);
+    @apply bg-clip-text text-transparent;
   }
   
   .service-card {
-    @apply rounded-xl p-6 bg-card border border-border/50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-primary/30;
+    @apply rounded-2xl p-8 bg-card border border-border transition-all duration-300 hover:border-primary/40;
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
   }
   
   .glass-effect {
-    @apply bg-background/80 backdrop-blur-xl border border-border/50 shadow-xl;
+    @apply bg-background/80 backdrop-blur-2xl border border-border;
+    box-shadow: var(--shadow-md);
   }
   
-  .btn-light {
-    @apply bg-secondary text-foreground hover:bg-secondary/80 transition-all duration-300 rounded-lg;
+  .card-hover {
+    @apply transition-all duration-300 hover:border-primary/40;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .btn-glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 30px hsl(var(--primary) / 0.5);
   }
 }
 
