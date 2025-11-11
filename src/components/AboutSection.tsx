@@ -127,55 +127,63 @@ const AboutSection: React.FC = () => {
             {loading ? (
               Array(4).fill(0).map((_, index) => (
                 <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl animate-pulse">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-muted mb-4"></div>
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-muted mb-4"></div>
                   <div className="h-8 w-16 bg-muted rounded mb-2"></div>
                   <div className="h-4 w-24 bg-muted rounded"></div>
                 </div>
               ))
             ) : stats.length > 0 ? (
-              stats.map((stat) => (
-                <div key={stat.id} className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-lg transition-all duration-500">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
-                    {getIcon(stat.icon)}
+              stats.map((stat, index) => {
+                const gradients = [
+                  "from-blue-500 to-cyan-500",
+                  "from-emerald-500 to-teal-500", 
+                  "from-orange-500 to-pink-500",
+                  "from-violet-500 to-purple-500"
+                ];
+                return (
+                  <div key={stat.id} className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br ${gradients[index % 4]} text-white mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                      {getIcon(stat.icon)}
+                    </div>
+                    <h4 className="text-3xl font-bold mb-2">{stat.value}</h4>
+                    <p className="text-sm text-muted-foreground">
+                      {getTranslatedStatName(stat.name)}
+                    </p>
                   </div>
-                  <h4 className="text-3xl font-bold mb-2">{stat.value}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {getTranslatedStatName(stat.name)}
-                  </p>
-                </div>
-              ))
+                );
+              })
             ) : (
               <>
-                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
-                    <Users className="h-6 w-6" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br from-blue-500 to-cyan-500 text-white mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    <Users className="h-7 w-7" />
                   </div>
                   <h4 className="text-3xl font-bold mb-2">100+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.clients") : "Satisfied Clients"}
                   </p>
                 </div>
-                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
-                    <Award className="h-6 w-6" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br from-emerald-500 to-teal-500 text-white mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    <Award className="h-7 w-7" />
                   </div>
                   <h4 className="text-3xl font-bold mb-2">50+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.projects") : "Completed Projects"}
                   </p>
                 </div>
-                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
-                    <Clock className="h-6 w-6" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br from-orange-500 to-pink-500 text-white mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    <Clock className="h-7 w-7" />
                   </div>
                   <h4 className="text-3xl font-bold mb-2">4+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.experience") : "Years Experience"}
                   </p>
                 </div>
-                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
-                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
-                    <Globe className="h-6 w-6" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-xl hover:-translate-y-2 transition-all duration-500 group">
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center bg-gradient-to-br from-violet-500 to-purple-500 text-white mb-4 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    <Globe className="h-7 w-7" />
                   </div>
                   <h4 className="text-3xl font-bold mb-2">25+</h4>
                   <p className="text-sm text-muted-foreground">

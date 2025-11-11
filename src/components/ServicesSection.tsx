@@ -92,16 +92,16 @@ const ServicesSection: React.FC = () => {
     return iconMap[iconName] || MoreHorizontal;
   };
 
-  // Define colorful gradients (avoiding purple, black, gray, white)
+  // Define vibrant colorful gradients
   const colorGradients = [
-    "from-blue-500 to-cyan-600",        // Blue to Cyan
-    "from-emerald-500 to-teal-600",     // Emerald to Teal
-    "from-orange-500 to-red-600",       // Orange to Red
-    "from-indigo-500 to-blue-600",      // Indigo to Blue
-    "from-green-500 to-emerald-600",    // Green to Emerald
-    "from-pink-500 to-rose-600",        // Pink to Rose
-    "from-amber-500 to-orange-600",     // Amber to Orange
-    "from-cyan-500 to-blue-600",        // Cyan to Blue
+    "from-blue-500 via-blue-600 to-cyan-500",           // Electric Blue
+    "from-emerald-500 via-teal-500 to-cyan-500",        // Ocean Green
+    "from-orange-500 via-red-500 to-pink-500",          // Sunset Orange
+    "from-violet-500 via-purple-500 to-fuchsia-500",    // Purple Dream
+    "from-green-500 via-emerald-500 to-teal-500",       // Fresh Green
+    "from-pink-500 via-rose-500 to-red-500",            // Rose Pink
+    "from-amber-500 via-orange-500 to-red-500",         // Fire Amber
+    "from-cyan-500 via-blue-500 to-indigo-500",         // Deep Ocean
   ];
 
   return (
