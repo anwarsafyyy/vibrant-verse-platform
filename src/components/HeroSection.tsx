@@ -72,31 +72,22 @@ const HeroSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl">
-        {/* Logo at top center */}
-        <div 
-          className={`mb-12 ${isVisible ? "animate-fade-in" : "opacity-0"}`}
-          style={{ animationDelay: "0.1s" }}
-        >
-          <img 
-            src="/alo.png" 
-            alt="Company Logo" 
-            className="h-24 md:h-32 w-auto mx-auto drop-shadow-2xl animate-float"
-          />
-        </div>
-        
         {/* Content */}
         <div 
           className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
-          <h1 className="font-bold mb-8 leading-tight tracking-tight">
+          {/* Subtitle above title */}
+          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed font-['Lama_Sans']">
+            {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
+          </p>
+          
+          {/* Main title */}
+          <h1 className="font-bold mb-12 leading-tight tracking-tight font-['Lama_Sans']">
             <span className="olu-text-gradient">
               {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button 
               variant="default" 
