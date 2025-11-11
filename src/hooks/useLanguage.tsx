@@ -25,8 +25,8 @@ const translations: TranslationsType = {
     "about": "من نحن",
     "portfolio": "أعمالنا",
     "contact": "اتصل بنا",
-    "hero.title": "نقود التحول الرقمي من خلال الابتكار",
-    "hero.subtitle": "نقدم حلول تقنية متكاملة تجمع بين الإبداع والتميز لنساعد الشركات على النمو في العصر الرقمي",
+    "hero.title": "نبني المستقبل الرقمي معك",
+    "hero.subtitle": "نحو مستقبل رقمي أكثر نجاحًا — نوفّر لك حلولًا تقنية تجمع بين الابتكار والكفاءة لتصنع الفرق في عالم الأعمال.",
     "cta.button": "تواصل معنا",
     "services.title": "خدماتنا المتميزة",
     "services.description": "نوفر حلولًا رقمية مبتكرة تشمل تطوير المواقع والتطبيقات، الاستشارات التقنية، الحلول السحابية، وأمان المعلومات. نهدف إلى تحسين الأداء الرقمي لأعمالك عبر استراتيجيات متقدمة تضمن الكفاءة، الأمان، والتوسع المستدام. 🚀",
@@ -97,8 +97,8 @@ const translations: TranslationsType = {
     "about": "About",
     "portfolio": "Portfolio",
     "contact": "Contact",
-    "hero.title": "Driving Digital Transformation Through Innovation",
-    "hero.subtitle": "We deliver integrated technological solutions that combine creativity and excellence to help companies grow in the digital era",
+    "hero.title": "We Build Your Digital Future",
+    "hero.subtitle": "Towards a more successful digital future — we provide you with technical solutions that combine innovation and efficiency to make a difference in the business world.",
     "cta.button": "Contact Us",
     "services.title": "Our Distinguished Services",
     "service1.title": "Web Development",

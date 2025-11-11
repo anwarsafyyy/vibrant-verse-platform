@@ -27,11 +27,63 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
-      {/* Clean gradient background */}
+      {/* Enhanced gradient background with tech atmosphere */}
       <div className="absolute inset-0 olu-gradient-hero -z-10"></div>
       <div className="absolute inset-0 gradient-mesh -z-10"></div>
+      <div className="absolute inset-0 bg-grid-pattern opacity-5 -z-10"></div>
+      
+      {/* Floating tech elements */}
+      <div className="absolute inset-0 -z-5 overflow-hidden">
+        {/* Holographic icons */}
+        <div className="floating-element absolute top-1/4 left-1/4 w-12 h-12 opacity-20">
+          <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg animate-float blur-sm" style={{ animationDelay: '0s', animationDuration: '8s' }}></div>
+        </div>
+        <div className="floating-element absolute top-1/3 right-1/4 w-16 h-16 opacity-15">
+          <div className="w-full h-full bg-gradient-to-br from-purple-500 to-pink-500 rounded-full animate-float blur-sm" style={{ animationDelay: '2s', animationDuration: '10s' }}></div>
+        </div>
+        <div className="floating-element absolute bottom-1/3 left-1/3 w-10 h-10 opacity-20">
+          <div className="w-full h-full bg-gradient-to-br from-emerald-500 to-teal-500 rounded-lg animate-float blur-sm" style={{ animationDelay: '4s', animationDuration: '12s' }}></div>
+        </div>
+        <div className="floating-element absolute top-1/2 right-1/3 w-14 h-14 opacity-15">
+          <div className="w-full h-full bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full animate-float blur-sm" style={{ animationDelay: '1s', animationDuration: '9s' }}></div>
+        </div>
+        
+        {/* Circuit lines */}
+        <svg className="absolute top-20 left-10 w-64 h-64 opacity-10 animate-pulse-glow" viewBox="0 0 200 200">
+          <path d="M50,50 L150,50 L150,150 L50,150 Z" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary"/>
+          <circle cx="50" cy="50" r="3" fill="currentColor" className="text-primary"/>
+          <circle cx="150" cy="50" r="3" fill="currentColor" className="text-primary"/>
+          <circle cx="150" cy="150" r="3" fill="currentColor" className="text-primary"/>
+          <circle cx="50" cy="150" r="3" fill="currentColor" className="text-primary"/>
+        </svg>
+        <svg className="absolute bottom-20 right-10 w-64 h-64 opacity-10 animate-pulse-glow" viewBox="0 0 200 200" style={{ animationDelay: '2s' }}>
+          <path d="M100,20 L180,100 L100,180 L20,100 Z" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary"/>
+          <circle cx="100" cy="20" r="3" fill="currentColor" className="text-primary"/>
+          <circle cx="180" cy="100" r="3" fill="currentColor" className="text-primary"/>
+          <circle cx="100" cy="180" r="3" fill="currentColor" className="text-primary"/>
+          <circle cx="20" cy="100" r="3" fill="currentColor" className="text-primary"/>
+        </svg>
+        
+        {/* Data particles */}
+        <div className="absolute top-1/4 right-1/2 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '0s' }}></div>
+        <div className="absolute top-2/3 left-1/4 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 left-1/2 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '3s' }}></div>
+      </div>
       
       <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl">
+        {/* Logo at top center */}
+        <div 
+          className={`mb-12 ${isVisible ? "animate-fade-in" : "opacity-0"}`}
+          style={{ animationDelay: "0.1s" }}
+        >
+          <img 
+            src="/alo.png" 
+            alt="Company Logo" 
+            className="h-24 md:h-32 w-auto mx-auto drop-shadow-2xl animate-float"
+          />
+        </div>
+        
         {/* Content */}
         <div 
           className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
@@ -42,7 +94,7 @@ const HeroSection: React.FC = () => {
               {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
             </span>
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
