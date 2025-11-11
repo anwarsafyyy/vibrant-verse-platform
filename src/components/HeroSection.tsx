@@ -72,18 +72,6 @@ const HeroSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl">
-        {/* Logo above everything */}
-        <div 
-          className={`mb-12 ${isVisible ? "animate-fade-in" : "opacity-0"}`}
-          style={{ animationDelay: "0.1s" }}
-        >
-          <img 
-            src="/alo.png" 
-            alt="Company Logo" 
-            className="h-24 md:h-32 w-auto mx-auto drop-shadow-2xl animate-float"
-          />
-        </div>
-        
         {/* Content */}
         <div 
           className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
