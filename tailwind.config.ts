@@ -72,7 +72,8 @@ export default {
 				}
 			},
 		fontFamily: {
-			sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+			sans: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
+			heading: ['Plus Jakarta Sans', 'system-ui', '-apple-system', 'sans-serif'],
 		},
 			borderRadius: {
 				lg: 'var(--radius)',
