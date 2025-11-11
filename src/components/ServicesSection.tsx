@@ -105,18 +105,13 @@ const ServicesSection: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="min-h-screen py-24 relative flex items-center">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-background"></div>
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none"></div>
-      
+    <section id="services" className="py-32 relative">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-20">
-          <h2 className="font-bold mb-6">
+        <div className="text-center mb-20 max-w-3xl mx-auto">
+          <h2 className="font-bold mb-6 tracking-tight">
             <span className="olu-text-gradient">{t("services.title")}</span>
           </h2>
-          <div className="w-20 h-1.5 olu-gradient mx-auto rounded-full mb-6"></div>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground leading-relaxed">
             {t("services.description")}
           </p>
         </div>

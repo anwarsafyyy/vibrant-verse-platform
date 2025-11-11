@@ -52,26 +52,21 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-20 relative">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
-      
+    <section id="faq" className="py-32 relative">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="olu-text-gradient-dark">{t("faq.title")}</span>
+        <div className="text-center mb-20 max-w-3xl mx-auto">
+          <h2 className="font-bold mb-6 tracking-tight">
+            <span className="olu-text-gradient">{t("faq.title")}</span>
           </h2>
-          <div className="w-24 h-1 bg-gray-400 mx-auto rounded-full"></div>
-          <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground leading-relaxed">
             {t("faq.description")}
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          {loading ? (
+        <div className="max-w-3xl mx-auto">{loading ? (
             <div className="space-y-4">
               {Array(4).fill(0).map((_, index) => (
-                <div key={`faq-skeleton-${index}`} className="border rounded-lg p-4">
+                <div key={`faq-skeleton-${index}`} className="border border-border/50 rounded-3xl p-6">
                   <Skeleton className="h-6 w-3/4 mb-2" />
                   <Skeleton className="h-4 w-full" />
                   <Skeleton className="h-4 w-2/3" />
@@ -79,13 +74,13 @@ const FAQSection: React.FC = () => {
               ))}
             </div>
           ) : faqs.length > 0 ? (
-            <Accordion type="single" collapsible className="w-full">
+            <Accordion type="single" collapsible className="w-full space-y-4">
               {faqs.map((faq, index) => (
-                <AccordionItem key={faq.id} value={`item-${index}`}>
-                  <AccordionTrigger className="text-lg font-medium">
+                <AccordionItem key={faq.id} value={`item-${index}`} className="border border-border/50 rounded-3xl px-6 bg-card">
+                  <AccordionTrigger className="text-lg font-semibold hover:no-underline py-6">
                     {language === 'ar' ? faq.question_ar : faq.question_en}
                   </AccordionTrigger>
-                  <AccordionContent className="text-base">
+                  <AccordionContent className="text-base text-muted-foreground pb-6">
                     {language === 'ar' ? faq.answer_ar : faq.answer_en}
                   </AccordionContent>
                 </AccordionItem>

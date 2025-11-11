@@ -10,23 +10,23 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl shadow-[0_4px_12px_hsl(var(--primary)/0.2)] hover:shadow-[0_8px_24px_hsl(var(--primary)/0.3)] hover:-translate-y-0.5",
+        default: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full shadow-[0_4px_14px_0_hsl(var(--primary)/0.39)] hover:shadow-[0_6px_20px_hsl(var(--primary)/0.5)] hover:-translate-y-0.5",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5",
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full shadow-sm hover:shadow-md hover:-translate-y-0.5",
         outline:
-          "border-2 border-border bg-background hover:bg-accent hover:text-accent-foreground hover:border-accent rounded-xl",
+          "border-2 border-border bg-background hover:bg-secondary hover:text-foreground hover:border-primary/20 rounded-full",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-xl",
-        ghost: "hover:bg-accent/10 hover:text-accent-foreground rounded-xl",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full",
+        ghost: "hover:bg-secondary hover:text-foreground rounded-full",
         link: "text-primary underline-offset-4 hover:underline",
-        light: "bg-gradient-to-r from-primary to-accent text-primary-foreground hover:opacity-90 rounded-xl shadow-[0_4px_12px_hsl(var(--primary)/0.2)] hover:shadow-[0_8px_24px_hsl(var(--primary)/0.3)] hover:-translate-y-0.5",
+        light: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full shadow-[0_4px_14px_0_hsl(var(--primary)/0.39)] hover:shadow-[0_6px_20px_hsl(var(--primary)/0.5)] hover:-translate-y-0.5",
       },
       size: {
-        default: "h-11 px-6 py-2",
-        sm: "h-9 px-4 text-xs",
-        lg: "h-14 px-10 text-base",
+        default: "h-11 px-8 py-2",
+        sm: "h-9 px-5 text-xs",
+        lg: "h-14 px-12 text-base",
         icon: "h-11 w-11",
-        pill: "h-12 px-8 rounded-full",
+        pill: "h-12 px-10 rounded-full",
       },
     },
     defaultVariants: {

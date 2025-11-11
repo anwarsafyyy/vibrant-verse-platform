@@ -77,25 +77,19 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="min-h-screen relative flex items-center py-20 bg-gradient-to-br from-gray-100 to-gray-200">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background/50 to-transparent"></div>
-      
+    <section id="contact" className="py-32 relative bg-secondary/20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="olu-text-gradient-dark">{t("contact.title")}</span>
+        <div className="text-center mb-20 max-w-3xl mx-auto">
+          <h2 className="font-bold mb-6 tracking-tight">
+            <span className="olu-text-gradient">{t("contact.title")}</span>
           </h2>
-          <p className="text-xl text-muted-foreground mb-6">{t("contact.subtitle")}</p>
-          <div className="w-24 h-1 olu-gradient-light mx-auto rounded-full"></div>
+          <p className="text-xl text-muted-foreground leading-relaxed">{t("contact.subtitle")}</p>
         </div>
 
         <div className="max-w-2xl mx-auto">
-          {/* Contact Form */}
           <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-              <h3 className="text-2xl font-bold mb-6 olu-text-gradient-dark">تواصل معنا</h3>
+            <div className="bg-card rounded-3xl shadow-xl p-10 border border-border/50">
+              <h3 className="text-2xl font-bold mb-8 olu-text-gradient">تواصل معنا</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -149,7 +143,8 @@ const ContactSection: React.FC = () => {
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="flex-1 bg-gradient-to-r from-olu-purple to-olu-purple-dark hover:from-olu-purple-dark hover:to-olu-purple text-white"
+                      className="flex-1"
+                      size="lg"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center">
@@ -158,7 +153,7 @@ const ContactSection: React.FC = () => {
                         </div>
                       ) : (
                         <>
-                          <Send className="mr-2 h-4 w-4" />
+                          <Send className="h-4 w-4" />
                           {t("contact.sendMessage")}
                         </>
                       )}
@@ -167,9 +162,10 @@ const ContactSection: React.FC = () => {
                     <Button 
                       type="button"
                       onClick={handleWhatsAppClick} 
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white transition-all duration-300"
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white"
+                      size="lg"
                     >
-                      <MessageSquare className="mr-2 h-4 w-4" />
+                      <MessageSquare className="h-4 w-4" />
                       {language === 'ar' ? 'واتساب' : 'WhatsApp'}
                     </Button>
                   </div>

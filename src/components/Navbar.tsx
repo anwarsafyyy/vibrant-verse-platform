@@ -22,10 +22,10 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-6 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "glass-effect py-3 rounded-3xl mx-6 md:mx-8"
-          : "bg-transparent py-4"
+          ? "glass-effect py-4 border-b"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">

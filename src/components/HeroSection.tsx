@@ -28,87 +28,73 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Modern gradient background */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
+      {/* Clean gradient background */}
       <div className="absolute inset-0 olu-gradient-hero -z-10"></div>
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] -z-10"></div>
+      <div className="absolute inset-0 gradient-mesh -z-10"></div>
       
-      {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-primary/20 to-transparent blur-3xl animate-float"></div>
-      <div className="absolute bottom-1/4 -right-32 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-accent/20 to-transparent blur-3xl animate-float" style={{ animationDelay: "2s" }}></div>
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-primary/10 via-accent/10 to-transparent blur-3xl animate-pulse"></div>
-      
-      <div className="container mx-auto px-4 py-12 flex flex-col lg:flex-row items-center">{/* Container made dynamic */}
+      <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl">
         {/* Content */}
         <div 
-          className={`w-full lg:w-1/2 text-center lg:text-left ${dir === "rtl" ? "lg:order-2" : "lg:order-1"} ${isVisible ? "animate-fade-in" : "opacity-0"}`}
+          className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
-          <h1 className="font-bold mb-6 leading-tight">
+          <h1 className="font-bold mb-8 leading-tight tracking-tight">
             <span className="olu-text-gradient">
               {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
             </span>
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
             {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <Button 
-              variant="light" 
+              variant="default" 
               size="lg"
               onClick={scrollToContact}
+              className="text-base"
             >
               {getHeroContent('cta_text_ar', language as "ar" | "en") || t("contact")}
-              <ArrowRight className={`ml-2 ${dir === "rtl" ? "rtl-flip" : ""}`} />
+              <ArrowRight className={`${dir === "rtl" ? "rtl-flip" : ""}`} />
             </Button>
             <Button 
               variant="outline" 
               size="lg"
               onClick={scrollToServices}
+              className="text-base"
             >
               {t("services.title")}
             </Button>
           </div>
         </div>
         
-        {/* Image/Animation Area */}
+        {/* Feature Preview Cards */}
         <div 
-          className={`w-full lg:w-1/2 mt-12 lg:mt-0 ${dir === "rtl" ? "lg:order-1" : "lg:order-2"} ${isVisible ? "animate-fade-in" : "opacity-0"}`}
+          className={`grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-12 ${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.4s" }}
         >
-          <div className="relative mx-auto w-full max-w-md aspect-square">
-            <div className="absolute inset-0 rounded-full olu-gradient opacity-20 blur-3xl animate-pulse"></div>
-            <div className="relative z-10 w-full h-full flex items-center justify-center">
-              <div className="bg-card rounded-3xl overflow-hidden w-full max-w-md transform hover:scale-105 transition-all duration-500" style={{ boxShadow: 'var(--shadow-xl)' }}>
-                <div className="p-8">
-                  <div className="flex items-center mb-6">
-                    <div className="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    <div className="flex-1 text-center">
-                      <img 
-                        src="/alo.png" 
-                        alt="علو" 
-                        className={`h-6 mx-auto ${theme === "dark" ? "filter brightness-0 invert" : ""}`} 
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="w-full h-4 bg-muted rounded-lg animate-pulse"></div>
-                    <div className="w-5/6 h-4 bg-muted rounded-lg animate-pulse"></div>
-                    <div className="w-4/6 h-4 bg-muted rounded-lg animate-pulse"></div>
-                    <div className="grid grid-cols-2 gap-3 mt-8">
-                      <div className="bg-gradient-to-br from-primary/10 to-primary/5 h-24 rounded-xl flex items-center justify-center border border-primary/10">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent"></div>
-                      </div>
-                      <div className="bg-gradient-to-br from-accent/10 to-accent/5 h-24 rounded-xl flex items-center justify-center border border-accent/10">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-primary"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className="bg-card border border-border/50 rounded-3xl p-8 text-center hover:shadow-lg transition-all duration-500">
+            <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-7 h-7 bg-primary rounded-lg"></div>
             </div>
+            <h3 className="text-lg font-semibold mb-2">{language === 'ar' ? 'تصميم حديث' : 'Modern Design'}</h3>
+            <p className="text-sm text-muted-foreground">{language === 'ar' ? 'واجهات عصرية وسلسة' : 'Clean & smooth interfaces'}</p>
+          </div>
+          
+          <div className="bg-card border border-border/50 rounded-3xl p-8 text-center hover:shadow-lg transition-all duration-500">
+            <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-7 h-7 bg-primary rounded-lg"></div>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">{language === 'ar' ? 'تقنيات متطورة' : 'Advanced Tech'}</h3>
+            <p className="text-sm text-muted-foreground">{language === 'ar' ? 'حلول تقنية مبتكرة' : 'Innovative solutions'}</p>
+          </div>
+          
+          <div className="bg-card border border-border/50 rounded-3xl p-8 text-center hover:shadow-lg transition-all duration-500">
+            <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-7 h-7 bg-primary rounded-lg"></div>
+            </div>
+            <h3 className="text-lg font-semibold mb-2">{language === 'ar' ? 'دعم مستمر' : '24/7 Support'}</h3>
+            <p className="text-sm text-muted-foreground">{language === 'ar' ? 'دعم فني متواصل' : 'Always here to help'}</p>
           </div>
         </div>
       </div>

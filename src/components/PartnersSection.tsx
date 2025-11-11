@@ -43,47 +43,42 @@ const PartnersSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="partners" className="py-24 relative bg-muted/20">
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none"></div>
+    <section id="partners" className="py-32 relative bg-secondary/20">
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-bold mb-6">
+        <div className="text-center mb-20 max-w-3xl mx-auto">
+          <h2 className="font-bold mb-6 tracking-tight">
             <span className="olu-text-gradient">{t("partners.title")}</span>
           </h2>
-          <div className="w-20 h-1.5 olu-gradient mx-auto rounded-full mb-6"></div>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-muted-foreground leading-relaxed">
             نفخر بشراكاتنا مع نخبة من الجهات الرائدة التي تسهم معنا في بناء مستقبل رقمي أكثر تطورًا وكفاءة.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {loading ? (
-            // Loading skeletons
             Array(4).fill(0).map((_, index) => (
-              <Card key={`skeleton-${index}`} className="border border-gray-300 bg-white rounded-lg overflow-hidden">
-                <CardContent className="flex items-center justify-center p-3">
-                  <Skeleton className="w-40 h-40" />
+              <Card key={`skeleton-${index}`} className="border border-border/50 bg-card rounded-3xl overflow-hidden">
+                <CardContent className="flex items-center justify-center p-12">
+                  <Skeleton className="w-32 h-32" />
                 </CardContent>
               </Card>
             ))
           ) : partners.length > 0 ? (
-            // Partner cards
             partners.map((partner) => (
               <Card
                 key={partner.id}
-                className="card-hover border bg-card rounded-2xl overflow-hidden flex items-center justify-center p-6"
+                className="card-hover border border-border/50 bg-card rounded-3xl overflow-hidden flex items-center justify-center p-8"
               >
-                <CardContent className="flex items-center justify-center w-40 h-40 p-0">
+                <CardContent className="flex items-center justify-center w-32 h-32 p-0">
                   <img
                     src={partner.logo_url}
                     alt={`${partner.name} Logo`}
-                    className="w-full h-full object-contain transition-transform duration-300 hover:scale-110"
+                    className="w-full h-full object-contain transition-transform duration-500 hover:scale-110"
                   />
                 </CardContent>
               </Card>
             ))
           ) : (
-            // Fallback for no data
             <div className="col-span-full text-center py-10 text-muted-foreground">
               No partners available.
             </div>

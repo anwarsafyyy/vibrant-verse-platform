@@ -85,140 +85,99 @@ const AboutSection: React.FC = () => {
   };
 
   return (
-    <section id="about" className="min-h-screen relative flex items-center">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-5 pointer-events-none"></div>
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent"></div>
-      
-      <div className="container mx-auto px-4 py-20">{/* Container made dynamic */}
-        <div className="mb-16">
-          {/* Header Section - Title and Subtitle */}
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              <span className="olu-text-gradient-dark">
-                {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-6">
-              {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
-            </p>
-            <div className="w-24 h-1 olu-gradient mx-auto rounded-full mb-8"></div>
-          </div>
-          
-          {/* Image Section - Below title */}
-          <div className="flex justify-center mb-8">
-            <div className="relative w-full max-w-2xl h-[400px] lg:h-[500px] rounded-xl overflow-hidden shadow-2xl">
-              {getAboutContent('image_url', language as "ar" | "en") ? (
-                <img 
-                  src={String(getAboutContent('image_url', language as "ar" | "en"))} 
-                  alt={String(getAboutContent('title_ar', language as "ar" | "en") || t("about.title"))}
-                  className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="w-full h-full bg-gradient-to-br from-olu-purple/20 to-olu-purple-dark/20 flex items-center justify-center">
-                  <div className="text-center text-muted-foreground">
-                    <p className="text-lg mb-2">
-                      {language === 'ar' ? 'لا توجد صورة مرفوعة' : 'No image uploaded'}
-                    </p>
-                    <p className="text-sm">
-                      {language === 'ar' ? 'يمكنك رفع صورة من لوحة التحكم' : 'Upload an image from the dashboard'}
-                    </p>
-                  </div>
-                </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-            </div>
-          </div>
-          <div className="w-24 h-1 olu-gradient mx-auto rounded-full"></div>
+    <section id="about" className="py-32 relative">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-20 max-w-3xl mx-auto">
+          <h2 className="font-bold mb-6 tracking-tight">
+            <span className="olu-text-gradient">
+              {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
+            </span>
+          </h2>
+          <p className="text-xl text-muted-foreground leading-relaxed">
+            {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
+          </p>
         </div>
-
-        <div className={`${isVisible ? "animate-fade-in" : "opacity-0"} text-center`} style={{ animationDelay: "0.2s" }}>
-          <p className="text-lg mb-8 max-w-4xl mx-auto">
+          
+        <div className={`${isVisible ? "animate-fade-in" : "opacity-0"} max-w-5xl mx-auto`} style={{ animationDelay: "0.2s" }}>
+          <p className="text-lg mb-12 text-center">
             {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
-            <div className="bg-background border border-border/30 p-4 rounded-lg">
-              <p className="font-semibold text-olu-purple-dark">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div className="bg-card border border-border/50 p-8 rounded-3xl hover:shadow-lg transition-all duration-500">
+              <p className="font-semibold text-center">
                 {getAboutContent('innovation_text_ar', language as "ar" | "en") || t("about.innovation")}
               </p>
             </div>
             
-            <div className="bg-background border border-border/30 p-4 rounded-lg">
-              <p className="font-semibold text-olu-purple-dark">
+            <div className="bg-card border border-border/50 p-8 rounded-3xl hover:shadow-lg transition-all duration-500">
+              <p className="font-semibold text-center">
                 {getAboutContent('quality_text_ar', language as "ar" | "en") || t("about.quality")}
               </p>
             </div>
             
-            <div className="bg-background border border-border/30 p-4 rounded-lg">
-              <p className="font-semibold text-olu-purple-dark">
+            <div className="bg-card border border-border/50 p-8 rounded-3xl hover:shadow-lg transition-all duration-500">
+              <p className="font-semibold text-center">
                 {getAboutContent('partnership_text_ar', language as "ar" | "en") || t("about.partnership")}
               </p>
             </div>
           </div>
 
-          
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-8 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {loading ? (
-              // Display skeleton loaders while loading
               Array(4).fill(0).map((_, index) => (
-                <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg animate-pulse">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2"></div>
-                  <div className="h-6 w-16 bg-muted rounded mb-1"></div>
+                <div key={`stat-skeleton-${index}`} className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl animate-pulse">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-muted mb-4"></div>
+                  <div className="h-8 w-16 bg-muted rounded mb-2"></div>
                   <div className="h-4 w-24 bg-muted rounded"></div>
                 </div>
               ))
             ) : stats.length > 0 ? (
-              // Display actual statistics from the database
               stats.map((stat) => (
-                <div key={stat.id} className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
+                <div key={stat.id} className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl hover:shadow-lg transition-all duration-500">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
                     {getIcon(stat.icon)}
                   </div>
-                  <h4 className="text-2xl font-bold text-olu-purple-dark">{stat.value}</h4>
+                  <h4 className="text-3xl font-bold mb-2">{stat.value}</h4>
                   <p className="text-sm text-muted-foreground">
                     {getTranslatedStatName(stat.name)}
                   </p>
                 </div>
               ))
             ) : (
-              // Fallback for no data
               <>
-                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                    <Users className="h-5 w-5" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
+                    <Users className="h-6 w-6" />
                   </div>
-                  <h4 className="text-2xl font-bold text-olu-purple-dark">100+</h4>
+                  <h4 className="text-3xl font-bold mb-2">100+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.clients") : "Satisfied Clients"}
                   </p>
                 </div>
-                
-                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                    <Award className="h-5 w-5" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
+                    <Award className="h-6 w-6" />
                   </div>
-                  <h4 className="text-2xl font-bold text-olu-purple-dark">50+</h4>
+                  <h4 className="text-3xl font-bold mb-2">50+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.projects") : "Completed Projects"}
                   </p>
                 </div>
-                
-                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                    <Clock className="h-5 w-5" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
+                    <Clock className="h-6 w-6" />
                   </div>
-                  <h4 className="text-2xl font-bold text-olu-purple-dark">4+</h4>
+                  <h4 className="text-3xl font-bold mb-2">4+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.experience") : "Years Experience"}
                   </p>
                 </div>
-                
-                <div className="flex flex-col items-center text-center p-4 bg-background border border-border/30 rounded-lg">
-                  <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-gray-400/10 text-gray-400 mb-2">
-                    <Globe className="h-5 w-5" />
+                <div className="flex flex-col items-center text-center p-8 bg-card border border-border/50 rounded-3xl">
+                  <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-primary/10 text-primary mb-4">
+                    <Globe className="h-6 w-6" />
                   </div>
-                  <h4 className="text-2xl font-bold text-olu-purple-dark">25+</h4>
+                  <h4 className="text-3xl font-bold mb-2">25+</h4>
                   <p className="text-sm text-muted-foreground">
                     {language === "ar" ? t("stats.technologies") : "Technologies Used"}
                   </p>
@@ -227,8 +186,8 @@ const AboutSection: React.FC = () => {
             )}
           </div>
           
-          <div className="mt-8">
-            <Button variant="light" size="pill" onClick={() => {
+          <div className="mt-12 text-center">
+            <Button variant="default" size="lg" onClick={() => {
               const contactSection = document.getElementById('contact');
               contactSection?.scrollIntoView({ behavior: 'smooth' });
             }}>
