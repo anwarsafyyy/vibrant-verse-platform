@@ -13,27 +13,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
-const contactFormSchema = z.object({
+const getContactFormSchema = (language: string) => z.object({
   name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
+    message: language === 'ar' ? "الاسم يجب أن يكون حرفين على الأقل" : "Name must be at least 2 characters.",
   }),
   email: z.string().email({
-    message: "Please enter a valid email address.",
+    message: language === 'ar' ? "الرجاء إدخال بريد إلكتروني صحيح" : "Please enter a valid email address.",
   }),
   message: z.string().min(10, {
-    message: "Message must be at least 10 characters.",
+    message: language === 'ar' ? "الرسالة يجب أن تكون 10 أحرف على الأقل" : "Message must be at least 10 characters.",
   }),
 });
-
-type ContactFormValues = z.infer<typeof contactFormSchema>;
 
 const ContactSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  type ContactFormValues = z.infer<ReturnType<typeof getContactFormSchema>>;
+
   const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(getContactFormSchema(language)),
     defaultValues: {
       name: "",
       email: "",
@@ -89,7 +89,7 @@ const ContactSection: React.FC = () => {
         <div className="max-w-2xl mx-auto">
           <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <div className="bg-card rounded-3xl shadow-xl p-10 border border-border/50">
-              <h3 className="text-2xl font-bold mb-8 olu-text-gradient">تواصل معنا</h3>
+              <h3 className="text-2xl font-bold mb-8 olu-text-gradient">{t("contact.title")}</h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
