@@ -99,21 +99,6 @@ const HeroSection: React.FC = () => {
           </svg>
         </div>
         
-        {/* Circuit lines */}
-        <svg className="absolute top-20 left-10 w-64 h-64 opacity-10 animate-pulse-glow" viewBox="0 0 200 200">
-          <path d="M50,50 L150,50 L150,150 L50,150 Z" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary"/>
-          <circle cx="50" cy="50" r="3" fill="currentColor" className="text-primary"/>
-          <circle cx="150" cy="50" r="3" fill="currentColor" className="text-primary"/>
-          <circle cx="150" cy="150" r="3" fill="currentColor" className="text-primary"/>
-          <circle cx="50" cy="150" r="3" fill="currentColor" className="text-primary"/>
-        </svg>
-        <svg className="absolute bottom-20 right-10 w-64 h-64 opacity-10 animate-pulse-glow" viewBox="0 0 200 200" style={{ animationDelay: '2s' }}>
-          <path d="M100,20 L180,100 L100,180 L20,100 Z" fill="none" stroke="currentColor" strokeWidth="1" className="text-primary"/>
-          <circle cx="100" cy="20" r="3" fill="currentColor" className="text-primary"/>
-          <circle cx="180" cy="100" r="3" fill="currentColor" className="text-primary"/>
-          <circle cx="100" cy="180" r="3" fill="currentColor" className="text-primary"/>
-          <circle cx="20" cy="100" r="3" fill="currentColor" className="text-primary"/>
-        </svg>
         
         {/* Data particles */}
         <div className="absolute top-1/4 right-1/2 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '0s' }}></div>
