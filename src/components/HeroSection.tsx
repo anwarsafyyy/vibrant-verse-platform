@@ -3,12 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { useTheme } from "@/hooks/useTheme";
 import { useSiteContent } from "@/hooks/useSiteContent";
 
 const HeroSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
-  const { theme } = useTheme();
   const { getHeroContent, getSetting } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
 
