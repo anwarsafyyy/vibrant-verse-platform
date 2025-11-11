@@ -113,6 +113,15 @@ const HeroSection: React.FC = () => {
           className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
+          {/* Logo from database */}
+          <div className="mb-8 flex justify-center">
+            <img 
+              src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
+              alt="Logo" 
+              className="h-24 w-auto object-contain"
+            />
+          </div>
+          
           {/* Main title */}
           <h1 className="font-bold mb-8 leading-tight tracking-tight font-['Lama_Sans']">
             <span className="olu-text-gradient">
