@@ -26,7 +26,7 @@ const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Enhanced gradient background with tech atmosphere */}
       <div className="absolute inset-0 olu-gradient-hero -z-10"></div>
       <div className="absolute inset-0 gradient-mesh -z-10"></div>
@@ -152,7 +152,7 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.2s" }}
         >
           {/* Large Centered Logo */}
-          <div className="mb-12 flex justify-center">
+          <div className="mb-6 flex justify-center">
             <img 
               src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
               alt="Company Logo" 
