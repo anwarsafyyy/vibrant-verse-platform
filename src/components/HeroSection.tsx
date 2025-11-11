@@ -32,7 +32,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute inset-0 gradient-mesh -z-10"></div>
       <div className="absolute inset-0 bg-grid-pattern opacity-5 -z-10"></div>
       
-      {/* Floating tech elements */}
+      {/* Floating tech elements and geometric shapes */}
       <div className="absolute inset-0 -z-5 overflow-hidden">
         {/* Dev Icons - React */}
         <div className="floating-element absolute top-1/4 left-1/4 opacity-30 animate-float" style={{ animationDelay: '0s', animationDuration: '8s' }}>
@@ -51,10 +51,39 @@ const HeroSection: React.FC = () => {
           </svg>
         </div>
         
+        {/* Glowing Hexagon */}
+        <div className="floating-element absolute top-1/5 right-1/3 opacity-20 animate-float" style={{ animationDelay: '1s', animationDuration: '9s' }}>
+          <svg className="w-16 h-16 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 2L21 7V17L12 22L3 17V7L12 2Z" className="animate-pulse" />
+          </svg>
+        </div>
+        
+        {/* Glowing Triangle */}
+        <div className="floating-element absolute bottom-1/4 left-1/5 opacity-25 animate-float" style={{ animationDelay: '3s', animationDuration: '11s' }}>
+          <svg className="w-14 h-14 text-pink-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 2L22 20H2L12 2Z" className="animate-pulse" style={{ animationDelay: '1s' }} />
+          </svg>
+        </div>
+        
         {/* Dev Icons - Node/Hexagon */}
         <div className="floating-element absolute bottom-1/3 left-1/3 opacity-30 animate-float" style={{ animationDelay: '4s', animationDuration: '12s' }}>
           <svg className="w-10 h-10 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.5L19.5 8 12 11.5 4.5 8 12 4.5zM4 9.5l7 3.5v7l-7-3.5v-7zm16 0v7l-7 3.5v-7l7-3.5z" opacity="0.6"/>
+          </svg>
+        </div>
+        
+        {/* Abstract Digital Shape - Circle Grid */}
+        <div className="floating-element absolute top-1/2 left-1/5 opacity-20 animate-float" style={{ animationDelay: '5s', animationDuration: '13s' }}>
+          <svg className="w-12 h-12 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+            <circle cx="6" cy="6" r="1.5" />
+            <circle cx="12" cy="6" r="1.5" />
+            <circle cx="18" cy="6" r="1.5" />
+            <circle cx="6" cy="12" r="1.5" />
+            <circle cx="12" cy="12" r="1.5" />
+            <circle cx="18" cy="12" r="1.5" />
+            <circle cx="6" cy="18" r="1.5" />
+            <circle cx="12" cy="18" r="1.5" />
+            <circle cx="18" cy="18" r="1.5" />
           </svg>
         </div>
         
@@ -64,6 +93,14 @@ const HeroSection: React.FC = () => {
             <ellipse cx="12" cy="5" rx="9" ry="3"/>
             <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/>
             <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"/>
+          </svg>
+        </div>
+        
+        {/* Holographic Diamond */}
+        <div className="floating-element absolute top-2/3 right-1/5 opacity-20 animate-float" style={{ animationDelay: '6s', animationDuration: '14s' }}>
+          <svg className="w-10 h-10 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 2L2 9L12 16L22 9L12 2Z" className="animate-pulse" style={{ animationDelay: '2s' }} />
+            <path d="M2 9L12 22L22 9" />
           </svg>
         </div>
         
@@ -99,12 +136,13 @@ const HeroSection: React.FC = () => {
           </svg>
         </div>
         
-        
-        {/* Data particles */}
+        {/* Data particles / nodes */}
         <div className="absolute top-1/4 right-1/2 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '0s' }}></div>
         <div className="absolute top-2/3 left-1/4 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '1s' }}></div>
         <div className="absolute top-1/2 right-1/4 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '2s' }}></div>
         <div className="absolute bottom-1/4 left-1/2 w-2 h-2 bg-primary rounded-full animate-shimmer opacity-40" style={{ animationDelay: '3s' }}></div>
+        <div className="absolute top-1/3 left-2/3 w-2 h-2 bg-cyan-400 rounded-full animate-shimmer opacity-40" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute bottom-1/3 right-2/3 w-2 h-2 bg-purple-400 rounded-full animate-shimmer opacity-40" style={{ animationDelay: '5s' }}></div>
       </div>
       
       <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl">
@@ -113,12 +151,12 @@ const HeroSection: React.FC = () => {
           className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
           style={{ animationDelay: "0.2s" }}
         >
-          {/* Logo from database - Fixed top-right */}
-          <div className="fixed top-20 right-4 md:top-24 md:right-8 z-10 animate-fade-in">
+          {/* Large Centered Logo */}
+          <div className="mb-12 flex justify-center">
             <img 
               src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
               alt="Company Logo" 
-              className="h-20 w-auto md:h-32 lg:h-40 object-contain drop-shadow-lg"
+              className="h-32 w-auto md:h-48 lg:h-64 object-contain drop-shadow-2xl animate-scale-in"
             />
           </div>
           
