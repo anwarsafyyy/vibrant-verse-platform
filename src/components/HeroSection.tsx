@@ -152,7 +152,7 @@ const HeroSection: React.FC = () => {
           style={{ animationDelay: "0.2s" }}
         >
           {/* Large Centered Logo */}
-          <div className="mb-6 flex justify-center">
+          <div className="mb-2 flex justify-center">
             <img 
               src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
               alt="Company Logo" 
