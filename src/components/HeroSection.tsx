@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute inset-0 bg-grid-pattern opacity-5 -z-10"></div>
       
       {/* Floating tech elements and geometric shapes */}
-      <div className="absolute inset-0 -z-5 overflow-hidden">
+      <div className="absolute inset-0 -z-5 overflow-hidden pointer-events-none">
         {/* Dev Icons - React */}
         <div className="floating-element absolute top-1/4 left-1/4 opacity-30 animate-float" style={{ animationDelay: '0s', animationDuration: '8s' }}>
           <svg className="w-12 h-12 text-cyan-400" viewBox="0 0 24 24" fill="currentColor">
@@ -145,10 +145,10 @@ const HeroSection: React.FC = () => {
         <div className="absolute bottom-1/3 right-2/3 w-2 h-2 bg-purple-400 rounded-full animate-shimmer opacity-40" style={{ animationDelay: '5s' }}></div>
       </div>
       
-      <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl">
+      <div className="container mx-auto px-4 py-20 flex flex-col items-center text-center max-w-5xl relative z-10">
         {/* Content */}
         <div 
-          className={`${isVisible ? "animate-fade-in" : "opacity-0"}`}
+          className={`${isVisible ? "animate-fade-in" : "opacity-0"} select-text pointer-events-auto`}
           style={{ animationDelay: "0.2s" }}
         >
           {/* Large Centered Logo */}

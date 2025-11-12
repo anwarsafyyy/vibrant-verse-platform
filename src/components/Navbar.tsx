@@ -22,10 +22,10 @@ const Navbar: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "glass-effect py-4 border-b"
-          : "bg-transparent py-6"
+          ? "backdrop-blur-2xl bg-background/60 shadow-lg shadow-primary/5 border-b border-border/50 py-3 md:py-4"
+          : "backdrop-blur-md bg-background/30 py-4 md:py-6"
       }`}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
@@ -96,7 +96,7 @@ const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden h-screen w-full fixed inset-0 top-16 bg-background animate-fade-in z-40">
+        <div className="md:hidden h-screen w-full fixed inset-0 top-16 backdrop-blur-2xl bg-background/95 animate-fade-in z-40">
           <div className="container mx-auto px-4 py-8 flex flex-col space-y-6 text-center">
             <a
               href="#"
