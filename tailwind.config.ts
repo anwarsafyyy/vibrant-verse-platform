@@ -80,6 +80,13 @@ export default {
 			sans: ['Lama Sans', 'system-ui', '-apple-system', 'sans-serif'],
 			heading: ['Lama Sans', 'system-ui', '-apple-system', 'sans-serif'],
 		},
+		backgroundImage: {
+			'gradient-primary': 'var(--gradient-primary)',
+			'gradient-secondary': 'var(--gradient-secondary)',
+			'gradient-hero': 'var(--gradient-hero)',
+			'gradient-mesh': 'var(--gradient-mesh)',
+			'gradient-purple': 'var(--gradient-purple)',
+		},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
