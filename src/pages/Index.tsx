@@ -19,10 +19,10 @@ const Index = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      <AboutSection />
       <div className="container mx-auto">
         <ServicesSection />
         <PortfolioSection />
-        <AboutSection />
         <PartnersSection />
         <FAQSection />
         <ContactSection />
