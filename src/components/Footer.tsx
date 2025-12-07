@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
       </Button>
       
       <div className="container mx-auto px-4 pt-20 pb-8">
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 text-right">
           {/* Logo & About */}
           <div className="lg:col-span-1">
             {getSetting('logo_url', 'ar') && (
@@ -114,11 +114,11 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
-                <li key={i} className={`flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <li key={i} className="flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
+                  <span className="text-sm leading-relaxed">{item.text}</span>
                   <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <item.icon className="h-4 w-4" />
                   </div>
-                  <span className="text-sm leading-relaxed">{item.text}</span>
                 </li>
               ))}
             </ul>
@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
               {dir === "rtl" ? "تابعنا" : "Follow Us"}
               <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
             </h4>
-            <div className={`flex gap-3 mb-6 ${dir === "rtl" ? "justify-end" : "justify-start"}`}>
+            <div className="flex gap-3 mb-6 justify-end">
               {socialLinks.map(link => (
                 <a 
                   key={link.id} 
@@ -154,11 +154,11 @@ const Footer: React.FC = () => {
         
         {/* Divider */}
         <div className="border-t border-white/10 pt-8">
-          <div className={`flex flex-col md:flex-row items-center justify-between gap-4 ${dir === 'rtl' ? 'md:flex-row-reverse' : ''}`}>
-            <p className="opacity-50 text-sm text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="opacity-50 text-sm text-center md:text-right">
               {getFooterContent('copyright_text_ar', language as "ar" | "en") || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات."}
             </p>
-            <div className={`flex items-center gap-4 text-sm opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-4 text-sm opacity-50">
               <a href="/privacy-policy" className="hover:opacity-100 hover:text-primary transition-all">
                 {dir === "rtl" ? "الخصوصية" : "Privacy"}
               </a>

@@ -88,10 +88,10 @@ const PortfolioSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="text-right">
             {/* Section label */}
-            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                 <Briefcase className="w-5 h-5 text-primary" />
               </div>
@@ -115,7 +115,7 @@ const PortfolioSection: React.FC = () => {
           </div>
           
           {/* Navigation */}
-          <div className={`flex items-center gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className="flex items-center gap-6">
             {/* Progress indicator */}
             <div className="hidden md:flex items-center gap-2">
               <span className="text-2xl font-bold text-primary">{String(current + 1).padStart(2, '0')}</span>
@@ -124,22 +124,22 @@ const PortfolioSection: React.FC = () => {
             </div>
             
             {/* Arrows */}
-            <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => api?.scrollPrev()}
-                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
-              >
-                <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              </Button>
+            <div className="flex gap-3">
               <Button 
                 variant="outline" 
                 size="icon"
                 onClick={() => api?.scrollNext()}
                 className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
               >
-                <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <Button 
+                variant="outline" 
+                size="icon"
+                onClick={() => api?.scrollPrev()}
+                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
+              >
+                <ChevronRight className="w-5 h-5" />
               </Button>
             </div>
           </div>
@@ -169,10 +169,10 @@ const PortfolioSection: React.FC = () => {
                   className={`pl-6 basis-full lg:basis-1/2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className={`group grid md:grid-cols-2 bg-card rounded-3xl border border-border overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 ${dir === 'rtl' ? 'md:grid-flow-dense' : ''}`}>
+                  <div className="group grid md:grid-cols-2 bg-card rounded-3xl border border-border overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
                     {/* Image */}
-                    <div className={`relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted ${dir === 'rtl' ? 'md:col-start-2' : ''}`}>
-                      <img 
+                    <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted md:order-2">
+                      <img
                         src={item.image_url} 
                         alt={item.title} 
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -181,7 +181,7 @@ const PortfolioSection: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                       
                       {/* Category badge */}
-                      <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'}`}>
+                      <div className="absolute top-4 right-4">
                         <Badge className="bg-primary text-primary-foreground border-0 font-bold px-4 py-1 text-sm">
                           {item.category}
                         </Badge>
@@ -189,7 +189,7 @@ const PortfolioSection: React.FC = () => {
                     </div>
                     
                     {/* Content */}
-                    <div className={`p-8 lg:p-10 flex flex-col justify-center ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                    <div className="p-8 lg:p-10 flex flex-col justify-center text-right md:order-1">
                       {/* Date */}
                       <span className="text-sm text-muted-foreground mb-4 font-medium">
                         {language === 'ar' ? 'آخر تحديث:' : 'Last Update:'} {new Date().toLocaleDateString()}
@@ -206,14 +206,10 @@ const PortfolioSection: React.FC = () => {
                       {/* CTA Button */}
                       <Button 
                         variant="ghost"
-                        className={`w-fit text-primary hover:text-primary hover:bg-primary/10 px-0 font-bold text-lg group/btn ${dir === 'rtl' ? 'flex-row-reverse self-end' : ''}`}
+                        className="w-fit text-primary hover:text-primary hover:bg-primary/10 px-0 font-bold text-lg group/btn self-end"
                       >
+                        <ArrowLeft className="ml-2 h-5 w-5 transition-transform group-hover/btn:-translate-x-1" />
                         <span>{language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}</span>
-                        {dir === 'rtl' ? (
-                          <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover/btn:-translate-x-1" />
-                        ) : (
-                          <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
-                        )}
                       </Button>
                     </div>
                   </div>

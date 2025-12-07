@@ -75,11 +75,11 @@ const ContactSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className={`grid lg:grid-cols-2 gap-16 lg:gap-24 items-start ${dir === 'rtl' ? 'lg:grid-flow-dense' : ''}`}>
-          {/* Left Side - Header & Contact Info */}
-          <div className={`${dir === 'rtl' ? 'text-right lg:col-start-2' : 'text-left'}`}>
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+          {/* Right Side - Header & Contact Info */}
+          <div className="text-right lg:order-2">
             {/* Section label */}
-            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                 <MessageSquare className="w-5 h-5 text-primary" />
               </div>
@@ -101,14 +101,14 @@ const ContactSection: React.FC = () => {
               {contactInfo.map((item, index) => (
                 <div 
                   key={index}
-                  className={`flex items-center gap-4 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  className="flex items-center gap-4 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
-                    <item.icon className="w-5 h-5" />
-                  </div>
-                  <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+                  <div className="flex-1 text-right">
                     <p className="text-sm text-muted-foreground font-medium">{item.label}</p>
                     <p className="text-foreground font-bold">{item.value}</p>
+                  </div>
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <item.icon className="w-5 h-5" />
                   </div>
                 </div>
               ))}
@@ -118,16 +118,16 @@ const ContactSection: React.FC = () => {
             <Button 
               onClick={() => window.open('https://wa.me/966535656226', '_blank')} 
               size="lg" 
-              className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-6 text-lg rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-6 text-lg rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto"
             >
-              <MessageSquare className="h-5 w-5 mr-3" />
               {language === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}
+              <MessageSquare className="h-5 w-5 mr-3" />
             </Button>
           </div>
 
-          {/* Right Side - Form */}
-          <div className={`bg-card rounded-3xl p-8 lg:p-10 border border-border shadow-xl ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
-            <h3 className={`text-2xl font-bold mb-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+          {/* Left Side - Form */}
+          <div className="bg-card rounded-3xl p-8 lg:p-10 border border-border shadow-xl lg:order-1">
+            <h3 className="text-2xl font-bold mb-6 text-right">
               {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a Message'}
             </h3>
             
@@ -135,14 +135,14 @@ const ContactSection: React.FC = () => {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField control={form.control} name="name" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className={`text-foreground font-bold ${dir === 'rtl' ? 'text-right block' : ''}`}>
+                    <FormLabel className="text-foreground font-bold text-right block">
                       {t("contact.name")}
                     </FormLabel>
                     <FormControl>
                       <Input 
                         placeholder={t("contact.namePlaceholder")} 
                         {...field} 
-                        className={`rounded-xl border-border focus:border-primary h-14 bg-background text-lg ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className="rounded-xl border-border focus:border-primary h-14 bg-background text-lg text-right"
                       />
                     </FormControl>
                     <FormMessage />
@@ -151,7 +151,7 @@ const ContactSection: React.FC = () => {
                 
                 <FormField control={form.control} name="email" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className={`text-foreground font-bold ${dir === 'rtl' ? 'text-right block' : ''}`}>
+                    <FormLabel className="text-foreground font-bold text-right block">
                       {t("contact.email")}
                     </FormLabel>
                     <FormControl>
@@ -159,7 +159,7 @@ const ContactSection: React.FC = () => {
                         type="email" 
                         placeholder={t("contact.emailPlaceholder")} 
                         {...field} 
-                        className={`rounded-xl border-border focus:border-primary h-14 bg-background text-lg ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className="rounded-xl border-border focus:border-primary h-14 bg-background text-lg text-right"
                       />
                     </FormControl>
                     <FormMessage />
@@ -168,14 +168,14 @@ const ContactSection: React.FC = () => {
                 
                 <FormField control={form.control} name="message" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className={`text-foreground font-bold ${dir === 'rtl' ? 'text-right block' : ''}`}>
+                    <FormLabel className="text-foreground font-bold text-right block">
                       {t("contact.message")}
                     </FormLabel>
                     <FormControl>
                       <Textarea 
                         placeholder={t("contact.messagePlaceholder")} 
-                        className={`min-h-[140px] rounded-xl border-border focus:border-primary bg-background text-lg ${dir === 'rtl' ? 'text-right' : ''}`}
-                        {...field} 
+                        className="min-h-[140px] rounded-xl border-border focus:border-primary bg-background text-lg text-right"
+                        {...field}
                       />
                     </FormControl>
                     <FormMessage />

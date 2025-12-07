@@ -80,10 +80,10 @@ const FAQSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left - Header */}
-          <div className={`${dir === 'rtl' ? 'text-right' : 'text-left'} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          {/* Right - Header */}
+          <div className={`text-right ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section label */}
-            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                 <HelpCircle className="w-5 h-5 text-primary" />
               </div>
@@ -131,15 +131,15 @@ const FAQSection: React.FC = () => {
                     className="border border-border rounded-2xl px-6 bg-card hover:border-primary/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:bg-primary/5"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <AccordionTrigger className={`text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                    <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 text-right">
                       <span className="flex items-center gap-3">
+                        <span>{language === 'ar' ? faq.question_ar : faq.question_en}</span>
                         <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">
                           {String(index + 1).padStart(2, '0')}
                         </span>
-                        <span>{language === 'ar' ? faq.question_ar : faq.question_en}</span>
                       </span>
                     </AccordionTrigger>
-                    <AccordionContent className={`text-base text-muted-foreground pb-6 leading-relaxed ${dir === 'rtl' ? 'text-right pr-11' : 'pl-11'}`}>
+                    <AccordionContent className="text-base text-muted-foreground pb-6 leading-relaxed text-right pr-11">
                       {language === 'ar' ? faq.answer_ar : faq.answer_en}
                     </AccordionContent>
                   </AccordionItem>
