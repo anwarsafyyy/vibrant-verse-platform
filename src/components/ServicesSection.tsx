@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { 
   Globe, Code, Cpu, BarChart, MoreHorizontal, LucideIcon,
   Monitor, Smartphone, Shield, Zap, Camera, Headphones,
@@ -33,8 +33,7 @@ const ServicesSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -70,187 +69,195 @@ const ServicesSection: React.FC = () => {
 
   const getIcon = (iconName: string): LucideIcon => iconMap[iconName] || MoreHorizontal;
 
-  const colorGradients = [
-    "from-violet-500 to-purple-600",
-    "from-amber-500 to-orange-600",
-    "from-emerald-500 to-teal-600",
-    "from-pink-500 to-rose-600",
-    "from-blue-500 to-indigo-600",
-    "from-cyan-500 to-blue-600",
-  ];
-
   const handlePrev = () => {
-    const newIndex = activeIndex > 0 ? activeIndex - 1 : services.length - 1;
-    setActiveIndex(newIndex);
-    scrollToIndex(newIndex);
+    setActiveIndex(prev => (prev > 0 ? prev - 1 : services.length - 1));
   };
 
   const handleNext = () => {
-    const newIndex = activeIndex < services.length - 1 ? activeIndex + 1 : 0;
-    setActiveIndex(newIndex);
-    scrollToIndex(newIndex);
+    setActiveIndex(prev => (prev < services.length - 1 ? prev + 1 : 0));
   };
 
-  const scrollToIndex = (index: number) => {
-    if (!scrollRef.current) return;
-    const cardWidth = 380;
-    const gap = 24;
-    scrollRef.current.scrollTo({
-      left: index * (cardWidth + gap),
-      behavior: 'smooth'
-    });
+  // Get visible services (show 3 at a time centered on activeIndex)
+  const getVisibleServices = () => {
+    if (services.length <= 3) return services.map((s, i) => ({ service: s, isActive: i === activeIndex }));
+    
+    const visibleIndices: number[] = [];
+    for (let i = -1; i <= 1; i++) {
+      let index = activeIndex + i;
+      if (index < 0) index = services.length + index;
+      if (index >= services.length) index = index - services.length;
+      visibleIndices.push(index);
+    }
+    
+    return visibleIndices.map(i => ({ service: services[i], isActive: i === activeIndex }));
   };
 
   return (
-    <section id="services" className="py-28 lg:py-36 relative overflow-hidden bg-muted/30">
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 opacity-10 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
-        </svg>
-      </div>
-      <div className="absolute bottom-20 left-10 w-24 h-24 opacity-10 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" transform="rotate(45 50 50)" />
-        </svg>
+    <section id="services" className="py-28 lg:py-36 relative overflow-hidden bg-background">
+      {/* Decorative diamond shapes */}
+      <div className="absolute top-32 left-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
+      <div className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block" />
+      <div className="absolute top-1/2 right-16 w-8 h-8 border-2 border-primary/20 rotate-45 hidden lg:block" />
+      <div className="absolute bottom-32 right-1/4 w-5 h-5 bg-primary/10 rotate-45 hidden lg:block" />
+      
+      {/* Back to top button style element */}
+      <div className="absolute bottom-20 left-8 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center hidden lg:flex">
+        <ChevronLeft className="w-5 h-5 text-primary rotate-90" />
       </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-            {/* Section label */}
-            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Layers className="w-5 h-5 text-primary" />
+        {/* Section Header - 2P Style */}
+        <div className={`flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          {/* Title with diamond icon */}
+          <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Diamond icon container */}
+            <div className="relative">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+                <Layers className="w-7 h-7 text-white -rotate-45" />
               </div>
-              <span className="text-primary font-bold tracking-wider uppercase text-sm">
-                {language === 'ar' ? 'خدماتنا' : 'Our Services'}
-              </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-4">
-              <span className="olu-text-gradient">
-                {language === 'ar' ? 'اعمال الشركة' : 'What We Do'}
+            <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+              <span className="text-primary font-bold text-lg">
+                {language === 'ar' ? 'وحدات' : 'Units'}
               </span>
-            </h2>
-            
-            <p className="text-lg text-muted-foreground max-w-xl">
-              {language === 'ar' 
-                ? 'نقدم حلولاً تقنية متكاملة تلبي احتياجات عملائنا في عصر التحول الرقمي'
-                : 'We provide integrated technology solutions that meet our clients needs in the digital transformation era'
-              }
-            </p>
+              <h2 className="text-4xl lg:text-5xl font-bold">
+                <span className="olu-text-gradient">
+                  {language === 'ar' ? 'اعمال الشركة' : 'Our Services'}
+                </span>
+              </h2>
+            </div>
           </div>
           
-          {/* Navigation */}
-          <div className={`flex items-center gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            {/* Pagination dots */}
-            <div className={`hidden md:flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          {/* Pagination Numbers + Arrows */}
+          <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Numbered pagination - reversed for RTL like in image */}
+            <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {services.slice(0, 6).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => {
-                    setActiveIndex(index);
-                    scrollToIndex(index);
-                  }}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  onClick={() => setActiveIndex(index)}
+                  className={`text-lg font-bold transition-all duration-300 ${
                     activeIndex === index 
-                      ? 'bg-primary w-8' 
-                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                      ? 'text-foreground text-2xl' 
+                      : 'text-muted-foreground/40 hover:text-muted-foreground'
                   }`}
-                />
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </button>
               ))}
             </div>
             
-            {/* Arrows */}
-            <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Button 
-                variant="outline" 
-                size="icon" 
+            {/* Navigation arrows */}
+            <div className={`flex gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <button 
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
+                className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
               >
                 <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon" 
+              </button>
+              <button 
                 onClick={handleNext}
-                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
+                className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
               >
                 <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              </Button>
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Services Cards */}
+        {/* Services Cards - 2P Style Grid */}
         <div className="relative">
-          <div 
-            ref={scrollRef}
-            className={`flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          >
-            {loading ? (
-              Array(4).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="flex-shrink-0 w-[360px] snap-center">
-                  <div className="p-8 border border-border rounded-3xl bg-card h-[320px]">
-                    <Skeleton className="h-16 w-16 rounded-2xl mb-6" />
-                    <Skeleton className="h-6 w-3/4 mb-4" />
-                    <Skeleton className="h-20 w-full" />
+          {loading ? (
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${dir === 'rtl' ? 'direction-rtl' : ''}`}>
+              {Array(3).fill(0).map((_, index) => (
+                <div key={`skeleton-${index}`} className="p-8 border-2 border-dashed border-border rounded-3xl bg-card">
+                  <div className="flex justify-center mb-6">
+                    <Skeleton className="w-20 h-20 rotate-45 rounded-xl" />
                   </div>
+                  <Skeleton className="h-6 w-3/4 mx-auto mb-4" />
+                  <Skeleton className="h-16 w-full" />
                 </div>
-              ))
-            ) : services.length > 0 ? (
-              services.map((service, index) => {
+              ))}
+            </div>
+          ) : services.length > 0 ? (
+            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${dir === 'rtl' ? '' : ''}`}>
+              {getVisibleServices().map(({ service, isActive }, index) => {
                 const IconComponent = getIcon(service.icon);
                 return (
                   <div 
                     key={service.id}
-                    className={`flex-shrink-0 w-[360px] snap-center ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                    className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer ${
+                      isActive 
+                        ? 'bg-primary/10 border-2 border-primary shadow-xl shadow-primary/10 scale-[1.02]' 
+                        : 'bg-card border-2 border-dashed border-border hover:border-primary/40 hover:shadow-lg'
+                    } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                     style={{ animationDelay: `${index * 100}ms` }}
+                    onClick={() => setActiveIndex(services.indexOf(service))}
                   >
-                    <div className="group relative h-full p-8 border border-border rounded-3xl bg-card hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
-                      {/* Number */}
-                      <span className={`absolute top-6 ${dir === 'rtl' ? 'left-6' : 'right-6'} text-6xl font-bold text-muted/30 group-hover:text-primary/20 transition-colors`}>
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      
-                      {/* Icon */}
-                      <div className={`w-16 h-16 bg-gradient-to-br ${colorGradients[index % colorGradients.length]} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                        <IconComponent className="w-8 h-8 text-white" />
+                    {/* Diamond Icon Container */}
+                    <div className="flex justify-center mb-8">
+                      <div className={`relative w-20 h-20 rotate-45 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                        isActive 
+                          ? 'bg-primary shadow-lg shadow-primary/30' 
+                          : 'border-2 border-dashed border-primary/40 group-hover:border-primary group-hover:bg-primary/5'
+                      }`}>
+                        <IconComponent className={`w-8 h-8 -rotate-45 transition-colors duration-300 ${
+                          isActive ? 'text-white' : 'text-primary'
+                        }`} />
                       </div>
-                      
-                      {/* Title */}
-                      <h3 className={`text-xl font-bold mb-4 group-hover:text-primary transition-colors ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                        {service.title}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className={`text-muted-foreground leading-relaxed line-clamp-3 mb-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                        {service.description}
-                      </p>
-                      
-                      {/* Link */}
-                      <div className={`flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-                        <span>{language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}</span>
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className={`text-xl font-bold mb-4 text-center transition-colors ${
+                      isActive ? 'text-primary' : 'text-foreground group-hover:text-primary'
+                    }`}>
+                      {service.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6">
+                      {service.description}
+                    </p>
+                    
+                    {/* Arrow Link */}
+                    <div className="flex justify-center">
+                      <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                        isActive 
+                          ? 'border-primary text-primary' 
+                          : 'border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary'
+                      }`}>
                         {dir === 'rtl' ? (
-                          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                          <ChevronLeft className="w-5 h-5" />
                         ) : (
-                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                          <ChevronRight className="w-5 h-5" />
                         )}
                       </div>
                     </div>
                   </div>
                 );
-              })
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-16 text-muted-foreground">
+              {language === 'ar' ? 'لا توجد خدمات متاحة' : 'No services available'}
+            </div>
+          )}
+        </div>
+        
+        {/* View All Services Link */}
+        <div className={`flex mt-12 ${dir === 'rtl' ? 'justify-start' : 'justify-end'}`}>
+          <a 
+            href="#" 
+            className={`group flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <span>{language === 'ar' ? 'عرض الجميع' : 'View All'}</span>
+            {dir === 'rtl' ? (
+              <ArrowLeft className="w-5 h-5" />
             ) : (
-              <div className="w-full text-center py-16 text-muted-foreground">
-                {language === 'ar' ? 'لا توجد خدمات متاحة' : 'No services available'}
-              </div>
+              <ArrowRight className="w-5 h-5" />
             )}
-          </div>
+          </a>
         </div>
       </div>
     </section>
