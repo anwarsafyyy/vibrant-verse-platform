@@ -107,9 +107,23 @@ const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="py-32 relative overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-20 left-0 w-72 h-72 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-20 right-0 w-72 h-72 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+      {/* Clean light background with subtle purple wave - matching reference */}
+      <div className="absolute inset-0 -z-10">
+        {/* Light gray base */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-slate-100/80 dark:from-slate-900/50 dark:to-slate-800/30"></div>
+        
+        {/* Subtle purple/pink gradient wave at bottom */}
+        <svg className="absolute bottom-0 left-0 w-full h-40" preserveAspectRatio="none" viewBox="0 0 1440 160">
+          <defs>
+            <linearGradient id="aboutWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#aboutWaveGradient)" d="M0,80 C360,120 720,40 1080,80 C1260,100 1380,60 1440,80 L1440,160 L0,160 Z"></path>
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 max-w-3xl mx-auto">
