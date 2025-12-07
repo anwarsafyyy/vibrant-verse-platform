@@ -37,11 +37,7 @@ const HeroSection: React.FC = () => {
       />
       
       {/* Dark gradient overlay - stronger on text side */}
-      <div className={`absolute inset-0 -z-10 ${
-        dir === 'rtl' 
-          ? 'bg-gradient-to-l from-black/80 via-black/50 to-black/20' 
-          : 'bg-gradient-to-r from-black/80 via-black/50 to-black/20'
-      }`} />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-l from-black/80 via-black/50 to-black/20" />
       
       {/* Decorative geometric patterns */}
       <div className="absolute inset-0 -z-10 opacity-20">
@@ -58,9 +54,9 @@ const HeroSection: React.FC = () => {
       
       {/* Main Content */}
       <div className="container mx-auto px-4 relative z-10">
-        <div className={`flex items-center min-h-screen py-32 ${dir === 'rtl' ? 'justify-end' : 'justify-start'}`}>
+        <div className="flex items-center min-h-screen py-32 justify-end">
           <div 
-            className={`max-w-3xl ${dir === 'rtl' ? 'text-right' : 'text-left'} ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-1000`}
+            className={`max-w-3xl text-right ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-1000`}
           >
             {/* Company Logo */}
             {getSetting('logo_url', 'ar') && (
@@ -84,18 +80,18 @@ const HeroSection: React.FC = () => {
             </p>
             
             {/* CTA Buttons */}
-            <div className={`flex gap-4 ${dir === 'rtl' ? 'flex-row-reverse justify-end' : ''} ${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
-              <a 
-                href="#services" 
-                className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1"
-              >
-                {language === 'ar' ? 'خدماتنا' : 'Our Services'}
-              </a>
+            <div className={`flex gap-4 justify-end ${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
               <a 
                 href="#contact" 
                 className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white border border-white/30 rounded-xl font-bold text-lg hover:bg-white/20 transition-all duration-300"
               >
                 {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+              </a>
+              <a 
+                href="#services" 
+                className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1"
+              >
+                {language === 'ar' ? 'خدماتنا' : 'Our Services'}
               </a>
             </div>
           </div>
@@ -103,7 +99,7 @@ const HeroSection: React.FC = () => {
       </div>
       
       {/* Slide Thumbnails - Left side */}
-      <div className={`absolute ${dir === 'rtl' ? 'left-6 lg:left-12' : 'right-6 lg:right-12'} top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-4 z-20`}>
+      <div className="absolute left-6 lg:left-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-4 z-20">
         {slides.map((slide, index) => (
           <button
             key={index}
@@ -121,7 +117,7 @@ const HeroSection: React.FC = () => {
             />
             <div className={`absolute inset-0 ${currentSlide === index ? 'bg-primary/20' : 'bg-black/40'}`} />
             {/* Active indicator diamond */}
-            <div className={`absolute ${dir === 'rtl' ? '-right-2' : '-left-2'} top-1/2 -translate-y-1/2 w-3 h-3 rotate-45 bg-primary transition-all duration-300 ${
+            <div className={`absolute -right-2 top-1/2 -translate-y-1/2 w-3 h-3 rotate-45 bg-primary transition-all duration-300 ${
               currentSlide === index ? 'opacity-100 scale-100' : 'opacity-0 scale-0'
             }`} />
           </button>
@@ -130,7 +126,7 @@ const HeroSection: React.FC = () => {
       
       {/* Bottom - Scroll Indicator */}
       <div 
-        className={`absolute bottom-10 ${dir === 'rtl' ? 'right-1/2 translate-x-1/2' : 'left-1/2 -translate-x-1/2'} flex flex-col items-center cursor-pointer group z-20`}
+        className="absolute bottom-10 right-1/2 translate-x-1/2 flex flex-col items-center cursor-pointer group z-20"
         onClick={scrollToAbout}
       >
         <span className="text-white/60 text-sm font-medium mb-3 group-hover:text-white transition-colors">
@@ -142,7 +138,7 @@ const HeroSection: React.FC = () => {
       </div>
       
       {/* Slide Counter */}
-      <div className={`absolute bottom-10 ${dir === 'rtl' ? 'left-6 lg:left-12' : 'right-6 lg:right-12'} flex items-center gap-2 text-white z-20`}>
+      <div className="absolute bottom-10 left-6 lg:left-12 flex items-center gap-2 text-white z-20">
         <span className="text-3xl font-bold text-primary">{String(currentSlide + 1).padStart(2, '0')}</span>
         <span className="text-white/40 text-xl">/</span>
         <span className="text-white/40 text-xl">{String(slides.length).padStart(2, '0')}</span>

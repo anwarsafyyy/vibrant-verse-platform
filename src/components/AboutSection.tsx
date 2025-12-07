@@ -96,12 +96,12 @@ const AboutSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className={`grid lg:grid-cols-2 gap-16 lg:gap-24 items-center ${dir === 'rtl' ? 'lg:grid-flow-dense' : ''}`}>
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
-          {/* Left Side - Stats */}
-          <div className={`${isVisible ? 'animate-fade-in' : 'opacity-0'} ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
+          {/* Right Side - Stats */}
+          <div className={`${isVisible ? 'animate-fade-in' : 'opacity-0'} lg:order-2`}>
             {/* Section label */}
-            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
                   <rect x="3" y="3" width="7" height="7" rx="1" />
@@ -116,7 +116,7 @@ const AboutSection: React.FC = () => {
             </div>
             
             {/* Title */}
-            <h2 className={`text-4xl lg:text-5xl xl:text-6xl font-bold mb-12 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-12 text-right">
               <span className="olu-text-gradient">
                 {language === 'ar' ? 'نبني المستقبل الرقمي' : 'Building Digital Future'}
               </span>
@@ -125,9 +125,9 @@ const AboutSection: React.FC = () => {
             {/* Stats Grid */}
             <div className="grid grid-cols-3 gap-6">
               {displayStats.map((stat, index) => (
-                <div 
-                  key={stat.id}
-                  className={`group relative p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
+                  <div 
+                    key={stat.id}
+                    className="group relative p-6 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:-translate-y-1 text-right"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Icon */}
@@ -149,8 +149,8 @@ const AboutSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Side - Description */}
-          <div className={`${dir === 'rtl' ? 'text-right lg:col-start-1 lg:row-start-1' : 'text-left'} ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          {/* Left Side - Description */}
+          <div className={`text-right lg:order-1 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
             <p className="text-lg lg:text-xl text-muted-foreground leading-relaxed mb-8">
               {getAboutContent('description_ar', language as "ar" | "en") || (language === 'ar' 
                 ? "تأسست شركتنا لتكون رائدة في سوق خدمات تقنية المعلومات وحلول التكنولوجيا بالمملكة العربية السعودية. نحن نقدم مجموعة شاملة من خدمات تقنية المعلومات يتيح لنا نموذج أعمالنا المتكامل الفريد تقديم نهج شامل لتحول العملاء الرقمي."
@@ -169,14 +169,10 @@ const AboutSection: React.FC = () => {
             <Button 
               onClick={scrollToContact}
               size="lg"
-              className={`group bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-6 text-lg rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className="group bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8 py-6 text-lg rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-1"
             >
+              <ArrowLeft className="ml-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
               <span>{language === 'ar' ? 'تواصل معنا' : 'Get in Touch'}</span>
-              {dir === 'rtl' ? (
-                <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
-              ) : (
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-              )}
             </Button>
           </div>
         </div>

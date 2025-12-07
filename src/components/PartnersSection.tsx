@@ -93,8 +93,8 @@ const PartnersSection: React.FC = () => {
         {/* Partners Marquee */}
         <div className="relative w-full overflow-hidden">
           {/* Gradient masks */}
-          <div className={`absolute ${dir === 'rtl' ? 'right-0' : 'left-0'} top-0 bottom-0 w-24 lg:w-48 bg-gradient-to-r ${dir === 'rtl' ? 'from-transparent to-muted/80' : 'from-muted/80 to-transparent'} z-10 pointer-events-none`} />
-          <div className={`absolute ${dir === 'rtl' ? 'left-0' : 'right-0'} top-0 bottom-0 w-24 lg:w-48 bg-gradient-to-l ${dir === 'rtl' ? 'from-transparent to-muted/80' : 'from-muted/80 to-transparent'} z-10 pointer-events-none`} />
+          <div className="absolute right-0 top-0 bottom-0 w-24 lg:w-48 bg-gradient-to-l from-muted/80 to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-24 lg:w-48 bg-gradient-to-r from-muted/80 to-transparent z-10 pointer-events-none" />
           
           {loading ? (
             <div className="flex gap-8 justify-center py-8">
@@ -105,7 +105,7 @@ const PartnersSection: React.FC = () => {
               ))}
             </div>
           ) : partners.length > 0 ? (
-            <div className={`flex animate-marquee hover:pause-animation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className="flex animate-marquee-rtl hover:pause-animation">
               {/* First set */}
               {partners.map((partner, index) => (
                 <div

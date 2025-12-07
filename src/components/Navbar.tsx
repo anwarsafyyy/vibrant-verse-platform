@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
       }`}
     >
       <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className="flex items-center justify-between">
           
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 group">
@@ -62,12 +62,12 @@ const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Menu */}
-          <nav className={`hidden lg:flex items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <nav className="hidden lg:flex items-center">
             <div className={`flex items-center gap-1 ${
               isScrolled 
                 ? 'bg-muted/50 backdrop-blur-sm rounded-full px-2 py-1' 
                 : ''
-            } ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            }`}>
               {navItems.map((item) => (
                 <a
                   key={item.href}
@@ -84,8 +84,8 @@ const Navbar: React.FC = () => {
             </div>
           </nav>
 
-          {/* Right Actions */}
-          <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          {/* Left Actions */}
+          <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <Button
               variant="ghost"
@@ -111,7 +111,7 @@ const Navbar: React.FC = () => {
       }`}>
         <div className="bg-background/98 backdrop-blur-xl border-b border-border shadow-xl">
           <div className="container mx-auto px-4 py-6">
-            <nav className={`flex flex-col gap-2 ${dir === 'rtl' ? 'items-end' : 'items-start'}`}>
+            <nav className="flex flex-col gap-2 items-end">
               {navItems.map((item, index) => (
                 <a
                   key={item.href}

@@ -107,9 +107,9 @@ const ServicesSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         {/* Section Header - 2P Style */}
-        <div className={`flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className={`flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Title with diamond icon */}
-          <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className="flex items-center gap-4">
             {/* Diamond icon container */}
             <div className="relative">
               <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
@@ -117,7 +117,7 @@ const ServicesSection: React.FC = () => {
               </div>
             </div>
             
-            <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+            <div className="text-right">
               <span className="text-primary font-bold text-lg">
                 {language === 'ar' ? 'وحدات' : 'Units'}
               </span>
@@ -130,9 +130,9 @@ const ServicesSection: React.FC = () => {
           </div>
           
           {/* Pagination Numbers + Arrows */}
-          <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            {/* Numbered pagination - reversed for RTL like in image */}
-            <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className="flex items-center gap-4">
+            {/* Numbered pagination */}
+            <div className="flex items-center gap-3">
               {services.slice(0, 6).map((_, index) => (
                 <button
                   key={index}
@@ -149,18 +149,18 @@ const ServicesSection: React.FC = () => {
             </div>
             
             {/* Navigation arrows */}
-            <div className={`flex gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <button 
-                onClick={handlePrev}
-                className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
-              >
-                <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              </button>
+            <div className="flex gap-2">
               <button 
                 onClick={handleNext}
                 className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
               >
-                <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={handlePrev}
+                className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+              >
+                <ChevronRight className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -227,11 +227,7 @@ const ServicesSection: React.FC = () => {
                           ? 'border-primary text-primary' 
                           : 'border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary'
                       }`}>
-                        {dir === 'rtl' ? (
-                          <ChevronLeft className="w-5 h-5" />
-                        ) : (
-                          <ChevronRight className="w-5 h-5" />
-                        )}
+                        <ChevronLeft className="w-5 h-5" />
                       </div>
                     </div>
                   </div>
@@ -246,17 +242,13 @@ const ServicesSection: React.FC = () => {
         </div>
         
         {/* View All Services Link */}
-        <div className={`flex mt-12 ${dir === 'rtl' ? 'justify-start' : 'justify-end'}`}>
+        <div className="flex mt-12 justify-start">
           <a 
             href="#" 
-            className={`group flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className="group flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300"
           >
+            <ArrowLeft className="w-5 h-5" />
             <span>{language === 'ar' ? 'عرض الجميع' : 'View All'}</span>
-            {dir === 'rtl' ? (
-              <ArrowLeft className="w-5 h-5" />
-            ) : (
-              <ArrowRight className="w-5 h-5" />
-            )}
           </a>
         </div>
       </div>

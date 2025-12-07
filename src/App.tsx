@@ -23,23 +23,25 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <LanguageProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/admin" element={<AdminLogin />} />
-              <Route path="/admin/dashboard" element={<AdminDashboard />} />
-              <Route path="/important-links" element={<ImportantLinks />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms-of-use" element={<TermsOfUse />} />
-              <Route path="/cancellation-policy" element={<CancellationPolicy />} />
-              <Route path="/about-company" element={<AboutCompany />} />
-              <Route path="/blog" element={<Blog />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <div dir="rtl" className="font-sans">
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/admin" element={<AdminLogin />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/important-links" element={<ImportantLinks />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-use" element={<TermsOfUse />} />
+                <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+                <Route path="/about-company" element={<AboutCompany />} />
+                <Route path="/blog" element={<Blog />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </div>
         </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
