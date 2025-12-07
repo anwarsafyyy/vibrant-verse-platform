@@ -10,7 +10,6 @@ import {
 import { db } from "@/lib/firebase";
 import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-import { HelpCircle } from "lucide-react";
 
 interface FAQ {
   id: string;
@@ -23,7 +22,7 @@ interface FAQ {
 }
 
 const FAQSection: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t, language, dir } = useLanguage();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -52,33 +51,38 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-32 relative overflow-hidden">
+    <section id="faq" className="py-24 md:py-32 relative overflow-hidden bg-background">
       {/* Background decorations */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
       
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <HelpCircle className="w-4 h-4" />
-            {t("faq.title")}
+        {/* Section Header - 2P Style */}
+        <div className={`mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
+            <div>
+              <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
+                {language === 'ar' ? 'أسئلة' : 'Frequently'}
+              </span>
+              <h2 className="font-bold tracking-tight">
+                <span className="olu-text-gradient">{t("faq.title")}</span>
+              </h2>
+            </div>
           </div>
-          <h2 className="font-bold mb-6 tracking-tight">
-            <span className="olu-text-gradient">{t("faq.title")}</span>
-          </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-lg text-muted-foreground max-w-2xl mt-4">
             {t("faq.description")}
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        {/* FAQ Grid */}
+        <div className="max-w-4xl mx-auto">
           {loading ? (
             <div className="space-y-4">
               {Array(4).fill(0).map((_, index) => (
-                <div key={`faq-skeleton-${index}`} className="border border-border/50 rounded-3xl p-6 bg-card">
+                <div key={`faq-skeleton-${index}`} className="border border-border/50 rounded-2xl p-6 bg-card">
                   <Skeleton className="h-6 w-3/4 mb-2" />
                   <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-2/3" />
                 </div>
               ))}
             </div>
@@ -88,9 +92,9 @@ const FAQSection: React.FC = () => {
                 <AccordionItem 
                   key={faq.id} 
                   value={`item-${index}`} 
-                  className="border border-border/50 rounded-3xl px-6 bg-card hover:shadow-lg hover:border-primary/20 transition-all duration-300 data-[state=open]:shadow-xl data-[state=open]:border-primary/30"
+                  className="border border-border/50 rounded-2xl px-6 bg-card hover:border-primary/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-primary/30 card-shine"
                 >
-                  <AccordionTrigger className="text-lg font-semibold hover:no-underline py-6 hover:text-primary transition-colors duration-300">
+                  <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors duration-300 gap-4">
                     {language === 'ar' ? faq.question_ar : faq.question_en}
                   </AccordionTrigger>
                   <AccordionContent className="text-base text-muted-foreground pb-6 leading-relaxed">

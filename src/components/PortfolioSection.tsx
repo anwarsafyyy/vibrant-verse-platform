@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Briefcase } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -10,6 +10,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
@@ -27,17 +28,16 @@ interface PortfolioItem {
 }
 
 const PortfolioSection: React.FC = () => {
-  const { t, dir } = useLanguage();
+  const { t, dir, language } = useLanguage();
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const fetchPortfolioItems = async () => {
       try {
-        const q = query(
-          collection(db, 'portfolio_items'),
-          orderBy('order_index', 'asc')
-        );
+        const q = query(collection(db, 'portfolio_items'), orderBy('order_index', 'asc'));
         const snapshot = await getDocs(q);
         const itemsData: PortfolioItem[] = [];
         snapshot.forEach(doc => {
@@ -50,101 +50,155 @@ const PortfolioSection: React.FC = () => {
         setLoading(false);
       }
     };
-    
     fetchPortfolioItems();
   }, []);
 
+  useEffect(() => {
+    if (!api) return;
+    setCurrent(api.selectedScrollSnap());
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   return (
-    <section id="portfolio" className="min-h-screen relative flex items-center py-24 overflow-hidden">
-      {/* Clean light background with subtle purple wave */}
-      <div className="absolute inset-0 -z-10">
-        {/* Light gray base */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-slate-100/80 dark:from-slate-900/50 dark:to-slate-800/30"></div>
-        
-        {/* Subtle purple/pink gradient wave at bottom */}
-        <svg className="absolute bottom-0 left-0 w-full h-40" preserveAspectRatio="none" viewBox="0 0 1440 160">
-          <defs>
-            <linearGradient id="portfolioWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
-              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
-            </linearGradient>
-          </defs>
-          <path fill="url(#portfolioWaveGradient)" d="M0,80 C360,120 720,40 1080,80 C1260,100 1380,60 1440,80 L1440,160 L0,160 Z"></path>
-        </svg>
-      </div>
+    <section id="portfolio" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Clean background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 to-background" />
       
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <Briefcase className="w-4 h-4" />
-            {t("portfolio.title")}
+        {/* Section Header - 2P Style */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
+          <div className={`${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
+              <div>
+                <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
+                  {language === 'ar' ? 'منتجات' : 'Products'}
+                </span>
+                <h2 className="font-bold tracking-tight">
+                  <span className="olu-text-gradient">{t("portfolio.title")}</span>
+                </h2>
+              </div>
+            </div>
+            <p className="text-lg text-muted-foreground max-w-xl mt-4">
+              {t("portfolio.subtitle")}
+            </p>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            <span className="olu-text-gradient">{t("portfolio.title")}</span>
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">{t("portfolio.subtitle")}</p>
+          
+          {/* Pagination - 2P Style */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
+              {portfolioItems.slice(0, 3).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => api?.scrollTo(index)}
+                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 rounded ${
+                    current === index 
+                      ? 'text-primary' 
+                      : 'text-muted-foreground hover:text-primary'
+                  }`}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => api?.scrollPrev()}
+                className="rounded-full border border-border/50 hover:border-primary hover:bg-primary/5"
+              >
+                <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              </Button>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => api?.scrollNext()}
+                className="rounded-full border border-border/50 hover:border-primary hover:bg-primary/5"
+              >
+                <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <Carousel className="w-full max-w-[1400px] mx-auto" opts={{ loop: true }}>
-          <CarouselContent>
+        {/* Portfolio Carousel */}
+        <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "start" }}>
+          <CarouselContent className="-ml-4">
             {loading ? (
-              Array(4).fill(0).map((_, index) => (
-                <CarouselItem key={`skeleton-${index}`} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 p-2">
-                  <div className="rounded-3xl overflow-hidden shadow-lg h-full bg-card border border-border/50">
-                    <Skeleton className="aspect-video w-full" />
+              Array(3).fill(0).map((_, index) => (
+                <CarouselItem key={`skeleton-${index}`} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
+                  <div className="rounded-3xl overflow-hidden bg-card border border-border/50 h-full">
+                    <Skeleton className="aspect-[4/3] w-full" />
                     <div className="p-6">
                       <Skeleton className="h-7 w-3/4 mb-3" />
                       <Skeleton className="h-4 w-full mb-4" />
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <Skeleton className="h-6 w-16 rounded-full" />
-                        <Skeleton className="h-6 w-16 rounded-full" />
-                        <Skeleton className="h-6 w-16 rounded-full" />
-                      </div>
                     </div>
                   </div>
                 </CarouselItem>
               ))
             ) : portfolioItems.length > 0 ? (
               portfolioItems.map((item) => (
-                <CarouselItem key={item.id} className="basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4 p-2">
-                  <div className="group rounded-3xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 h-full bg-card border border-border/50 hover:border-primary/20">
-                    <div className="relative aspect-video overflow-hidden">
-                      <img 
-                        src={item.image_url} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute top-3 left-3">
-                        <Badge className="bg-gradient-to-r from-primary to-accent text-white border-0 shadow-lg">
-                          {item.category}
-                        </Badge>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-300">{item.title}</h3>
-                      <p className="text-muted-foreground mb-4 line-clamp-2">{item.description}</p>
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        {item.technologies.slice(0, 3).map((tech, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="outline" 
-                            className="bg-primary/5 border-primary/20 text-primary/80 rounded-full"
-                          >
-                            {tech}
+                <CarouselItem key={item.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
+                  <div className="group relative h-full">
+                    {/* Main Card */}
+                    <div className="relative rounded-3xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 h-full card-shine">
+                      {/* Image */}
+                      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                        <img 
+                          src={item.image_url} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        
+                        {/* Category Badge */}
+                        <div className="absolute top-4 left-4">
+                          <Badge className="bg-white/90 text-foreground border-0 shadow-lg font-medium">
+                            {item.category}
                           </Badge>
-                        ))}
-                        {item.technologies.length > 3 && (
-                          <Badge variant="outline" className="bg-muted rounded-full">
-                            +{item.technologies.length - 3}
-                          </Badge>
-                        )}
+                        </div>
+                        
+                        {/* Title on image */}
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <h3 className="text-xl font-bold text-white mb-1">
+                            {item.title}
+                          </h3>
+                        </div>
                       </div>
-                      <Button variant="ghost" size="sm" className="group/btn p-0 h-auto hover:bg-transparent">
-                        <span className="text-primary font-semibold">View Project</span>
-                        <ArrowRight className={`ml-2 h-4 w-4 text-primary transition-transform group-hover/btn:translate-x-1 ${dir === "rtl" ? "rtl-flip" : ""}`} />
-                      </Button>
+                      
+                      {/* Content */}
+                      <div className="p-6">
+                        <p className="text-muted-foreground mb-4 line-clamp-2">
+                          {item.description}
+                        </p>
+                        
+                        {/* Technologies */}
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {item.technologies.slice(0, 3).map((tech, index) => (
+                            <Badge 
+                              key={index} 
+                              variant="outline" 
+                              className="bg-primary/5 border-primary/20 text-primary/80 rounded-full text-xs"
+                            >
+                              {tech}
+                            </Badge>
+                          ))}
+                          {item.technologies.length > 3 && (
+                            <Badge variant="outline" className="bg-muted rounded-full text-xs">
+                              +{item.technologies.length - 3}
+                            </Badge>
+                          )}
+                        </div>
+                        
+                        {/* Action */}
+                        <button className="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
+                          {language === 'ar' ? 'اقرأ المزيد' : 'Read More'}
+                          <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? 'rtl-flip' : ''}`} />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </CarouselItem>
@@ -157,10 +211,6 @@ const PortfolioSection: React.FC = () => {
               </CarouselItem>
             )}
           </CarouselContent>
-          <div className="flex justify-center mt-10 gap-4">
-            <CarouselPrevious className="relative static translate-y-0 rounded-full w-12 h-12 bg-card border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all duration-300" />
-            <CarouselNext className="relative static translate-y-0 rounded-full w-12 h-12 bg-card border-2 border-primary/20 hover:border-primary hover:bg-primary/5 transition-all duration-300" />
-          </div>
         </Carousel>
       </div>
     </section>

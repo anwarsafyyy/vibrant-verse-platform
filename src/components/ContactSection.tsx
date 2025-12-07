@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, MessageSquare, Mail } from "lucide-react";
+import { Send, MessageSquare } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -55,69 +55,106 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 -z-10"></div>
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 -z-10"></div>
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 -z-10"></div>
+    <section id="contact" className="py-24 md:py-32 relative overflow-hidden bg-muted/30">
+      {/* Background */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-30 -z-10" />
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -z-10" />
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 -z-10" />
       
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <Mail className="w-4 h-4" />
-            {t("contact.title")}
+        {/* Section Header - 2P Style */}
+        <div className={`mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
+            <div>
+              <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
+                {language === 'ar' ? 'تواصل' : 'Get in'}
+              </span>
+              <h2 className="font-bold tracking-tight">
+                <span className="olu-text-gradient">{t("contact.title")}</span>
+              </h2>
+            </div>
           </div>
-          <h2 className="font-bold mb-6 tracking-tight">
-            <span className="olu-text-gradient">{t("contact.title")}</span>
-          </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">{t("contact.subtitle")}</p>
+          <p className="text-lg text-muted-foreground max-w-2xl mt-4">
+            {t("contact.subtitle")}
+          </p>
         </div>
 
+        {/* Contact Form */}
         <div className="max-w-2xl mx-auto">
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
-            <div className="relative bg-card rounded-3xl shadow-2xl p-10 border border-border/50">
-              <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <FormField control={form.control} name="name" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground font-semibold">{t("contact.name")}</FormLabel>
-                      <FormControl>
-                        <Input placeholder={t("contact.namePlaceholder")} {...field} className="rounded-xl border-border/50 focus:border-primary h-12" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="email" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground font-semibold">{t("contact.email")}</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder={t("contact.emailPlaceholder")} {...field} className="rounded-xl border-border/50 focus:border-primary h-12" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <FormField control={form.control} name="message" render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-foreground font-semibold">{t("contact.message")}</FormLabel>
-                      <FormControl>
-                        <Textarea placeholder={t("contact.messagePlaceholder")} className="min-h-[140px] rounded-xl border-border/50 focus:border-primary" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )} />
-                  <div className="flex gap-4 pt-4">
-                    <Button type="submit" disabled={isSubmitting} size="lg" className="flex-1 rounded-full bg-gradient-to-r from-primary to-accent hover:shadow-lg transition-all duration-300">
-                      {isSubmitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div> : <Send className="h-4 w-4 mr-2" />}
-                      {isSubmitting ? t("contact.sending") : t("contact.sendMessage")}
-                    </Button>
-                    <Button type="button" onClick={() => window.open('https://wa.me/966535656226', '_blank')} size="lg" className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full">
-                      <MessageSquare className="h-4 w-4 mr-2" />
-                      {language === 'ar' ? 'واتساب' : 'WhatsApp'}
-                    </Button>
-                  </div>
-                </form>
-              </Form>
-            </div>
+          <div className="relative bg-card rounded-3xl shadow-xl p-8 md:p-10 border border-border/50 card-shine">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField control={form.control} name="name" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground font-bold">{t("contact.name")}</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t("contact.namePlaceholder")} 
+                        {...field} 
+                        className="rounded-xl border-border/50 focus:border-primary h-12 bg-background" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                
+                <FormField control={form.control} name="email" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground font-bold">{t("contact.email")}</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="email" 
+                        placeholder={t("contact.emailPlaceholder")} 
+                        {...field} 
+                        className="rounded-xl border-border/50 focus:border-primary h-12 bg-background" 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                
+                <FormField control={form.control} name="message" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground font-bold">{t("contact.message")}</FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        placeholder={t("contact.messagePlaceholder")} 
+                        className="min-h-[140px] rounded-xl border-border/50 focus:border-primary bg-background" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Button 
+                    type="submit" 
+                    disabled={isSubmitting} 
+                    size="lg" 
+                    className="flex-1 rounded-full bg-gradient-to-r from-primary to-accent hover:shadow-lg transition-all duration-300 font-bold"
+                  >
+                    {isSubmitting ? (
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                    ) : (
+                      <Send className="h-4 w-4 mr-2" />
+                    )}
+                    {isSubmitting ? t("contact.sending") : t("contact.sendMessage")}
+                  </Button>
+                  
+                  <Button 
+                    type="button" 
+                    onClick={() => window.open('https://wa.me/966535656226', '_blank')} 
+                    size="lg" 
+                    className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full font-bold"
+                  >
+                    <MessageSquare className="h-4 w-4 mr-2" />
+                    {language === 'ar' ? 'واتساب' : 'WhatsApp'}
+                  </Button>
+                </div>
+              </form>
+            </Form>
           </div>
         </div>
       </div>
