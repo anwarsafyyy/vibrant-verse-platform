@@ -125,40 +125,62 @@ const AboutSection: React.FC = () => {
         </svg>
       </div>
       
-      {/* Full-width text background band */}
+      {/* Full-width text background with curved edges */}
       <div className="relative mb-16">
-        {/* Full-width gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-accent/10 to-primary/8 dark:from-primary/15 dark:via-accent/12 dark:to-primary/15"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white/60 dark:from-slate-900/60 dark:to-slate-900/60"></div>
+        {/* Top curved wave */}
+        <svg className="absolute -top-16 left-0 w-full h-20" preserveAspectRatio="none" viewBox="0 0 1440 80">
+          <defs>
+            <linearGradient id="aboutTopWave" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#aboutTopWave)" d="M0,80 C240,20 480,60 720,40 C960,20 1200,60 1440,30 L1440,80 L0,80 Z"></path>
+        </svg>
         
-        {/* Decorative flowing shapes - full width */}
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-br from-primary/15 to-accent/15 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-gradient-to-br from-accent/15 to-primary/15 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-32 bg-gradient-to-r from-transparent via-primary/10 to-transparent blur-2xl"></div>
+        {/* Main gradient background - larger padding */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-accent/8 to-primary/10 dark:from-primary/20 dark:via-accent/15 dark:to-primary/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-slate-900/40"></div>
         
-        {/* Top and bottom subtle borders */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+        {/* Decorative flowing shapes - larger and more prominent */}
+        <div className="absolute top-10 left-10 w-80 h-80 bg-gradient-to-br from-primary/20 to-accent/15 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-72 h-72 bg-gradient-to-br from-accent/20 to-primary/15 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-48 bg-gradient-to-r from-transparent via-primary/12 to-transparent blur-3xl rounded-full"></div>
+        <div className="absolute top-1/4 right-1/3 w-40 h-40 bg-gradient-to-br from-violet-400/15 to-fuchsia-400/10 rounded-full blur-2xl"></div>
         
-        <div className="container mx-auto px-4 relative py-16">
+        {/* Content with extra padding */}
+        <div className="container mx-auto px-4 relative py-20">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/5">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 dark:bg-slate-800/80 text-primary text-sm font-semibold mb-8 backdrop-blur-md border border-primary/20 shadow-xl shadow-primary/10">
               <Star className="w-4 h-4" />
               {t("about.title")}
             </div>
-            <h2 className="font-bold mb-6 tracking-tight">
+            <h2 className="font-bold mb-8 tracking-tight text-5xl md:text-6xl">
               <span className="olu-text-gradient">
                 {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
               {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
             </p>
-            <p className="text-lg leading-relaxed text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground max-w-3xl mx-auto">
               {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
             </p>
           </div>
         </div>
+        
+        {/* Bottom curved wave */}
+        <svg className="absolute -bottom-16 left-0 w-full h-20" preserveAspectRatio="none" viewBox="0 0 1440 80">
+          <defs>
+            <linearGradient id="aboutBottomWave" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#aboutBottomWave)" d="M0,0 C240,50 480,20 720,40 C960,60 1200,20 1440,50 L1440,0 L0,0 Z"></path>
+        </svg>
       </div>
       
       <div className="container mx-auto px-4">
