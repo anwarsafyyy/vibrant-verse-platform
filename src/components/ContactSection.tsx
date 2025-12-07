@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, MessageSquare } from "lucide-react";
+import { Send, MessageSquare, Mail, Phone, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -54,55 +54,83 @@ const ContactSection: React.FC = () => {
     }
   };
 
+  const contactInfo = [
+    { icon: Phone, label: language === 'ar' ? 'الهاتف' : 'Phone', value: '+966535656226' },
+    { icon: Mail, label: language === 'ar' ? 'البريد الإلكتروني' : 'Email', value: 'info@olu-it.com' },
+    { icon: MapPin, label: language === 'ar' ? 'الموقع' : 'Location', value: language === 'ar' ? 'جازان، المملكة العربية السعودية' : 'Jazan, Saudi Arabia' },
+  ];
+
   return (
-    <section id="contact" className="py-24 lg:py-32 relative overflow-hidden bg-muted/30">
+    <section id="contact" className="py-28 lg:py-36 relative overflow-hidden bg-muted/30">
       {/* Decorative elements */}
-      <div className="absolute bottom-20 left-20 w-32 h-32 opacity-10 -z-10">
+      <div className="absolute bottom-20 left-20 w-48 h-48 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
         </svg>
       </div>
+      <div className="absolute top-20 right-20 w-32 h-32 opacity-5 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Left Side - Header */}
-          <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+        <div className={`grid lg:grid-cols-2 gap-16 lg:gap-24 items-start ${dir === 'rtl' ? 'lg:grid-flow-dense' : ''}`}>
+          {/* Left Side - Header & Contact Info */}
+          <div className={`${dir === 'rtl' ? 'text-right lg:col-start-2' : 'text-left'}`}>
             {/* Section label */}
-            <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
+            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <MessageSquare className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-primary font-bold text-sm tracking-wider">
-                {language === 'ar' ? 'تواصل' : 'Get in'}
+              <span className="text-primary font-bold tracking-wider uppercase text-sm">
+                {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
               <span className="olu-text-gradient">{t("contact.title")}</span>
             </h2>
             
-            <p className="text-lg text-muted-foreground max-w-lg mb-8">
+            <p className="text-lg text-muted-foreground max-w-lg mb-10">
               {t("contact.subtitle")}
             </p>
+            
+            {/* Contact Info Cards */}
+            <div className="space-y-4 mb-10">
+              {contactInfo.map((item, index) => (
+                <div 
+                  key={index}
+                  className={`flex items-center gap-4 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-all duration-300 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                >
+                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+                    <p className="text-sm text-muted-foreground font-medium">{item.label}</p>
+                    <p className="text-foreground font-bold">{item.value}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
             
             {/* WhatsApp Button */}
             <Button 
               onClick={() => window.open('https://wa.me/966535656226', '_blank')} 
               size="lg" 
-              className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-6 text-lg rounded-xl shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300 hover:-translate-y-1"
             >
-              <MessageSquare className="h-5 w-5 mr-2" />
-              {language === 'ar' ? 'تواصل عبر واتساب' : 'Contact via WhatsApp'}
+              <MessageSquare className="h-5 w-5 mr-3" />
+              {language === 'ar' ? 'تواصل عبر واتساب' : 'Chat on WhatsApp'}
             </Button>
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-card rounded-2xl p-8 border border-border shadow-sm">
+          <div className={`bg-card rounded-3xl p-8 lg:p-10 border border-border shadow-xl ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+            <h3 className={`text-2xl font-bold mb-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+              {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a Message'}
+            </h3>
+            
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField control={form.control} name="name" render={({ field }) => (
@@ -114,7 +142,7 @@ const ContactSection: React.FC = () => {
                       <Input 
                         placeholder={t("contact.namePlaceholder")} 
                         {...field} 
-                        className={`rounded-lg border-border focus:border-primary h-12 bg-background ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`rounded-xl border-border focus:border-primary h-14 bg-background text-lg ${dir === 'rtl' ? 'text-right' : ''}`}
                       />
                     </FormControl>
                     <FormMessage />
@@ -131,7 +159,7 @@ const ContactSection: React.FC = () => {
                         type="email" 
                         placeholder={t("contact.emailPlaceholder")} 
                         {...field} 
-                        className={`rounded-lg border-border focus:border-primary h-12 bg-background ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`rounded-xl border-border focus:border-primary h-14 bg-background text-lg ${dir === 'rtl' ? 'text-right' : ''}`}
                       />
                     </FormControl>
                     <FormMessage />
@@ -146,7 +174,7 @@ const ContactSection: React.FC = () => {
                     <FormControl>
                       <Textarea 
                         placeholder={t("contact.messagePlaceholder")} 
-                        className={`min-h-[120px] rounded-lg border-border focus:border-primary bg-background ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`min-h-[140px] rounded-xl border-border focus:border-primary bg-background text-lg ${dir === 'rtl' ? 'text-right' : ''}`}
                         {...field} 
                       />
                     </FormControl>
@@ -158,12 +186,12 @@ const ContactSection: React.FC = () => {
                   type="submit" 
                   disabled={isSubmitting} 
                   size="lg" 
-                  className="w-full bg-primary hover:bg-primary/90 font-bold"
+                  className="w-full bg-primary hover:bg-primary/90 font-bold h-14 text-lg rounded-xl shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
                 >
                   {isSubmitting ? (
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
                   ) : (
-                    <Send className="h-4 w-4 mr-2" />
+                    <Send className="h-5 w-5 mr-3" />
                   )}
                   {isSubmitting ? t("contact.sending") : t("contact.sendMessage")}
                 </Button>

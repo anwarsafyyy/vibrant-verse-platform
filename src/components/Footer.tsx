@@ -1,9 +1,10 @@
 
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, ArrowUp } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { getCollection } from "@/lib/firebaseHelpers";
+import { Button } from "@/components/ui/button";
 
 interface SocialLink { 
   id: string; 
@@ -24,6 +25,10 @@ const Footer: React.FC = () => {
       .then(data => setSocialLinks(data || []))
       .catch(console.error);
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const getSocialIcon = (iconName: string) => {
     const icons: Record<string, JSX.Element> = {
@@ -52,12 +57,28 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gradient-purple text-white">
-      <div className="container mx-auto px-4 py-16">
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-          {/* About */}
-          <div>
-            <p className="opacity-80 leading-relaxed text-sm">
+    <footer className="bg-gradient-purple text-white relative">
+      {/* Back to top button */}
+      <Button 
+        onClick={scrollToTop}
+        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300"
+        size="icon"
+      >
+        <ArrowUp className="w-5 h-5" />
+      </Button>
+      
+      <div className="container mx-auto px-4 pt-20 pb-8">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+          {/* Logo & About */}
+          <div className="lg:col-span-1">
+            {getSetting('logo_url', 'ar') && (
+              <img 
+                src={getSetting('logo_url', 'ar')} 
+                alt="Logo" 
+                className="h-12 w-auto mb-6 brightness-0 invert opacity-90"
+              />
+            )}
+            <p className="opacity-70 leading-relaxed text-sm">
               {getFooterContent('company_description_ar', language as "ar" | "en") || (dir === "rtl" 
                 ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
                 : "Building a better digital future through innovative tech solutions."
@@ -65,15 +86,18 @@ const Footer: React.FC = () => {
             </p>
           </div>
           
-          {/* Links */}
+          {/* Important Links */}
           <div>
-            <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "روابط مهمة" : "Important Links"}</h4>
+            <h4 className="text-lg font-bold mb-6 relative inline-block">
+              {dir === "rtl" ? "روابط مهمة" : "Important Links"}
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
+            </h4>
             <ul className="space-y-3">
               {links.map(link => (
                 <li key={link.href}>
                   <a 
                     href={link.href} 
-                    className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                    className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-all duration-300"
                   >
                     {dir === "rtl" ? link.ar : link.en}
                   </a>
@@ -82,22 +106,30 @@ const Footer: React.FC = () => {
             </ul>
           </div>
           
-          {/* Contact */}
+          {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "تواصل معانا" : "Contact Us"}</h4>
+            <h4 className="text-lg font-bold mb-6 relative inline-block">
+              {dir === "rtl" ? "تواصل معنا" : "Contact Us"}
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
+            </h4>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
-                <li key={i} className={`flex items-center gap-3 opacity-80 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <item.icon className="h-4 w-4 shrink-0" />
-                  <span className="text-sm">{item.text}</span>
+                <li key={i} className={`flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <item.icon className="h-4 w-4" />
+                  </div>
+                  <span className="text-sm leading-relaxed">{item.text}</span>
                 </li>
               ))}
             </ul>
           </div>
           
-          {/* Social */}
+          {/* Social & Newsletter */}
           <div>
-            <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "تابعنا" : "Follow Us"}</h4>
+            <h4 className="text-lg font-bold mb-6 relative inline-block">
+              {dir === "rtl" ? "تابعنا" : "Follow Us"}
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
+            </h4>
             <div className={`flex gap-3 mb-6 ${dir === "rtl" ? "justify-end" : "justify-start"}`}>
               {socialLinks.map(link => (
                 <a 
@@ -105,13 +137,13 @@ const Footer: React.FC = () => {
                   href={link.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                  className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300"
                 >
                   {getSocialIcon(link.icon)}
                 </a>
               ))}
             </div>
-            <p className="text-sm opacity-80 leading-relaxed">
+            <p className="text-sm opacity-70 leading-relaxed">
               {dir === "rtl" 
                 ? "نحن شركة متخصصة في تطوير المواقع، تحسين محركات البحث، والتسويق الرقمي." 
                 : "We are a company specialized in website development, SEO, and digital marketing."
@@ -120,11 +152,22 @@ const Footer: React.FC = () => {
           </div>
         </div>
         
-        {/* Copyright */}
-        <div className="border-t border-white/10 mt-12 pt-8 text-center">
-          <p className="opacity-70 text-sm">
-            {getFooterContent('copyright_text_ar', language as "ar" | "en") || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات."}
-          </p>
+        {/* Divider */}
+        <div className="border-t border-white/10 pt-8">
+          <div className={`flex flex-col md:flex-row items-center justify-between gap-4 ${dir === 'rtl' ? 'md:flex-row-reverse' : ''}`}>
+            <p className="opacity-50 text-sm text-center md:text-left">
+              {getFooterContent('copyright_text_ar', language as "ar" | "en") || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات."}
+            </p>
+            <div className={`flex items-center gap-4 text-sm opacity-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <a href="/privacy-policy" className="hover:opacity-100 hover:text-primary transition-all">
+                {dir === "rtl" ? "الخصوصية" : "Privacy"}
+              </a>
+              <span>•</span>
+              <a href="/terms-of-use" className="hover:opacity-100 hover:text-primary transition-all">
+                {dir === "rtl" ? "الشروط" : "Terms"}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

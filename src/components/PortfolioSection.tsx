@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -31,6 +31,19 @@ const PortfolioSection: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    const section = document.getElementById('portfolio');
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const fetchPortfolioItems = async () => {
@@ -60,77 +73,71 @@ const PortfolioSection: React.FC = () => {
   }, [api]);
 
   return (
-    <section id="portfolio" className="py-24 lg:py-32 relative overflow-hidden bg-background">
+    <section id="portfolio" className="py-28 lg:py-36 relative overflow-hidden bg-background">
       {/* Decorative elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 opacity-10 -z-10">
+      <div className="absolute top-20 left-20 w-40 h-40 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
         </svg>
       </div>
-      <div className="absolute bottom-20 right-20 w-32 h-32 opacity-10 -z-10">
+      <div className="absolute bottom-20 right-20 w-48 h-48 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" transform="rotate(45 50 50)" />
+          <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" transform="rotate(45 50 50)" />
         </svg>
       </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header - 2P Style */}
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
+        {/* Section Header */}
+        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
             {/* Section label */}
-            <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
+            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Briefcase className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-primary font-bold text-sm tracking-wider">
-                {language === 'ar' ? 'منتجات' : 'Products'}
+              <span className="text-primary font-bold tracking-wider uppercase text-sm">
+                {language === 'ar' ? 'أعمالنا' : 'Our Work'}
               </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold">
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-4">
               <span className="olu-text-gradient">
-                {language === 'ar' ? 'الشركة' : 'Our Products'}
+                {language === 'ar' ? 'منتجات الشركة' : 'Our Products'}
               </span>
             </h2>
+            
+            <p className="text-lg text-muted-foreground max-w-xl">
+              {language === 'ar' 
+                ? 'اكتشف مجموعة منتجاتنا المبتكرة التي صممناها لتلبية احتياجات السوق السعودي'
+                : 'Discover our innovative products designed to meet the Saudi market needs'
+              }
+            </p>
           </div>
           
-          {/* Pagination + Arrows */}
+          {/* Navigation */}
           <div className={`flex items-center gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              {portfolioItems.slice(0, 3).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 ${
-                    current === index 
-                      ? 'text-primary' 
-                      : 'text-muted-foreground/50 hover:text-muted-foreground'
-                  }`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </button>
-              ))}
+            {/* Progress indicator */}
+            <div className="hidden md:flex items-center gap-2">
+              <span className="text-2xl font-bold text-primary">{String(current + 1).padStart(2, '0')}</span>
+              <span className="text-muted-foreground/50">/</span>
+              <span className="text-muted-foreground/50">{String(portfolioItems.length || 1).padStart(2, '0')}</span>
             </div>
             
-            <div className={`flex gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Arrows */}
+            <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <Button 
-                variant="ghost" 
+                variant="outline" 
                 size="icon"
                 onClick={() => api?.scrollPrev()}
-                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
+                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
               >
                 <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
               <Button 
-                variant="ghost" 
+                variant="outline" 
                 size="icon"
                 onClick={() => api?.scrollNext()}
-                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
+                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
               >
                 <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
@@ -138,67 +145,75 @@ const PortfolioSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Portfolio Carousel - 2P Style: Large cards with image on left, content on right */}
+        {/* Portfolio Carousel */}
         <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "start" }}>
           <CarouselContent className="-ml-6">
             {loading ? (
-              Array(3).fill(0).map((_, index) => (
+              Array(2).fill(0).map((_, index) => (
                 <CarouselItem key={`skeleton-${index}`} className="pl-6 basis-full lg:basis-1/2">
-                  <div className="grid md:grid-cols-2 gap-6 bg-card rounded-2xl border border-border overflow-hidden h-[400px]">
+                  <div className="grid md:grid-cols-2 gap-0 bg-card rounded-3xl border border-border overflow-hidden h-[420px]">
                     <Skeleton className="h-full w-full" />
                     <div className="p-8">
+                      <Skeleton className="h-6 w-24 mb-4" />
                       <Skeleton className="h-8 w-3/4 mb-4" />
-                      <Skeleton className="h-20 w-full mb-6" />
-                      <Skeleton className="h-6 w-32" />
+                      <Skeleton className="h-24 w-full mb-6" />
+                      <Skeleton className="h-10 w-40" />
                     </div>
                   </div>
                 </CarouselItem>
               ))
             ) : portfolioItems.length > 0 ? (
-              portfolioItems.map((item) => (
-                <CarouselItem key={item.id} className="pl-6 basis-full lg:basis-1/2">
-                  <div className={`group grid md:grid-cols-2 bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/40 transition-all duration-500 hover:shadow-xl ${dir === 'rtl' ? 'md:grid-flow-dense' : ''}`}>
+              portfolioItems.map((item, index) => (
+                <CarouselItem 
+                  key={item.id} 
+                  className={`pl-6 basis-full lg:basis-1/2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className={`group grid md:grid-cols-2 bg-card rounded-3xl border border-border overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 ${dir === 'rtl' ? 'md:grid-flow-dense' : ''}`}>
                     {/* Image */}
                     <div className={`relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted ${dir === 'rtl' ? 'md:col-start-2' : ''}`}>
                       <img 
                         src={item.image_url} 
                         alt={item.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
+                      {/* Overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      
                       {/* Category badge */}
                       <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'}`}>
-                        <Badge className="bg-primary text-primary-foreground border-0 font-bold">
+                        <Badge className="bg-primary text-primary-foreground border-0 font-bold px-4 py-1 text-sm">
                           {item.category}
                         </Badge>
                       </div>
                     </div>
                     
                     {/* Content */}
-                    <div className={`p-8 flex flex-col justify-center ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                      {/* Update date */}
-                      <span className="text-sm text-muted-foreground mb-3">
-                        {language === 'ar' ? 'اخر تحديث :' : 'Last Update:'} {new Date().toLocaleDateString()}
+                    <div className={`p-8 lg:p-10 flex flex-col justify-center ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                      {/* Date */}
+                      <span className="text-sm text-muted-foreground mb-4 font-medium">
+                        {language === 'ar' ? 'آخر تحديث:' : 'Last Update:'} {new Date().toLocaleDateString()}
                       </span>
                       
-                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                      <h3 className="text-2xl lg:text-3xl font-bold mb-4 group-hover:text-primary transition-colors">
                         {item.title}
                       </h3>
                       
-                      <p className="text-muted-foreground leading-relaxed mb-6 line-clamp-3">
+                      <p className="text-muted-foreground leading-relaxed mb-8 line-clamp-3">
                         {item.description}
                       </p>
                       
-                      {/* Read More Button */}
+                      {/* CTA Button */}
                       <Button 
                         variant="ghost"
-                        className={`w-fit text-primary hover:text-primary hover:bg-primary/5 px-0 font-bold ${dir === 'rtl' ? 'flex-row-reverse self-end' : ''}`}
+                        className={`w-fit text-primary hover:text-primary hover:bg-primary/10 px-0 font-bold text-lg group/btn ${dir === 'rtl' ? 'flex-row-reverse self-end' : ''}`}
                       >
+                        <span>{language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}</span>
                         {dir === 'rtl' ? (
-                          <ArrowLeft className="ml-2 h-4 w-4" />
+                          <ArrowLeft className="mr-2 h-5 w-5 transition-transform group-hover/btn:-translate-x-1" />
                         ) : (
-                          <ArrowRight className="mr-2 h-4 w-4" />
+                          <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover/btn:translate-x-1" />
                         )}
-                        <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
                       </Button>
                     </div>
                   </div>
@@ -206,8 +221,8 @@ const PortfolioSection: React.FC = () => {
               ))
             ) : (
               <CarouselItem className="basis-full">
-                <div className="text-center py-20">
-                  <p className="text-muted-foreground">No portfolio items available.</p>
+                <div className="text-center py-24 text-muted-foreground">
+                  {language === 'ar' ? 'لا توجد منتجات متاحة' : 'No products available'}
                 </div>
               </CarouselItem>
             )}
