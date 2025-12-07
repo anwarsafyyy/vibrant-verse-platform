@@ -80,8 +80,8 @@ const AboutSection: React.FC = () => {
             {/* Main image container */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop" 
-                alt="Team working together"
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" 
+                alt="Dashboard analytics"
                 className="w-full h-[400px] lg:h-[500px] object-cover"
               />
               {/* Overlay gradient */}
