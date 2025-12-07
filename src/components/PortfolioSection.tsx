@@ -56,32 +56,23 @@ const PortfolioSection: React.FC = () => {
 
   return (
     <section id="portfolio" className="min-h-screen relative flex items-center py-24 overflow-hidden">
-      {/* Elegant background design */}
+      {/* Clean light background with subtle purple wave */}
       <div className="absolute inset-0 -z-10">
-        {/* Base soft gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-muted/20"></div>
+        {/* Light gray base */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-slate-100/80 dark:from-slate-900/50 dark:to-slate-800/30"></div>
         
-        {/* Elegant color blocks */}
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-br from-primary/8 via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-tl from-accent/8 via-transparent to-transparent"></div>
-        
-        {/* Smooth ambient orbs */}
-        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/6 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-20 right-1/4 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[100px]"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-primary/4 to-accent/4 rounded-full blur-[80px]"></div>
-        
-        {/* Subtle wave shape */}
-        <svg className="absolute bottom-0 left-0 w-full h-48 text-muted/10" preserveAspectRatio="none" viewBox="0 0 1440 120">
-          <path fill="currentColor" d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,30 1440,60 L1440,120 L0,120 Z"></path>
+        {/* Subtle purple/pink gradient wave at bottom */}
+        <svg className="absolute bottom-0 left-0 w-full h-40" preserveAspectRatio="none" viewBox="0 0 1440 160">
+          <defs>
+            <linearGradient id="portfolioWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#portfolioWaveGradient)" d="M0,80 C360,120 720,40 1080,80 C1260,100 1380,60 1440,80 L1440,160 L0,160 Z"></path>
         </svg>
-        
-        {/* Top decorative accent line */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent rounded-full"></div>
       </div>
-      
-      {/* Smooth edge transitions */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-0"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-0"></div>
       
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">

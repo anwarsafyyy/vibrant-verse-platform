@@ -45,32 +45,23 @@ const PartnersSection: React.FC = () => {
 
   return (
     <section id="partners" className="py-32 relative overflow-hidden">
-      {/* Elegant background design */}
+      {/* Clean light background with subtle purple wave */}
       <div className="absolute inset-0 -z-10">
-        {/* Soft base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-muted/20 via-background to-muted/30"></div>
+        {/* Light gray base */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50 to-slate-100/80 dark:from-slate-900/50 dark:to-slate-800/30"></div>
         
-        {/* Elegant diagonal color blocks */}
-        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-primary/6 via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-2/3 h-full bg-gradient-to-tr from-accent/6 via-transparent to-transparent"></div>
-        
-        {/* Smooth ambient glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-primary/5 via-accent/3 to-primary/5 rounded-full blur-[100px]"></div>
-        <div className="absolute top-0 left-1/3 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px]"></div>
-        <div className="absolute bottom-0 right-1/3 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px]"></div>
-        
-        {/* Subtle wave shape at top */}
-        <svg className="absolute top-0 left-0 w-full h-32 text-muted/8 rotate-180" preserveAspectRatio="none" viewBox="0 0 1440 120">
-          <path fill="currentColor" d="M0,40 C240,80 480,10 720,50 C960,90 1200,20 1440,60 L1440,120 L0,120 Z"></path>
+        {/* Subtle purple/pink gradient wave at bottom */}
+        <svg className="absolute bottom-0 left-0 w-full h-40" preserveAspectRatio="none" viewBox="0 0 1440 160">
+          <defs>
+            <linearGradient id="partnersWaveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#partnersWaveGradient)" d="M0,80 C360,120 720,40 1080,80 C1260,100 1380,60 1440,80 L1440,160 L0,160 Z"></path>
         </svg>
-        
-        {/* Bottom accent line */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/4 h-1 bg-gradient-to-r from-transparent via-accent/20 to-transparent rounded-full"></div>
       </div>
-      
-      {/* Smooth edge blends */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent z-0"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 max-w-3xl mx-auto">
