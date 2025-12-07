@@ -126,25 +126,36 @@ const AboutSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
-            <Star className="w-4 h-4" />
-            {t("about.title")}
+        {/* Text content with elegant background */}
+        <div className="relative max-w-4xl mx-auto mb-16">
+          {/* Background with gradient and glass effect */}
+          <div className="absolute inset-0 -m-8 rounded-3xl bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 backdrop-blur-sm border border-white/10 dark:border-white/5 shadow-xl shadow-primary/5"></div>
+          <div className="absolute inset-0 -m-8 rounded-3xl bg-gradient-to-t from-white/50 via-transparent to-white/30 dark:from-slate-900/50 dark:to-slate-800/30"></div>
+          
+          {/* Decorative flowing shapes */}
+          <div className="absolute -top-4 -right-4 w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-2xl"></div>
+          <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full blur-2xl"></div>
+          
+          <div className="relative text-center p-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 backdrop-blur-sm border border-primary/20">
+              <Star className="w-4 h-4" />
+              {t("about.title")}
+            </div>
+            <h2 className="font-bold mb-6 tracking-tight">
+              <span className="olu-text-gradient">
+                {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground leading-relaxed mb-8">
+              {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
+            </p>
+            <p className="text-lg leading-relaxed text-muted-foreground max-w-3xl mx-auto">
+              {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
+            </p>
           </div>
-          <h2 className="font-bold mb-6 tracking-tight">
-            <span className="olu-text-gradient">
-              {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
-            </span>
-          </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
-          </p>
         </div>
           
         <div className={`${isVisible ? "animate-fade-in" : "opacity-0"} max-w-5xl mx-auto`} style={{ animationDelay: "0.2s" }}>
-          <p className="text-lg mb-16 text-center max-w-3xl mx-auto leading-relaxed text-muted-foreground">
-            {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
-          </p>
           
           {/* Value Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
