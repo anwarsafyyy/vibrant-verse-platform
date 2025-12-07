@@ -66,34 +66,59 @@ const PartnersSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+        {/* Infinite Scroll Container */}
+        <div className="relative w-full overflow-hidden">
+          {/* Gradient masks for smooth fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none"></div>
+          
           {loading ? (
-            Array(4).fill(0).map((_, index) => (
-              <Card key={`skeleton-${index}`} className="border border-border/50 bg-card rounded-3xl overflow-hidden">
-                <CardContent className="flex items-center justify-center p-12">
-                  <Skeleton className="w-32 h-32 rounded-2xl" />
-                </CardContent>
-              </Card>
-            ))
+            <div className="flex gap-8 justify-center py-8">
+              {Array(4).fill(0).map((_, index) => (
+                <Card key={`skeleton-${index}`} className="border border-border/50 bg-card rounded-3xl overflow-hidden flex-shrink-0">
+                  <CardContent className="flex items-center justify-center p-8">
+                    <Skeleton className="w-32 h-32 rounded-2xl" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           ) : partners.length > 0 ? (
-            partners.map((partner, index) => (
-              <Card
-                key={partner.id}
-                className="group relative border border-border/50 bg-card rounded-3xl overflow-hidden flex items-center justify-center p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 hover:border-primary/20"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardContent className="relative flex items-center justify-center w-32 h-32 p-0">
-                  <img
-                    src={partner.logo_url}
-                    alt={`${partner.name} Logo`}
-                    className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
-                  />
-                </CardContent>
-              </Card>
-            ))
+            <div className="flex animate-marquee hover:pause-animation">
+              {/* First set of logos */}
+              {partners.map((partner) => (
+                <div
+                  key={partner.id}
+                  className="group relative flex-shrink-0 mx-4 border border-border/50 bg-card rounded-3xl overflow-hidden flex items-center justify-center p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/20"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative flex items-center justify-center w-32 h-32">
+                    <img
+                      src={partner.logo_url}
+                      alt={`${partner.name} Logo`}
+                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {partners.map((partner) => (
+                <div
+                  key={`${partner.id}-duplicate`}
+                  className="group relative flex-shrink-0 mx-4 border border-border/50 bg-card rounded-3xl overflow-hidden flex items-center justify-center p-8 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary/20"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="relative flex items-center justify-center w-32 h-32">
+                    <img
+                      src={partner.logo_url}
+                      alt={`${partner.name} Logo`}
+                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : (
-            <div className="col-span-full text-center py-10 text-muted-foreground">
+            <div className="text-center py-10 text-muted-foreground">
               No partners available.
             </div>
           )}

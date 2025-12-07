@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -125,6 +126,10 @@ export default {
 					'from': { transform: 'rotate(0deg)' },
 					'to': { transform: 'rotate(360deg)' }
 				},
+				'marquee': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-50%)' }
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -137,6 +142,7 @@ export default {
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
 				'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
 				'spin-slow': 'spin-slow 20s linear infinite',
+				'marquee': 'marquee 25s linear infinite',
 			},
 			boxShadow: {
 				'glow': '0 0 40px hsl(var(--primary) / 0.3)',
