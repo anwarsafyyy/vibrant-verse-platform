@@ -65,7 +65,7 @@ const AboutSection: React.FC = () => {
       </button>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start" dir="ltr">
           
           {/* Left Side - Image with decorative frame */}
           <div className={`relative ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
