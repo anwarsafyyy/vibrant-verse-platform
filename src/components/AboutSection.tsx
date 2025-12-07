@@ -125,19 +125,24 @@ const AboutSection: React.FC = () => {
         </svg>
       </div>
       
-      <div className="container mx-auto px-4">
-        {/* Text content with elegant background */}
-        <div className="relative max-w-4xl mx-auto mb-16">
-          {/* Background with gradient and glass effect */}
-          <div className="absolute inset-0 -m-8 rounded-3xl bg-gradient-to-br from-primary/5 via-accent/5 to-primary/5 backdrop-blur-sm border border-white/10 dark:border-white/5 shadow-xl shadow-primary/5"></div>
-          <div className="absolute inset-0 -m-8 rounded-3xl bg-gradient-to-t from-white/50 via-transparent to-white/30 dark:from-slate-900/50 dark:to-slate-800/30"></div>
-          
-          {/* Decorative flowing shapes */}
-          <div className="absolute -top-4 -right-4 w-32 h-32 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-2xl"></div>
-          <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-gradient-to-br from-accent/20 to-primary/20 rounded-full blur-2xl"></div>
-          
-          <div className="relative text-center p-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 backdrop-blur-sm border border-primary/20">
+      {/* Full-width text background band */}
+      <div className="relative mb-16">
+        {/* Full-width gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-accent/10 to-primary/8 dark:from-primary/15 dark:via-accent/12 dark:to-primary/15"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-transparent to-white/60 dark:from-slate-900/60 dark:to-slate-900/60"></div>
+        
+        {/* Decorative flowing shapes - full width */}
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-gradient-to-br from-primary/15 to-accent/15 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-gradient-to-br from-accent/15 to-primary/15 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-32 bg-gradient-to-r from-transparent via-primary/10 to-transparent blur-2xl"></div>
+        
+        {/* Top and bottom subtle borders */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+        
+        <div className="container mx-auto px-4 relative py-16">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6 backdrop-blur-sm border border-primary/20 shadow-lg shadow-primary/5">
               <Star className="w-4 h-4" />
               {t("about.title")}
             </div>
@@ -154,6 +159,9 @@ const AboutSection: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+      
+      <div className="container mx-auto px-4">
           
         <div className={`${isVisible ? "animate-fade-in" : "opacity-0"} max-w-5xl mx-auto`} style={{ animationDelay: "0.2s" }}>
           
