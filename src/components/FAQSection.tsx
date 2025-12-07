@@ -51,36 +51,46 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 md:py-32 relative overflow-hidden bg-background">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
+    <section id="faq" className="py-24 lg:py-32 relative overflow-hidden bg-background">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-20 w-24 h-24 opacity-10 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
         {/* Section Header - 2P Style */}
         <div className={`mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
-            <div>
-              <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
-                {language === 'ar' ? 'أسئلة' : 'Frequently'}
-              </span>
-              <h2 className="font-bold tracking-tight">
-                <span className="olu-text-gradient">{t("faq.title")}</span>
-              </h2>
+          <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+            <div className="w-8 h-8 flex items-center justify-center">
+              <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
+                <rect x="3" y="3" width="7" height="7" rx="1" />
+                <rect x="14" y="3" width="7" height="7" rx="1" />
+                <rect x="3" y="14" width="7" height="7" rx="1" />
+                <rect x="14" y="14" width="7" height="7" rx="1" />
+              </svg>
             </div>
+            <span className="text-primary font-bold text-sm tracking-wider">
+              {language === 'ar' ? 'أسئلة' : 'Frequently'}
+            </span>
           </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mt-4">
+          
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            <span className="olu-text-gradient">{t("faq.title")}</span>
+          </h2>
+          
+          <p className="text-lg text-muted-foreground max-w-2xl">
             {t("faq.description")}
           </p>
         </div>
 
         {/* FAQ Grid */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl">
           {loading ? (
             <div className="space-y-4">
               {Array(4).fill(0).map((_, index) => (
-                <div key={`faq-skeleton-${index}`} className="border border-border/50 rounded-2xl p-6 bg-card">
+                <div key={`faq-skeleton-${index}`} className="border border-border rounded-xl p-6 bg-card">
                   <Skeleton className="h-6 w-3/4 mb-2" />
                   <Skeleton className="h-4 w-full" />
                 </div>
@@ -92,12 +102,12 @@ const FAQSection: React.FC = () => {
                 <AccordionItem 
                   key={faq.id} 
                   value={`item-${index}`} 
-                  className="border border-border/50 rounded-2xl px-6 bg-card hover:border-primary/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-primary/30 card-shine"
+                  className="border border-border rounded-xl px-6 bg-card hover:border-primary/40 transition-all duration-300 data-[state=open]:shadow-md data-[state=open]:border-primary/40"
                 >
-                  <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors duration-300 gap-4">
+                  <AccordionTrigger className={`text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     {language === 'ar' ? faq.question_ar : faq.question_en}
                   </AccordionTrigger>
-                  <AccordionContent className="text-base text-muted-foreground pb-6 leading-relaxed">
+                  <AccordionContent className={`text-base text-muted-foreground pb-6 leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {language === 'ar' ? faq.answer_ar : faq.answer_en}
                   </AccordionContent>
                 </AccordionItem>

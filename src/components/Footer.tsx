@@ -54,9 +54,9 @@ const Footer: React.FC = () => {
   return (
     <footer className="bg-gradient-purple text-white">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
           {/* About */}
-          <div className={dir === "rtl" ? "text-right" : "text-left"}>
+          <div>
             <p className="opacity-80 leading-relaxed text-sm">
               {getFooterContent('company_description_ar', language as "ar" | "en") || (dir === "rtl" 
                 ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
@@ -66,14 +66,14 @@ const Footer: React.FC = () => {
           </div>
           
           {/* Links */}
-          <div className={dir === "rtl" ? "text-right" : "text-left"}>
+          <div>
             <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "روابط مهمة" : "Important Links"}</h4>
             <ul className="space-y-3">
               {links.map(link => (
                 <li key={link.href}>
                   <a 
                     href={link.href} 
-                    className="text-sm opacity-80 hover:opacity-100 hover:text-white transition-all duration-300"
+                    className="text-sm opacity-80 hover:opacity-100 transition-opacity"
                   >
                     {dir === "rtl" ? link.ar : link.en}
                   </a>
@@ -83,11 +83,11 @@ const Footer: React.FC = () => {
           </div>
           
           {/* Contact */}
-          <div className={dir === "rtl" ? "text-right" : "text-left"}>
+          <div>
             <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "تواصل معانا" : "Contact Us"}</h4>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
-                <li key={i} className="flex items-center opacity-80 gap-3">
+                <li key={i} className={`flex items-center gap-3 opacity-80 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <item.icon className="h-4 w-4 shrink-0" />
                   <span className="text-sm">{item.text}</span>
                 </li>
@@ -96,16 +96,16 @@ const Footer: React.FC = () => {
           </div>
           
           {/* Social */}
-          <div className={dir === "rtl" ? "text-right" : "text-left"}>
+          <div>
             <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "تابعنا" : "Follow Us"}</h4>
-            <div className={`flex gap-3 ${dir === "rtl" ? "justify-end" : "justify-start"} mb-6`}>
+            <div className={`flex gap-3 mb-6 ${dir === "rtl" ? "justify-end" : "justify-start"}`}>
               {socialLinks.map(link => (
                 <a 
                   key={link.id} 
                   href={link.url} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
                 >
                   {getSocialIcon(link.icon)}
                 </a>

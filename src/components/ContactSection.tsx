@@ -55,44 +55,66 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 relative overflow-hidden bg-muted/30">
-      {/* Background */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30 -z-10" />
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 -z-10" />
-      <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-y-1/2 -z-10" />
+    <section id="contact" className="py-24 lg:py-32 relative overflow-hidden bg-muted/30">
+      {/* Decorative elements */}
+      <div className="absolute bottom-20 left-20 w-32 h-32 opacity-10 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header - 2P Style */}
-        <div className={`mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
-            <div>
-              <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          {/* Left Side - Header */}
+          <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-8 h-8 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </div>
+              <span className="text-primary font-bold text-sm tracking-wider">
                 {language === 'ar' ? 'تواصل' : 'Get in'}
               </span>
-              <h2 className="font-bold tracking-tight">
-                <span className="olu-text-gradient">{t("contact.title")}</span>
-              </h2>
             </div>
+            
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              <span className="olu-text-gradient">{t("contact.title")}</span>
+            </h2>
+            
+            <p className="text-lg text-muted-foreground max-w-lg mb-8">
+              {t("contact.subtitle")}
+            </p>
+            
+            {/* WhatsApp Button */}
+            <Button 
+              onClick={() => window.open('https://wa.me/966535656226', '_blank')} 
+              size="lg" 
+              className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold"
+            >
+              <MessageSquare className="h-5 w-5 mr-2" />
+              {language === 'ar' ? 'تواصل عبر واتساب' : 'Contact via WhatsApp'}
+            </Button>
           </div>
-          <p className="text-lg text-muted-foreground max-w-2xl mt-4">
-            {t("contact.subtitle")}
-          </p>
-        </div>
 
-        {/* Contact Form */}
-        <div className="max-w-2xl mx-auto">
-          <div className="relative bg-card rounded-3xl shadow-xl p-8 md:p-10 border border-border/50 card-shine">
+          {/* Right Side - Form */}
+          <div className="bg-card rounded-2xl p-8 border border-border shadow-sm">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField control={form.control} name="name" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-foreground font-bold">{t("contact.name")}</FormLabel>
+                    <FormLabel className={`text-foreground font-bold ${dir === 'rtl' ? 'text-right block' : ''}`}>
+                      {t("contact.name")}
+                    </FormLabel>
                     <FormControl>
                       <Input 
                         placeholder={t("contact.namePlaceholder")} 
                         {...field} 
-                        className="rounded-xl border-border/50 focus:border-primary h-12 bg-background" 
+                        className={`rounded-lg border-border focus:border-primary h-12 bg-background ${dir === 'rtl' ? 'text-right' : ''}`}
                       />
                     </FormControl>
                     <FormMessage />
@@ -101,13 +123,15 @@ const ContactSection: React.FC = () => {
                 
                 <FormField control={form.control} name="email" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-foreground font-bold">{t("contact.email")}</FormLabel>
+                    <FormLabel className={`text-foreground font-bold ${dir === 'rtl' ? 'text-right block' : ''}`}>
+                      {t("contact.email")}
+                    </FormLabel>
                     <FormControl>
                       <Input 
                         type="email" 
                         placeholder={t("contact.emailPlaceholder")} 
                         {...field} 
-                        className="rounded-xl border-border/50 focus:border-primary h-12 bg-background" 
+                        className={`rounded-lg border-border focus:border-primary h-12 bg-background ${dir === 'rtl' ? 'text-right' : ''}`}
                       />
                     </FormControl>
                     <FormMessage />
@@ -116,11 +140,13 @@ const ContactSection: React.FC = () => {
                 
                 <FormField control={form.control} name="message" render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-foreground font-bold">{t("contact.message")}</FormLabel>
+                    <FormLabel className={`text-foreground font-bold ${dir === 'rtl' ? 'text-right block' : ''}`}>
+                      {t("contact.message")}
+                    </FormLabel>
                     <FormControl>
                       <Textarea 
                         placeholder={t("contact.messagePlaceholder")} 
-                        className="min-h-[140px] rounded-xl border-border/50 focus:border-primary bg-background" 
+                        className={`min-h-[120px] rounded-lg border-border focus:border-primary bg-background ${dir === 'rtl' ? 'text-right' : ''}`}
                         {...field} 
                       />
                     </FormControl>
@@ -128,31 +154,19 @@ const ContactSection: React.FC = () => {
                   </FormItem>
                 )} />
                 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button 
-                    type="submit" 
-                    disabled={isSubmitting} 
-                    size="lg" 
-                    className="flex-1 rounded-full bg-gradient-to-r from-primary to-accent hover:shadow-lg transition-all duration-300 font-bold"
-                  >
-                    {isSubmitting ? (
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
-                    ) : (
-                      <Send className="h-4 w-4 mr-2" />
-                    )}
-                    {isSubmitting ? t("contact.sending") : t("contact.sendMessage")}
-                  </Button>
-                  
-                  <Button 
-                    type="button" 
-                    onClick={() => window.open('https://wa.me/966535656226', '_blank')} 
-                    size="lg" 
-                    className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full font-bold"
-                  >
-                    <MessageSquare className="h-4 w-4 mr-2" />
-                    {language === 'ar' ? 'واتساب' : 'WhatsApp'}
-                  </Button>
-                </div>
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting} 
+                  size="lg" 
+                  className="w-full bg-primary hover:bg-primary/90 font-bold"
+                >
+                  {isSubmitting ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                  ) : (
+                    <Send className="h-4 w-4 mr-2" />
+                  )}
+                  {isSubmitting ? t("contact.sending") : t("contact.sendMessage")}
+                </Button>
               </form>
             </Form>
           </div>
