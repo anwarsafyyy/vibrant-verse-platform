@@ -93,7 +93,7 @@ const PortfolioSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         {/* Top Row: Pagination on left, Header on right */}
-        <div className={`flex flex-col-reverse lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className={`flex flex-col-reverse lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
           
           {/* Left side - Pagination numbers */}
           <div className="flex items-center gap-4" dir="ltr">
