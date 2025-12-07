@@ -5,7 +5,14 @@ import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { getCollection } from "@/lib/firebaseHelpers";
 
-interface SocialLink { id: string; platform: string; url: string; icon: string; is_active: boolean; order_index: number; }
+interface SocialLink { 
+  id: string; 
+  platform: string; 
+  url: string; 
+  icon: string; 
+  is_active: boolean; 
+  order_index: number; 
+}
 
 const Footer: React.FC = () => {
   const { t, dir, language } = useLanguage();
@@ -29,49 +36,95 @@ const Footer: React.FC = () => {
     return icons[iconName.toLowerCase()] || <span className="w-5 h-5 rounded-full bg-white/50" />;
   };
 
+  const links = [
+    { href: "/privacy-policy", ar: "سياسة الخصوصية", en: "Privacy Policy" },
+    { href: "/terms-of-use", ar: "شروط الاستخدام", en: "Terms of Use" },
+    { href: "/cancellation-policy", ar: "سياسة الإلغاء", en: "Cancellation Policy" },
+    { href: "/about-company", ar: "عن الشركة", en: "About the Company" },
+    { href: "/blog", ar: "المدونة", en: "Blog" }
+  ];
+
+  const contactInfo = [
+    { icon: MapPin, text: getFooterContent('address_ar', language as "ar" | "en") || (dir === "rtl" ? "جازان، المملكة العربية السعودية" : "Jazan, Saudi Arabia") },
+    { icon: Phone, text: getFooterContent('phone', language as "ar" | "en") || "+966535656226" },
+    { icon: Mail, text: getFooterContent('email', language as "ar" | "en") || "info@olu-it.com" },
+    { icon: Clock, text: getFooterContent('working_hours_ar', language as "ar" | "en") || "09am - 05pm Mon-Sat" }
+  ];
+
   return (
-    <footer className="bg-gradient-purple text-white border-t border-white/10">
+    <footer className="bg-gradient-purple text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          {/* About */}
           <div className={dir === "rtl" ? "text-right" : "text-left"}>
-            <p className="opacity-80 leading-relaxed">
-              {getFooterContent('company_description_ar', language as "ar" | "en") || (dir === "rtl" ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." : "Building a better digital future through innovative tech solutions.")}
+            <p className="opacity-80 leading-relaxed text-sm">
+              {getFooterContent('company_description_ar', language as "ar" | "en") || (dir === "rtl" 
+                ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
+                : "Building a better digital future through innovative tech solutions."
+              )}
             </p>
           </div>
           
+          {/* Links */}
           <div className={dir === "rtl" ? "text-right" : "text-left"}>
             <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "روابط مهمة" : "Important Links"}</h4>
             <ul className="space-y-3">
-              {[{ href: "/privacy-policy", ar: "سياسة الخصوصية", en: "Privacy Policy" }, { href: "/terms-of-use", ar: "شروط الاستخدام", en: "Terms of Use" }, { href: "/cancellation-policy", ar: "سياسة الإلغاء", en: "Cancellation Policy" }, { href: "/about-company", ar: "عن الشركة", en: "About the Company" }, { href: "/blog", ar: "المدونة", en: "Blog" }].map(link => (
-                <li key={link.href}><a href={link.href} className="text-sm opacity-80 hover:opacity-100 hover:text-white transition-all duration-300">{dir === "rtl" ? link.ar : link.en}</a></li>
+              {links.map(link => (
+                <li key={link.href}>
+                  <a 
+                    href={link.href} 
+                    className="text-sm opacity-80 hover:opacity-100 hover:text-white transition-all duration-300"
+                  >
+                    {dir === "rtl" ? link.ar : link.en}
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
           
+          {/* Contact */}
           <div className={dir === "rtl" ? "text-right" : "text-left"}>
             <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "تواصل معانا" : "Contact Us"}</h4>
             <ul className="space-y-4">
-              {[{ icon: MapPin, text: getFooterContent('address_ar', language as "ar" | "en") || (dir === "rtl" ? "جازان، المملكة العربية السعودية" : "Jazan, Saudi Arabia") }, { icon: Phone, text: getFooterContent('phone', language as "ar" | "en") || "+966535656226" }, { icon: Mail, text: getFooterContent('email', language as "ar" | "en") || "info@olu-it.com" }, { icon: Clock, text: getFooterContent('working_hours_ar', language as "ar" | "en") || "09am - 05pm Mon-Sat" }].map((item, i) => (
-                <li key={i} className="flex items-center opacity-80 gap-3"><item.icon className="h-4 w-4 shrink-0" /><span className="text-sm">{item.text}</span></li>
+              {contactInfo.map((item, i) => (
+                <li key={i} className="flex items-center opacity-80 gap-3">
+                  <item.icon className="h-4 w-4 shrink-0" />
+                  <span className="text-sm">{item.text}</span>
+                </li>
               ))}
             </ul>
           </div>
           
+          {/* Social */}
           <div className={dir === "rtl" ? "text-right" : "text-left"}>
             <h4 className="text-lg font-bold mb-6">{dir === "rtl" ? "تابعنا" : "Follow Us"}</h4>
             <div className={`flex gap-3 ${dir === "rtl" ? "justify-end" : "justify-start"} mb-6`}>
               {socialLinks.map(link => (
-                <a key={link.id} href={link.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300">
+                <a 
+                  key={link.id} 
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all duration-300"
+                >
                   {getSocialIcon(link.icon)}
                 </a>
               ))}
             </div>
-            <p className="text-sm opacity-80 leading-relaxed">{dir === "rtl" ? "نحن شركة متخصصة في تطوير المواقع، تحسين محركات البحث، والتسويق الرقمي." : "We are a company specialized in website development, SEO, and digital marketing."}</p>
+            <p className="text-sm opacity-80 leading-relaxed">
+              {dir === "rtl" 
+                ? "نحن شركة متخصصة في تطوير المواقع، تحسين محركات البحث، والتسويق الرقمي." 
+                : "We are a company specialized in website development, SEO, and digital marketing."
+              }
+            </p>
           </div>
         </div>
         
+        {/* Copyright */}
         <div className="border-t border-white/10 mt-12 pt-8 text-center">
-          <p className="opacity-70">{getFooterContent('copyright_text_ar', language as "ar" | "en") || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات."}</p>
+          <p className="opacity-70 text-sm">
+            {getFooterContent('copyright_text_ar', language as "ar" | "en") || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات."}
+          </p>
         </div>
       </div>
     </footer>

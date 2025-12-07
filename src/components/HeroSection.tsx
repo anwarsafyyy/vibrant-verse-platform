@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Zap, Palette, Headphones } from "lucide-react";
+import { ArrowDown, ChevronDown } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import heroBg from "@/assets/hero-bg.jpeg";
@@ -15,127 +15,98 @@ const HeroSection: React.FC = () => {
     setIsVisible(true);
   }, []);
 
+  const scrollToAbout = () => {
+    const aboutSection = document.getElementById('about');
+    aboutSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const scrollToContact = () => {
     const contactSection = document.getElementById('contact');
     contactSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToServices = () => {
-    const servicesSection = document.getElementById('services');
-    servicesSection?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const features = [
-    {
-      icon: Palette,
-      title: language === 'ar' ? 'تصميم حديث' : 'Modern Design',
-      subtitle: language === 'ar' ? 'واجهات عصرية وسلسة' : 'Clean & smooth interfaces',
-      gradient: 'from-violet-500 via-purple-500 to-fuchsia-500',
-      delay: '0.2s'
-    },
-    {
-      icon: Zap,
-      title: language === 'ar' ? 'تقنيات متطورة' : 'Advanced Tech',
-      subtitle: language === 'ar' ? 'حلول تقنية مبتكرة' : 'Innovative solutions',
-      gradient: 'from-amber-500 via-orange-500 to-red-500',
-      delay: '0.3s'
-    },
-    {
-      icon: Headphones,
-      title: language === 'ar' ? 'دعم مستمر' : '24/7 Support',
-      subtitle: language === 'ar' ? 'دعم فني متواصل' : 'Always here to help',
-      gradient: 'from-emerald-500 via-teal-500 to-cyan-500',
-      delay: '0.4s'
-    }
-  ];
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-12">
-      {/* Background Image */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Image with overlay */}
       <div 
         className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroBg})` }}
-      ></div>
-      {/* Dark overlay for better text readability */}
-      <div className="absolute inset-0 -z-10 bg-black/20"></div>
+      />
       
-      <div className="container mx-auto px-4 py-12 flex flex-col items-center text-center max-w-6xl relative z-10">
-        {/* Content */}
+      {/* Gradient overlay for depth */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
+      
+      {/* Animated diagonal lines - subtle tech pattern */}
+      <div className="absolute inset-0 -z-10 opacity-20">
+        <svg className="w-full h-full" preserveAspectRatio="none">
+          <defs>
+            <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="60" stroke="hsl(var(--primary))" strokeWidth="0.5" strokeOpacity="0.3" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
+        </svg>
+      </div>
+      
+      {/* Main Content */}
+      <div className="container mx-auto px-4 relative z-10 text-center">
         <div 
-          className={`${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-1000 select-text pointer-events-auto`}
+          className={`max-w-5xl mx-auto ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-1000`}
         >
-          {/* Large Centered Logo */}
-          <div className={`mb-4 flex justify-center ${isVisible ? 'animate-scale-in' : ''}`}>
+          {/* Logo */}
+          <div className={`mb-8 flex justify-center ${isVisible ? 'animate-scale-in' : ''}`}>
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-accent/30 rounded-full blur-3xl scale-150"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full blur-3xl scale-150 opacity-50" />
               <img 
                 src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
                 alt="Company Logo" 
-                className="relative h-40 w-auto md:h-56 lg:h-72 object-contain drop-shadow-2xl"
+                className="relative h-32 md:h-44 lg:h-56 w-auto object-contain drop-shadow-2xl"
               />
             </div>
           </div>
           
-          {/* Main title */}
-          <h1 className={`font-bold mb-8 leading-tight tracking-tight ${isVisible ? 'animate-fade-in stagger-1' : 'opacity-0'}`}>
-            <span className="olu-text-gradient">
-              {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
-            </span>
+          {/* Main Title - Large and impactful */}
+          <h1 className={`text-white font-bold mb-6 leading-[1.1] tracking-tight text-4xl md:text-5xl lg:text-6xl xl:text-7xl ${isVisible ? 'animate-fade-in stagger-1' : 'opacity-0'}`}>
+            {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
           </h1>
           
           {/* Subtitle */}
-          <p className={`text-lg md:text-xl lg:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          <p className={`text-lg md:text-xl lg:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
             {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
           </p>
           
-          {/* CTA Buttons */}
-          <div className={`flex flex-col sm:flex-row gap-4 justify-center mb-20 ${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
+          {/* CTA Button */}
+          <div className={`flex justify-center ${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
             <Button 
               variant="default" 
               size="lg"
               onClick={scrollToContact}
-              className="text-base px-8 py-6 rounded-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:-translate-y-1 border-0"
+              className="text-base md:text-lg px-10 py-7 rounded-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:-translate-y-1 border-0 text-white font-bold"
             >
               {getHeroContent('cta_text_ar', language as "ar" | "en") || t("contact")}
-              <ArrowRight className={`ml-2 ${dir === "rtl" ? "rtl-flip" : ""}`} />
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={scrollToServices}
-              className="text-base px-8 py-6 rounded-full border-2 border-primary/30 hover:border-primary hover:bg-primary/5 transition-all duration-300 hover:-translate-y-1"
-            >
-              {t("services.title")}
             </Button>
           </div>
         </div>
-        
-        {/* Feature Preview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-4">
-          {features.map((feature, index) => (
-            <div 
-              key={index}
-              className={`relative group ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-              style={{ animationDelay: feature.delay }}
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 rounded-3xl blur-2xl transition-all duration-500`}></div>
-              <div className="relative glass-effect rounded-3xl p-8 text-center hover:-translate-y-3 transition-all duration-500 group-hover:shadow-2xl">
-                <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                  <feature.icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-lg font-bold mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground">{feature.subtitle}</p>
-              </div>
-            </div>
-          ))}
+      </div>
+      
+      {/* Scroll Down Indicator */}
+      <div 
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
+        onClick={scrollToAbout}
+      >
+        <span className="text-white/70 text-sm font-medium group-hover:text-white transition-colors">
+          {language === 'ar' ? 'سحب للأسفل' : 'Scroll Down'}
+        </span>
+        <div className="w-8 h-12 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:border-white/60 transition-colors">
+          <ChevronDown className="w-5 h-5 text-white/70 animate-bounce-soft group-hover:text-white" />
         </div>
       </div>
       
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce-soft">
-        <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex items-start justify-center p-2">
-          <div className="w-1.5 h-3 rounded-full bg-primary animate-pulse-soft"></div>
-        </div>
+      {/* Slide Counter - 2P Style */}
+      <div className="absolute bottom-8 right-8 hidden md:flex items-center gap-2 text-white/70">
+        <span className="text-xl font-bold text-white">01</span>
+        <span className="text-sm">/</span>
+        <span className="text-sm">01</span>
       </div>
     </section>
   );
