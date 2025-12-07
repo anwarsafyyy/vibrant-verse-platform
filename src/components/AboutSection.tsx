@@ -125,61 +125,83 @@ const AboutSection: React.FC = () => {
         </svg>
       </div>
       
-      {/* Full-width text background with curved edges */}
+      {/* Full-width modern text background with vibrant gradients */}
       <div className="relative mb-16">
-        {/* Top curved wave */}
-        <svg className="absolute -top-16 left-0 w-full h-20" preserveAspectRatio="none" viewBox="0 0 1440 80">
+        {/* Animated top wave - more dramatic curve */}
+        <svg className="absolute -top-24 left-0 w-full h-32" preserveAspectRatio="none" viewBox="0 0 1440 120">
           <defs>
-            <linearGradient id="aboutTopWave" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
-              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+            <linearGradient id="aboutTopWaveVibrant" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(270, 80%, 60%)" stopOpacity="0.2" />
+              <stop offset="25%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+              <stop offset="50%" stopColor="hsl(290, 85%, 55%)" stopOpacity="0.3" />
+              <stop offset="75%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="hsl(270, 80%, 60%)" stopOpacity="0.2" />
             </linearGradient>
           </defs>
-          <path fill="url(#aboutTopWave)" d="M0,80 C240,20 480,60 720,40 C960,20 1200,60 1440,30 L1440,80 L0,80 Z"></path>
+          <path fill="url(#aboutTopWaveVibrant)" d="M0,120 C180,60 360,90 540,50 C720,10 900,70 1080,40 C1260,10 1380,80 1440,60 L1440,120 L0,120 Z">
+            <animate attributeName="d" dur="12s" repeatCount="indefinite" values="
+              M0,120 C180,60 360,90 540,50 C720,10 900,70 1080,40 C1260,10 1380,80 1440,60 L1440,120 L0,120 Z;
+              M0,120 C180,80 360,40 540,70 C720,100 900,30 1080,60 C1260,90 1380,50 1440,80 L1440,120 L0,120 Z;
+              M0,120 C180,60 360,90 540,50 C720,10 900,70 1080,40 C1260,10 1380,80 1440,60 L1440,120 L0,120 Z
+            "/>
+          </path>
         </svg>
         
-        {/* Main gradient background - larger padding */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/10 via-accent/8 to-primary/10 dark:from-primary/20 dark:via-accent/15 dark:to-primary/20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-slate-900/40"></div>
+        {/* Vibrant layered gradient backgrounds */}
+        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/10 to-cyan-500/15 dark:from-violet-500/25 dark:via-fuchsia-500/20 dark:to-cyan-500/25"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/12 via-transparent to-accent/12"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/40 to-white/60 dark:from-slate-900/40 dark:via-transparent dark:to-slate-900/40"></div>
         
-        {/* Decorative flowing shapes - larger and more prominent */}
-        <div className="absolute top-10 left-10 w-80 h-80 bg-gradient-to-br from-primary/20 to-accent/15 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-72 h-72 bg-gradient-to-br from-accent/20 to-primary/15 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-48 bg-gradient-to-r from-transparent via-primary/12 to-transparent blur-3xl rounded-full"></div>
-        <div className="absolute top-1/4 right-1/3 w-40 h-40 bg-gradient-to-br from-violet-400/15 to-fuchsia-400/10 rounded-full blur-2xl"></div>
+        {/* Dynamic floating orbs with animation */}
+        <div className="absolute top-0 left-[10%] w-96 h-96 bg-gradient-to-br from-violet-400/30 to-fuchsia-500/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-[10%] w-80 h-80 bg-gradient-to-br from-cyan-400/25 to-primary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-64 bg-gradient-to-r from-violet-500/15 via-fuchsia-500/25 to-violet-500/15 blur-3xl rounded-full"></div>
+        <div className="absolute top-1/4 right-[20%] w-48 h-48 bg-gradient-to-br from-amber-400/20 to-orange-500/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 left-[15%] w-56 h-56 bg-gradient-to-br from-emerald-400/15 to-teal-500/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '3s' }}></div>
         
-        {/* Content with extra padding */}
-        <div className="container mx-auto px-4 relative py-20">
+        {/* Geometric accent shapes */}
+        <div className="absolute top-20 right-[25%] w-24 h-24 border-2 border-primary/20 rounded-full animate-spin" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute bottom-20 left-[25%] w-16 h-16 border-2 border-accent/20 rounded-lg rotate-45 animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }}></div>
+        
+        {/* Content with generous padding */}
+        <div className="container mx-auto px-4 relative py-24">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 dark:bg-slate-800/80 text-primary text-sm font-semibold mb-8 backdrop-blur-md border border-primary/20 shadow-xl shadow-primary/10">
-              <Star className="w-4 h-4" />
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/90 dark:bg-slate-800/90 text-primary text-sm font-bold mb-10 backdrop-blur-xl border border-primary/30 shadow-2xl shadow-primary/20">
+              <Star className="w-5 h-5" />
               {t("about.title")}
             </div>
-            <h2 className="font-bold mb-8 tracking-tight text-5xl md:text-6xl">
+            <h2 className="font-black mb-10 tracking-tight text-5xl md:text-7xl">
               <span className="olu-text-gradient">
                 {getAboutContent('title_ar', language as "ar" | "en") || t("about.title")}
               </span>
             </h2>
-            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
+            <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-12">
               {getAboutContent('subtitle_ar', language as "ar" | "en") || t("about.subtitle")}
             </p>
-            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl leading-relaxed text-muted-foreground/90 max-w-3xl mx-auto">
               {getAboutContent('description_ar', language as "ar" | "en") || t("about.description")}
             </p>
           </div>
         </div>
         
-        {/* Bottom curved wave */}
-        <svg className="absolute -bottom-16 left-0 w-full h-20" preserveAspectRatio="none" viewBox="0 0 1440 80">
+        {/* Animated bottom wave - smooth stylish curve */}
+        <svg className="absolute -bottom-24 left-0 w-full h-32" preserveAspectRatio="none" viewBox="0 0 1440 120">
           <defs>
-            <linearGradient id="aboutBottomWave" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
-              <stop offset="50%" stopColor="hsl(280, 70%, 60%)" stopOpacity="0.12" />
-              <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0.08" />
+            <linearGradient id="aboutBottomWaveVibrant" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="hsl(270, 80%, 60%)" stopOpacity="0.2" />
+              <stop offset="25%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+              <stop offset="50%" stopColor="hsl(290, 85%, 55%)" stopOpacity="0.3" />
+              <stop offset="75%" stopColor="hsl(var(--primary))" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="hsl(270, 80%, 60%)" stopOpacity="0.2" />
             </linearGradient>
           </defs>
-          <path fill="url(#aboutBottomWave)" d="M0,0 C240,50 480,20 720,40 C960,60 1200,20 1440,50 L1440,0 L0,0 Z"></path>
+          <path fill="url(#aboutBottomWaveVibrant)" d="M0,0 C180,60 360,30 540,70 C720,110 900,50 1080,80 C1260,110 1380,40 1440,60 L1440,0 L0,0 Z">
+            <animate attributeName="d" dur="12s" repeatCount="indefinite" values="
+              M0,0 C180,60 360,30 540,70 C720,110 900,50 1080,80 C1260,110 1380,40 1440,60 L1440,0 L0,0 Z;
+              M0,0 C180,40 360,80 540,50 C720,20 900,90 1080,60 C1260,30 1380,70 1440,40 L1440,0 L0,0 Z;
+              M0,0 C180,60 360,30 540,70 C720,110 900,50 1080,80 C1260,110 1380,40 1440,60 L1440,0 L0,0 Z
+            "/>
+          </path>
         </svg>
       </div>
       
