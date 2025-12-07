@@ -45,34 +45,32 @@ const PartnersSection: React.FC = () => {
 
   return (
     <section id="partners" className="py-32 relative overflow-hidden">
-      {/* Modern decorative background */}
+      {/* Elegant background design */}
       <div className="absolute inset-0 -z-10">
-        {/* Layered gradient mesh */}
-        <div className="absolute inset-0 bg-gradient-to-tl from-accent/8 via-background to-primary/8"></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-primary/3 to-transparent"></div>
+        {/* Soft base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-muted/20 via-background to-muted/30"></div>
         
-        {/* Large ambient orbs */}
-        <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-b from-primary/10 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-32 left-1/4 w-[500px] h-[300px] bg-gradient-to-t from-accent/10 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 -right-32 w-[400px] h-[400px] bg-gradient-to-l from-primary/8 to-transparent rounded-full blur-3xl -translate-y-1/2"></div>
+        {/* Elegant diagonal color blocks */}
+        <div className="absolute top-0 right-0 w-2/3 h-full bg-gradient-to-bl from-primary/6 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 left-0 w-2/3 h-full bg-gradient-to-tr from-accent/6 via-transparent to-transparent"></div>
         
-        {/* Floating geometric decorations */}
-        <div className="absolute top-16 left-20 w-28 h-28 border border-primary/15 rounded-full animate-float"></div>
-        <div className="absolute top-24 right-16 w-20 h-20 border-2 border-accent/10 rounded-2xl rotate-45 animate-float" style={{ animationDelay: '1s' }}></div>
-        <div className="absolute bottom-24 left-32 w-16 h-16 bg-gradient-to-br from-primary/10 to-accent/10 rounded-xl rotate-12 animate-bounce-soft"></div>
-        <div className="absolute bottom-16 right-24 w-24 h-24 border border-primary/10 rounded-3xl -rotate-12 animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-10 w-12 h-12 bg-primary/5 rounded-full animate-pulse-soft"></div>
-        <div className="absolute top-1/3 right-1/4 w-8 h-8 bg-accent/10 rounded-full animate-bounce-soft" style={{ animationDelay: '0.5s' }}></div>
+        {/* Smooth ambient glows */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-r from-primary/5 via-accent/3 to-primary/5 rounded-full blur-[100px]"></div>
+        <div className="absolute top-0 left-1/3 w-[300px] h-[300px] bg-primary/5 rounded-full blur-[80px]"></div>
+        <div className="absolute bottom-0 right-1/3 w-[300px] h-[300px] bg-accent/5 rounded-full blur-[80px]"></div>
         
-        {/* Subtle decorative lines */}
-        <div className="absolute top-1/4 left-0 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/15 to-transparent"></div>
-        <div className="absolute bottom-1/4 right-0 w-1/2 h-px bg-gradient-to-l from-transparent via-accent/15 to-transparent"></div>
-        <div className="absolute top-0 left-1/2 w-px h-1/4 bg-gradient-to-b from-transparent via-primary/10 to-transparent"></div>
+        {/* Subtle wave shape at top */}
+        <svg className="absolute top-0 left-0 w-full h-32 text-muted/8 rotate-180" preserveAspectRatio="none" viewBox="0 0 1440 120">
+          <path fill="currentColor" d="M0,40 C240,80 480,10 720,50 C960,90 1200,20 1440,60 L1440,120 L0,120 Z"></path>
+        </svg>
+        
+        {/* Bottom accent line */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/4 h-1 bg-gradient-to-r from-transparent via-accent/20 to-transparent rounded-full"></div>
       </div>
       
-      {/* Edge transition gradients */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-0"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-0"></div>
+      {/* Smooth edge blends */}
+      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-background to-transparent z-0"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-0"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16 max-w-3xl mx-auto">
