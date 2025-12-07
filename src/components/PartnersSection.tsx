@@ -95,7 +95,7 @@ const PartnersSection: React.FC = () => {
                     <img
                       src={partner.logo_url}
                       alt={`${partner.name} Logo`}
-                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
                     />
                   </div>
                 </div>
@@ -111,7 +111,7 @@ const PartnersSection: React.FC = () => {
                     <img
                       src={partner.logo_url}
                       alt={`${partner.name} Logo`}
-                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
                     />
                   </div>
                 </div>
