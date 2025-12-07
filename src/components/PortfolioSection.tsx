@@ -1,8 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, Briefcase } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -20,6 +19,7 @@ interface PortfolioItem {
   category: string;
   description: string;
   image_url: string;
+  logo_url?: string;
   technologies: string[];
   order_index: number;
   created_at: any;
@@ -72,145 +72,174 @@ const PortfolioSection: React.FC = () => {
     });
   }, [api]);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const totalItems = portfolioItems.length || 4;
+
   return (
-    <section id="portfolio" className="py-28 lg:py-36 relative overflow-hidden bg-background">
-      {/* Decorative elements */}
-      <div className="absolute top-20 left-20 w-40 h-40 opacity-5 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
-        </svg>
-      </div>
-      <div className="absolute bottom-20 right-20 w-48 h-48 opacity-5 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" transform="rotate(45 50 50)" />
-        </svg>
-      </div>
+    <section id="portfolio" className="py-28 lg:py-36 relative overflow-hidden bg-[#faf8f5]">
+      {/* Back to top button */}
+      <button 
+        onClick={scrollToTop}
+        className="absolute bottom-20 left-8 w-14 h-14 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 z-20 hidden lg:flex"
+      >
+        <ArrowUp className="w-6 h-6" />
+      </button>
+
+      {/* Decorative diamond at bottom center */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-primary/20 rotate-45 rounded-xl hidden lg:block" />
       
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <div className="text-right">
-            {/* Section label */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Briefcase className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-primary font-bold tracking-wider uppercase text-sm">
-                {language === 'ar' ? 'أعمالنا' : 'Our Work'}
-              </span>
+        {/* Top Row: Pagination on left, Header on right */}
+        <div className={`flex flex-col-reverse lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          
+          {/* Left side - Pagination numbers */}
+          <div className="flex items-center gap-4" dir="ltr">
+            {/* Navigation arrows */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => api?.scrollPrev()}
+              className="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => api?.scrollNext()}
+              className="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </Button>
+            
+            {/* Page numbers */}
+            <div className="flex items-center gap-3 mr-4">
+              {Array.from({ length: Math.min(totalItems, 4) }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => api?.scrollTo(index)}
+                  className={`text-2xl font-bold transition-all duration-300 ${
+                    current === index 
+                      ? 'text-foreground scale-110' 
+                      : 'text-muted-foreground/40 hover:text-muted-foreground'
+                  }`}
+                >
+                  {String(index + 1).padStart(2, '0')}
+                </button>
+              ))}
             </div>
-            
-            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-4">
-              <span className="olu-text-gradient">
-                {language === 'ar' ? 'منتجات الشركة' : 'Our Products'}
-              </span>
-            </h2>
-            
-            <p className="text-lg text-muted-foreground max-w-xl">
-              {language === 'ar' 
-                ? 'اكتشف مجموعة منتجاتنا المبتكرة التي صممناها لتلبية احتياجات السوق السعودي'
-                : 'Discover our innovative products designed to meet the Saudi market needs'
-              }
-            </p>
           </div>
           
-          {/* Navigation */}
-          <div className="flex items-center gap-6">
-            {/* Progress indicator */}
-            <div className="hidden md:flex items-center gap-2">
-              <span className="text-2xl font-bold text-primary">{String(current + 1).padStart(2, '0')}</span>
-              <span className="text-muted-foreground/50">/</span>
-              <span className="text-muted-foreground/50">{String(portfolioItems.length || 1).padStart(2, '0')}</span>
+          {/* Right side - Header */}
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <span className="text-primary font-bold text-xl">
+                {language === 'ar' ? 'منتجات' : 'Company'}
+              </span>
+              <h2 className="text-4xl lg:text-5xl font-bold">
+                <span className="olu-text-gradient">
+                  {language === 'ar' ? 'الشركة' : 'Products'}
+                </span>
+              </h2>
             </div>
-            
-            {/* Arrows */}
-            <div className="flex gap-3">
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => api?.scrollNext()}
-                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="icon"
-                onClick={() => api?.scrollPrev()}
-                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </Button>
+            {/* Decorative diamond icon */}
+            <div className="relative">
+              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
+              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
             </div>
           </div>
         </div>
 
-        {/* Portfolio Carousel */}
+        {/* Main Content Area */}
         <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "start" }}>
-          <CarouselContent className="-ml-6">
+          <CarouselContent>
             {loading ? (
-              Array(2).fill(0).map((_, index) => (
-                <CarouselItem key={`skeleton-${index}`} className="pl-6 basis-full lg:basis-1/2">
-                  <div className="grid md:grid-cols-2 gap-0 bg-card rounded-3xl border border-border overflow-hidden h-[420px]">
-                    <Skeleton className="h-full w-full" />
-                    <div className="p-8">
-                      <Skeleton className="h-6 w-24 mb-4" />
-                      <Skeleton className="h-8 w-3/4 mb-4" />
-                      <Skeleton className="h-24 w-full mb-6" />
-                      <Skeleton className="h-10 w-40" />
-                    </div>
+              <CarouselItem className="basis-full">
+                <div className="grid lg:grid-cols-2 gap-12 items-center" dir="ltr">
+                  <Skeleton className="h-[500px] w-full rounded-3xl" />
+                  <div className="space-y-4">
+                    <Skeleton className="h-16 w-16 rounded-full" />
+                    <Skeleton className="h-8 w-48" />
+                    <Skeleton className="h-32 w-full" />
+                    <Skeleton className="h-12 w-40" />
                   </div>
-                </CarouselItem>
-              ))
+                </div>
+              </CarouselItem>
             ) : portfolioItems.length > 0 ? (
               portfolioItems.map((item, index) => (
                 <CarouselItem 
                   key={item.id} 
-                  className={`pl-6 basis-full lg:basis-1/2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  className={`basis-full ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="group grid md:grid-cols-2 bg-card rounded-3xl border border-border overflow-hidden hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10">
-                    {/* Image */}
-                    <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted md:order-2">
-                      <img
-                        src={item.image_url} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      {/* Overlay gradient */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center" dir="ltr">
+                    {/* Left Side - Tablet Mockup with Image */}
+                    <div className="relative">
+                      {/* Decorative golden frame */}
+                      <div className="absolute -top-6 -left-6 w-24 h-24 border-t-[6px] border-l-[6px] border-primary rounded-tl-[2rem] z-10" />
+                      <div className="absolute -bottom-6 -left-6 w-24 h-24 border-b-[6px] border-l-[6px] border-primary rounded-bl-[2rem] z-10" />
                       
-                      {/* Category badge */}
-                      <div className="absolute top-4 right-4">
-                        <Badge className="bg-primary text-primary-foreground border-0 font-bold px-4 py-1 text-sm">
-                          {item.category}
-                        </Badge>
+                      {/* Tablet container */}
+                      <div className="relative bg-slate-800 rounded-[2rem] p-3 shadow-2xl">
+                        {/* Tablet camera */}
+                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-600 rounded-full" />
+                        
+                        {/* Screen */}
+                        <div className="relative rounded-2xl overflow-hidden bg-white">
+                          <img
+                            src={item.image_url} 
+                            alt={item.title} 
+                            className="w-full h-[400px] lg:h-[500px] object-cover object-top"
+                          />
+                        </div>
+                        
+                        {/* Home button */}
+                        <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-slate-600 rounded-full" />
                       </div>
                     </div>
                     
-                    {/* Content */}
-                    <div className="p-8 lg:p-10 flex flex-col justify-center text-right md:order-1">
-                      {/* Date */}
-                      <span className="text-sm text-muted-foreground mb-4 font-medium">
-                        {language === 'ar' ? 'آخر تحديث:' : 'Last Update:'} {new Date().toLocaleDateString()}
-                      </span>
+                    {/* Right Side - Content */}
+                    <div className="text-right">
+                      {/* Product logo and name */}
+                      <div className="flex items-center gap-4 justify-end mb-4">
+                        <div>
+                          <h3 className="text-3xl font-bold text-foreground">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
+                          </p>
+                        </div>
+                        {item.logo_url ? (
+                          <img src={item.logo_url} alt={item.title} className="w-16 h-16 rounded-full object-cover border-2 border-border" />
+                        ) : (
+                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border">
+                            <span className="text-2xl font-bold text-primary">{item.title.charAt(0)}</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Contact button */}
+                      <Button className="mb-6 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-bold">
+                        {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+                      </Button>
                       
-                      <h3 className="text-2xl lg:text-3xl font-bold mb-4 group-hover:text-primary transition-colors">
-                        {item.title}
-                      </h3>
+                      {/* Product title repeated */}
+                      <h4 className="text-2xl font-bold mb-4 text-foreground">{item.title}</h4>
                       
-                      <p className="text-muted-foreground leading-relaxed mb-8 line-clamp-3">
+                      {/* Description */}
+                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">
                         {item.description}
                       </p>
                       
-                      {/* CTA Button */}
-                      <Button 
-                        variant="ghost"
-                        className="w-fit text-primary hover:text-primary hover:bg-primary/10 px-0 font-bold text-lg group/btn self-end"
+                      {/* Read More Link */}
+                      <a 
+                        href="#" 
+                        className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300"
                       >
-                        <ArrowLeft className="ml-2 h-5 w-5 transition-transform group-hover/btn:-translate-x-1" />
-                        <span>{language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}</span>
-                      </Button>
+                        <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
+                      </a>
                     </div>
                   </div>
                 </CarouselItem>
