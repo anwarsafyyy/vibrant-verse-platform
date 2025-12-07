@@ -67,30 +67,8 @@ const AboutSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
           
-          {/* Left Side - Image with decorative frame */}
-          <div className={`relative ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-            {/* Decorative corner elements */}
-            <div className="absolute -top-4 -right-4 w-16 h-16 border-t-4 border-r-4 border-primary rounded-tr-3xl z-10" />
-            <div className="absolute -bottom-4 -left-4 w-16 h-16 border-b-4 border-l-4 border-primary rounded-bl-3xl z-10" />
-            
-            {/* Decorative diamonds around image */}
-            <div className="absolute -left-8 top-1/3 w-10 h-10 border-2 border-primary/40 rotate-45 hidden lg:block" />
-            <div className="absolute -left-12 top-1/2 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
-            
-            {/* Main image container */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop" 
-                alt="Team working together"
-                className="w-full h-[400px] lg:h-[500px] object-cover"
-              />
-              {/* Overlay gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-            </div>
-          </div>
-          
           {/* Right Side - Content */}
-          <div className={`text-right ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          <div className={`text-right lg:order-2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section Header */}
             <div className="flex items-center gap-4 justify-end mb-8">
               <div className="text-right">
@@ -166,6 +144,28 @@ const AboutSection: React.FC = () => {
             >
               <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
             </a>
+          </div>
+          
+          {/* Left Side - Image with decorative frame */}
+          <div className={`relative lg:order-1 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+            {/* Decorative corner elements */}
+            <div className="absolute -top-4 -left-4 w-16 h-16 border-t-4 border-l-4 border-primary rounded-tl-3xl z-10" />
+            <div className="absolute -bottom-4 -right-4 w-16 h-16 border-b-4 border-r-4 border-primary rounded-br-3xl z-10" />
+            
+            {/* Decorative diamonds around image */}
+            <div className="absolute -right-8 top-1/3 w-10 h-10 border-2 border-primary/40 rotate-45 hidden lg:block" />
+            <div className="absolute -right-12 top-1/2 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
+            
+            {/* Main image container */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <img 
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&h=600&fit=crop" 
+                alt="Team working together"
+                className="w-full h-[400px] lg:h-[500px] object-cover"
+              />
+              {/* Overlay gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </div>
           </div>
         </div>
       </div>
