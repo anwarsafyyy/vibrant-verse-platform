@@ -56,32 +56,32 @@ const PortfolioSection: React.FC = () => {
 
   return (
     <section id="portfolio" className="min-h-screen relative flex items-center py-24 overflow-hidden">
-      {/* Modern decorative background */}
+      {/* Elegant background design */}
       <div className="absolute inset-0 -z-10">
-        {/* Main gradient mesh */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
+        {/* Base soft gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-muted/30 via-background to-muted/20"></div>
         
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl animate-pulse-soft"></div>
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-accent/10 to-transparent rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }}></div>
+        {/* Elegant color blocks */}
+        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-br from-primary/8 via-transparent to-transparent"></div>
+        <div className="absolute bottom-0 right-0 w-full h-1/2 bg-gradient-to-tl from-accent/8 via-transparent to-transparent"></div>
         
-        {/* Geometric shapes */}
-        <div className="absolute top-20 right-20 w-32 h-32 border border-primary/10 rounded-3xl rotate-12 animate-float"></div>
-        <div className="absolute top-40 left-16 w-24 h-24 border border-accent/10 rounded-2xl -rotate-12 animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-32 right-32 w-20 h-20 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full animate-bounce-soft"></div>
-        <div className="absolute bottom-20 left-1/3 w-16 h-16 border-2 border-primary/10 rotate-45 animate-float" style={{ animationDelay: '1.5s' }}></div>
+        {/* Smooth ambient orbs */}
+        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/6 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-20 right-1/4 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[100px]"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-primary/4 to-accent/4 rounded-full blur-[80px]"></div>
         
-        {/* Decorative lines */}
-        <div className="absolute top-1/3 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
-        <div className="absolute top-2/3 right-0 w-1/3 h-px bg-gradient-to-l from-transparent via-accent/20 to-transparent"></div>
+        {/* Subtle wave shape */}
+        <svg className="absolute bottom-0 left-0 w-full h-48 text-muted/10" preserveAspectRatio="none" viewBox="0 0 1440 120">
+          <path fill="currentColor" d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,30 1440,60 L1440,120 L0,120 Z"></path>
+        </svg>
         
-        {/* Dot pattern overlay */}
-        <div className="absolute inset-0 bg-dot-pattern opacity-30"></div>
+        {/* Top decorative accent line */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent rounded-full"></div>
       </div>
       
-      {/* Edge fades */}
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent z-0"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-0"></div>
+      {/* Smooth edge transitions */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-background to-transparent z-0"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-0"></div>
       
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
