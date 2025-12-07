@@ -24,7 +24,6 @@ import {
 } from "lucide-react";
 import ServiceCard from "./ServiceCard";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -38,7 +37,6 @@ interface Service {
   created_at: any;
 }
 
-// Define mapping with proper types
 const iconMap: Record<string, LucideIcon> = {
   'globe': Globe,
   'code': Code,
@@ -92,22 +90,29 @@ const ServicesSection: React.FC = () => {
     return iconMap[iconName] || MoreHorizontal;
   };
 
-  // Define vibrant colorful gradients
   const colorGradients = [
-    "from-blue-500 via-blue-600 to-cyan-500",           // Electric Blue
-    "from-emerald-500 via-teal-500 to-cyan-500",        // Ocean Green
-    "from-orange-500 via-red-500 to-pink-500",          // Sunset Orange
-    "from-violet-500 via-purple-500 to-fuchsia-500",    // Purple Dream
-    "from-green-500 via-emerald-500 to-teal-500",       // Fresh Green
-    "from-pink-500 via-rose-500 to-red-500",            // Rose Pink
-    "from-amber-500 via-orange-500 to-red-500",         // Fire Amber
-    "from-cyan-500 via-blue-500 to-indigo-500",         // Deep Ocean
+    "from-violet-500 via-purple-500 to-fuchsia-500",
+    "from-amber-500 via-orange-500 to-red-500",
+    "from-emerald-500 via-teal-500 to-cyan-500",
+    "from-pink-500 via-rose-500 to-red-500",
+    "from-blue-500 via-indigo-500 to-violet-500",
+    "from-cyan-500 via-teal-500 to-emerald-500",
+    "from-fuchsia-500 via-pink-500 to-rose-500",
+    "from-orange-500 via-amber-500 to-yellow-500",
   ];
 
   return (
-    <section id="services" className="py-32 relative">
+    <section id="services" className="py-32 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+      
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-20 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
+            <Zap className="w-4 h-4" />
+            {t("services.title")}
+          </div>
           <h2 className="font-bold mb-6 tracking-tight">
             <span className="olu-text-gradient">{t("services.title")}</span>
           </h2>
@@ -116,37 +121,33 @@ const ServicesSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading ? (
-            // Loading skeletons
             Array(4).fill(0).map((_, index) => (
-              <div key={`skeleton-${index}`} className="p-6 border rounded-lg">
-                <Skeleton className="h-16 w-16 rounded-lg mb-6" />
+              <div key={`skeleton-${index}`} className="p-8 border rounded-3xl bg-card">
+                <Skeleton className="h-16 w-16 rounded-2xl mb-6" />
                 <Skeleton className="h-7 w-3/4 mb-4" />
                 <Skeleton className="h-20 w-full" />
               </div>
             ))
           ) : services.length > 0 ? (
-            // Service cards
             services.map((service, index) => (
               <ServiceCard
                 key={service.id}
                 title={service.title}
                 description={service.description}
                 icon={getIcon(service.icon)}
-                className="animate-fade-in"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="opacity-0 animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
                 gradientColors={colorGradients[index % colorGradients.length]}
               />
             ))
           ) : (
-            // Fallback for no data
             <div className="col-span-full text-center py-10 text-muted-foreground">
               No services available.
             </div>
           )}
         </div>
-        
       </div>
     </section>
   );
