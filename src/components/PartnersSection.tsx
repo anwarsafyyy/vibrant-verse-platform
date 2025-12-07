@@ -4,7 +4,6 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Handshake } from "lucide-react";
 
 interface Partner {
   id: string;
@@ -52,95 +51,86 @@ const PartnersSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="partners" className="py-28 lg:py-36 relative overflow-hidden bg-muted/30">
-      {/* Decorative elements */}
-      <div className="absolute top-1/2 left-0 w-48 h-48 -translate-y-1/2 opacity-5 -z-10">
-        <svg viewBox="0 0 200 200" className="w-full h-full">
-          <polygon points="100,10 40,198 190,78 10,78 160,198" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" />
-        </svg>
-      </div>
-      <div className="absolute top-20 right-20 w-32 h-32 opacity-5 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" />
-        </svg>
-      </div>
-      
+    <section id="partners" className="py-28 lg:py-36 relative overflow-hidden bg-[#faf8f5]">
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          {/* Section label */}
-          <div className="flex items-center gap-3 justify-center mb-6">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <Handshake className="w-5 h-5 text-primary" />
+        {/* Header Row */}
+        <div className={`flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-8 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
+          
+          {/* Left side - Discover More link */}
+          <a 
+            href="#contact" 
+            className="text-primary font-bold text-lg hover:underline transition-all duration-300 order-2 lg:order-1"
+          >
+            {language === 'ar' ? 'اكتشف المزيد' : 'Discover More'}
+          </a>
+          
+          {/* Right side - Header with diamond */}
+          <div className="flex items-center gap-4 order-1 lg:order-2">
+            <div className="text-right">
+              <span className="text-primary font-bold text-xl">
+                {language === 'ar' ? 'أهم' : 'Key'}
+              </span>
+              <h2 className="text-4xl lg:text-5xl font-bold">
+                <span className="olu-text-gradient">
+                  {language === 'ar' ? 'شركاء النجاح' : 'Success Partners'}
+                </span>
+              </h2>
             </div>
-            <span className="text-primary font-bold tracking-wider uppercase text-sm">
-              {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
-            </span>
+            {/* Decorative diamond icon */}
+            <div className="relative">
+              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
+              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
+            </div>
           </div>
-          
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
-            <span className="olu-text-gradient">{t("partners.title")}</span>
-          </h2>
-          
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        </div>
+
+        {/* Description */}
+        <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
             {language === 'ar' 
-              ? 'نفخر بشراكاتنا مع نخبة من الجهات الرائدة التي تسهم معنا في بناء مستقبل رقمي أكثر تطورًا وكفاءة'
-              : 'We are proud of our partnerships with leading organizations that contribute to building a more advanced and efficient digital future'
+              ? 'تُقدم العرض المتقن نطاقًا واسعًا من الخدمات والحلول بفضل علاقاتها الراسخة مع مجموعة متنوعة من مزودي التكنولوجيا العالميين.'
+              : 'We offer a wide range of services and solutions thanks to our established relationships with a diverse group of global technology providers.'
             }
           </p>
         </div>
 
-        {/* Partners Marquee */}
-        <div className="relative w-full overflow-hidden">
-          {/* Gradient masks */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 lg:w-48 bg-gradient-to-l from-muted/80 to-transparent z-10 pointer-events-none" />
-          <div className="absolute left-0 top-0 bottom-0 w-24 lg:w-48 bg-gradient-to-r from-muted/80 to-transparent z-10 pointer-events-none" />
-          
+        {/* Partners Grid */}
+        <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
           {loading ? (
-            <div className="flex gap-8 justify-center py-8">
-              {Array(5).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="flex-shrink-0 bg-card rounded-2xl p-8 border border-border">
-                  <Skeleton className="w-28 h-28 rounded-xl" />
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Array(4).fill(0).map((_, index) => (
+                <div key={`skeleton-${index}`} className="bg-card rounded-[2rem] p-8 border border-border/50">
+                  <Skeleton className="w-full h-24" />
                 </div>
               ))}
             </div>
           ) : partners.length > 0 ? (
-            <div className="flex animate-marquee-rtl hover:pause-animation">
-              {/* First set */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {partners.map((partner, index) => (
                 <div
                   key={partner.id}
-                  className={`group flex-shrink-0 mx-4 bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  className="group bg-card rounded-[2rem] p-8 lg:p-12 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center min-h-[140px]"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="w-28 h-28 lg:w-36 lg:h-36 flex items-center justify-center">
-                    <img
-                      src={partner.logo_url}
-                      alt={`${partner.name} Logo`}
-                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                </div>
-              ))}
-              {/* Duplicate for seamless loop */}
-              {partners.map((partner) => (
-                <div
-                  key={`${partner.id}-dup`}
-                  className="group flex-shrink-0 mx-4 bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:-translate-y-2"
-                >
-                  <div className="w-28 h-28 lg:w-36 lg:h-36 flex items-center justify-center">
-                    <img
-                      src={partner.logo_url}
-                      alt={`${partner.name} Logo`}
-                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
-                    />
-                  </div>
+                  <img
+                    src={partner.logo_url}
+                    alt={`${partner.name} Logo`}
+                    className="max-w-full max-h-16 lg:max-h-20 object-contain transition-all duration-500 group-hover:scale-110"
+                  />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 text-muted-foreground">
-              {language === 'ar' ? 'لا يوجد شركاء متاحين' : 'No partners available'}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {/* Placeholder partner cards when no data */}
+              {['VMware', 'SAP', 'Construx', 'Juniper'].map((name, index) => (
+                <div
+                  key={name}
+                  className="group bg-card rounded-[2rem] p-8 lg:p-12 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center min-h-[140px]"
+                >
+                  <span className="text-2xl font-bold text-muted-foreground/50">{name}</span>
+                </div>
+              ))}
             </div>
           )}
         </div>
