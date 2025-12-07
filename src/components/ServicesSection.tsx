@@ -4,7 +4,7 @@ import {
   Globe, Code, Cpu, BarChart, MoreHorizontal, LucideIcon,
   Monitor, Smartphone, Shield, Zap, Camera, Headphones,
   Wifi, Database as DatabaseIcon, Cloud, Lock, Users, TrendingUp,
-  Settings, Layers, ChevronLeft, ChevronRight
+  Settings, Layers, ChevronLeft, ChevronRight, ArrowRight, ArrowLeft
 } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { db } from "@/lib/firebase";
@@ -35,6 +35,19 @@ const ServicesSection: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    const section = document.getElementById('services');
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -80,7 +93,7 @@ const ServicesSection: React.FC = () => {
 
   const scrollToIndex = (index: number) => {
     if (!scrollRef.current) return;
-    const cardWidth = 360;
+    const cardWidth = 380;
     const gap = 24;
     scrollRef.current.scrollTo({
       left: index * (cardWidth + gap),
@@ -89,44 +102,51 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-24 lg:py-32 relative overflow-hidden bg-muted/30">
-      {/* Decorative elements - 2P style */}
-      <div className="absolute top-20 right-20 w-24 h-24 opacity-10 -z-10">
+    <section id="services" className="py-28 lg:py-36 relative overflow-hidden bg-muted/30">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-20 w-32 h-32 opacity-10 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
         </svg>
       </div>
+      <div className="absolute bottom-20 left-10 w-24 h-24 opacity-10 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" transform="rotate(45 50 50)" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header - 2P Style */}
-        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
+        {/* Section Header */}
+        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-            {/* Section label with icon */}
-            <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
-                  <rect x="3" y="3" width="7" height="7" rx="1" />
-                  <rect x="14" y="3" width="7" height="7" rx="1" />
-                  <rect x="3" y="14" width="7" height="7" rx="1" />
-                  <rect x="14" y="14" width="7" height="7" rx="1" />
-                </svg>
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Layers className="w-5 h-5 text-primary" />
               </div>
-              <span className="text-primary font-bold text-sm tracking-wider">
-                {language === 'ar' ? 'وحدات' : 'Business'}
+              <span className="text-primary font-bold tracking-wider uppercase text-sm">
+                {language === 'ar' ? 'خدماتنا' : 'Our Services'}
               </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl font-bold">
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-4">
               <span className="olu-text-gradient">
-                {language === 'ar' ? 'اعمال الشركة' : 'Our Services'}
+                {language === 'ar' ? 'اعمال الشركة' : 'What We Do'}
               </span>
             </h2>
+            
+            <p className="text-lg text-muted-foreground max-w-xl">
+              {language === 'ar' 
+                ? 'نقدم حلولاً تقنية متكاملة تلبي احتياجات عملائنا في عصر التحول الرقمي'
+                : 'We provide integrated technology solutions that meet our clients needs in the digital transformation era'
+              }
+            </p>
           </div>
           
-          {/* Pagination Numbers + Arrows - 2P Style */}
+          {/* Navigation */}
           <div className={`flex items-center gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            {/* Numbered pagination */}
-            <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Pagination dots */}
+            <div className={`hidden md:flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {services.slice(0, 6).map((_, index) => (
                 <button
                   key={index}
@@ -134,32 +154,30 @@ const ServicesSection: React.FC = () => {
                     setActiveIndex(index);
                     scrollToIndex(index);
                   }}
-                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 ${
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     activeIndex === index 
-                      ? 'text-primary' 
-                      : 'text-muted-foreground/50 hover:text-muted-foreground'
+                      ? 'bg-primary w-8' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
                   }`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </button>
+                />
               ))}
             </div>
             
-            {/* Navigation arrows - 2P style */}
-            <div className={`flex gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Arrows */}
+            <div className={`flex gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <Button 
-                variant="ghost" 
+                variant="outline" 
                 size="icon" 
                 onClick={handlePrev}
-                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
+                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
               >
                 <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
               <Button 
-                variant="ghost" 
+                variant="outline" 
                 size="icon" 
                 onClick={handleNext}
-                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
+                className="w-12 h-12 rounded-xl border-2 border-border hover:border-primary hover:bg-primary hover:text-white transition-all duration-300"
               >
                 <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
@@ -167,20 +185,20 @@ const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Services Horizontal Scroll - 2P Style */}
+        {/* Services Cards */}
         <div className="relative">
           <div 
             ref={scrollRef}
-            className={`flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-hide ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {loading ? (
               Array(4).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="flex-shrink-0 w-[340px] snap-center">
-                  <div className="p-8 border border-border rounded-2xl bg-card h-[280px]">
-                    <Skeleton className="h-16 w-16 rounded-xl mb-6" />
+                <div key={`skeleton-${index}`} className="flex-shrink-0 w-[360px] snap-center">
+                  <div className="p-8 border border-border rounded-3xl bg-card h-[320px]">
+                    <Skeleton className="h-16 w-16 rounded-2xl mb-6" />
                     <Skeleton className="h-6 w-3/4 mb-4" />
-                    <Skeleton className="h-16 w-full" />
+                    <Skeleton className="h-20 w-full" />
                   </div>
                 </div>
               ))
@@ -190,11 +208,17 @@ const ServicesSection: React.FC = () => {
                 return (
                   <div 
                     key={service.id}
-                    className="flex-shrink-0 w-[340px] snap-center group"
+                    className={`flex-shrink-0 w-[360px] snap-center ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="relative h-full p-8 border border-border rounded-2xl bg-card hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
-                      {/* Icon with gradient background */}
-                      <div className={`w-16 h-16 bg-gradient-to-br ${colorGradients[index % colorGradients.length]} rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                    <div className="group relative h-full p-8 border border-border rounded-3xl bg-card hover:border-primary/40 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-3">
+                      {/* Number */}
+                      <span className={`absolute top-6 ${dir === 'rtl' ? 'left-6' : 'right-6'} text-6xl font-bold text-muted/30 group-hover:text-primary/20 transition-colors`}>
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      
+                      {/* Icon */}
+                      <div className={`w-16 h-16 bg-gradient-to-br ${colorGradients[index % colorGradients.length]} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                         <IconComponent className="w-8 h-8 text-white" />
                       </div>
                       
@@ -204,17 +228,17 @@ const ServicesSection: React.FC = () => {
                       </h3>
                       
                       {/* Description */}
-                      <p className={`text-muted-foreground leading-relaxed line-clamp-3 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                      <p className={`text-muted-foreground leading-relaxed line-clamp-3 mb-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                         {service.description}
                       </p>
                       
-                      {/* Discover More Link - appears on hover */}
-                      <div className={`mt-6 flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-                        <span>{language === 'ar' ? 'اكتشف المزيد' : 'Discover More'}</span>
+                      {/* Link */}
+                      <div className={`flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+                        <span>{language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}</span>
                         {dir === 'rtl' ? (
-                          <ChevronLeft className="w-4 h-4" />
+                          <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
                         ) : (
-                          <ChevronRight className="w-4 h-4" />
+                          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                         )}
                       </div>
                     </div>
@@ -222,8 +246,8 @@ const ServicesSection: React.FC = () => {
                 );
               })
             ) : (
-              <div className="w-full text-center py-10 text-muted-foreground">
-                No services available.
+              <div className="w-full text-center py-16 text-muted-foreground">
+                {language === 'ar' ? 'لا توجد خدمات متاحة' : 'No services available'}
               </div>
             )}
           </div>

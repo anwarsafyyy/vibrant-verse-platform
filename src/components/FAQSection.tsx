@@ -10,6 +10,7 @@ import {
 import { db } from "@/lib/firebase";
 import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
+import { HelpCircle } from "lucide-react";
 
 interface FAQ {
   id: string;
@@ -25,6 +26,19 @@ const FAQSection: React.FC = () => {
   const { t, language, dir } = useLanguage();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.1 }
+    );
+    const section = document.getElementById('faq');
+    if (section) observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     fetchFAQs();
@@ -51,73 +65,92 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-24 lg:py-32 relative overflow-hidden bg-background">
+    <section id="faq" className="py-28 lg:py-36 relative overflow-hidden bg-background">
       {/* Decorative elements */}
-      <div className="absolute top-20 right-20 w-24 h-24 opacity-10 -z-10">
+      <div className="absolute top-20 right-20 w-40 h-40 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
           <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
         </svg>
       </div>
+      <div className="absolute bottom-20 left-10 w-32 h-32 opacity-5 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header - 2P Style */}
-        <div className={`mb-16 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-          <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
-            <div className="w-8 h-8 flex items-center justify-center">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
-                <rect x="3" y="3" width="7" height="7" rx="1" />
-                <rect x="14" y="3" width="7" height="7" rx="1" />
-                <rect x="3" y="14" width="7" height="7" rx="1" />
-                <rect x="14" y="14" width="7" height="7" rx="1" />
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+          {/* Left - Header */}
+          <div className={`${dir === 'rtl' ? 'text-right' : 'text-left'} ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-6 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <HelpCircle className="w-5 h-5 text-primary" />
+              </div>
+              <span className="text-primary font-bold tracking-wider uppercase text-sm">
+                {language === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
+              </span>
+            </div>
+            
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
+              <span className="olu-text-gradient">{t("faq.title")}</span>
+            </h2>
+            
+            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+              {t("faq.description")}
+            </p>
+            
+            {/* Decorative illustration */}
+            <div className="hidden lg:block relative w-full max-w-sm aspect-square opacity-20">
+              <svg viewBox="0 0 200 200" className="w-full h-full text-primary">
+                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" />
+                <polygon points="100,20 180,80 150,180 50,180 20,80" fill="none" stroke="currentColor" strokeWidth="0.5" />
               </svg>
             </div>
-            <span className="text-primary font-bold text-sm tracking-wider">
-              {language === 'ar' ? 'أسئلة' : 'Frequently'}
-            </span>
           </div>
-          
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-            <span className="olu-text-gradient">{t("faq.title")}</span>
-          </h2>
-          
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            {t("faq.description")}
-          </p>
-        </div>
 
-        {/* FAQ Grid */}
-        <div className="max-w-4xl">
-          {loading ? (
-            <div className="space-y-4">
-              {Array(4).fill(0).map((_, index) => (
-                <div key={`faq-skeleton-${index}`} className="border border-border rounded-xl p-6 bg-card">
-                  <Skeleton className="h-6 w-3/4 mb-2" />
-                  <Skeleton className="h-4 w-full" />
-                </div>
-              ))}
-            </div>
-          ) : faqs.length > 0 ? (
-            <Accordion type="single" collapsible className="w-full space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem 
-                  key={faq.id} 
-                  value={`item-${index}`} 
-                  className="border border-border rounded-xl px-6 bg-card hover:border-primary/40 transition-all duration-300 data-[state=open]:shadow-md data-[state=open]:border-primary/40"
-                >
-                  <AccordionTrigger className={`text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    {language === 'ar' ? faq.question_ar : faq.question_en}
-                  </AccordionTrigger>
-                  <AccordionContent className={`text-base text-muted-foreground pb-6 leading-relaxed ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    {language === 'ar' ? faq.answer_ar : faq.answer_en}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          ) : (
-            <div className="text-center py-10 text-muted-foreground">
-              {t("faq.noQuestions") || "No questions available."}
-            </div>
-          )}
+          {/* Right - FAQs */}
+          <div className={isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}>
+            {loading ? (
+              <div className="space-y-4">
+                {Array(4).fill(0).map((_, index) => (
+                  <div key={`faq-skeleton-${index}`} className="border border-border rounded-2xl p-6 bg-card">
+                    <Skeleton className="h-6 w-3/4 mb-3" />
+                    <Skeleton className="h-4 w-full" />
+                  </div>
+                ))}
+              </div>
+            ) : faqs.length > 0 ? (
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                {faqs.map((faq, index) => (
+                  <AccordionItem 
+                    key={faq.id} 
+                    value={`item-${index}`} 
+                    className="border border-border rounded-2xl px-6 bg-card hover:border-primary/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:bg-primary/5"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <AccordionTrigger className={`text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                      <span className="flex items-center gap-3">
+                        <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">
+                          {String(index + 1).padStart(2, '0')}
+                        </span>
+                        <span>{language === 'ar' ? faq.question_ar : faq.question_en}</span>
+                      </span>
+                    </AccordionTrigger>
+                    <AccordionContent className={`text-base text-muted-foreground pb-6 leading-relaxed ${dir === 'rtl' ? 'text-right pr-11' : 'pl-11'}`}>
+                      {language === 'ar' ? faq.answer_ar : faq.answer_en}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            ) : (
+              <div className="text-center py-16 text-muted-foreground">
+                {t("faq.noQuestions") || (language === 'ar' ? 'لا توجد أسئلة متاحة' : 'No questions available')}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </section>
