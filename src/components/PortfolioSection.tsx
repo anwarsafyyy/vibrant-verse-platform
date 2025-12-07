@@ -56,14 +56,32 @@ const PortfolioSection: React.FC = () => {
 
   return (
     <section id="portfolio" className="min-h-screen relative flex items-center py-24 overflow-hidden">
-      {/* Background elements */}
-      <div className="absolute inset-0 bg-dot-pattern -z-10"></div>
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent"></div>
+      {/* Modern decorative background */}
+      <div className="absolute inset-0 -z-10">
+        {/* Main gradient mesh */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5"></div>
+        
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-gradient-to-br from-primary/10 to-transparent rounded-full blur-3xl animate-pulse-soft"></div>
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tl from-accent/10 to-transparent rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }}></div>
+        
+        {/* Geometric shapes */}
+        <div className="absolute top-20 right-20 w-32 h-32 border border-primary/10 rounded-3xl rotate-12 animate-float"></div>
+        <div className="absolute top-40 left-16 w-24 h-24 border border-accent/10 rounded-2xl -rotate-12 animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-32 right-32 w-20 h-20 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full animate-bounce-soft"></div>
+        <div className="absolute bottom-20 left-1/3 w-16 h-16 border-2 border-primary/10 rotate-45 animate-float" style={{ animationDelay: '1.5s' }}></div>
+        
+        {/* Decorative lines */}
+        <div className="absolute top-1/3 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
+        <div className="absolute top-2/3 right-0 w-1/3 h-px bg-gradient-to-l from-transparent via-accent/20 to-transparent"></div>
+        
+        {/* Dot pattern overlay */}
+        <div className="absolute inset-0 bg-dot-pattern opacity-30"></div>
+      </div>
       
-      {/* Floating decorations */}
-      <div className="absolute top-1/4 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-1/4 left-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl -z-10"></div>
+      {/* Edge fades */}
+      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-background to-transparent z-0"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent z-0"></div>
       
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
