@@ -124,16 +124,16 @@ const AboutSection: React.FC = () => {
             
             {/* Description */}
             <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-              {getAboutContent('description_ar', language as "ar" | "en") || (language === 'ar' 
-                ? "تأسست شركتنا لتكون رائدة في سوق خدمات تقنية المعلومات وحلول التكنولوجيا بالمملكة العربية السعودية. نحن نقدم مجموعة شاملة من خدمات تقنية المعلومات يتيح لنا نموذج أعمالنا المتكامل الفريد تقديم نهج شامل لتحول العملاء الرقمي."
-                : "Our company was established to be a leader in the IT services and technology solutions market in Saudi Arabia. We provide a comprehensive range of IT services. Our unique integrated business model allows us to deliver a holistic approach to customers' digital transformation."
-              )}
+              {language === 'ar' 
+                ? "شركة علو متخصصة في تطوير المواقع والتطبيقات والحلول التقنية المبتكرة. نعمل مع عملائنا لتحويل أفكارهم إلى حقيقة رقمية تساعدهم على تحقيق أهدافهم."
+                : "OLU Company specializes in developing websites, applications, and innovative technical solutions. We work with our clients to transform their ideas into digital reality that helps them achieve their goals."
+              }
             </p>
             
             <p className="text-base text-muted-foreground/80 leading-relaxed mb-8">
               {language === 'ar' 
                 ? "نحن نتعاون مع العملاء على مدار رحلتهم الرقمية، بدءًا من التطوير الأولي إلى إدارة البنية التحتية الخلفية. من خلال إعطاء الأولوية لخدمة العملاء الاستثنائية وتخصيص الحلول لتلبية احتياجات الأعمال المحددة."
-                : "We partner with clients throughout their digital journey, from initial development to backend infrastructure management. By prioritizing exceptional customer service and tailoring solutions to meet specific business needs."
+                : "We collaborate with clients throughout their digital journey, from initial development to backend infrastructure management. By prioritizing exceptional customer service and tailoring solutions to meet specific business needs."
               }
             </p>
             
