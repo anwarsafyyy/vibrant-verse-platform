@@ -21,8 +21,8 @@ const Index = () => {
       <HeroSection />
       <div className="container mx-auto">
         <ServicesSection />
-        <AboutSection />
         <PortfolioSection />
+        <AboutSection />
         <PartnersSection />
         <FAQSection />
         <ContactSection />
