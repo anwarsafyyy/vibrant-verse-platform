@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
+import { Send, MessageSquare, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
@@ -34,52 +34,38 @@ const ContactSection: React.FC = () => {
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(getContactFormSchema(language)),
-    defaultValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
+    defaultValues: { name: "", email: "", message: "" },
   });
 
   const onSubmit = async (values: ContactFormValues) => {
     setIsSubmitting(true);
     try {
-      console.log("Submitting form with values:", values);
-      
       await addDoc(collection(db, 'contact_inquiries'), {
-        name: values.name,
-        email: values.email,
-        message: values.message,
+        ...values,
         is_read: false,
         created_at: serverTimestamp()
       });
-      
-      toast({
-        title: t("contact.successTitle"),
-        description: t("contact.successMessage"),
-      });
-      
+      toast({ title: t("contact.successTitle"), description: t("contact.successMessage") });
       form.reset();
     } catch (error: any) {
-      console.error("Error submitting form:", error);
-      toast({
-        title: t("contact.errorTitle"),
-        description: error.message || t("contact.errorMessage"),
-        variant: "destructive",
-      });
+      toast({ title: t("contact.errorTitle"), description: error.message || t("contact.errorMessage"), variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/966535656226`, '_blank');
-  };
-
   return (
-    <section id="contact" className="py-32 relative bg-secondary/20">
+    <section id="contact" className="py-32 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 -z-10"></div>
+      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -translate-y-1/2 -z-10"></div>
+      <div className="absolute top-1/2 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl -translate-y-1/2 -z-10"></div>
+      
       <div className="container mx-auto px-4">
-        <div className="text-center mb-20 max-w-3xl mx-auto">
+        <div className="text-center mb-16 max-w-3xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-6">
+            <Mail className="w-4 h-4" />
+            {t("contact.title")}
+          </div>
           <h2 className="font-bold mb-6 tracking-tight">
             <span className="olu-text-gradient">{t("contact.title")}</span>
           </h2>
@@ -87,85 +73,45 @@ const ContactSection: React.FC = () => {
         </div>
 
         <div className="max-w-2xl mx-auto">
-          <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
-            <div className="bg-card rounded-3xl shadow-xl p-10 border border-border/50">
-              <h3 className="text-2xl font-bold mb-8 olu-text-gradient">{t("contact.title")}</h3>
-              
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-3xl blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-500"></div>
+            <div className="relative bg-card rounded-3xl shadow-2xl p-10 border border-border/50">
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <FormField
-                    control={form.control}
-                    name="name"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t("contact.name")}</FormLabel>
-                        <FormControl>
-                          <Input placeholder={t("contact.namePlaceholder")} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t("contact.email")}</FormLabel>
-                        <FormControl>
-                          <Input type="email" placeholder={t("contact.emailPlaceholder")} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="message"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t("contact.message")}</FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder={t("contact.messagePlaceholder")} 
-                            className="min-h-[120px]" 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <div className="flex gap-3">
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting}
-                      className="flex-1"
-                      size="lg"
-                    >
-                      {isSubmitting ? (
-                        <div className="flex items-center">
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
-                          {t("contact.sending")}
-                        </div>
-                      ) : (
-                        <>
-                          <Send className="h-4 w-4" />
-                          {t("contact.sendMessage")}
-                        </>
-                      )}
+                  <FormField control={form.control} name="name" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-foreground font-semibold">{t("contact.name")}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t("contact.namePlaceholder")} {...field} className="rounded-xl border-border/50 focus:border-primary h-12" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <FormField control={form.control} name="email" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-foreground font-semibold">{t("contact.email")}</FormLabel>
+                      <FormControl>
+                        <Input type="email" placeholder={t("contact.emailPlaceholder")} {...field} className="rounded-xl border-border/50 focus:border-primary h-12" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <FormField control={form.control} name="message" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-foreground font-semibold">{t("contact.message")}</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder={t("contact.messagePlaceholder")} className="min-h-[140px] rounded-xl border-border/50 focus:border-primary" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                  <div className="flex gap-4 pt-4">
+                    <Button type="submit" disabled={isSubmitting} size="lg" className="flex-1 rounded-full bg-gradient-to-r from-primary to-accent hover:shadow-lg transition-all duration-300">
+                      {isSubmitting ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div> : <Send className="h-4 w-4 mr-2" />}
+                      {isSubmitting ? t("contact.sending") : t("contact.sendMessage")}
                     </Button>
-                    
-                    <Button 
-                      type="button"
-                      onClick={handleWhatsAppClick} 
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white"
-                      size="lg"
-                    >
-                      <MessageSquare className="h-4 w-4" />
+                    <Button type="button" onClick={() => window.open('https://wa.me/966535656226', '_blank')} size="lg" className="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full">
+                      <MessageSquare className="h-4 w-4 mr-2" />
                       {language === 'ar' ? 'واتساب' : 'WhatsApp'}
                     </Button>
                   </div>
