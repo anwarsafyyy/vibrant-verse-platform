@@ -58,81 +58,100 @@ const ServicesSection: React.FC = () => {
   const getIcon = (iconName: string): LucideIcon => iconMap[iconName] || MoreHorizontal;
 
   const colorGradients = [
-    "from-violet-500 via-purple-500 to-fuchsia-500",
-    "from-amber-500 via-orange-500 to-red-500",
-    "from-emerald-500 via-teal-500 to-cyan-500",
-    "from-pink-500 via-rose-500 to-red-500",
-    "from-blue-500 via-indigo-500 to-violet-500",
-    "from-cyan-500 via-teal-500 to-emerald-500",
+    "from-violet-500 to-purple-600",
+    "from-amber-500 to-orange-600",
+    "from-emerald-500 to-teal-600",
+    "from-pink-500 to-rose-600",
+    "from-blue-500 to-indigo-600",
+    "from-cyan-500 to-blue-600",
   ];
-
-  const scrollToIndex = (index: number) => {
-    if (!scrollRef.current) return;
-    const items = scrollRef.current.children;
-    if (items[index]) {
-      items[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      setActiveIndex(index);
-    }
-  };
 
   const handlePrev = () => {
     const newIndex = activeIndex > 0 ? activeIndex - 1 : services.length - 1;
+    setActiveIndex(newIndex);
     scrollToIndex(newIndex);
   };
 
   const handleNext = () => {
     const newIndex = activeIndex < services.length - 1 ? activeIndex + 1 : 0;
+    setActiveIndex(newIndex);
     scrollToIndex(newIndex);
   };
 
+  const scrollToIndex = (index: number) => {
+    if (!scrollRef.current) return;
+    const cardWidth = 360;
+    const gap = 24;
+    scrollRef.current.scrollTo({
+      left: index * (cardWidth + gap),
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <section id="services" className="py-24 md:py-32 relative overflow-hidden bg-background">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
+    <section id="services" className="py-24 lg:py-32 relative overflow-hidden bg-muted/30">
+      {/* Decorative elements - 2P style */}
+      <div className="absolute top-20 right-20 w-24 h-24 opacity-10 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
+        </svg>
       </div>
       
       <div className="container mx-auto px-4">
         {/* Section Header - 2P Style */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
-          <div className={`${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
-              <div>
-                <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
-                  {language === 'ar' ? 'وحدات' : 'Business'}
-                </span>
-                <h2 className="font-bold tracking-tight">
-                  <span className="olu-text-gradient">{t("services.title")}</span>
-                </h2>
+        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
+          <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+            {/* Section label with icon */}
+            <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-8 h-8 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
               </div>
+              <span className="text-primary font-bold text-sm tracking-wider">
+                {language === 'ar' ? 'وحدات' : 'Business'}
+              </span>
             </div>
+            
+            <h2 className="text-4xl lg:text-5xl font-bold">
+              <span className="olu-text-gradient">
+                {language === 'ar' ? 'اعمال الشركة' : 'Our Services'}
+              </span>
+            </h2>
           </div>
           
-          {/* Pagination Numbers - 2P Style */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
+          {/* Pagination Numbers + Arrows - 2P Style */}
+          <div className={`flex items-center gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* Numbered pagination */}
+            <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {services.slice(0, 6).map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => scrollToIndex(index)}
-                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 rounded ${
+                  onClick={() => {
+                    setActiveIndex(index);
+                    scrollToIndex(index);
+                  }}
+                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 ${
                     activeIndex === index 
                       ? 'text-primary' 
-                      : 'text-muted-foreground hover:text-primary'
+                      : 'text-muted-foreground/50 hover:text-muted-foreground'
                   }`}
                 >
                   {String(index + 1).padStart(2, '0')}
                 </button>
               ))}
             </div>
-            <div className="flex gap-2">
+            
+            {/* Navigation arrows - 2P style */}
+            <div className={`flex gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 onClick={handlePrev}
-                className="rounded-full border border-border/50 hover:border-primary hover:bg-primary/5"
+                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
               >
                 <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
@@ -140,7 +159,7 @@ const ServicesSection: React.FC = () => {
                 variant="ghost" 
                 size="icon" 
                 onClick={handleNext}
-                className="rounded-full border border-border/50 hover:border-primary hover:bg-primary/5"
+                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
               >
                 <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
@@ -148,20 +167,20 @@ const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Services Horizontal Scroll */}
-        <div className="relative -mx-4">
+        {/* Services Horizontal Scroll - 2P Style */}
+        <div className="relative">
           <div 
             ref={scrollRef}
-            className="flex gap-6 overflow-x-auto pb-8 px-4 snap-x snap-mandatory scrollbar-hide"
+            className={`flex gap-6 overflow-x-auto pb-6 snap-x snap-mandatory scrollbar-hide ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {loading ? (
               Array(4).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="flex-shrink-0 w-[320px] md:w-[380px] snap-center">
-                  <div className="p-8 border border-border/50 rounded-3xl bg-card">
-                    <Skeleton className="h-16 w-16 rounded-2xl mb-6" />
-                    <Skeleton className="h-7 w-3/4 mb-4" />
-                    <Skeleton className="h-20 w-full" />
+                <div key={`skeleton-${index}`} className="flex-shrink-0 w-[340px] snap-center">
+                  <div className="p-8 border border-border rounded-2xl bg-card h-[280px]">
+                    <Skeleton className="h-16 w-16 rounded-xl mb-6" />
+                    <Skeleton className="h-6 w-3/4 mb-4" />
+                    <Skeleton className="h-16 w-full" />
                   </div>
                 </div>
               ))
@@ -171,33 +190,32 @@ const ServicesSection: React.FC = () => {
                 return (
                   <div 
                     key={service.id}
-                    className="flex-shrink-0 w-[320px] md:w-[380px] snap-center group"
+                    className="flex-shrink-0 w-[340px] snap-center group"
                   >
-                    <div className="relative h-full p-8 border border-border/50 rounded-3xl bg-card hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 card-shine">
-                      {/* Gradient background on hover */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${colorGradients[index % colorGradients.length]} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-500`} />
+                    <div className="relative h-full p-8 border border-border rounded-2xl bg-card hover:border-primary/40 transition-all duration-500 hover:shadow-xl hover:-translate-y-2">
+                      {/* Icon with gradient background */}
+                      <div className={`w-16 h-16 bg-gradient-to-br ${colorGradients[index % colorGradients.length]} rounded-xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500`}>
+                        <IconComponent className="w-8 h-8 text-white" />
+                      </div>
                       
-                      <div className="relative">
-                        {/* Icon */}
-                        <div className={`w-16 h-16 bg-gradient-to-br ${colorGradients[index % colorGradients.length]} rounded-2xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                          <IconComponent className="w-8 h-8 text-white" />
-                        </div>
-                        
-                        {/* Title */}
-                        <h3 className="text-xl font-bold mb-4 group-hover:text-primary transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                        
-                        {/* Description */}
-                        <p className="text-muted-foreground leading-relaxed line-clamp-3">
-                          {service.description}
-                        </p>
-                        
-                        {/* Learn More Link */}
-                        <button className="mt-6 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center gap-2">
-                          {language === 'ar' ? 'اكتشف المزيد' : 'Discover More'}
-                          <ChevronRight className={`w-4 h-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-                        </button>
+                      {/* Title */}
+                      <h3 className={`text-xl font-bold mb-4 group-hover:text-primary transition-colors ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                        {service.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className={`text-muted-foreground leading-relaxed line-clamp-3 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                        {service.description}
+                      </p>
+                      
+                      {/* Discover More Link - appears on hover */}
+                      <div className={`mt-6 flex items-center gap-2 text-primary font-bold text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+                        <span>{language === 'ar' ? 'اكتشف المزيد' : 'Discover More'}</span>
+                        {dir === 'rtl' ? (
+                          <ChevronLeft className="w-4 h-4" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" />
+                        )}
                       </div>
                     </div>
                   </div>

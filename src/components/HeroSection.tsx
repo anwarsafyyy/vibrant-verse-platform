@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowDown, ChevronDown } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import heroBg from "@/assets/hero-bg.jpeg";
@@ -10,6 +10,7 @@ const HeroSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const { getHeroContent, getSetting } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     setIsVisible(true);
@@ -20,94 +21,124 @@ const HeroSection: React.FC = () => {
     aboutSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact');
-    contactSection?.scrollIntoView({ behavior: 'smooth' });
-  };
+  // Slides data - using same background for demo, can be expanded
+  const slides = [
+    {
+      image: heroBg,
+      title: getHeroContent('title_ar', language as "ar" | "en") || t("hero.title"),
+      subtitle: getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle"),
+    }
+  ];
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Background Image with overlay */}
       <div 
-        className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroBg})` }}
+        className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat transition-all duration-1000"
+        style={{ backgroundImage: `url(${slides[currentSlide].image})` }}
       />
       
-      {/* Gradient overlay for depth */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
+      {/* Gradient overlay - matching 2P style */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-l from-black/70 via-black/40 to-transparent" />
       
-      {/* Animated diagonal lines - subtle tech pattern */}
-      <div className="absolute inset-0 -z-10 opacity-20">
+      {/* Decorative diagonal lines pattern - 2P style */}
+      <div className="absolute inset-0 -z-10 opacity-10">
         <svg className="w-full h-full" preserveAspectRatio="none">
           <defs>
-            <pattern id="diagonal-lines" patternUnits="userSpaceOnUse" width="60" height="60" patternTransform="rotate(45)">
-              <line x1="0" y1="0" x2="0" y2="60" stroke="hsl(var(--primary))" strokeWidth="0.5" strokeOpacity="0.3" />
+            <pattern id="hero-lines" patternUnits="userSpaceOnUse" width="100" height="100" patternTransform="rotate(-45)">
+              <line x1="0" y1="0" x2="0" y2="100" stroke="white" strokeWidth="0.5" />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#diagonal-lines)" />
+          <rect width="100%" height="100%" fill="url(#hero-lines)" />
         </svg>
       </div>
       
-      {/* Main Content */}
-      <div className="container mx-auto px-4 relative z-10 text-center">
-        <div 
-          className={`max-w-5xl mx-auto ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-1000`}
-        >
-          {/* Logo */}
-          <div className={`mb-8 flex justify-center ${isVisible ? 'animate-scale-in' : ''}`}>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-accent/40 rounded-full blur-3xl scale-150 opacity-50" />
-              <img 
-                src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
-                alt="Company Logo" 
-                className="relative h-32 md:h-44 lg:h-56 w-auto object-contain drop-shadow-2xl"
-              />
-            </div>
-          </div>
-          
-          {/* Main Title - Large and impactful */}
-          <h1 className={`text-white font-bold mb-6 leading-[1.1] tracking-tight text-4xl md:text-5xl lg:text-6xl xl:text-7xl ${isVisible ? 'animate-fade-in stagger-1' : 'opacity-0'}`}>
-            {getHeroContent('title_ar', language as "ar" | "en") || t("hero.title")}
-          </h1>
-          
-          {/* Subtitle */}
-          <p className={`text-lg md:text-xl lg:text-2xl text-white/80 mb-12 max-w-3xl mx-auto leading-relaxed ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-            {getHeroContent('subtitle_ar', language as "ar" | "en") || t("hero.subtitle")}
-          </p>
-          
-          {/* CTA Button */}
-          <div className={`flex justify-center ${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
-            <Button 
-              variant="default" 
-              size="lg"
-              onClick={scrollToContact}
-              className="text-base md:text-lg px-10 py-7 rounded-full bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] hover:bg-[position:100%_0] transition-all duration-500 shadow-2xl shadow-primary/40 hover:shadow-primary/60 hover:-translate-y-1 border-0 text-white font-bold"
-            >
-              {getHeroContent('cta_text_ar', language as "ar" | "en") || t("contact")}
-            </Button>
+      {/* Main Content - 2P Layout: Text on RIGHT for RTL */}
+      <div className="container mx-auto px-4 relative z-10">
+        <div className={`flex items-center min-h-screen py-24 ${dir === 'rtl' ? 'justify-end' : 'justify-start'}`}>
+          <div 
+            className={`max-w-2xl ${dir === 'rtl' ? 'text-right' : 'text-left'} ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-1000`}
+          >
+            {/* Main Title - Large and impactful like 2P */}
+            <h1 className={`text-white font-bold leading-[1.15] tracking-tight text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-8 ${isVisible ? 'animate-fade-in stagger-1' : 'opacity-0'}`}>
+              {slides[currentSlide].title}
+            </h1>
+            
+            {/* Hidden subtitle for SEO but not shown in 2P style */}
+            <p className="sr-only">
+              {slides[currentSlide].subtitle}
+            </p>
           </div>
         </div>
       </div>
       
-      {/* Scroll Down Indicator */}
+      {/* Left Side - Slide Thumbnails (2P Style) */}
+      <div className={`absolute ${dir === 'rtl' ? 'left-8' : 'right-8'} top-1/2 -translate-y-1/2 hidden lg:flex flex-col gap-4 z-20`}>
+        {slides.map((slide, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`group relative w-28 h-20 rounded-lg overflow-hidden border-2 transition-all duration-300 ${
+              currentSlide === index 
+                ? 'border-primary shadow-lg shadow-primary/30' 
+                : 'border-white/30 hover:border-white/60'
+            }`}
+          >
+            <img 
+              src={slide.image} 
+              alt={`Slide ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+            <div className={`absolute inset-0 bg-black/40 ${currentSlide === index ? 'bg-black/20' : ''}`} />
+            {/* Diamond indicator like 2P */}
+            <div className={`absolute ${dir === 'rtl' ? '-right-3' : '-left-3'} top-1/2 -translate-y-1/2 w-4 h-4 rotate-45 bg-primary transition-opacity duration-300 ${
+              currentSlide === index ? 'opacity-100' : 'opacity-0'
+            }`} />
+          </button>
+        ))}
+      </div>
+      
+      {/* Bottom Right - Scroll Indicator (2P Style) */}
       <div 
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer group"
+        className={`absolute bottom-8 ${dir === 'rtl' ? 'right-8' : 'left-8'} flex items-center gap-4 cursor-pointer group z-20`}
         onClick={scrollToAbout}
       >
-        <span className="text-white/70 text-sm font-medium group-hover:text-white transition-colors">
-          {language === 'ar' ? 'سحب للأسفل' : 'Scroll Down'}
-        </span>
-        <div className="w-8 h-12 rounded-full border-2 border-white/30 flex items-center justify-center group-hover:border-white/60 transition-colors">
-          <ChevronDown className="w-5 h-5 text-white/70 animate-bounce-soft group-hover:text-white" />
+        <div className="flex flex-col items-center">
+          {/* Scroll text */}
+          <span className="text-white/70 text-sm font-medium mb-2 group-hover:text-white transition-colors">
+            {language === 'ar' ? 'سحب للأسفل' : 'Scroll Down'}
+          </span>
+          {/* Animated scroll icon */}
+          <div className="w-8 h-12 rounded-full border-2 border-white/40 flex justify-center pt-2 group-hover:border-white transition-colors">
+            <div className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" />
+          </div>
         </div>
       </div>
       
-      {/* Slide Counter - 2P Style */}
-      <div className="absolute bottom-8 right-8 hidden md:flex items-center gap-2 text-white/70">
-        <span className="text-xl font-bold text-white">01</span>
-        <span className="text-sm">/</span>
-        <span className="text-sm">01</span>
+      {/* Bottom Left - Slide Counter (2P Style) */}
+      <div className={`absolute bottom-8 ${dir === 'rtl' ? 'left-8' : 'right-8'} flex items-center gap-3 text-white z-20`}>
+        <span className="text-2xl font-bold">{String(currentSlide + 1).padStart(2, '0')}</span>
+        <span className="text-white/50">/</span>
+        <span className="text-white/50">{String(slides.length).padStart(2, '0')}</span>
       </div>
+      
+      {/* Navigation Arrows (if multiple slides) */}
+      {slides.length > 1 && (
+        <>
+          <button 
+            onClick={() => setCurrentSlide(prev => prev === 0 ? slides.length - 1 : prev - 1)}
+            className={`absolute ${dir === 'rtl' ? 'right-8' : 'left-8'} bottom-24 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-all z-20`}
+          >
+            <ChevronLeft className={dir === 'rtl' ? '' : 'rotate-180'} />
+          </button>
+          <button 
+            onClick={() => setCurrentSlide(prev => prev === slides.length - 1 ? 0 : prev + 1)}
+            className={`absolute ${dir === 'rtl' ? 'right-24' : 'left-24'} bottom-24 w-12 h-12 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-all z-20`}
+          >
+            <ChevronRight className={dir === 'rtl' ? '' : 'rotate-180'} />
+          </button>
+        </>
+      )}
     </section>
   );
 };

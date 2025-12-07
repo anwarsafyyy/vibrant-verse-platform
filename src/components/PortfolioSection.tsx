@@ -2,14 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { db } from "@/lib/firebase";
@@ -62,53 +60,69 @@ const PortfolioSection: React.FC = () => {
   }, [api]);
 
   return (
-    <section id="portfolio" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Clean background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-muted/30 to-background" />
+    <section id="portfolio" className="py-24 lg:py-32 relative overflow-hidden bg-background">
+      {/* Decorative elements */}
+      <div className="absolute top-10 left-10 w-20 h-20 opacity-10 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
+        </svg>
+      </div>
+      <div className="absolute bottom-20 right-20 w-32 h-32 opacity-10 -z-10">
+        <svg viewBox="0 0 100 100" className="w-full h-full">
+          <rect x="10" y="10" width="80" height="80" rx="10" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" transform="rotate(45 50 50)" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
         {/* Section Header - 2P Style */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16">
-          <div className={`${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-1 h-16 bg-gradient-to-b from-primary to-accent rounded-full hidden md:block" />
-              <div>
-                <span className="text-primary font-bold text-sm uppercase tracking-wider block mb-2">
-                  {language === 'ar' ? 'منتجات' : 'Products'}
-                </span>
-                <h2 className="font-bold tracking-tight">
-                  <span className="olu-text-gradient">{t("portfolio.title")}</span>
-                </h2>
+        <div className={`flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
+          <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
+            {/* Section label */}
+            <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'justify-end flex-row-reverse' : ''}`}>
+              <div className="w-8 h-8 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
               </div>
+              <span className="text-primary font-bold text-sm tracking-wider">
+                {language === 'ar' ? 'منتجات' : 'Products'}
+              </span>
             </div>
-            <p className="text-lg text-muted-foreground max-w-xl mt-4">
-              {t("portfolio.subtitle")}
-            </p>
+            
+            <h2 className="text-4xl lg:text-5xl font-bold">
+              <span className="olu-text-gradient">
+                {language === 'ar' ? 'الشركة' : 'Our Products'}
+              </span>
+            </h2>
           </div>
           
-          {/* Pagination - 2P Style */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
+          {/* Pagination + Arrows */}
+          <div className={`flex items-center gap-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               {portfolioItems.slice(0, 3).map((_, index) => (
                 <button
                   key={index}
                   onClick={() => api?.scrollTo(index)}
-                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 rounded ${
+                  className={`text-sm font-bold transition-all duration-300 px-2 py-1 ${
                     current === index 
                       ? 'text-primary' 
-                      : 'text-muted-foreground hover:text-primary'
+                      : 'text-muted-foreground/50 hover:text-muted-foreground'
                   }`}
                 >
                   {String(index + 1).padStart(2, '0')}
                 </button>
               ))}
             </div>
-            <div className="flex gap-2">
+            
+            <div className={`flex gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <Button 
                 variant="ghost" 
                 size="icon"
                 onClick={() => api?.scrollPrev()}
-                className="rounded-full border border-border/50 hover:border-primary hover:bg-primary/5"
+                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
               >
                 <ChevronLeft className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
@@ -116,7 +130,7 @@ const PortfolioSection: React.FC = () => {
                 variant="ghost" 
                 size="icon"
                 onClick={() => api?.scrollNext()}
-                className="rounded-full border border-border/50 hover:border-primary hover:bg-primary/5"
+                className="w-10 h-10 rounded-full border border-border hover:border-primary hover:bg-primary/5"
               >
                 <ChevronRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               </Button>
@@ -124,81 +138,68 @@ const PortfolioSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Portfolio Carousel */}
+        {/* Portfolio Carousel - 2P Style: Large cards with image on left, content on right */}
         <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "start" }}>
-          <CarouselContent className="-ml-4">
+          <CarouselContent className="-ml-6">
             {loading ? (
               Array(3).fill(0).map((_, index) => (
-                <CarouselItem key={`skeleton-${index}`} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                  <div className="rounded-3xl overflow-hidden bg-card border border-border/50 h-full">
-                    <Skeleton className="aspect-[4/3] w-full" />
-                    <div className="p-6">
-                      <Skeleton className="h-7 w-3/4 mb-3" />
-                      <Skeleton className="h-4 w-full mb-4" />
+                <CarouselItem key={`skeleton-${index}`} className="pl-6 basis-full lg:basis-1/2">
+                  <div className="grid md:grid-cols-2 gap-6 bg-card rounded-2xl border border-border overflow-hidden h-[400px]">
+                    <Skeleton className="h-full w-full" />
+                    <div className="p-8">
+                      <Skeleton className="h-8 w-3/4 mb-4" />
+                      <Skeleton className="h-20 w-full mb-6" />
+                      <Skeleton className="h-6 w-32" />
                     </div>
                   </div>
                 </CarouselItem>
               ))
             ) : portfolioItems.length > 0 ? (
               portfolioItems.map((item) => (
-                <CarouselItem key={item.id} className="pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                  <div className="group relative h-full">
-                    {/* Main Card */}
-                    <div className="relative rounded-3xl overflow-hidden bg-card border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 h-full card-shine">
-                      {/* Image */}
-                      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-                        <img 
-                          src={item.image_url} 
-                          alt={item.title} 
-                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                        
-                        {/* Category Badge */}
-                        <div className="absolute top-4 left-4">
-                          <Badge className="bg-white/90 text-foreground border-0 shadow-lg font-medium">
-                            {item.category}
-                          </Badge>
-                        </div>
-                        
-                        {/* Title on image */}
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <h3 className="text-xl font-bold text-white mb-1">
-                            {item.title}
-                          </h3>
-                        </div>
+                <CarouselItem key={item.id} className="pl-6 basis-full lg:basis-1/2">
+                  <div className={`group grid md:grid-cols-2 bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/40 transition-all duration-500 hover:shadow-xl ${dir === 'rtl' ? 'md:grid-flow-dense' : ''}`}>
+                    {/* Image */}
+                    <div className={`relative aspect-[4/3] md:aspect-auto overflow-hidden bg-muted ${dir === 'rtl' ? 'md:col-start-2' : ''}`}>
+                      <img 
+                        src={item.image_url} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {/* Category badge */}
+                      <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'}`}>
+                        <Badge className="bg-primary text-primary-foreground border-0 font-bold">
+                          {item.category}
+                        </Badge>
                       </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className={`p-8 flex flex-col justify-center ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                      {/* Update date */}
+                      <span className="text-sm text-muted-foreground mb-3">
+                        {language === 'ar' ? 'اخر تحديث :' : 'Last Update:'} {new Date().toLocaleDateString()}
+                      </span>
                       
-                      {/* Content */}
-                      <div className="p-6">
-                        <p className="text-muted-foreground mb-4 line-clamp-2">
-                          {item.description}
-                        </p>
-                        
-                        {/* Technologies */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {item.technologies.slice(0, 3).map((tech, index) => (
-                            <Badge 
-                              key={index} 
-                              variant="outline" 
-                              className="bg-primary/5 border-primary/20 text-primary/80 rounded-full text-xs"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                          {item.technologies.length > 3 && (
-                            <Badge variant="outline" className="bg-muted rounded-full text-xs">
-                              +{item.technologies.length - 3}
-                            </Badge>
-                          )}
-                        </div>
-                        
-                        {/* Action */}
-                        <button className="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-3 transition-all duration-300">
-                          {language === 'ar' ? 'اقرأ المزيد' : 'Read More'}
-                          <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? 'rtl-flip' : ''}`} />
-                        </button>
-                      </div>
+                      <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                        {item.title}
+                      </h3>
+                      
+                      <p className="text-muted-foreground leading-relaxed mb-6 line-clamp-3">
+                        {item.description}
+                      </p>
+                      
+                      {/* Read More Button */}
+                      <Button 
+                        variant="ghost"
+                        className={`w-fit text-primary hover:text-primary hover:bg-primary/5 px-0 font-bold ${dir === 'rtl' ? 'flex-row-reverse self-end' : ''}`}
+                      >
+                        {dir === 'rtl' ? (
+                          <ArrowLeft className="ml-2 h-4 w-4" />
+                        ) : (
+                          <ArrowRight className="mr-2 h-4 w-4" />
+                        )}
+                        <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
+                      </Button>
                     </div>
                   </div>
                 </CarouselItem>

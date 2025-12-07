@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Calendar, Award, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 
@@ -42,17 +42,6 @@ const AboutSection: React.FC = () => {
     }
   };
 
-  const getIcon = (iconName: string) => {
-    const icons: Record<string, any> = {
-      users: Users,
-      calendar: Calendar,
-      award: Award,
-      target: Target,
-    };
-    const IconComponent = icons[iconName] || Award;
-    return <IconComponent className="w-6 h-6" />;
-  };
-
   const getTranslatedStatName = (name: string) => {
     const translations: Record<string, Record<string, string>> = {
       'موظف': { ar: 'موظف', en: 'Employees' },
@@ -76,72 +65,87 @@ const AboutSection: React.FC = () => {
   const displayStats = stats.length > 0 ? stats : defaultStats;
 
   return (
-    <section id="about" className="py-24 md:py-32 relative overflow-hidden bg-background">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-50 -z-10" />
-      
-      {/* Decorative shapes */}
-      <div className="absolute top-20 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-20 left-10 w-80 h-80 bg-accent/5 rounded-full blur-3xl -z-10" />
+    <section id="about" className="py-24 lg:py-32 relative overflow-hidden bg-background">
+      {/* Decorative shapes - 2P style */}
+      <div className="absolute top-0 left-0 w-64 h-64 opacity-20 -z-10">
+        <svg viewBox="0 0 200 200" className="w-full h-full">
+          <polygon points="100,10 40,198 190,78 10,78 160,198" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" opacity="0.3" />
+        </svg>
+      </div>
+      <div className="absolute bottom-0 right-0 w-48 h-48 opacity-20 -z-10">
+        <svg viewBox="0 0 200 200" className="w-full h-full">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="hsl(var(--primary))" strokeWidth="1" opacity="0.3" />
+        </svg>
+      </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header - 2P Style with side decorator */}
-        <div className={`flex items-start gap-6 mb-16 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-          <div className="hidden md:block w-1 h-24 bg-gradient-to-b from-primary to-accent rounded-full" />
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-primary font-bold text-sm uppercase tracking-wider">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
+          {/* Left Side - Stats (2P style: prominent numbers) */}
+          <div className={`${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+            {/* Section label - 2P style with icon */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 flex items-center justify-center">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-primary" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1" />
+                  <rect x="14" y="3" width="7" height="7" rx="1" />
+                  <rect x="3" y="14" width="7" height="7" rx="1" />
+                  <rect x="14" y="14" width="7" height="7" rx="1" />
+                </svg>
+              </div>
+              <span className="text-primary font-bold text-sm tracking-wider">
                 {language === 'ar' ? 'من' : 'About'}
               </span>
             </div>
-            <h2 className="font-bold tracking-tight">
+            
+            {/* Title - 2P style */}
+            <h2 className={`text-4xl lg:text-5xl xl:text-6xl font-bold mb-10 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
               <span className="olu-text-gradient">
                 {language === 'ar' ? 'نحن' : 'Us'}
               </span>
             </h2>
-          </div>
-        </div>
-
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-          {/* Left: Stats Cards - 2P Style */}
-          <div className={`grid grid-cols-3 gap-4 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-            {displayStats.map((stat, index) => (
-              <div 
-                key={stat.id}
-                className="group relative bg-card rounded-2xl p-6 text-center border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 card-shine"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <div className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary mb-2">
+            
+            {/* Stats - 2P style: Large numbers stacked */}
+            <div className="grid grid-cols-3 gap-6 mb-10">
+              {displayStats.map((stat, index) => (
+                <div 
+                  key={stat.id}
+                  className={`${dir === 'rtl' ? 'text-right' : 'text-left'}`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="text-4xl lg:text-5xl xl:text-6xl font-bold text-primary mb-2">
                     {stat.value}
                   </div>
-                  <div className="text-sm md:text-base text-muted-foreground font-medium">
+                  <div className="text-sm lg:text-base text-muted-foreground font-medium">
                     {getTranslatedStatName(stat.name)}
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {/* Right: Description */}
+          {/* Right Side - Description */}
           <div className={`${dir === 'rtl' ? 'text-right' : 'text-left'} ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-8">
+            <p className="text-base lg:text-lg text-muted-foreground leading-relaxed mb-8">
               {getAboutContent('description_ar', language as "ar" | "en") || (language === 'ar' 
-                ? "تأسست شركتنا لتكون رائدة في سوق خدمات تقنية المعلومات وحلول التكنولوجيا. نحن نقدم مجموعة شاملة من خدمات تقنية المعلومات يتيح لنا نموذج أعمالنا المتكامل الفريد تقديم نهج شامل لتحول العملاء الرقمي. نحن نتعاون مع العملاء على مدار رحلتهم الرقمية، بدءًا من التطوير الأولي إلى إدارة البنية التحتية الخلفية."
-                : "Our company was established to be a leader in the IT services and technology solutions market. We provide a comprehensive range of IT services. Our unique integrated business model allows us to deliver a holistic approach to customers' digital transformation. We partner with clients throughout their digital journey, from initial development to backend infrastructure management."
+                ? "تأسست شركتنا لتكون رائدة في سوق خدمات تقنية المعلومات وحلول التكنولوجيا بالمملكة العربية السعودية. نحن نقدم مجموعة شاملة من خدمات تقنية المعلومات يتيح لنا نموذج أعمالنا المتكامل الفريد تقديم نهج شامل لتحول العملاء الرقمي. نحن نتعاون مع العملاء على مدار رحلتهم الرقمية، بدءًا من التطوير الأولي إلى إدارة البنية التحتية الخلفية. من خلال إعطاء الأولوية لخدمة العملاء الاستثنائية وتخصيص الحلول لتلبية احتياجات الأعمال المحددة."
+                : "Our company was established to be a leader in the IT services and technology solutions market in Saudi Arabia. We provide a comprehensive range of IT services. Our unique integrated business model allows us to deliver a holistic approach to customers' digital transformation. We partner with clients throughout their digital journey, from initial development to backend infrastructure management. By prioritizing exceptional customer service and tailoring solutions to meet specific business needs."
               )}
             </p>
             
+            {/* Read More Button - 2P style with arrow */}
             <Button 
               variant="ghost"
               size="lg"
               onClick={scrollToContact}
-              className="group text-primary hover:text-primary hover:bg-primary/5 px-0"
+              className={`group text-primary hover:text-primary hover:bg-primary/5 px-0 font-bold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
-              <span className="font-bold">{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
-              <ArrowRight className={`ml-2 h-5 w-5 transition-transform group-hover:translate-x-1 ${dir === 'rtl' ? 'rtl-flip' : ''}`} />
+              {dir === 'rtl' ? (
+                <ArrowLeft className="ml-2 h-5 w-5 transition-transform group-hover:-translate-x-1" />
+              ) : (
+                <ArrowRight className="mr-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+              )}
+              <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
             </Button>
           </div>
         </div>
