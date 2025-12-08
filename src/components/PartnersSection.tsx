@@ -88,8 +88,8 @@ const PartnersSection: React.FC = () => {
         <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
           <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
             {language === 'ar' 
-              ? 'العديد من الشركات التي تثق بحلولنا لتحسين عملياتها معنا. تُقدم علو نطاقًا واسعًا من الخدمات والحلول بفضل علاقاتها الراسخة مع مجموعة متنوعة من مزودي التكنولوجيا العالميين.'
-              : 'Many companies trust our solutions to improve their operations. We offer a wide range of services and solutions thanks to our established relationships with a diverse group of global technology providers.'
+              ? 'تُقدم علو نطاقًا واسعًا من الخدمات والحلول بفضل علاقاتها الراسخة مع مجموعة متنوعة من مزودي التكنولوجيا العالميين.'
+              : 'Olu offers a wide range of services and solutions thanks to its established relationships with a diverse group of global technology providers.'
             }
           </p>
         </div>
