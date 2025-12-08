@@ -23,9 +23,9 @@ const Navbar: React.FC = () => {
   const navItems = [
     { href: "#", label: language === 'ar' ? 'الصفحة الرئيسية' : 'Home' },
     { href: "#about", label: language === 'ar' ? 'من نحن' : 'About Us' },
-    { href: "#services", label: language === 'ar' ? 'اعمال الشركة' : 'Our Services' },
-    { href: "#portfolio", label: language === 'ar' ? 'منتجات الشركة' : 'Products' },
-    { href: "#partners", label: t("partners.title") },
+    { href: "#services", label: language === 'ar' ? 'خدماتنا' : 'Our Services' },
+    { href: "#portfolio", label: language === 'ar' ? 'منتجاتنا' : 'Our Products' },
+    { href: "#partners", label: language === 'ar' ? 'شركاؤنا' : 'Our Partners' },
     { href: "#contact", label: language === 'ar' ? 'تواصل معنا' : 'Contact Us' },
   ];
 

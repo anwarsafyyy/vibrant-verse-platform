@@ -50,6 +50,9 @@ const PartnersSection: React.FC = () => {
     fetchPartners();
   }, []);
 
+  // Double the partners for seamless infinite scroll
+  const displayPartners = partners.length > 0 ? [...partners, ...partners] : [];
+
   return (
     <section id="partners" className="py-28 lg:py-36 relative overflow-hidden bg-[#faf8f5]">
       <div className="container mx-auto px-4">
@@ -68,7 +71,7 @@ const PartnersSection: React.FC = () => {
           <div className="flex items-center gap-4 order-1 lg:order-2">
             <div className="text-right">
               <span className="text-primary font-bold text-xl">
-                {language === 'ar' ? 'موثوق من قبل' : 'Trusted by'}
+                {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
               </span>
               <h2 className="text-4xl lg:text-5xl font-bold">
                 <span className="olu-text-gradient">
@@ -94,43 +97,53 @@ const PartnersSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Partners Grid */}
+        {/* Partners Marquee - Auto scrolling */}
         <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {Array(4).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="bg-card rounded-[2rem] p-8 border border-border/50">
-                  <Skeleton className="w-full h-24" />
+            <div className="flex gap-8">
+              {Array(5).fill(0).map((_, index) => (
+                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-6 border border-border/50 flex-shrink-0">
+                  <Skeleton className="w-32 h-16" />
                 </div>
               ))}
             </div>
-          ) : partners.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {partners.map((partner, index) => (
-                <div
-                  key={partner.id}
-                  className="group bg-card rounded-[2rem] p-8 lg:p-12 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center min-h-[140px]"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <img
-                    src={partner.logo_url}
-                    alt={`${partner.name} Logo`}
-                    className="max-w-full max-h-16 lg:max-h-20 object-contain transition-all duration-500 group-hover:scale-110"
-                  />
-                </div>
-              ))}
+          ) : displayPartners.length > 0 ? (
+            <div className="relative overflow-hidden">
+              {/* Gradient masks for smooth edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#faf8f5] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#faf8f5] to-transparent z-10 pointer-events-none" />
+              
+              {/* Scrolling container */}
+              <div className="flex animate-marquee hover:pause-animation">
+                {displayPartners.map((partner, index) => (
+                  <div
+                    key={`${partner.id}-${index}`}
+                    className="group bg-card rounded-2xl px-8 py-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center mx-4 flex-shrink-0"
+                  >
+                    <img
+                      src={partner.logo_url}
+                      alt={`${partner.name} Logo`}
+                      className="w-28 h-14 object-contain transition-all duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {/* Placeholder partner cards when no data */}
-              {['VMware', 'SAP', 'Construx', 'Juniper'].map((name, index) => (
-                <div
-                  key={name}
-                  className="group bg-card rounded-[2rem] p-8 lg:p-12 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center min-h-[140px]"
-                >
-                  <span className="text-2xl font-bold text-muted-foreground/50">{name}</span>
-                </div>
-              ))}
+            <div className="relative overflow-hidden">
+              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#faf8f5] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#faf8f5] to-transparent z-10 pointer-events-none" />
+              
+              <div className="flex animate-marquee">
+                {['VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft', 'VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft'].map((name, index) => (
+                  <div
+                    key={`${name}-${index}`}
+                    className="group bg-card rounded-2xl px-8 py-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center mx-4 flex-shrink-0"
+                  >
+                    <span className="text-xl font-bold text-muted-foreground/50 whitespace-nowrap">{name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>
