@@ -113,14 +113,17 @@ const HeroSection: React.FC = () => {
           {/* Text Content */}
           <div className={`text-center max-w-2xl ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
             <h1 className="font-black leading-[1.1] text-4xl md:text-5xl lg:text-6xl mb-6 text-foreground">
-              {getHeroContent('title_ar', language as "ar" | "en") || (language === 'ar' ? 'نبني المستقبل الرقمي معك' : 'Building the Digital Future with You')}
+              {language === 'ar' 
+                ? (getHeroContent('title_ar', 'ar') || 'نبني المستقبل الرقمي معك')
+                : (getHeroContent('title_en', 'en') || 'Building the Digital Future with You')
+              }
             </h1>
             
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8 max-w-lg mx-auto">
-              {getHeroContent('subtitle_ar', language as "ar" | "en") || (language === 'ar' 
-                ? 'نحو مستقبل رقمي أكثر نجاحًا — نوفّر لك حلولًا تقنية تجمع بين الابتكار والكفاءة لتصنع الفرق في عالم الأعمال.'
-                : 'Towards a more successful digital future — we provide you with technological solutions that combine innovation and efficiency to make a difference in the business world.'
-              )}
+              {language === 'ar' 
+                ? (getHeroContent('subtitle_ar', 'ar') || 'نحو مستقبل رقمي أكثر نجاحًا — نوفّر لك حلولًا تقنية تجمع بين الابتكار والكفاءة لتصنع الفرق في عالم الأعمال.')
+                : (getHeroContent('subtitle_en', 'en') || 'Towards a more successful digital future — we provide you with technological solutions that combine innovation and efficiency to make a difference in the business world.')
+              }
             </p>
             
             <a 
