@@ -116,14 +116,14 @@ const PortfolioSection: React.FC = () => {
 
         {/* Main Content Area with Side Arrows */}
         <div className="relative flex items-center gap-4">
-          {/* Left Arrow */}
+          {/* Right Arrow (Next in RTL) */}
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => api?.scrollPrev()}
+            onClick={() => api?.scrollNext()}
             className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg"
           >
-            <ChevronLeft className="w-6 h-6" />
+            <ChevronRight className="w-6 h-6" />
           </Button>
 
           {/* Carousel */}
@@ -227,14 +227,14 @@ const PortfolioSection: React.FC = () => {
             </CarouselContent>
           </Carousel>
 
-          {/* Right Arrow */}
+          {/* Left Arrow (Prev in RTL) */}
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => api?.scrollNext()}
+            onClick={() => api?.scrollPrev()}
             className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg"
           >
-            <ChevronRight className="w-6 h-6" />
+            <ChevronLeft className="w-6 h-6" />
           </Button>
         </div>
 
@@ -243,18 +243,18 @@ const PortfolioSection: React.FC = () => {
           <Button 
             variant="ghost" 
             size="icon"
-            onClick={() => api?.scrollPrev()}
-            className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="icon"
             onClick={() => api?.scrollNext()}
             className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
           >
             <ChevronRight className="w-5 h-5" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => api?.scrollPrev()}
+            className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            <ChevronLeft className="w-5 h-5" />
           </Button>
         </div>
       </div>
