@@ -106,119 +106,135 @@ const ServicesSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header - 2P Style */}
-        <div className={`flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          {/* Title with diamond icon */}
-          <div className="flex items-center gap-4">
-            {/* Diamond icon container */}
-            <div className="relative">
-              <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-                <Layers className="w-7 h-7 text-white -rotate-45" />
-              </div>
-            </div>
-            
-            <div className="text-right">
-              <span className="text-primary font-bold text-lg">
-                {language === 'ar' ? 'خدماتنا' : 'Our Services'}
-              </span>
-              <h2 className="text-4xl lg:text-5xl font-bold">
-                <span className="olu-text-gradient">
-                  {language === 'ar' ? 'ما نقدمه' : 'What We Offer'}
-                </span>
-              </h2>
+        {/* Section Header */}
+        <div className={`flex items-center gap-4 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          {/* Diamond icon container */}
+          <div className="relative">
+            <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+              <Layers className="w-7 h-7 text-white -rotate-45" />
             </div>
           </div>
           
-          {/* Navigation arrows only */}
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={handleNext}
-              className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-            <button 
-              onClick={handlePrev}
-              className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
+          <div className="text-right">
+            <span className="text-primary font-bold text-lg">
+              {language === 'ar' ? 'خدماتنا' : 'Our Services'}
+            </span>
+            <h2 className="text-4xl lg:text-5xl font-bold">
+              <span className="olu-text-gradient">
+                {language === 'ar' ? 'ما نقدمه' : 'What We Offer'}
+              </span>
+            </h2>
           </div>
         </div>
 
-        {/* Services Cards - 2P Style Grid */}
-        <div className="relative">
-          {loading ? (
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${dir === 'rtl' ? 'direction-rtl' : ''}`}>
-              {Array(3).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="p-8 border-2 border-dashed border-border rounded-3xl bg-card">
-                  <div className="flex justify-center mb-6">
-                    <Skeleton className="w-20 h-20 rotate-45 rounded-xl" />
+        {/* Services Cards with Navigation Arrows */}
+        <div className="relative flex items-center gap-4">
+          {/* Right Arrow */}
+          <button 
+            onClick={handleNext}
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary/30 items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-lg"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Cards */}
+          <div className="flex-1">
+            {loading ? (
+              <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${dir === 'rtl' ? 'direction-rtl' : ''}`}>
+                {Array(3).fill(0).map((_, index) => (
+                  <div key={`skeleton-${index}`} className="p-8 border-2 border-dashed border-border rounded-3xl bg-card">
+                    <div className="flex justify-center mb-6">
+                      <Skeleton className="w-20 h-20 rotate-45 rounded-xl" />
+                    </div>
+                    <Skeleton className="h-6 w-3/4 mx-auto mb-4" />
+                    <Skeleton className="h-16 w-full" />
                   </div>
-                  <Skeleton className="h-6 w-3/4 mx-auto mb-4" />
-                  <Skeleton className="h-16 w-full" />
-                </div>
-              ))}
-            </div>
-          ) : services.length > 0 ? (
-            <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ${dir === 'rtl' ? '' : ''}`}>
-              {getVisibleServices().map(({ service, isActive }, index) => {
-                const IconComponent = getIcon(service.icon);
-                return (
-                  <div 
-                    key={service.id}
-                    className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer ${
-                      isActive 
-                        ? 'bg-primary/10 border-2 border-primary shadow-xl shadow-primary/10 scale-[1.02]' 
-                        : 'bg-card border-2 border-dashed border-border hover:border-primary/40 hover:shadow-lg'
-                    } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                    onClick={() => setActiveIndex(services.indexOf(service))}
-                  >
-                    {/* Diamond Icon Container */}
-                    <div className="flex justify-center mb-8">
-                      <div className={`relative w-20 h-20 rotate-45 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                ))}
+              </div>
+            ) : services.length > 0 ? (
+              <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`}>
+                {getVisibleServices().map(({ service, isActive }, index) => {
+                  const IconComponent = getIcon(service.icon);
+                  return (
+                    <div 
+                      key={service.id}
+                      className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer ${
                         isActive 
-                          ? 'bg-primary shadow-lg shadow-primary/30' 
-                          : 'border-2 border-dashed border-primary/40 group-hover:border-primary group-hover:bg-primary/5'
+                          ? 'bg-primary/10 border-2 border-primary shadow-xl shadow-primary/10 scale-[1.02]' 
+                          : 'bg-card border-2 border-dashed border-border hover:border-primary/40 hover:shadow-lg'
+                      } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                      style={{ animationDelay: `${index * 100}ms` }}
+                      onClick={() => setActiveIndex(services.indexOf(service))}
+                    >
+                      {/* Diamond Icon Container */}
+                      <div className="flex justify-center mb-8">
+                        <div className={`relative w-20 h-20 rotate-45 rounded-xl flex items-center justify-center transition-all duration-500 ${
+                          isActive 
+                            ? 'bg-primary shadow-lg shadow-primary/30' 
+                            : 'border-2 border-dashed border-primary/40 group-hover:border-primary group-hover:bg-primary/5'
+                        }`}>
+                          <IconComponent className={`w-8 h-8 -rotate-45 transition-colors duration-300 ${
+                            isActive ? 'text-white' : 'text-primary'
+                          }`} />
+                        </div>
+                      </div>
+                      
+                      {/* Title */}
+                      <h3 className={`text-xl font-bold mb-4 text-center transition-colors ${
+                        isActive ? 'text-primary' : 'text-foreground group-hover:text-primary'
                       }`}>
-                        <IconComponent className={`w-8 h-8 -rotate-45 transition-colors duration-300 ${
-                          isActive ? 'text-white' : 'text-primary'
-                        }`} />
+                        {service.title}
+                      </h3>
+                      
+                      {/* Description */}
+                      <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6">
+                        {service.description}
+                      </p>
+                      
+                      {/* Arrow Link */}
+                      <div className="flex justify-center">
+                        <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
+                          isActive 
+                            ? 'border-primary text-primary' 
+                            : 'border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary'
+                        }`}>
+                          <ChevronLeft className="w-5 h-5" />
+                        </div>
                       </div>
                     </div>
-                    
-                    {/* Title */}
-                    <h3 className={`text-xl font-bold mb-4 text-center transition-colors ${
-                      isActive ? 'text-primary' : 'text-foreground group-hover:text-primary'
-                    }`}>
-                      {service.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6">
-                      {service.description}
-                    </p>
-                    
-                    {/* Arrow Link */}
-                    <div className="flex justify-center">
-                      <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                        isActive 
-                          ? 'border-primary text-primary' 
-                          : 'border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary'
-                      }`}>
-                        <ChevronLeft className="w-5 h-5" />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="text-center py-16 text-muted-foreground">
-              {language === 'ar' ? 'لا توجد خدمات متاحة' : 'No services available'}
-            </div>
-          )}
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-16 text-muted-foreground">
+                {language === 'ar' ? 'لا توجد خدمات متاحة' : 'No services available'}
+              </div>
+            )}
+          </div>
+
+          {/* Left Arrow */}
+          <button 
+            onClick={handlePrev}
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary/30 items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-lg"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className="flex lg:hidden justify-center gap-4 mt-8">
+          <button 
+            onClick={handleNext}
+            className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+          <button 
+            onClick={handlePrev}
+            className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
         </div>
         
         {/* View All Services Link */}

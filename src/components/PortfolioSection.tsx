@@ -92,31 +92,10 @@ const PortfolioSection: React.FC = () => {
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-primary/20 rotate-45 rounded-xl hidden lg:block" />
       
       <div className="container mx-auto px-4">
-        {/* Top Row: Pagination on left, Header on right */}
-        <div className={`flex flex-col-reverse lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
-          
-          {/* Left side - Navigation arrows only */}
-          <div className="flex items-center gap-3" dir="ltr">
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => api?.scrollPrev()}
-              className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </Button>
-            <Button 
-              variant="ghost" 
-              size="icon"
-              onClick={() => api?.scrollNext()}
-              className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </Button>
-          </div>
-          
-          {/* Right side - Header */}
-          <div className="flex items-center gap-4">
+        {/* Section Header */}
+        <div className={`flex items-center gap-4 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
+          {/* Header */}
+          <div className="flex items-center gap-4 mr-auto">
             <div className="text-right">
               <span className="text-primary font-bold text-xl">
                 {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
@@ -135,106 +114,149 @@ const PortfolioSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Content Area */}
-        <Carousel setApi={setApi} className="w-full" opts={{ loop: true, align: "start" }}>
-          <CarouselContent>
-            {loading ? (
-              <CarouselItem className="basis-full">
-                <div className="grid lg:grid-cols-2 gap-12 items-center" dir="ltr">
-                  <Skeleton className="h-[500px] w-full rounded-3xl" />
-                  <div className="space-y-4">
-                    <Skeleton className="h-16 w-16 rounded-full" />
-                    <Skeleton className="h-8 w-48" />
-                    <Skeleton className="h-32 w-full" />
-                    <Skeleton className="h-12 w-40" />
-                  </div>
-                </div>
-              </CarouselItem>
-            ) : portfolioItems.length > 0 ? (
-              portfolioItems.map((item, index) => (
-                <CarouselItem 
-                  key={item.id} 
-                  className={`basis-full ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center" dir="ltr">
-                    {/* Left Side - Tablet Mockup with Image */}
-                    <div className="relative">
-                      {/* Decorative golden frame */}
-                      <div className="absolute -top-6 -left-6 w-24 h-24 border-t-[6px] border-l-[6px] border-primary rounded-tl-[2rem] z-10" />
-                      <div className="absolute -bottom-6 -left-6 w-24 h-24 border-b-[6px] border-l-[6px] border-primary rounded-bl-[2rem] z-10" />
-                      
-                      {/* Tablet container */}
-                      <div className="relative bg-slate-800 rounded-[2rem] p-3 shadow-2xl">
-                        {/* Tablet camera */}
-                        <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-600 rounded-full" />
-                        
-                        {/* Screen */}
-                        <div className="relative rounded-2xl overflow-hidden bg-white">
-                          <img
-                            src={item.image_url} 
-                            alt={item.title} 
-                            className="w-full h-[400px] lg:h-[500px] object-cover object-top"
-                          />
-                        </div>
-                        
-                        {/* Home button */}
-                        <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-slate-600 rounded-full" />
-                      </div>
-                    </div>
-                    
-                    {/* Right Side - Content */}
-                    <div className="text-right">
-                      {/* Product logo and name */}
-                      <div className="flex items-center gap-4 justify-end mb-4">
-                        <div>
-                          <h3 className="text-3xl font-bold text-foreground">{item.title}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
-                          </p>
-                        </div>
-                        {item.logo_url ? (
-                          <img src={item.logo_url} alt={item.title} className="w-16 h-16 rounded-full object-cover border-2 border-border" />
-                        ) : (
-                          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border">
-                            <span className="text-2xl font-bold text-primary">{item.title.charAt(0)}</span>
-                          </div>
-                        )}
-                      </div>
+        {/* Main Content Area with Side Arrows */}
+        <div className="relative flex items-center gap-4">
+          {/* Left Arrow */}
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => api?.scrollPrev()}
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </Button>
 
-                      {/* Contact button */}
-                      <Button className="mb-6 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-bold">
-                        {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
-                      </Button>
-                      
-                      {/* Product title repeated */}
-                      <h4 className="text-2xl font-bold mb-4 text-foreground">{item.title}</h4>
-                      
-                      {/* Description */}
-                      <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                        {item.description}
-                      </p>
-                      
-                      {/* Read More Link */}
-                      <a 
-                        href="#" 
-                        className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300"
-                      >
-                        <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
-                      </a>
+          {/* Carousel */}
+          <Carousel setApi={setApi} className="flex-1" opts={{ loop: true, align: "start" }}>
+            <CarouselContent>
+              {loading ? (
+                <CarouselItem className="basis-full">
+                  <div className="grid lg:grid-cols-2 gap-12 items-center" dir="ltr">
+                    <Skeleton className="h-[500px] w-full rounded-3xl" />
+                    <div className="space-y-4">
+                      <Skeleton className="h-16 w-16 rounded-full" />
+                      <Skeleton className="h-8 w-48" />
+                      <Skeleton className="h-32 w-full" />
+                      <Skeleton className="h-12 w-40" />
                     </div>
                   </div>
                 </CarouselItem>
-              ))
-            ) : (
-              <CarouselItem className="basis-full">
-                <div className="text-center py-24 text-muted-foreground">
-                  {language === 'ar' ? 'لا توجد منتجات متاحة' : 'No products available'}
-                </div>
-              </CarouselItem>
-            )}
-          </CarouselContent>
-        </Carousel>
+              ) : portfolioItems.length > 0 ? (
+                portfolioItems.map((item, index) => (
+                  <CarouselItem 
+                    key={item.id} 
+                    className={`basis-full ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center" dir="ltr">
+                      {/* Left Side - Tablet Mockup with Image */}
+                      <div className="relative">
+                        {/* Decorative golden frame */}
+                        <div className="absolute -top-6 -left-6 w-24 h-24 border-t-[6px] border-l-[6px] border-primary rounded-tl-[2rem] z-10" />
+                        <div className="absolute -bottom-6 -left-6 w-24 h-24 border-b-[6px] border-l-[6px] border-primary rounded-bl-[2rem] z-10" />
+                        
+                        {/* Tablet container */}
+                        <div className="relative bg-slate-800 rounded-[2rem] p-3 shadow-2xl">
+                          {/* Tablet camera */}
+                          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-600 rounded-full" />
+                          
+                          {/* Screen */}
+                          <div className="relative rounded-2xl overflow-hidden bg-white">
+                            <img
+                              src={item.image_url} 
+                              alt={item.title} 
+                              className="w-full h-[400px] lg:h-[500px] object-cover object-top"
+                            />
+                          </div>
+                          
+                          {/* Home button */}
+                          <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-slate-600 rounded-full" />
+                        </div>
+                      </div>
+                      
+                      {/* Right Side - Content */}
+                      <div className="text-right">
+                        {/* Product logo and name */}
+                        <div className="flex items-center gap-4 justify-end mb-4">
+                          <div>
+                            <h3 className="text-3xl font-bold text-foreground">{item.title}</h3>
+                            <p className="text-sm text-muted-foreground">
+                              {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            </p>
+                          </div>
+                          {item.logo_url ? (
+                            <img src={item.logo_url} alt={item.title} className="w-16 h-16 rounded-full object-cover border-2 border-border" />
+                          ) : (
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border">
+                              <span className="text-2xl font-bold text-primary">{item.title.charAt(0)}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Contact button */}
+                        <Button className="mb-6 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-bold">
+                          {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+                        </Button>
+                        
+                        {/* Product title repeated */}
+                        <h4 className="text-2xl font-bold mb-4 text-foreground">{item.title}</h4>
+                        
+                        {/* Description */}
+                        <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                          {item.description}
+                        </p>
+                        
+                        {/* Read More Link */}
+                        <a 
+                          href="#" 
+                          className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300"
+                        >
+                          <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))
+              ) : (
+                <CarouselItem className="basis-full">
+                  <div className="text-center py-24 text-muted-foreground">
+                    {language === 'ar' ? 'لا توجد منتجات متاحة' : 'No products available'}
+                  </div>
+                </CarouselItem>
+              )}
+            </CarouselContent>
+          </Carousel>
+
+          {/* Right Arrow */}
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => api?.scrollNext()}
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </Button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div className="flex lg:hidden justify-center gap-4 mt-8">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => api?.scrollPrev()}
+            className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => api?.scrollNext()}
+            className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </Button>
+        </div>
       </div>
     </section>
   );
