@@ -132,37 +132,26 @@ const Footer: React.FC = () => {
               <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
             </h4>
             <div className="flex gap-3 mb-6 justify-end">
-              {socialLinks.length > 0 ? (
-                socialLinks.map(link => (
-                  <a 
-                    key={link.id} 
-                    href={link.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300"
-                  >
-                    {getSocialIcon(link.icon)}
-                  </a>
-                ))
-              ) : (
-                <>
-                  <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
-                    {getSocialIcon('tiktok')}
-                  </a>
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
-                    {getSocialIcon('linkedin')}
-                  </a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
-                    {getSocialIcon('instagram')}
-                  </a>
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
-                    {getSocialIcon('twitter')}
-                  </a>
-                  <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
-                    {getSocialIcon('whatsapp')}
-                  </a>
-                </>
-              )}
+              {/* TikTok */}
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                {getSocialIcon('tiktok')}
+              </a>
+              {/* LinkedIn */}
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                {getSocialIcon('linkedin')}
+              </a>
+              {/* Instagram */}
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                {getSocialIcon('instagram')}
+              </a>
+              {/* Twitter/X */}
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                {getSocialIcon('twitter')}
+              </a>
+              {/* WhatsApp */}
+              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+                {getSocialIcon('whatsapp')}
+              </a>
             </div>
             <p className="text-sm opacity-70 leading-relaxed">
               {dir === "rtl" 
