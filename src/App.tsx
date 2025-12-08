@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
-import AdminDashboard from "./pages/AdminDashboard";
 import ImportantLinks from "./pages/ImportantLinks";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
@@ -15,6 +14,20 @@ import CancellationPolicy from "./pages/CancellationPolicy";
 import AboutCompany from "./pages/AboutCompany";
 import Blog from "./pages/Blog";
 import { LanguageProvider } from "@/hooks/useLanguage";
+
+// Admin components
+import { AdminLayout } from "./components/admin/AdminLayout";
+import { AdminHome } from "./components/admin/AdminHome";
+import { ServicesManager } from "./components/admin/ServicesManager";
+import { PortfolioManager } from "./components/admin/PortfolioManager";
+import { PartnersManager } from "./components/admin/PartnersManager";
+import { FAQManager } from "./components/admin/FAQManager";
+import { ContactInquiries } from "./components/admin/ContactInquiries";
+import { HeroContentManager } from "./components/admin/HeroContentManager";
+import { AboutContentManager } from "./components/admin/AboutContentManager";
+import { SocialLinksManager } from "./components/admin/SocialLinksManager";
+import { FooterContentManager } from "./components/admin/FooterContentManager";
+import { SiteSettingsManager } from "./components/admin/SiteSettingsManager";
 
 const queryClient = new QueryClient();
 
@@ -30,14 +43,25 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/admin" element={<AdminLogin />} />
-                <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route path="dashboard" element={<AdminHome />} />
+                  <Route path="hero" element={<HeroContentManager />} />
+                  <Route path="about" element={<AboutContentManager />} />
+                  <Route path="services" element={<ServicesManager />} />
+                  <Route path="portfolio" element={<PortfolioManager />} />
+                  <Route path="partners" element={<PartnersManager />} />
+                  <Route path="faqs" element={<FAQManager />} />
+                  <Route path="inquiries" element={<ContactInquiries />} />
+                  <Route path="social-links" element={<SocialLinksManager />} />
+                  <Route path="footer" element={<FooterContentManager />} />
+                  <Route path="settings" element={<SiteSettingsManager />} />
+                </Route>
                 <Route path="/important-links" element={<ImportantLinks />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-use" element={<TermsOfUse />} />
                 <Route path="/cancellation-policy" element={<CancellationPolicy />} />
                 <Route path="/about-company" element={<AboutCompany />} />
                 <Route path="/blog" element={<Blog />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
