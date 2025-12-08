@@ -129,7 +129,7 @@ const ServicesSection: React.FC = () => {
 
         {/* Services Cards with Navigation Arrows */}
         <div className="relative flex items-center gap-4">
-          {/* Right Arrow */}
+          {/* Right Arrow (Next in RTL) */}
           <button 
             onClick={handleNext}
             className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary/30 items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-lg"
@@ -212,7 +212,7 @@ const ServicesSection: React.FC = () => {
             )}
           </div>
 
-          {/* Left Arrow */}
+          {/* Left Arrow (Prev in RTL) */}
           <button 
             onClick={handlePrev}
             className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary/30 items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300 shadow-lg"
