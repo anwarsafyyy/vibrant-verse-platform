@@ -145,8 +145,8 @@ const Footer: React.FC = () => {
             </div>
             <p className="text-sm opacity-70 leading-relaxed">
               {dir === "rtl" 
-                ? "نحن شركة متخصصة في تطوير المواقع، تحسين محركات البحث، والتسويق الرقمي." 
-                : "We are a company specialized in website development, SEO, and digital marketing."
+                ? "نحن شركة متخصصة في تطوير المواقع وبناء تجارب رقمية مبتكرة تعكس هوية علامتك وتُبرز حضورك الرقمي بأعلى مستويات الاحتراف." 
+                : "We are a company specialized in website development and building innovative digital experiences that reflect your brand identity and highlight your digital presence with the highest levels of professionalism."
               }
             </p>
           </div>
