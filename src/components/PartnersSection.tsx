@@ -68,11 +68,11 @@ const PartnersSection: React.FC = () => {
           <div className="flex items-center gap-4 order-1 lg:order-2">
             <div className="text-right">
               <span className="text-primary font-bold text-xl">
-                {language === 'ar' ? 'أهم' : 'Key'}
+                {language === 'ar' ? 'موثوق من قبل' : 'Trusted by'}
               </span>
               <h2 className="text-4xl lg:text-5xl font-bold">
                 <span className="olu-text-gradient">
-                  {language === 'ar' ? 'شركاء النجاح' : 'Success Partners'}
+                  {language === 'ar' ? 'المنشآت الرائدة' : 'Leading Organizations'}
                 </span>
               </h2>
             </div>
@@ -88,8 +88,8 @@ const PartnersSection: React.FC = () => {
         <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
           <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
             {language === 'ar' 
-              ? 'تُقدم العرض المتقن نطاقًا واسعًا من الخدمات والحلول بفضل علاقاتها الراسخة مع مجموعة متنوعة من مزودي التكنولوجيا العالميين.'
-              : 'We offer a wide range of services and solutions thanks to our established relationships with a diverse group of global technology providers.'
+              ? 'العديد من الشركات التي تثق بحلولنا لتحسين عملياتها معنا. تُقدم علو نطاقًا واسعًا من الخدمات والحلول بفضل علاقاتها الراسخة مع مجموعة متنوعة من مزودي التكنولوجيا العالميين.'
+              : 'Many companies trust our solutions to improve their operations. We offer a wide range of services and solutions thanks to our established relationships with a diverse group of global technology providers.'
             }
           </p>
         </div>
