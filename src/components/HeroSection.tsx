@@ -125,7 +125,7 @@ const HeroSection: React.FC = () => {
             
             <a 
               href="#contact" 
-              className="inline-block px-8 py-4 bg-[#f97316] text-white rounded-full font-bold text-lg hover:bg-[#ea580c] transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              className="inline-block px-8 py-4 bg-primary text-white rounded-full font-bold text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1"
             >
               {language === 'ar' ? 'احصل على عرض' : 'Request a Demo'}
             </a>
