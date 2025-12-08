@@ -116,7 +116,7 @@ const PortfolioSection: React.FC = () => {
             </Button>
             
             {/* Page numbers */}
-            <div className="flex items-center gap-3 mr-4">
+            <div className="flex items-center gap-3 mr-4 flex-row-reverse">
               {Array.from({ length: Math.min(totalItems, 4) }).map((_, index) => (
                 <button
                   key={index}
