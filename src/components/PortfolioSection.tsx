@@ -95,53 +95,35 @@ const PortfolioSection: React.FC = () => {
         {/* Top Row: Pagination on left, Header on right */}
         <div className={`flex flex-col-reverse lg:flex-row lg:items-start lg:justify-between gap-8 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
           
-          {/* Left side - Pagination numbers */}
-          <div className="flex items-center gap-4" dir="ltr">
-            {/* Navigation arrows */}
+          {/* Left side - Navigation arrows only */}
+          <div className="flex items-center gap-3" dir="ltr">
             <Button 
               variant="ghost" 
               size="icon"
               onClick={() => api?.scrollPrev()}
-              className="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+              className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-6 h-6" />
             </Button>
             <Button 
               variant="ghost" 
               size="icon"
               onClick={() => api?.scrollNext()}
-              className="w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+              className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-6 h-6" />
             </Button>
-            
-            {/* Page numbers */}
-            <div className="flex items-center gap-3 mr-4 flex-row-reverse">
-              {Array.from({ length: Math.min(totalItems, 4) }).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => api?.scrollTo(index)}
-                  className={`text-2xl font-bold transition-all duration-300 ${
-                    current === index 
-                      ? 'text-foreground scale-110' 
-                      : 'text-muted-foreground/40 hover:text-muted-foreground'
-                  }`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </button>
-              ))}
-            </div>
           </div>
           
           {/* Right side - Header */}
           <div className="flex items-center gap-4">
             <div className="text-right">
               <span className="text-primary font-bold text-xl">
-                {language === 'ar' ? 'منتجات' : 'Company'}
+                {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
               </span>
               <h2 className="text-4xl lg:text-5xl font-bold">
                 <span className="olu-text-gradient">
-                  {language === 'ar' ? 'الشركة' : 'Products'}
+                  {language === 'ar' ? 'أعمالنا' : 'Our Work'}
                 </span>
               </h2>
             </div>

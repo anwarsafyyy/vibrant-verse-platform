@@ -119,50 +119,30 @@ const ServicesSection: React.FC = () => {
             
             <div className="text-right">
               <span className="text-primary font-bold text-lg">
-                {language === 'ar' ? 'وحدات' : 'Units'}
+                {language === 'ar' ? 'خدماتنا' : 'Our Services'}
               </span>
               <h2 className="text-4xl lg:text-5xl font-bold">
                 <span className="olu-text-gradient">
-                  {language === 'ar' ? 'اعمال الشركة' : 'Our Services'}
+                  {language === 'ar' ? 'ما نقدمه' : 'What We Offer'}
                 </span>
               </h2>
             </div>
           </div>
           
-          {/* Pagination Numbers + Arrows */}
-          <div className="flex items-center gap-4">
-            {/* Numbered pagination */}
-            <div className="flex items-center gap-3">
-              {services.slice(0, 6).map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  className={`text-lg font-bold transition-all duration-300 ${
-                    activeIndex === index 
-                      ? 'text-foreground text-2xl' 
-                      : 'text-muted-foreground/40 hover:text-muted-foreground'
-                  }`}
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </button>
-              ))}
-            </div>
-            
-            {/* Navigation arrows */}
-            <div className="flex gap-2">
-              <button 
-                onClick={handleNext}
-                className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={handlePrev}
-                className="w-10 h-10 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-            </div>
+          {/* Navigation arrows only */}
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={handleNext}
+              className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+            <button 
+              onClick={handlePrev}
+              className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-300"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
           </div>
         </div>
 
