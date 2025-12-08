@@ -132,12 +132,7 @@ const FAQSection: React.FC = () => {
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 text-right">
-                      <span className="flex items-center gap-3">
-                        <span>{language === 'ar' ? faq.question_ar : faq.question_en}</span>
-                        <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                      </span>
+                      <span>{language === 'ar' ? faq.question_ar : faq.question_en}</span>
                     </AccordionTrigger>
                     <AccordionContent className="text-base text-muted-foreground pb-6 leading-relaxed text-right pr-11">
                       {language === 'ar' ? faq.answer_ar : faq.answer_en}
