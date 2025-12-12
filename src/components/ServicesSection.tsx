@@ -93,33 +93,27 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-28 lg:py-36 relative overflow-hidden bg-background">
+    <section id="services" className="py-20 lg:py-28 relative overflow-hidden bg-background">
       {/* Decorative diamond shapes */}
       <div className="absolute top-32 left-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
       <div className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block" />
       <div className="absolute top-1/2 right-16 w-8 h-8 border-2 border-primary/20 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-32 right-1/4 w-5 h-5 bg-primary/10 rotate-45 hidden lg:block" />
-      
-      {/* Back to top button style element */}
-      <div className="absolute bottom-20 left-8 w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center hidden lg:flex">
-        <ChevronLeft className="w-5 h-5 text-primary rotate-90" />
-      </div>
       
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className={`flex items-center gap-4 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+        {/* Unified Section Header */}
+        <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Diamond icon container */}
           <div className="relative">
-            <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-              <Layers className="w-7 h-7 text-white -rotate-45" />
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+              <Layers className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" />
             </div>
           </div>
           
           <div className="text-right">
-            <span className="text-primary font-bold text-lg">
+            <span className="text-primary font-bold text-base md:text-lg">
               {language === 'ar' ? 'خدماتنا' : 'Our Services'}
             </span>
-            <h2 className="text-4xl lg:text-5xl font-bold">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
               <span className="olu-text-gradient">
                 {language === 'ar' ? 'ما نقدمه' : 'What We Offer'}
               </span>
