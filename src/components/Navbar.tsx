@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
                 href="#contact"
                 className="hidden lg:flex items-center px-6 py-2.5 bg-foreground text-background rounded-xl font-bold text-sm hover:bg-foreground/90 transition-all duration-300 hover:shadow-lg"
               >
-                {language === 'ar' ? 'احصل الآن' : 'Get Started'}
+                {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </a>
               
               <Button
@@ -138,7 +138,7 @@ const Navbar: React.FC = () => {
               style={{ transitionDelay: mobileMenuOpen ? `${navItems.length * 75}ms` : '0ms' }}
               onClick={() => setMobileMenuOpen(false)}
             >
-              {language === 'ar' ? 'احصل الآن' : 'Get Started'}
+              {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
             </a>
           </div>
         </div>
