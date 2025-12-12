@@ -49,7 +49,7 @@ const HeroSection: React.FC = () => {
                   <img 
                     src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
                     alt="Logo" 
-                    className="w-20 h-20 md:w-24 md:h-24 object-contain mb-4"
+                    className="w-28 h-28 md:w-36 md:h-36 object-contain mb-4"
                   />
                   
                   {/* Checkmark Icon */}

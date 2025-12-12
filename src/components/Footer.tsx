@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-12 w-auto mb-6 brightness-0 invert opacity-90"
+                className="h-20 w-auto mb-6 brightness-0 invert opacity-90"
               />
             )}
             <p className="opacity-70 leading-relaxed text-sm">
