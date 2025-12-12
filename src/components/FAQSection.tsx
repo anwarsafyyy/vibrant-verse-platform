@@ -65,7 +65,7 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-6 lg:py-8 relative overflow-hidden bg-background">
+    <section id="faq" className="py-3 lg:py-4 relative overflow-hidden bg-background">
       {/* Decorative elements */}
       <div className="absolute top-20 right-20 w-40 h-40 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -79,7 +79,7 @@ const FAQSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-4 lg:gap-6">
+        <div className="grid lg:grid-cols-2 gap-2 lg:gap-3">
           {/* Right - Header */}
           <div className={`text-right ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section label */}
