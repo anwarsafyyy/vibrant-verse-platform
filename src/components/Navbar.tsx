@@ -30,124 +30,114 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 py-1">
-      <div className="container mx-auto px-4">
-        <div className={`flex items-center justify-between transition-all duration-500 ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10 rounded-xl px-3 py-0.5' 
-            : 'bg-white/80 backdrop-blur-md rounded-xl px-3 py-0.5 shadow-md'
-        }`}>
-          
-          {/* Logo + Desktop Menu - Right Side */}
-          <div className="hidden lg:flex items-center gap-2">
-            {/* Logo */}
-            <a href="/" className="flex items-center">
+    <>
+      {/* Logo Above Navbar */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl">
+        <div className="container mx-auto px-4 py-2 flex justify-center">
+          <a href="/" className="flex items-center">
             {getSetting('logo_url', 'ar') ? (
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-16 w-auto max-w-[200px]"
+                className="h-32 lg:h-40 w-auto"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
                 alt="Logo" 
-                className="h-16 w-auto max-w-[200px]"
+                className="h-32 lg:h-40 w-auto"
               />
             )}
-            </a>
+          </a>
+        </div>
+      </div>
+
+      {/* Navbar Below Logo */}
+      <header className="fixed top-[140px] lg:top-[170px] left-0 right-0 z-50 py-1">
+        <div className="container mx-auto px-4">
+          <div className={`flex items-center justify-center transition-all duration-500 ${
+            isScrolled 
+              ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10 rounded-xl px-3 py-2' 
+              : 'bg-white/80 backdrop-blur-md rounded-xl px-3 py-2 shadow-md'
+          }`}>
             
-            {/* Navigation */}
-            <nav className="flex items-center">
-              <div className="flex items-center gap-1">
-                {navItems.map((item) => (
+            {/* Desktop Menu */}
+            <div className="hidden lg:flex items-center gap-4">
+              <nav className="flex items-center">
+                <div className="flex items-center gap-1">
+                  {navItems.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      className="px-4 py-2 text-sm font-bold text-foreground/70 hover:text-primary rounded-xl transition-all duration-300 hover:bg-primary/5"
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </div>
+              </nav>
+              
+              <LanguageSwitcher />
+              
+              {/* CTA Button - Desktop */}
+              <a 
+                href="#contact"
+                className="flex items-center px-6 py-2.5 bg-foreground text-background rounded-xl font-bold text-sm hover:bg-foreground/90 transition-all duration-300 hover:shadow-lg"
+              >
+                {language === 'ar' ? 'احصل الآن' : 'Get Started'}
+              </a>
+            </div>
+
+            {/* Mobile Actions */}
+            <div className="lg:hidden flex items-center gap-3">
+              <LanguageSwitcher />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="rounded-xl text-foreground hover:bg-muted"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={`lg:hidden fixed inset-x-4 top-[200px] transition-all duration-500 ${
+          mobileMenuOpen 
+            ? 'opacity-100 translate-y-0 pointer-events-auto' 
+            : 'opacity-0 -translate-y-4 pointer-events-none'
+        }`}>
+          <div className="bg-white/98 backdrop-blur-xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden">
+            <div className="p-4">
+              <nav className="flex flex-col gap-1">
+                {navItems.map((item, index) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    className="px-4 py-2 text-sm font-bold text-foreground/70 hover:text-primary rounded-xl transition-all duration-300 hover:bg-primary/5"
+                    className="text-base font-bold py-3 px-4 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all text-right"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.label}
                   </a>
                 ))}
-              </div>
-            </nav>
-          </div>
-
-          {/* Mobile Logo */}
-          <a href="/" className="lg:hidden flex items-center">
-            {getSetting('logo_url', 'ar') ? (
-              <img 
-                src={getSetting('logo_url', 'ar')} 
-                alt="Logo" 
-                className="h-12 w-auto max-w-[150px]"
-              />
-            ) : (
-              <img 
-                src="/olu-logo.png" 
-                alt="Logo" 
-                className="h-12 w-auto max-w-[150px]"
-              />
-            )}
-          </a>
-
-          {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            <LanguageSwitcher />
-            
-            {/* CTA Button - Desktop */}
-            <a 
-              href="#contact"
-              className="hidden lg:flex items-center px-6 py-2.5 bg-foreground text-background rounded-xl font-bold text-sm hover:bg-foreground/90 transition-all duration-300 hover:shadow-lg"
-            >
-              {language === 'ar' ? 'احصل الآن' : 'Get Started'}
-            </a>
-            
-            <Button
-              variant="ghost"
-              size="icon"
-              className="lg:hidden rounded-xl text-foreground hover:bg-muted"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            </Button>
+              </nav>
+              
+              {/* Mobile CTA */}
+              <a 
+                href="#contact"
+                className="flex items-center justify-center mt-4 px-6 py-3 bg-foreground text-background rounded-xl font-bold text-base hover:bg-foreground/90 transition-all duration-300"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {language === 'ar' ? 'احصل الآن' : 'Get Started'}
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-x-4 top-20 transition-all duration-500 ${
-        mobileMenuOpen 
-          ? 'opacity-100 translate-y-0 pointer-events-auto' 
-          : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`}>
-        <div className="bg-white/98 backdrop-blur-xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden">
-          <div className="p-4">
-            <nav className="flex flex-col gap-1">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="text-base font-bold py-3 px-4 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all text-right"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-            
-            {/* Mobile CTA */}
-            <a 
-              href="#contact"
-              className="flex items-center justify-center mt-4 px-6 py-3 bg-foreground text-background rounded-xl font-bold text-base hover:bg-foreground/90 transition-all duration-300"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {language === 'ar' ? 'احصل الآن' : 'Get Started'}
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 };
 
