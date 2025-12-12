@@ -42,19 +42,19 @@ const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center gap-2">
             {/* Logo */}
             <a href="/" className="flex items-center">
-              {getSetting('logo_url', 'ar') ? (
-                <img 
-                  src={getSetting('logo_url', 'ar')} 
-                  alt="Logo" 
-                  className="h-14"
-                />
-              ) : (
-                <img 
-                  src="/olu-logo.png" 
-                  alt="Logo" 
-                  className="h-14"
-                />
-              )}
+            {getSetting('logo_url', 'ar') ? (
+              <img 
+                src={getSetting('logo_url', 'ar')} 
+                alt="Logo" 
+                className="h-20"
+              />
+            ) : (
+              <img 
+                src="/olu-logo.png" 
+                alt="Logo" 
+                className="h-20"
+              />
+            )}
             </a>
             
             {/* Navigation */}
