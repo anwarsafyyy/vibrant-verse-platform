@@ -54,7 +54,7 @@ const PartnersSection: React.FC = () => {
   const displayPartners = partners.length > 0 ? [...partners, ...partners] : [];
 
   return (
-    <section id="partners" className="py-20 lg:py-28 relative overflow-hidden bg-[#faf8f5]">
+    <section id="partners" className="py-12 lg:py-16 relative overflow-hidden bg-[#faf8f5]">
       <div className="container mx-auto px-4">
         {/* Unified Section Header */}
         <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>

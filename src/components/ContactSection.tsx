@@ -61,7 +61,7 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-28 lg:py-36 relative overflow-hidden bg-muted/30">
+    <section id="contact" className="py-12 lg:py-16 relative overflow-hidden bg-muted/30">
       {/* Decorative elements */}
       <div className="absolute bottom-20 left-20 w-48 h-48 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
