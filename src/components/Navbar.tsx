@@ -73,7 +73,7 @@ const Navbar: React.FC = () => {
             {/* Mobile Title - Only visible on mobile */}
             <div className="lg:hidden flex items-center gap-2">
               <span className="text-sm font-bold text-foreground/80">
-                {language === 'ar' ? 'أولو للتقنية' : 'OLU Tech'}
+                {language === 'ar' ? 'علو للتقنية' : 'OLU Tech'}
               </span>
               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
             </div>
