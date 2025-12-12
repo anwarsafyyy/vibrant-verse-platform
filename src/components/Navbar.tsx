@@ -38,24 +38,7 @@ const Navbar: React.FC = () => {
             : 'bg-white/80 backdrop-blur-md rounded-2xl px-6 py-3 shadow-md'
         }`}>
           
-          {/* Logo */}
-          <a href="/" className="flex items-center gap-3 group">
-            {getSetting('logo_url', 'ar') ? (
-              <img 
-                src={getSetting('logo_url', 'ar')} 
-                alt="Logo" 
-                className="h-10 transition-all duration-300 group-hover:scale-105"
-              />
-            ) : (
-              <img 
-                src="/olu-logo.png" 
-                alt="Logo" 
-                className="h-10 transition-all duration-300 group-hover:scale-105"
-              />
-            )}
-          </a>
-
-          {/* Desktop Menu - Center */}
+          {/* Desktop Menu - Right Side */}
           <nav className="hidden lg:flex items-center">
             <div className="flex items-center gap-1">
               {navItems.map((item) => (
@@ -69,6 +52,23 @@ const Navbar: React.FC = () => {
               ))}
             </div>
           </nav>
+
+          {/* Logo - Center */}
+          <a href="/" className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+            {getSetting('logo_url', 'ar') ? (
+              <img 
+                src={getSetting('logo_url', 'ar')} 
+                alt="Logo" 
+                className="h-10"
+              />
+            ) : (
+              <img 
+                src="/olu-logo.png" 
+                alt="Logo" 
+                className="h-10"
+              />
+            )}
+          </a>
 
           {/* Right Actions */}
           <div className="flex items-center gap-3">
