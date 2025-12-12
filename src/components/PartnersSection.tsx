@@ -54,45 +54,37 @@ const PartnersSection: React.FC = () => {
   const displayPartners = partners.length > 0 ? [...partners, ...partners] : [];
 
   return (
-    <section id="partners" className="py-28 lg:py-36 relative overflow-hidden bg-[#faf8f5]">
+    <section id="partners" className="py-20 lg:py-28 relative overflow-hidden bg-[#faf8f5]">
       <div className="container mx-auto px-4">
-        {/* Header Row */}
-        <div className={`flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 mb-8 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
+        {/* Unified Section Header */}
+        <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          {/* Diamond icon container */}
+          <div className="relative">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+              <svg className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+          </div>
           
-          {/* Left side - Discover More link */}
-          <a 
-            href="#contact" 
-            className="text-primary font-bold text-lg hover:underline transition-all duration-300 order-2 lg:order-1"
-          >
-            {language === 'ar' ? 'اكتشف المزيد' : 'Discover More'}
-          </a>
-          
-          {/* Right side - Header with diamond */}
-          <div className="flex items-center gap-4 order-1 lg:order-2">
-            <div className="text-right">
-              <span className="text-primary font-bold text-xl">
-                {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
+          <div className="text-right">
+            <span className="text-primary font-bold text-base md:text-lg">
+              {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              <span className="olu-text-gradient">
+                {language === 'ar' ? 'المنشآت الرائدة' : 'Leading Organizations'}
               </span>
-              <h2 className="text-4xl lg:text-5xl font-bold">
-                <span className="olu-text-gradient">
-                  {language === 'ar' ? 'المنشآت الرائدة' : 'Leading Organizations'}
-                </span>
-              </h2>
-            </div>
-            {/* Decorative diamond icon */}
-            <div className="relative">
-              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
-              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
-            </div>
+            </h2>
           </div>
         </div>
 
-        {/* Description */}
-        <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
+        {/* Description - Long Text with consistent line spacing */}
+        <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl">
             {language === 'ar' 
-              ? 'العديد من الشركات التي تثق بحلولنا لتحسين عملياتها معنا'
-              : 'Many companies trust our solutions to improve their operations with us'
+              ? 'العديد من الشركات التي تثق بحلولنا لتحسين عملياتها معنا. نفخر بشراكاتنا مع المؤسسات الرائدة في مختلف القطاعات.'
+              : 'Many companies trust our solutions to improve their operations with us. We are proud of our partnerships with leading organizations across various sectors.'
             }
           </p>
         </div>

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ArrowUp } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ArrowUp, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -79,7 +79,7 @@ const PortfolioSection: React.FC = () => {
   const totalItems = portfolioItems.length || 4;
 
   return (
-    <section id="portfolio" className="py-28 lg:py-36 relative overflow-hidden bg-[#faf8f5]">
+    <section id="portfolio" className="py-20 lg:py-28 relative overflow-hidden bg-[#faf8f5]">
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}
@@ -88,29 +88,39 @@ const PortfolioSection: React.FC = () => {
         <ArrowUp className="w-6 h-6" />
       </button>
 
-      {/* Decorative diamond at bottom center */}
+      {/* Decorative diamond */}
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-primary/20 rotate-45 rounded-xl hidden lg:block" />
       
       <div className="container mx-auto px-4">
-        {/* Section Header - Far Right */}
-        <div className={`mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <div className="flex items-center gap-4 mr-0 ml-auto w-fit">
-            {/* Decorative diamond icon */}
-            <div className="relative">
-              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
-              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
-            </div>
-            <div className="text-right">
-              <span className="text-primary font-bold text-xl">
-                {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
-              </span>
-              <h2 className="text-4xl lg:text-5xl font-bold">
-                <span className="olu-text-gradient">
-                  {language === 'ar' ? 'أعمالنا' : 'Our Work'}
-                </span>
-              </h2>
+        {/* Unified Section Header */}
+        <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          {/* Diamond icon container */}
+          <div className="relative">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+              <Briefcase className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" />
             </div>
           </div>
+          
+          <div className="text-right">
+            <span className="text-primary font-bold text-base md:text-lg">
+              {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              <span className="olu-text-gradient">
+                {language === 'ar' ? 'أعمالنا' : 'Our Work'}
+              </span>
+            </h2>
+          </div>
+        </div>
+
+        {/* Description - Long Text with consistent line spacing */}
+        <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl">
+            {language === 'ar' 
+              ? 'نقدم مجموعة متنوعة من المنتجات والحلول الرقمية المبتكرة التي تساعد عملاءنا على تحقيق أهدافهم وتطوير أعمالهم بكفاءة عالية.'
+              : 'We offer a diverse range of innovative digital products and solutions that help our clients achieve their goals and develop their business efficiently.'
+            }
+          </p>
         </div>
 
         {/* Main Content Area with Side Arrows */}
@@ -200,8 +210,8 @@ const PortfolioSection: React.FC = () => {
                         {/* Product title repeated */}
                         <h4 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-foreground">{item.title}</h4>
                         
-                        {/* Description */}
-                        <p className="text-sm md:text-lg text-muted-foreground leading-relaxed mb-4 md:mb-6">
+                        {/* Description - Long Text with consistent line spacing */}
+                        <p className="text-base md:text-lg text-muted-foreground leading-loose mb-4 md:mb-6">
                           {item.description}
                         </p>
                         
