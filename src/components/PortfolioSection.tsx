@@ -147,68 +147,68 @@ const PortfolioSection: React.FC = () => {
                     className={`basis-full ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center" dir="ltr">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
                       {/* Left Side - Tablet Mockup with Image */}
-                      <div className="relative">
-                        {/* Decorative golden frame */}
-                        <div className="absolute -top-6 -left-6 w-24 h-24 border-t-[6px] border-l-[6px] border-primary rounded-tl-[2rem] z-10" />
-                        <div className="absolute -bottom-6 -left-6 w-24 h-24 border-b-[6px] border-l-[6px] border-primary rounded-bl-[2rem] z-10" />
+                      <div className="relative order-1 lg:order-1">
+                        {/* Decorative golden frame - hidden on small screens */}
+                        <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-t-4 md:border-t-[6px] border-l-4 md:border-l-[6px] border-primary rounded-tl-xl md:rounded-tl-[2rem] z-10 hidden sm:block" />
+                        <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-b-4 md:border-b-[6px] border-l-4 md:border-l-[6px] border-primary rounded-bl-xl md:rounded-bl-[2rem] z-10 hidden sm:block" />
                         
                         {/* Tablet container */}
-                        <div className="relative bg-slate-800 rounded-[2rem] p-3 shadow-2xl">
+                        <div className="relative bg-slate-800 rounded-xl md:rounded-[2rem] p-2 md:p-3 shadow-xl md:shadow-2xl mx-4 sm:mx-0">
                           {/* Tablet camera */}
-                          <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-600 rounded-full" />
+                          <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 bg-slate-600 rounded-full" />
                           
                           {/* Screen */}
-                          <div className="relative rounded-2xl overflow-hidden bg-white">
+                          <div className="relative rounded-lg md:rounded-2xl overflow-hidden bg-white">
                             <img
                               src={item.image_url} 
                               alt={item.title} 
-                              className="w-full h-[400px] lg:h-[500px] object-cover object-top"
+                              className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover object-top"
                             />
                           </div>
                           
                           {/* Home button */}
-                          <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-1 h-12 bg-slate-600 rounded-full" />
+                          <div className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 w-0.5 md:w-1 h-8 md:h-12 bg-slate-600 rounded-full" />
                         </div>
                       </div>
                       
                       {/* Right Side - Content */}
-                      <div className="text-right">
+                      <div className="text-right order-2 lg:order-2 px-4 sm:px-0">
                         {/* Product logo and name */}
-                        <div className="flex items-center gap-4 justify-end mb-4">
+                        <div className="flex items-center gap-3 md:gap-4 justify-end mb-3 md:mb-4">
                           <div>
-                            <h3 className="text-3xl font-bold text-foreground">{item.title}</h3>
-                            <p className="text-sm text-muted-foreground">
+                            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{item.title}</h3>
+                            <p className="text-xs sm:text-sm text-muted-foreground">
                               {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
                             </p>
                           </div>
                           {item.logo_url ? (
-                            <img src={item.logo_url} alt={item.title} className="w-16 h-16 rounded-full object-cover border-2 border-border" />
+                            <img src={item.logo_url} alt={item.title} className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 border-border flex-shrink-0" />
                           ) : (
-                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border">
-                              <span className="text-2xl font-bold text-primary">{item.title.charAt(0)}</span>
+                            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border flex-shrink-0">
+                              <span className="text-lg md:text-2xl font-bold text-primary">{item.title.charAt(0)}</span>
                             </div>
                           )}
                         </div>
 
                         {/* Contact button */}
-                        <Button className="mb-6 bg-primary hover:bg-primary/90 text-primary-foreground px-6 py-2 rounded-lg font-bold">
+                        <Button className="mb-4 md:mb-6 bg-primary hover:bg-primary/90 text-primary-foreground px-4 md:px-6 py-2 rounded-lg font-bold text-sm md:text-base">
                           {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
                         </Button>
                         
                         {/* Product title repeated */}
-                        <h4 className="text-2xl font-bold mb-4 text-foreground">{item.title}</h4>
+                        <h4 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-foreground">{item.title}</h4>
                         
                         {/* Description */}
-                        <p className="text-lg text-muted-foreground leading-relaxed mb-6">
+                        <p className="text-sm md:text-lg text-muted-foreground leading-relaxed mb-4 md:mb-6">
                           {item.description}
                         </p>
                         
                         {/* Read More Link */}
                         <a 
                           href="#" 
-                          className="inline-flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300"
+                          className="inline-flex items-center gap-2 text-primary font-bold text-base md:text-lg hover:gap-4 transition-all duration-300"
                         >
                           <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
                         </a>
