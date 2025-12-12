@@ -75,7 +75,7 @@ const ContactSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Right Side - Header & Contact Info */}
           <div className="text-right lg:order-2">
             {/* Section label */}
