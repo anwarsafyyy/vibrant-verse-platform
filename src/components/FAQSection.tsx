@@ -79,7 +79,7 @@ const FAQSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Right - Header */}
           <div className={`text-right ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section label */}
