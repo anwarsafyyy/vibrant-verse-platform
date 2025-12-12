@@ -92,22 +92,24 @@ const PortfolioSection: React.FC = () => {
       <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-primary/20 rotate-45 rounded-xl hidden lg:block" />
       
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className={`flex items-center gap-4 justify-end mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <div className="text-right">
-            <span className="text-primary font-bold text-xl">
-              {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
-            </span>
-            <h2 className="text-4xl lg:text-5xl font-bold">
-              <span className="olu-text-gradient">
-                {language === 'ar' ? 'أعمالنا' : 'Our Work'}
+        {/* Section Header - Far Right */}
+        <div className={`mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <div className="flex items-center gap-4 justify-end">
+            <div className="text-right">
+              <span className="text-primary font-bold text-xl">
+                {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
               </span>
-            </h2>
-          </div>
-          {/* Decorative diamond icon */}
-          <div className="relative">
-            <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
-            <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
+              <h2 className="text-4xl lg:text-5xl font-bold">
+                <span className="olu-text-gradient">
+                  {language === 'ar' ? 'أعمالنا' : 'Our Work'}
+                </span>
+              </h2>
+            </div>
+            {/* Decorative diamond icon */}
+            <div className="relative">
+              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
+              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
+            </div>
           </div>
         </div>
 
