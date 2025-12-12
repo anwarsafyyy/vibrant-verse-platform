@@ -93,9 +93,14 @@ const PortfolioSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`flex items-center gap-4 mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`} dir="ltr">
+        <div className={`flex items-center gap-4 mb-16 justify-end ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Header */}
-          <div className="flex items-center gap-4 mr-auto">
+          <div className="flex items-center gap-4">
+            {/* Decorative diamond icon */}
+            <div className="relative">
+              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
+              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
+            </div>
             <div className="text-right">
               <span className="text-primary font-bold text-xl">
                 {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
@@ -105,11 +110,6 @@ const PortfolioSection: React.FC = () => {
                   {language === 'ar' ? 'أعمالنا' : 'Our Work'}
                 </span>
               </h2>
-            </div>
-            {/* Decorative diamond icon */}
-            <div className="relative">
-              <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
-              <div className="absolute top-2 right-2 w-12 h-12 border-2 border-white/30 rotate-0 rounded-lg" />
             </div>
           </div>
         </div>
