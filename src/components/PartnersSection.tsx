@@ -1,9 +1,10 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface Partner {
   id: string;
@@ -18,6 +19,7 @@ const PartnersSection: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,6 +54,21 @@ const PartnersSection: React.FC = () => {
 
   // Double the partners for seamless infinite scroll
   const displayPartners = partners.length > 0 ? [...partners, ...partners] : [];
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+    }
+  };
+
+  const defaultPartners = ['VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft'];
+  const displayDefaultPartners = [...defaultPartners, ...defaultPartners];
 
   return (
     <section id="partners" className="py-12 lg:py-16 relative overflow-hidden bg-[#faf8f5]">
@@ -89,52 +106,66 @@ const PartnersSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Partners Marquee - Auto scrolling */}
+        {/* Partners Display */}
         <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
           {loading ? (
-            <div className="flex gap-8">
+            <div className="flex gap-4 overflow-x-auto pb-4">
               {Array(5).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-6 border border-border/50 flex-shrink-0">
-                  <Skeleton className="w-32 h-16" />
+                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-4 border border-border/50 flex-shrink-0">
+                  <Skeleton className="w-24 h-12" />
                 </div>
               ))}
             </div>
-          ) : displayPartners.length > 0 ? (
-            <div className="relative overflow-hidden">
-              {/* Gradient masks for smooth edges */}
-              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#faf8f5] to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#faf8f5] to-transparent z-10 pointer-events-none" />
-              
-              {/* Scrolling container */}
-              <div className="flex animate-marquee hover:pause-animation">
-                {displayPartners.map((partner, index) => (
-                  <div
-                    key={`${partner.id}-${index}`}
-                    className="group bg-card rounded-2xl px-8 py-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center mx-4 flex-shrink-0"
-                  >
-                    <img
-                      src={partner.logo_url}
-                      alt={`${partner.name} Logo`}
-                      className="w-28 h-14 object-contain transition-all duration-500 group-hover:scale-110"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
           ) : (
-            <div className="relative overflow-hidden">
-              <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#faf8f5] to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#faf8f5] to-transparent z-10 pointer-events-none" />
+            <div className="relative">
+              {/* Gradient masks for smooth edges - Desktop only */}
+              <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#faf8f5] to-transparent z-10 pointer-events-none" />
+              <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#faf8f5] to-transparent z-10 pointer-events-none" />
               
-              <div className="flex animate-marquee">
-                {['VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft', 'VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft'].map((name, index) => (
-                  <div
-                    key={`${name}-${index}`}
-                    className="group bg-card rounded-2xl px-8 py-6 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center mx-4 flex-shrink-0"
-                  >
-                    <span className="text-xl font-bold text-muted-foreground/50 whitespace-nowrap">{name}</span>
-                  </div>
-                ))}
+              {/* Scrolling container - Desktop: auto animate, Mobile: manual scroll */}
+              <div 
+                ref={scrollContainerRef}
+                className="flex gap-4 overflow-x-auto lg:overflow-hidden pb-4 lg:pb-0 scrollbar-hide lg:animate-marquee lg:hover:pause-animation"
+              >
+                {displayPartners.length > 0 ? (
+                  displayPartners.map((partner, index) => (
+                    <div
+                      key={`${partner.id}-${index}`}
+                      className="group bg-card rounded-xl px-6 py-4 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center flex-shrink-0 min-w-[120px]"
+                    >
+                      <img
+                        src={partner.logo_url}
+                        alt={`${partner.name} Logo`}
+                        className="w-20 h-10 md:w-28 md:h-14 object-contain transition-all duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                  ))
+                ) : (
+                  displayDefaultPartners.map((name, index) => (
+                    <div
+                      key={`${name}-${index}`}
+                      className="group bg-card rounded-xl px-6 py-4 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center flex-shrink-0 min-w-[120px]"
+                    >
+                      <span className="text-lg font-bold text-muted-foreground/50 whitespace-nowrap">{name}</span>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Mobile Navigation Arrows */}
+              <div className="flex lg:hidden justify-center gap-4 mt-6">
+                <button 
+                  onClick={scrollRight}
+                  className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={scrollLeft}
+                  className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
               </div>
             </div>
           )}
