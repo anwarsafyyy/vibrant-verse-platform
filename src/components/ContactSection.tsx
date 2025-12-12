@@ -61,7 +61,7 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-6 lg:py-8 relative overflow-hidden bg-muted/30">
+    <section id="contact" className="py-3 lg:py-4 relative overflow-hidden bg-muted/30">
       {/* Decorative elements */}
       <div className="absolute bottom-20 left-20 w-48 h-48 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -75,7 +75,7 @@ const ContactSection: React.FC = () => {
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-4 lg:gap-6 items-start">
+        <div className="grid lg:grid-cols-2 gap-2 lg:gap-3 items-start">
           {/* Right Side - Header & Contact Info */}
           <div className="text-right lg:order-2">
             {/* Section label */}
