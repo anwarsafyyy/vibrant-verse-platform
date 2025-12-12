@@ -79,7 +79,7 @@ const PortfolioSection: React.FC = () => {
   const totalItems = portfolioItems.length || 4;
 
   return (
-    <section id="portfolio" className="py-20 lg:py-28 relative overflow-hidden bg-[#faf8f5]">
+    <section id="portfolio" className="py-12 lg:py-16 relative overflow-hidden bg-[#faf8f5]">
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}

@@ -93,7 +93,7 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-20 lg:py-28 relative overflow-hidden bg-background">
+    <section id="services" className="py-12 lg:py-16 relative overflow-hidden bg-background">
       {/* Decorative diamond shapes */}
       <div className="absolute top-32 left-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
       <div className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block" />

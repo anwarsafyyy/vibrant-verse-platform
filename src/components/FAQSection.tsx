@@ -65,7 +65,7 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-28 lg:py-36 relative overflow-hidden bg-background">
+    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden bg-background">
       {/* Decorative elements */}
       <div className="absolute top-20 right-20 w-40 h-40 opacity-5 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">

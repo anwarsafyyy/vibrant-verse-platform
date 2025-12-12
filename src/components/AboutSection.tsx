@@ -49,7 +49,7 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-20 lg:py-28 relative overflow-hidden bg-background">
+    <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-background">
       {/* Decorative diamond shapes */}
       <div className="absolute top-20 right-1/3 w-8 h-8 border-2 border-primary/30 rotate-45 hidden lg:block" />
       <div className="absolute top-40 left-20 w-6 h-6 border-2 border-primary/20 rotate-45 hidden lg:block" />
