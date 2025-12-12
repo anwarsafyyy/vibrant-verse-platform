@@ -8,147 +8,149 @@ const HeroSection: React.FC = () => {
   const { language } = useLanguage();
   const { getHeroContent, getSetting } = useSiteContent();
 
-  // Tech icons data for easier mapping
-  const techIcons = [
-    { id: 'flutter', bg: '#02569B', position: 'top-left' },
-    { id: 'openai', bg: '#000000', position: 'left' },
-    { id: 'ml', bg: 'gradient', position: 'bottom-left' },
-    { id: 'nodejs', bg: '#339933', position: 'top-right' },
-    { id: 'typescript', bg: '#3178C6', position: 'right' },
-    { id: 'react', bg: '#61DAFB', position: 'bottom-right' },
-    { id: 'firebase', bg: '#FFCA28', position: 'bottom-1' },
-    { id: 'server', bg: '#6366F1', position: 'bottom-center' },
-    { id: 'gcloud', bg: '#FFFFFF', position: 'bottom-2' },
-  ];
-
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#f8f6f3]">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#f8f9fc]">
+      {/* Decorative Background Elements */}
+      {/* Large purple circle - left */}
+      <div className="absolute left-[-5%] top-[40%] w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 bg-[#7c5cfc] rounded-full opacity-80" />
+      
+      {/* Large light curved shape - top left */}
+      <div className="absolute left-0 top-0 w-[50%] h-[60%] bg-gradient-to-br from-[#f0eefc] to-transparent rounded-br-[50%] opacity-80" />
+      
+      {/* Small green circle - left */}
+      <div className="absolute left-[8%] top-[75%] w-4 h-4 md:w-6 md:h-6 bg-[#10b981] rounded-full" />
+      
+      {/* Small purple dot - top center */}
+      <div className="absolute left-[30%] top-[15%] w-2 h-2 md:w-3 md:h-3 bg-[#a78bfa] rounded-full opacity-60" />
+      
+      {/* Light green circle - right */}
+      <div className="absolute right-[5%] bottom-[10%] w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 bg-[#d1fae5] rounded-full opacity-70" />
+      
+      {/* Light green circle - top right */}
+      <div className="absolute right-[20%] top-[20%] w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-[#d1fae5] rounded-full opacity-50" />
+      
+      {/* Small light purple circle */}
+      <div className="absolute right-[8%] top-[35%] w-12 h-12 md:w-16 md:h-16 bg-[#ede9fe] rounded-full opacity-70" />
+
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col items-center min-h-screen py-20 md:py-28 lg:py-32">
+        <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
           
-          {/* Icons Network - Chain Layout emanating from center logo */}
-          <div className="relative w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-6xl h-[320px] sm:h-[380px] md:h-[450px] lg:h-[500px] xl:h-[580px] mb-6 md:mb-8">
-            
-            {/* SVG Connection Lines - Hidden on mobile for cleaner look */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none hidden md:block" viewBox="0 0 1200 580" fill="none" preserveAspectRatio="xMidYMid meet">
-              {/* Lines from center to left icons */}
-              <path d="M600 180 L180 80" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-              <path d="M600 180 L80 280" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-              <path d="M600 250 L220 450" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
+          {/* Left Side - Phone Mockup with Illustration */}
+          <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start order-2 lg:order-1">
+            <div className="relative">
+              {/* Phone Frame */}
+              <div className="relative w-56 h-[420px] sm:w-64 sm:h-[480px] md:w-72 md:h-[540px] lg:w-80 lg:h-[600px] bg-white rounded-[2.5rem] shadow-2xl border-8 border-gray-800 overflow-hidden">
+                {/* Phone Notch */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-gray-800 rounded-b-2xl z-10" />
+                
+                {/* Phone Screen Content */}
+                <div className="w-full h-full bg-gradient-to-b from-gray-50 to-white p-4 pt-10 flex flex-col items-center justify-center">
+                  {/* Logo in phone */}
+                  <img 
+                    src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
+                    alt="Logo" 
+                    className="w-20 h-20 md:w-24 md:h-24 object-contain mb-4"
+                  />
+                  
+                  {/* Checkmark Icon */}
+                  <div className="w-16 h-16 md:w-20 md:h-20 bg-[#10b981] rounded-full flex items-center justify-center shadow-lg mb-4">
+                    <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  
+                  {/* Decorative lines */}
+                  <div className="w-full space-y-3 mt-4">
+                    <div className="h-3 bg-gray-100 rounded-full w-3/4 mx-auto" />
+                    <div className="h-3 bg-gray-100 rounded-full w-1/2 mx-auto" />
+                    <div className="h-3 bg-gray-100 rounded-full w-2/3 mx-auto" />
+                  </div>
+                </div>
+              </div>
               
-              {/* Lines from center to right icons */}
-              <path d="M600 180 L1020 80" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-              <path d="M600 180 L1120 280" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-              <path d="M600 250 L980 450" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
+              {/* Tech Icons around the phone */}
+              {/* Flutter - Top Left */}
+              <div className="absolute -left-6 sm:-left-8 md:-left-10 top-[10%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#02569B] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" fill="none">
+                  <path d="M14.314 0L3.098 11.215l3.352 3.353L20.016 0h-5.702z" fill="#42A5F5"/>
+                  <path d="M14.314 11.215L9.098 16.43l3.352 3.352 8.566-8.567h-6.702z" fill="#42A5F5"/>
+                  <path d="M9.098 16.43l3.352 3.353-3.352 3.352-3.352-3.352 3.352-3.353z" fill="#0D47A1"/>
+                </svg>
+              </div>
               
-              {/* Lines from center to bottom icons */}
-              <path d="M600 280 L400 540" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-              <path d="M600 280 L600 540" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-              <path d="M600 280 L800 540" stroke="#c9cdd4" strokeWidth="2" strokeDasharray="8 8" />
-            </svg>
-
-            {/* Center Logo (Main) - Top Center */}
-            <div className="absolute left-1/2 top-[8%] sm:top-[10%] md:top-[12%] lg:top-[15%] -translate-x-1/2 w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 xl:w-52 xl:h-52 bg-white rounded-2xl md:rounded-[2rem] flex items-center justify-center shadow-xl md:shadow-2xl border border-gray-100">
-              <img 
-                src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
-                alt="علو Logo" 
-                className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 xl:w-40 xl:h-40 object-contain"
-              />
-            </div>
-
-            {/* Left Side Icons */}
-            {/* Flutter/Dart - Top Left */}
-            <div className="absolute left-[5%] sm:left-[8%] md:left-[10%] lg:left-[12%] top-[2%] sm:top-[3%] md:top-[4%] lg:top-[5%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#02569B] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10" fill="none">
-                <path d="M14.314 0L3.098 11.215l3.352 3.353L20.016 0h-5.702z" fill="#42A5F5"/>
-                <path d="M14.314 11.215L9.098 16.43l3.352 3.352 8.566-8.567h-6.702z" fill="#42A5F5"/>
-                <path d="M9.098 16.43l3.352 3.353-3.352 3.352-3.352-3.352 3.352-3.353z" fill="#0D47A1"/>
-                <path d="M12.45 19.783l-3.352-3.353 3.352-3.353 3.352 3.353-3.352 3.353z" fill="#42A5F5" fillOpacity="0.8"/>
-              </svg>
-            </div>
-
-            {/* OpenAI - Left Middle */}
-            <div className="absolute left-[0%] sm:left-[2%] md:left-[3%] lg:left-[4%] top-[32%] sm:top-[35%] md:top-[38%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#000000] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-white" fill="currentColor">
-                <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
-              </svg>
-            </div>
-
-            {/* ML/AI - Bottom Left */}
-            <div className="absolute left-[8%] sm:left-[10%] md:left-[12%] lg:left-[15%] top-[62%] sm:top-[65%] md:top-[68%] lg:top-[70%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-gradient-to-br from-[#FF6F61] to-[#DE4DAB] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <Brain className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-white" />
-            </div>
-
-            {/* Right Side Icons */}
-            {/* Node.js - Top Right */}
-            <div className="absolute right-[5%] sm:right-[8%] md:right-[10%] lg:right-[12%] top-[2%] sm:top-[3%] md:top-[4%] lg:top-[5%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#339933] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-white" fill="currentColor">
-                <path d="M12 1.85c-.27 0-.55.07-.78.2l-7.44 4.3c-.48.28-.78.8-.78 1.36v8.58c0 .56.3 1.08.78 1.36l1.95 1.12c.95.46 1.27.46 1.71.46 1.4 0 2.21-.85 2.21-2.33V8.44c0-.12-.1-.22-.22-.22H8.5c-.13 0-.23.1-.23.22v8.47c0 .66-.68 1.31-1.77.76L4.45 16.5a.26.26 0 01-.11-.21V7.71c0-.09.04-.17.11-.21l7.44-4.29c.06-.04.16-.04.22 0l7.44 4.29c.07.04.11.12.11.21v8.58c0 .08-.04.16-.11.21l-7.44 4.29c-.06.04-.16.04-.22 0L10 19.65c-.05-.03-.12-.04-.17-.02-.47.17-.57.19-1.02.28-.11.02-.27.06.06.18l2.19 1.3c.24.14.5.21.78.21s.55-.07.78-.21l7.44-4.29c.48-.28.78-.8.78-1.36V7.71c0-.56-.3-1.08-.78-1.36l-7.44-4.3c-.23-.13-.5-.2-.78-.2z"/>
-              </svg>
-            </div>
-
-            {/* TypeScript - Right Middle */}
-            <div className="absolute right-[0%] sm:right-[2%] md:right-[3%] lg:right-[4%] top-[32%] sm:top-[35%] md:top-[38%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#3178C6] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-black text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl">TS</span>
-            </div>
-
-            {/* React - Bottom Right */}
-            <div className="absolute right-[8%] sm:right-[10%] md:right-[12%] lg:right-[15%] top-[62%] sm:top-[65%] md:top-[68%] lg:top-[70%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#61DAFB] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-[#20232a]" fill="currentColor">
-                <path d="M12 10.11c1.03 0 1.87.84 1.87 1.89 0 1-.84 1.85-1.87 1.85S10.13 13 10.13 12c0-1.05.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9-.82-.08-1.63-.2-2.4-.36-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9c-.6 0-1.17 0-1.71.03-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47.54.03 1.11.03 1.71.03.6 0 1.17 0 1.71-.03.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68 0 1.69-1.83 2.93-4.37 3.68.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.38 1.95-1.46-.84-1.62-3.05-1-5.63-2.54-.75-4.37-1.99-4.37-3.68 0-1.69 1.83-2.93 4.37-3.68-.62-2.58-.46-4.79 1-5.63 1.47-.84 3.46.12 5.38 1.95 1.92-1.83 3.91-2.79 5.37-1.95M17.08 12c.34.75.64 1.5.89 2.26 2.1-.63 3.28-1.53 3.28-2.26 0-.73-1.18-1.63-3.28-2.26-.25.76-.55 1.51-.89 2.26M6.92 12c-.34-.75-.64-1.5-.89-2.26-2.1.63-3.28 1.53-3.28 2.26 0 .73 1.18 1.63 3.28 2.26.25-.76.55-1.51.89-2.26m9 2.26l-.3.51c.31-.05.61-.1.88-.16-.07-.28-.18-.57-.29-.86l-.29.51m-2.89 4.04c1.59 1.5 2.97 2.08 3.59 1.7.64-.35.83-1.82.32-3.96-.77.16-1.58.28-2.4.36-.48.67-.99 1.31-1.51 1.9M8.08 9.74l.3-.51c-.31.05-.61.1-.88.16.07.28.18.57.29.86l.29-.51m2.89-4.04C9.38 4.2 8 3.62 7.37 4c-.63.35-.82 1.82-.31 3.96.77-.16 1.58-.28 2.4-.36.48-.67.99-1.31 1.51-1.9z"/>
-              </svg>
-            </div>
-
-            {/* Bottom Icons */}
-            {/* Firebase - Bottom Left-Center */}
-            <div className="absolute left-[22%] sm:left-[25%] md:left-[28%] lg:left-[30%] top-[82%] sm:top-[84%] md:top-[86%] lg:top-[88%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#FFCA28] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10" fill="none">
-                <path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288l2.543 4.771-5.923 10.613z" fill="#FFC24A"/>
-                <path d="M4.533 21.156L3.89 15.672l5.923-10.613 2.062 3.668-7.342 12.429z" fill="#FFA712"/>
-                <path d="M12.064 8.727L14.24 4.58l5.476 9.811a.967.967 0 01-.359 1.325l-7.278 4.305L4.533 21.156l7.531-12.429z" fill="#F4BD62"/>
-                <path d="M12.079 21.021l7.637-4.5L14.24 4.58 12.064 8.727l.015 12.294z" fill="#FFA50E"/>
-                <path d="M12.079 21.021L4.533 21.156l7.531-12.429.015 12.294z" fill="#F6820C"/>
-              </svg>
-            </div>
-
-            {/* Backend/Server - Bottom Center */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-[82%] sm:top-[84%] md:top-[86%] lg:top-[88%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-[#6366F1] rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg hover:scale-110 transition-transform duration-300">
-              <Server className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10 text-white" />
-            </div>
-
-            {/* Google Cloud - Bottom Right-Center */}
-            <div className="absolute right-[22%] sm:right-[25%] md:right-[28%] lg:right-[30%] top-[82%] sm:top-[84%] md:top-[86%] lg:top-[88%] w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20 bg-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-md md:shadow-lg border border-gray-100 hover:scale-110 transition-transform duration-300">
-              <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10">
-                <path d="M12.19 2.38a9.344 9.344 0 0 0-9.234 6.893c.053-.02-.055.013 0 0-3.875 2.551-3.922 8.11-.247 10.941l.006-.007-.007.03a6.717 6.717 0 0 0 4.077 1.356h5.173l.03.03h5.192c6.687.053 9.376-8.605 3.835-12.35a9.365 9.365 0 0 0-8.825-6.893zm7.373 5.38l.014.014-4.391 3.937 2.18 2.18a4.962 4.962 0 0 1-1.196 1.95 4.878 4.878 0 0 1-3.458 1.516h-.03l-5.192-.03h-.03a4.878 4.878 0 0 1-3.487-1.486 4.895 4.895 0 0 1-1.199-1.95 4.878 4.878 0 0 1 1.199-5.03l.014-.013h.014l5.192.03.03-.03 5.192-.03h.03c.48 0 .953.067 1.403.197l3.715-3.255z" fill="#4285F4"/>
-                <path d="M19.563 7.76l-4.391 3.937 2.18 2.18a4.962 4.962 0 0 1-1.196 1.95l-4.016-4.007V7.73c.48 0 .953.067 1.403.197l3.715-3.255.014.014c.81.495 1.528 1.135 2.12 1.88l.171.194z" fill="#EA4335"/>
-                <path d="M7.208 11.858a4.895 4.895 0 0 0 1.199 5.03 4.878 4.878 0 0 0 3.487 1.486l.03.03h5.192a4.845 4.845 0 0 0 1.04-.113l-4.016-4.007-5.173-.03-.03.03a4.878 4.878 0 0 1-1.729-2.426z" fill="#34A853"/>
-                <path d="M7.208 11.858l.03-.03 5.192.03.03-.03 4.016 4.007a4.845 4.845 0 0 1-1.04.113h-5.192l-.03-.03h-5.173a6.717 6.717 0 0 1-4.077-1.356l.007-.03.006.007c-.91-.7-1.665-1.588-2.206-2.62 0 0 .053-.02 0 0 .557-1.066 1.34-1.983 2.283-2.696l.03.03 5.173.03.03-.03c.48 0 .953.067 1.403.197l-1.482 1.408z" fill="#FBBC05"/>
-              </svg>
+              {/* OpenAI - Left Middle */}
+              <div className="absolute -left-10 sm:-left-12 md:-left-16 top-[40%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-black rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" fill="currentColor">
+                  <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073z"/>
+                </svg>
+              </div>
+              
+              {/* ML - Bottom Left */}
+              <div className="absolute -left-4 sm:-left-6 md:-left-8 bottom-[15%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-gradient-to-br from-[#FF6F61] to-[#DE4DAB] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <Brain className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" />
+              </div>
+              
+              {/* Node.js - Top Right */}
+              <div className="absolute -right-6 sm:-right-8 md:-right-10 top-[10%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#339933] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white" fill="currentColor">
+                  <path d="M12 1.85c-.27 0-.55.07-.78.2l-7.44 4.3c-.48.28-.78.8-.78 1.36v8.58c0 .56.3 1.08.78 1.36l1.95 1.12c.95.46 1.27.46 1.71.46 1.4 0 2.21-.85 2.21-2.33V8.44c0-.12-.1-.22-.22-.22H8.5c-.13 0-.23.1-.23.22v8.47c0 .66-.68 1.31-1.77.76L4.45 16.5a.26.26 0 01-.11-.21V7.71c0-.09.04-.17.11-.21l7.44-4.29c.06-.04.16-.04.22 0l7.44 4.29c.07.04.11.12.11.21v8.58c0 .08-.04.16-.11.21l-7.44 4.29c-.06.04-.16.04-.22 0L10 19.65c-.05-.03-.12-.04-.17-.02-.47.17-.57.19-1.02.28-.11.02-.27.06.06.18l2.19 1.3c.24.14.5.21.78.21s.55-.07.78-.21l7.44-4.29c.48-.28.78-.8.78-1.36V7.71c0-.56-.3-1.08-.78-1.36l-7.44-4.3c-.23-.13-.5-.2-.78-.2z"/>
+                </svg>
+              </div>
+              
+              {/* TypeScript - Right Middle */}
+              <div className="absolute -right-10 sm:-right-12 md:-right-16 top-[40%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#3178C6] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <span className="text-white font-black text-sm md:text-base">TS</span>
+              </div>
+              
+              {/* React - Bottom Right */}
+              <div className="absolute -right-4 sm:-right-6 md:-right-8 bottom-[15%] w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#61DAFB] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-[#20232a]" fill="currentColor">
+                  <path d="M12 10.11c1.03 0 1.87.84 1.87 1.89 0 1-.84 1.85-1.87 1.85S10.13 13 10.13 12c0-1.05.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9-.82-.08-1.63-.2-2.4-.36-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17 9 12.6 9 12 9c-.6 0-1.17 0-1.71.03-.29.47-.61.94-.91 1.47L8.57 12l.81 1.5c.3.53.62 1 .91 1.47.54.03 1.11.03 1.71.03.6 0 1.17 0 1.71-.03.29-.47.61-.94.91-1.47M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68 0 1.69-1.83 2.93-4.37 3.68.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.38 1.95-1.46-.84-1.62-3.05-1-5.63-2.54-.75-4.37-1.99-4.37-3.68 0-1.69 1.83-2.93 4.37-3.68-.62-2.58-.46-4.79 1-5.63 1.47-.84 3.46.12 5.38 1.95 1.92-1.83 3.91-2.79 5.37-1.95z"/>
+                </svg>
+              </div>
+              
+              {/* Firebase - Bottom */}
+              <div className="absolute left-1/2 -translate-x-1/2 -bottom-8 md:-bottom-10 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-[#FFCA28] rounded-xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" fill="none">
+                  <path d="M3.89 15.672L6.255.461A.542.542 0 017.27.288l2.543 4.771-5.923 10.613z" fill="#FFC24A"/>
+                  <path d="M4.533 21.156L3.89 15.672l5.923-10.613 2.062 3.668-7.342 12.429z" fill="#FFA712"/>
+                  <path d="M12.064 8.727L14.24 4.58l5.476 9.811a.967.967 0 01-.359 1.325l-7.278 4.305L4.533 21.156l7.531-12.429z" fill="#F4BD62"/>
+                </svg>
+              </div>
             </div>
           </div>
 
-          {/* Text Content */}
-          <div className="text-center max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl px-2">
-            <h1 className="font-black leading-[1.1] text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 md:mb-6 text-foreground">
+          {/* Right Side - Text Content */}
+          <div className="w-full lg:w-1/2 text-center lg:text-right order-1 lg:order-2">
+            <h1 className="font-black leading-[1.1] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6 text-foreground">
               {language === 'ar' 
                 ? (getHeroContent('title_ar', 'ar') || 'نبني المستقبل الرقمي معك')
                 : (getHeroContent('title_en', 'en') || 'Building the Digital Future with You')
               }
+              <span className="inline-block mr-2">👋</span>
             </h1>
             
-            <p className="text-muted-foreground text-sm sm:text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto">
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 lg:mr-0">
               {language === 'ar' 
                 ? (getHeroContent('subtitle_ar', 'ar') || 'نحو مستقبل رقمي أكثر نجاحًا — نوفّر لك حلولًا تقنية تجمع بين الابتكار والكفاءة لتصنع الفرق في عالم الأعمال.')
                 : (getHeroContent('subtitle_en', 'en') || 'Towards a more successful digital future — we provide you with technological solutions that combine innovation and efficiency to make a difference in the business world.')
               }
             </p>
             
-            <a 
-              href="#contact" 
-              className="inline-block px-6 py-3 md:px-8 md:py-4 bg-primary text-white rounded-full font-bold text-base md:text-lg hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1"
-            >
-              {language === 'ar' ? 'احصل على عرض' : 'Request a Demo'}
-            </a>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
+              <a 
+                href="#contact" 
+                className="inline-block px-8 py-4 bg-[#10b981] text-white rounded-full font-bold text-lg hover:bg-[#059669] transition-all duration-300 hover:shadow-lg hover:shadow-[#10b981]/30 hover:-translate-y-1"
+              >
+                {language === 'ar' ? 'ابدأ الآن مجاناً' : 'Start Free Trial'}
+              </a>
+              <a 
+                href="#about" 
+                className="inline-block px-8 py-4 bg-transparent text-foreground font-bold text-lg hover:text-primary transition-all duration-300"
+              >
+                {language === 'ar' ? 'تعرف علينا' : 'Get Started'}
+              </a>
+            </div>
           </div>
         </div>
       </div>
