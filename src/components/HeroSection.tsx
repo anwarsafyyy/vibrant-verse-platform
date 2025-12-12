@@ -142,7 +142,7 @@ const HeroSection: React.FC = () => {
                 href="#contact" 
                 className="inline-block px-8 py-4 bg-[#10b981] text-white rounded-full font-bold text-lg hover:bg-[#059669] transition-all duration-300 hover:shadow-lg hover:shadow-[#10b981]/30 hover:-translate-y-1"
               >
-                {language === 'ar' ? 'ابدأ الآن مجاناً' : 'Start Free Trial'}
+                {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </a>
               <a 
                 href="#about" 
