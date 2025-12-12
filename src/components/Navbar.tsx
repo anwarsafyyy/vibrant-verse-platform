@@ -38,34 +38,54 @@ const Navbar: React.FC = () => {
             : 'bg-white/80 backdrop-blur-md rounded-2xl px-6 py-3 shadow-md'
         }`}>
           
-          {/* Desktop Menu - Right Side */}
-          <nav className="hidden lg:flex items-center">
-            <div className="flex items-center gap-1">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="px-4 py-2 text-sm font-bold text-foreground/70 hover:text-primary rounded-xl transition-all duration-300 hover:bg-primary/5"
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-          </nav>
+          {/* Logo + Desktop Menu - Right Side */}
+          <div className="hidden lg:flex items-center gap-2">
+            {/* Logo */}
+            <a href="/" className="flex items-center">
+              {getSetting('logo_url', 'ar') ? (
+                <img 
+                  src={getSetting('logo_url', 'ar')} 
+                  alt="Logo" 
+                  className="h-14"
+                />
+              ) : (
+                <img 
+                  src="/olu-logo.png" 
+                  alt="Logo" 
+                  className="h-14"
+                />
+              )}
+            </a>
+            
+            {/* Navigation */}
+            <nav className="flex items-center">
+              <div className="flex items-center gap-1">
+                {navItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="px-4 py-2 text-sm font-bold text-foreground/70 hover:text-primary rounded-xl transition-all duration-300 hover:bg-primary/5"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          </div>
 
-          {/* Logo - Center */}
-          <a href="/" className="absolute left-1/2 transform -translate-x-1/2 flex items-center">
+          {/* Mobile Logo */}
+          <a href="/" className="lg:hidden flex items-center">
             {getSetting('logo_url', 'ar') ? (
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-10"
+                className="h-12"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
                 alt="Logo" 
-                className="h-10"
+                className="h-12"
               />
             )}
           </a>
