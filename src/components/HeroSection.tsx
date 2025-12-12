@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute right-[8%] top-[35%] w-12 h-12 md:w-16 md:h-16 bg-[#ede9fe] rounded-full opacity-70" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
+        <div dir="ltr" className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
           
           {/* Left Side - Phone Mockup with Illustration */}
           <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start order-2 lg:order-1">
@@ -121,7 +121,7 @@ const HeroSection: React.FC = () => {
           </div>
 
           {/* Right Side - Text Content */}
-          <div className="w-full lg:w-1/2 text-center lg:text-right order-1 lg:order-2">
+          <div dir="rtl" className="w-full lg:w-1/2 text-center lg:text-right order-1 lg:order-2">
             <h1 className="font-black leading-[1.1] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6 text-foreground">
               {language === 'ar' 
                 ? (getHeroContent('title_ar', 'ar') || 'نبني المستقبل الرقمي معك')
