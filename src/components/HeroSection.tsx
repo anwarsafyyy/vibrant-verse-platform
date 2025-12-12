@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
       <div className="absolute right-[8%] top-[35%] w-12 h-12 md:w-16 md:h-16 bg-[#ede9fe] rounded-full opacity-70" />
 
       <div className="container mx-auto px-4 relative z-10">
-        <div dir="ltr" className="flex flex-col lg:flex-row items-center justify-between min-h-screen pt-40 pb-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
+        <div dir="ltr" className="flex flex-col lg:flex-row items-center justify-between min-h-screen pt-60 sm:pt-48 pb-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
           
           {/* Left Side - Phone Mockup with Illustration */}
           <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start order-2 lg:order-1">
