@@ -103,32 +103,39 @@ const Navbar: React.FC = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-x-4 top-32 transition-all duration-500 ${
-        mobileMenuOpen 
-          ? 'opacity-100 translate-y-0 pointer-events-auto' 
-          : 'opacity-0 -translate-y-4 pointer-events-none'
-      }`}>
-        <div className="bg-white/98 backdrop-blur-xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden">
-          <div className="p-4">
-            <nav className="flex flex-col gap-1">
-              {navItems.map((item, index) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  className="text-base font-bold py-3 px-4 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all text-right"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-            
-            {/* Mobile CTA */}
+      {/* Mobile Menu - Slide from top */}
+      <div 
+        className={`lg:hidden fixed inset-x-0 top-0 z-40 transition-all duration-500 ease-out ${
+          mobileMenuOpen 
+            ? 'translate-y-0 opacity-100' 
+            : '-translate-y-full opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="bg-gradient-to-b from-white via-white to-white/95 backdrop-blur-xl shadow-2xl pt-28 pb-6 px-4">
+          <nav className="flex flex-col gap-1 max-w-md mx-auto">
+            {navItems.map((item, index) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`text-base font-bold py-3 px-4 text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-300 text-right transform ${
+                  mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
+                }`}
+                style={{ transitionDelay: mobileMenuOpen ? `${index * 75}ms` : '0ms' }}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+          
+          {/* Mobile CTA */}
+          <div className="max-w-md mx-auto mt-4 px-4">
             <a 
               href="#contact"
-              className="flex items-center justify-center mt-4 px-6 py-3 bg-foreground text-background rounded-xl font-bold text-base hover:bg-foreground/90 transition-all duration-300"
+              className={`flex items-center justify-center px-6 py-3 bg-foreground text-background rounded-xl font-bold text-base hover:bg-foreground/90 transition-all duration-500 transform ${
+                mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
+              }`}
+              style={{ transitionDelay: mobileMenuOpen ? `${navItems.length * 75}ms` : '0ms' }}
               onClick={() => setMobileMenuOpen(false)}
             >
               {language === 'ar' ? 'احصل الآن' : 'Get Started'}
@@ -136,6 +143,14 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Overlay */}
+      <div 
+        className={`lg:hidden fixed inset-0 bg-black/20 backdrop-blur-sm z-30 transition-opacity duration-300 ${
+          mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
     </header>
   );
 };
