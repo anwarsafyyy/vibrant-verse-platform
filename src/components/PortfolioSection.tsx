@@ -95,7 +95,7 @@ const PortfolioSection: React.FC = () => {
         {/* Section Header */}
         <div className={`flex items-center gap-4 mb-16 justify-end ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Header */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-row-reverse">
             {/* Decorative diamond icon */}
             <div className="relative">
               <div className="w-16 h-16 bg-primary rotate-45 rounded-xl shadow-lg shadow-primary/30" />
