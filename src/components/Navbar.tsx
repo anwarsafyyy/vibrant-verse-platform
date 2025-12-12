@@ -46,13 +46,13 @@ const Navbar: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-24"
+                className="h-48"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
                 alt="Logo" 
-                className="h-24"
+                className="h-48"
               />
             )}
             </a>
@@ -79,13 +79,13 @@ const Navbar: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-16"
+                className="h-32"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
                 alt="Logo" 
-                className="h-16"
+                className="h-32"
               />
             )}
           </a>
