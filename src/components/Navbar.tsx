@@ -30,12 +30,12 @@ const Navbar: React.FC = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 py-2">
+    <header className="fixed top-0 left-0 right-0 z-50 py-1">
       <div className="container mx-auto px-4">
         <div className={`flex items-center justify-between transition-all duration-500 ${
           isScrolled 
-            ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10 rounded-2xl px-4 py-1' 
-            : 'bg-white/80 backdrop-blur-md rounded-2xl px-4 py-1 shadow-md'
+            ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10 rounded-xl px-3 py-0.5' 
+            : 'bg-white/80 backdrop-blur-md rounded-xl px-3 py-0.5 shadow-md'
         }`}>
           
           {/* Logo + Desktop Menu - Right Side */}
@@ -46,13 +46,13 @@ const Navbar: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-48"
+                className="h-16"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
                 alt="Logo" 
-                className="h-48"
+                className="h-16"
               />
             )}
             </a>
@@ -79,13 +79,13 @@ const Navbar: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-32"
+                className="h-12"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
                 alt="Logo" 
-                className="h-32"
+                className="h-12"
               />
             )}
           </a>
