@@ -70,6 +70,14 @@ const Navbar: React.FC = () => {
               ))}
             </div>
 
+            {/* Mobile Title - Only visible on mobile */}
+            <div className="lg:hidden flex items-center gap-2">
+              <span className="text-sm font-bold text-foreground/80">
+                {language === 'ar' ? 'أولو للتقنية' : 'OLU Tech'}
+              </span>
+              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+            </div>
+
             {/* Right Actions */}
             <div className="flex items-center gap-3">
               <LanguageSwitcher />
@@ -85,7 +93,7 @@ const Navbar: React.FC = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden rounded-xl text-foreground hover:bg-muted"
+                className="lg:hidden rounded-xl text-foreground hover:bg-primary/10 border border-border/50"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
