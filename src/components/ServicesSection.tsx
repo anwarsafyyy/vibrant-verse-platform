@@ -33,6 +33,16 @@ const iconMap: Record<string, LucideIcon> = {
   'settings': Settings, 'layers': Layers,
 };
 
+// Fallback translations for services without English content
+const serviceTranslations: Record<string, { title: string; description: string }> = {
+  'تطوير المواقع': { title: 'Web Development', description: 'Creating fast, professional, and user-friendly websites.' },
+  'تطوير تطبيقات الجوال': { title: 'Mobile App Development', description: 'We develop custom mobile and web applications that meet your business needs.' },
+  'التحول الرقمي': { title: 'Digital Transformation', description: 'Moving your business to the digital world with thoughtful steps.' },
+  'التسويق الرقمي': { title: 'Digital Marketing', description: 'Comprehensive digital marketing solutions to grow your business online.' },
+  'تصميم الهوية البصرية': { title: 'Brand Identity Design', description: 'Creating unique visual identities that reflect your brand values.' },
+  'الاستشارات التقنية': { title: 'Technical Consulting', description: 'Expert technical consulting to help your business thrive.' },
+};
+
 const ServicesSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [services, setServices] = useState<Service[]>([]);
@@ -183,14 +193,14 @@ const ServicesSection: React.FC = () => {
                       }`}>
                         {language === 'ar' 
                           ? (service.title_ar || service.title) 
-                          : (service.title_en || service.title_ar || service.title)}
+                          : (service.title_en || serviceTranslations[service.title_ar || service.title || '']?.title || service.title_ar || service.title)}
                       </h3>
                       
                       {/* Description */}
                       <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6">
                         {language === 'ar' 
                           ? (service.description_ar || service.description) 
-                          : (service.description_en || service.description_ar || service.description)}
+                          : (service.description_en || serviceTranslations[service.title_ar || service.title || '']?.description || service.description_ar || service.description)}
                       </p>
                       
                       {/* Arrow Link */}
