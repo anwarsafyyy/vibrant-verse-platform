@@ -80,10 +80,10 @@ const Footer: React.FC = () => {
               />
             )}
             <p className="opacity-70 leading-relaxed text-sm">
-              {getFooterContent('company_description_ar', language as "ar" | "en") || (dir === "rtl" 
-                ? "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة." 
-                : "Building a better digital future through innovative tech solutions."
-              )}
+              {language === 'ar' 
+                ? (getFooterContent('company_description_ar', 'ar') || "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة.")
+                : (getFooterContent('company_description_en', 'en') || "Building a better digital future through innovative tech solutions.")
+              }
             </p>
           </div>
           
@@ -166,7 +166,10 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="opacity-50 text-sm text-center md:text-right">
-              {getFooterContent('copyright_text_ar', language as "ar" | "en") || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات."}
+              {language === 'ar' 
+                ? (getFooterContent('copyright_text_ar', 'ar') || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات.")
+                : (getFooterContent('copyright_text_en', 'en') || "All rights reserved © 2025 OLU IT Company.")
+              }
             </p>
             <div className="flex items-center gap-4 text-sm opacity-50">
               <a href="/privacy-policy" className="hover:opacity-100 hover:text-primary transition-all">
