@@ -14,8 +14,12 @@ import { Button } from "@/components/ui/button";
 
 interface Service {
   id: string;
-  title: string;
-  description: string;
+  title?: string;
+  title_ar?: string;
+  title_en?: string;
+  description?: string;
+  description_ar?: string;
+  description_en?: string;
   icon: string;
   order_index: number;
   created_at: any;
@@ -177,12 +181,16 @@ const ServicesSection: React.FC = () => {
                       <h3 className={`text-xl font-bold mb-4 text-center transition-colors ${
                         isActive ? 'text-primary' : 'text-foreground group-hover:text-primary'
                       }`}>
-                        {service.title}
+                        {language === 'ar' 
+                          ? (service.title_ar || service.title) 
+                          : (service.title_en || service.title_ar || service.title)}
                       </h3>
                       
                       {/* Description */}
                       <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6">
-                        {service.description}
+                        {language === 'ar' 
+                          ? (service.description_ar || service.description) 
+                          : (service.description_en || service.description_ar || service.description)}
                       </p>
                       
                       {/* Arrow Link */}

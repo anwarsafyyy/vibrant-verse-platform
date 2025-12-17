@@ -1,15 +1,20 @@
 import React from 'react';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const GoogleMap: React.FC = () => {
+  const { language } = useLanguage();
+  
   return (
     <section className="py-16 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-3">
-            <span className="olu-text-gradient-dark">موقعنا</span>
+            <span className="olu-text-gradient-dark">
+              {language === 'ar' ? 'موقعنا' : 'Our Location'}
+            </span>
           </h2>
           <p className="text-lg text-muted-foreground mb-6">
-            زورونا في مقرنا الرئيسي
+            {language === 'ar' ? 'زورونا في مقرنا الرئيسي' : 'Visit us at our headquarters'}
           </p>
           <div className="w-20 h-1 bg-gray-400 mx-auto rounded-full"></div>
         </div>
@@ -24,24 +29,32 @@ const GoogleMap: React.FC = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="موقع شركة علو لتقنية المعلومات"
+              title={language === 'ar' ? 'موقع شركة علو لتقنية المعلومات' : 'OLU IT Company Location'}
               className="w-full h-96"
             ></iframe>
           </div>
           
           <div className="mt-8 grid md:grid-cols-3 gap-6 text-center">
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold text-olu-purple-dark mb-2">العنوان</h3>
-              <p className="text-muted-foreground">جازان، المملكة العربية السعودية</p>
+              <h3 className="font-semibold text-olu-purple-dark mb-2">
+                {language === 'ar' ? 'العنوان' : 'Address'}
+              </h3>
+              <p className="text-muted-foreground">
+                {language === 'ar' ? 'جازان، المملكة العربية السعودية' : 'Jazan, Saudi Arabia'}
+              </p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold text-olu-purple-dark mb-2">الهاتف</h3>
+              <h3 className="font-semibold text-olu-purple-dark mb-2">
+                {language === 'ar' ? 'الهاتف' : 'Phone'}
+              </h3>
               <p className="text-muted-foreground">+966535656226</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm border">
-              <h3 className="font-semibold text-olu-purple-dark mb-2">البريد الإلكتروني</h3>
+              <h3 className="font-semibold text-olu-purple-dark mb-2">
+                {language === 'ar' ? 'البريد الإلكتروني' : 'Email'}
+              </h3>
               <p className="text-muted-foreground">info@olu-it.com</p>
             </div>
           </div>

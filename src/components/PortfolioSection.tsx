@@ -15,9 +15,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 interface PortfolioItem {
   id: string;
-  title: string;
-  category: string;
-  description: string;
+  title?: string;
+  title_ar?: string;
+  title_en?: string;
+  category?: string;
+  category_ar?: string;
+  category_en?: string;
+  description?: string;
+  description_ar?: string;
+  description_en?: string;
   image_url: string;
   logo_url?: string;
   technologies: string[];
@@ -188,16 +194,20 @@ const PortfolioSection: React.FC = () => {
                         {/* Product logo and name */}
                         <div className="flex items-center gap-3 md:gap-4 justify-end mb-3 md:mb-4">
                           <div>
-                            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">{item.title}</h3>
+                            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+                              {language === 'ar' 
+                                ? (item.title_ar || item.title) 
+                                : (item.title_en || item.title_ar || item.title)}
+                            </h3>
                             <p className="text-xs sm:text-sm text-muted-foreground">
-                              {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric' })}
+                              {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                             </p>
                           </div>
                           {item.logo_url ? (
-                            <img src={item.logo_url} alt={item.title} className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 border-border flex-shrink-0" />
+                            <img src={item.logo_url} alt={item.title_ar || item.title} className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 border-border flex-shrink-0" />
                           ) : (
                             <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border flex-shrink-0">
-                              <span className="text-lg md:text-2xl font-bold text-primary">{item.title.charAt(0)}</span>
+                              <span className="text-lg md:text-2xl font-bold text-primary">{(item.title_ar || item.title || '').charAt(0)}</span>
                             </div>
                           )}
                         </div>
@@ -208,11 +218,17 @@ const PortfolioSection: React.FC = () => {
                         </Button>
                         
                         {/* Product title repeated */}
-                        <h4 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-foreground">{item.title}</h4>
+                        <h4 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-foreground">
+                          {language === 'ar' 
+                            ? (item.title_ar || item.title) 
+                            : (item.title_en || item.title_ar || item.title)}
+                        </h4>
                         
                         {/* Description - Long Text with consistent line spacing */}
                         <p className="text-base md:text-lg text-muted-foreground leading-loose mb-4 md:mb-6">
-                          {item.description}
+                          {language === 'ar' 
+                            ? (item.description_ar || item.description) 
+                            : (item.description_en || item.description_ar || item.description)}
                         </p>
                         
                         {/* Read More Link */}
