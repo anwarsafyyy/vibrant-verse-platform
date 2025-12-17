@@ -31,6 +31,14 @@ interface PortfolioItem {
   created_at: any;
 }
 
+// Fallback translations for products without English content
+const productTranslations: Record<string, { title: string; description: string }> = {
+  'OLU HR': { title: 'OLU HR', description: 'A comprehensive electronic system for managing HR operations, employee affairs, and administrative matters, aimed at organizing data, facilitating processes, and improving work efficiency within organizations.' },
+  'عازمنك': { title: 'Azmnak', description: 'A platform to organize your events professionally and easily in one place.' },
+  'OLU contact': { title: 'OLU Contact', description: 'A digital business card that gathers all your information and links in one place.' },
+  'OLU form': { title: 'OLU Form', description: 'A smart platform for collecting potential customer data and classifying them accurately. It helps you understand your audience, analyze their interests, and organize their data in a way that facilitates tracking opportunities and improving marketing and sales strategies.' },
+};
+
 const PortfolioSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
@@ -197,7 +205,7 @@ const PortfolioSection: React.FC = () => {
                             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                               {language === 'ar' 
                                 ? (item.title_ar || item.title) 
-                                : (item.title_en || item.title_ar || item.title)}
+                                : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
                             </h3>
                             <p className="text-xs sm:text-sm text-muted-foreground">
                               {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -221,14 +229,14 @@ const PortfolioSection: React.FC = () => {
                         <h4 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-foreground">
                           {language === 'ar' 
                             ? (item.title_ar || item.title) 
-                            : (item.title_en || item.title_ar || item.title)}
+                            : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
                         </h4>
                         
                         {/* Description - Long Text with consistent line spacing */}
                         <p className="text-base md:text-lg text-muted-foreground leading-loose mb-4 md:mb-6">
                           {language === 'ar' 
                             ? (item.description_ar || item.description) 
-                            : (item.description_en || item.description_ar || item.description)}
+                            : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description)}
                         </p>
                         
                         {/* Read More Link */}
