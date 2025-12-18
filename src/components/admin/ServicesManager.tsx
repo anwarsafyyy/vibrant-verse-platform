@@ -53,9 +53,16 @@ export const ServicesManager = () => {
     });
   };
 
-  const handleEdit = (service: Service) => {
+  const handleEdit = (service: any) => {
     setEditingId(service.id);
-    setFormData(service);
+    // Handle old data format (title/description) and new format (title_ar/title_en)
+    setFormData({
+      ...service,
+      title_ar: service.title_ar || service.title || '',
+      title_en: service.title_en || '',
+      description_ar: service.description_ar || service.description || '',
+      description_en: service.description_en || '',
+    });
   };
 
   const handleSave = async () => {
@@ -175,8 +182,8 @@ export const ServicesManager = () => {
           <Card key={service.id}>
             <CardContent className="flex items-center justify-between p-4">
               <div>
-                <h3 className="font-semibold">{service.title_ar}</h3>
-                <p className="text-sm text-muted-foreground">{service.description_ar}</p>
+                <h3 className="font-semibold">{service.title_ar || (service as any).title}</h3>
+                <p className="text-sm text-muted-foreground">{service.description_ar || (service as any).description}</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={() => handleEdit(service)}>
