@@ -271,25 +271,50 @@ const PortfolioSection: React.FC = () => {
           </Button>
         </div>
 
-        {/* Mobile Navigation */}
-        <div className="flex lg:hidden justify-center gap-4 mt-8">
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => api?.scrollNext()}
-            className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-          >
-            <ChevronRight className="w-5 h-5" />
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => api?.scrollPrev()}
-            className="w-12 h-12 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </Button>
-        </div>
+        {/* Pagination Indicator */}
+        {!loading && portfolioItems.length > 1 && (
+          <div className="flex justify-center items-center gap-4 mt-8">
+            {/* Mobile Navigation */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => api?.scrollNext()}
+              className="lg:hidden w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+            
+            {/* Dots Indicator */}
+            <div className="flex gap-2">
+              {portfolioItems.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => api?.scrollTo(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    current === index 
+                      ? 'bg-primary w-8' 
+                      : 'bg-primary/30 hover:bg-primary/50'
+                  }`}
+                />
+              ))}
+            </div>
+            
+            {/* Counter */}
+            <span className="text-sm text-muted-foreground font-medium">
+              {current + 1} / {portfolioItems.length}
+            </span>
+            
+            {/* Mobile Navigation */}
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => api?.scrollPrev()}
+              className="lg:hidden w-10 h-10 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
