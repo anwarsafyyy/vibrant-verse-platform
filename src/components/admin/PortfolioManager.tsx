@@ -81,9 +81,16 @@ export const PortfolioManager = () => {
     });
   };
 
-  const handleEdit = (item: PortfolioItem) => {
+  const handleEdit = (item: any) => {
     setEditingId(item.id);
-    setFormData(item);
+    // Handle old data format and new format
+    setFormData({
+      ...item,
+      title_ar: item.title_ar || item.title || '',
+      title_en: item.title_en || '',
+      description_ar: item.description_ar || item.description || '',
+      description_en: item.description_en || '',
+    });
   };
 
   const handleSave = async () => {
@@ -250,8 +257,8 @@ export const PortfolioManager = () => {
                   <img src={item.image_url} alt={item.title_ar} className="w-16 h-16 object-cover rounded" />
                 )}
                 <div>
-                  <h3 className="font-semibold">{item.title_ar}</h3>
-                  <p className="text-sm text-muted-foreground">{item.description_ar?.slice(0, 100)}...</p>
+                  <h3 className="font-semibold">{item.title_ar || (item as any).title}</h3>
+                  <p className="text-sm text-muted-foreground">{(item.description_ar || (item as any).description)?.slice(0, 100)}...</p>
                 </div>
               </div>
               <div className="flex gap-2">
