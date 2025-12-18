@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ArrowUp, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -46,6 +47,10 @@ const PortfolioSection: React.FC = () => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  
+  const autoplayPlugin = useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: true })
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -68,6 +73,7 @@ const PortfolioSection: React.FC = () => {
         snapshot.forEach(doc => {
           itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
         });
+        console.log('Portfolio items loaded:', itemsData.length, itemsData);
         setPortfolioItems(itemsData);
       } catch (error) {
         console.error("Failed to fetch portfolio items:", error);
@@ -150,7 +156,12 @@ const PortfolioSection: React.FC = () => {
           </Button>
 
           {/* Carousel */}
-          <Carousel setApi={setApi} className="flex-1" opts={{ loop: true, align: "start" }}>
+          <Carousel 
+            setApi={setApi} 
+            className="flex-1" 
+            opts={{ loop: true, align: "start" }}
+            plugins={[autoplayPlugin.current]}
+          >
             <CarouselContent>
               {loading ? (
                 <CarouselItem className="basis-full">
