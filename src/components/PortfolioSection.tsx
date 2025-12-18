@@ -134,7 +134,7 @@ const PortfolioSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         {/* Unified Section Header */}
-        <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : ''}`}>
           {/* Diamond icon container */}
           <div className="relative">
             <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
@@ -155,7 +155,7 @@ const PortfolioSection: React.FC = () => {
         </div>
 
         {/* Description - Long Text with consistent line spacing */}
-        <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+        <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : ''}`}>
           <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl">
             {language === 'ar' 
               ? 'نقدم مجموعة متنوعة من المنتجات والحلول الرقمية المبتكرة التي تساعد عملاءنا على تحقيق أهدافهم وتطوير أعمالهم بكفاءة عالية.'
@@ -200,7 +200,7 @@ const PortfolioSection: React.FC = () => {
                 portfolioItems.map((item, index) => (
                   <CarouselItem 
                     key={item.id} 
-                    className={`basis-full ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                    className={`basis-full ${isVisible ? 'animate-fade-in' : ''}`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
