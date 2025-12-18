@@ -67,14 +67,35 @@ const PortfolioSection: React.FC = () => {
   useEffect(() => {
     const fetchPortfolioItems = async () => {
       try {
-        const q = query(collection(db, 'portfolio_items'), orderBy('order_index', 'asc'));
-        const snapshot = await getDocs(q);
+        // بعض النسخ القديمة كانت تحفظ المنتجات داخل collection باسم "portfolio".
+        // نجلب من الاثنين ثم ندمج النتائج لضمان ظهور كل المنتجات.
+        const [itemsRes, legacyRes] = await Promise.allSettled([
+          getDocs(query(collection(db, "portfolio_items"), orderBy("order_index", "asc"))),
+          getDocs(collection(db, "portfolio")),
+        ]);
+
         const itemsData: PortfolioItem[] = [];
-        snapshot.forEach(doc => {
-          itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
-        });
-        console.log('Portfolio items loaded:', itemsData.length, itemsData);
-        setPortfolioItems(itemsData);
+
+        if (itemsRes.status === "fulfilled") {
+          itemsRes.value.forEach((doc) => {
+            itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
+          });
+        }
+
+        if (legacyRes.status === "fulfilled") {
+          legacyRes.value.forEach((doc) => {
+            itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
+          });
+        }
+
+        const deduped = Array.from(
+          new Map(itemsData.map((item) => [item.id, item])).values()
+        ).sort(
+          (a, b) => (Number(a.order_index ?? 9999) || 9999) - (Number(b.order_index ?? 9999) || 9999)
+        );
+
+        console.log("Portfolio items loaded:", deduped.length, deduped);
+        setPortfolioItems(deduped);
       } catch (error) {
         console.error("Failed to fetch portfolio items:", error);
       } finally {
