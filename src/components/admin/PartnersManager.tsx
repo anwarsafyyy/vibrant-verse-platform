@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, Save, X } from 'lucide-react';
-import { getCollection, addDocument, updateDocument, deleteDocument } from '@/lib/firebaseHelpers';
+import { Plus, Pencil, Trash2, Save, X, Upload, Loader2 } from 'lucide-react';
+import { getCollection, addDocument, updateDocument, deleteDocument, uploadFile } from '@/lib/firebaseHelpers';
 
 interface Partner {
   id: string;
@@ -19,8 +19,10 @@ interface Partner {
 export const PartnersManager = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<Partner>>({});
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -35,6 +37,23 @@ export const PartnersManager = () => {
       toast({ title: 'خطأ في جلب البيانات', variant: 'destructive' });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      const path = `partners/${Date.now()}_${file.name}`;
+      const url = await uploadFile(path, file);
+      setFormData({ ...formData, logo_url: url });
+      toast({ title: 'تم رفع الصورة بنجاح' });
+    } catch (error) {
+      toast({ title: 'خطأ في رفع الصورة', variant: 'destructive' });
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -121,11 +140,40 @@ export const PartnersManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">رابط الشعار</label>
-                <Input
-                  value={formData.logo_url || ''}
-                  onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })}
+                <label className="text-sm font-medium">شعار الشريك</label>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                  accept="image/*"
+                  className="hidden"
                 />
+                <div className="flex items-center gap-2 mt-1">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="w-full"
+                  >
+                    {uploading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 ml-2 animate-spin" />
+                        جاري الرفع...
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4 ml-2" />
+                        رفع صورة
+                      </>
+                    )}
+                  </Button>
+                </div>
+                {formData.logo_url && (
+                  <div className="mt-2">
+                    <img src={formData.logo_url} alt="معاينة" className="w-16 h-16 object-contain border rounded" />
+                  </div>
+                )}
               </div>
               <div>
                 <label className="text-sm font-medium">رابط الموقع</label>
