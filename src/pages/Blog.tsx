@@ -1,15 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { ArrowLeft, ArrowRight, BookOpen, Calendar, User, Tag, TrendingUp } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, User, Tag, TrendingUp, Search } from "lucide-react";
 import { Link } from "react-router-dom";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { Skeleton } from "@/components/ui/skeleton";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+interface BlogPost {
+  id: string;
+  title_ar: string;
+  title_en: string;
+  excerpt_ar: string;
+  excerpt_en: string;
+  author: string;
+  date: string;
+  category_ar: string;
+  category_en: string;
+  image: string;
+  is_featured?: boolean;
+}
 
 const Blog: React.FC = () => {
   const { dir, language } = useLanguage();
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // Sample blog posts - in a real app, this would come from a database
-  const blogPosts = [
+  // Fallback static posts
+  const staticPosts: BlogPost[] = [
     {
-      id: 1,
+      id: "1",
       title_ar: "أهمية تحسين محركات البحث في 2025",
       title_en: "The Importance of SEO in 2025",
       excerpt_ar: "كيف تحسن ترتيب موقعك في محركات البحث وتزيد من حركة الزوار الطبيعية",
@@ -18,10 +41,11 @@ const Blog: React.FC = () => {
       date: "2025-01-15",
       category_ar: "تحسين محركات البحث",
       category_en: "SEO",
-      image: "/public/11.jpeg"
+      image: "/11.jpeg",
+      is_featured: true
     },
     {
-      id: 2,
+      id: "2",
       title_ar: "اتجاهات تطوير المواقع الحديثة",
       title_en: "Modern Web Development Trends",
       excerpt_ar: "استكشف أحدث التقنيات والأدوات في عالم تطوير المواقع الإلكترونية",
@@ -30,10 +54,10 @@ const Blog: React.FC = () => {
       date: "2025-01-10",
       category_ar: "تطوير المواقع",
       category_en: "Web Development",
-      image: "/public/22.jpeg"
+      image: "/22.jpeg"
     },
     {
-      id: 3,
+      id: "3",
       title_ar: "استراتيجيات التسويق الرقمي الفعالة",
       title_en: "Effective Digital Marketing Strategies",
       excerpt_ar: "طرق مبتكرة للوصول إلى جمهورك المستهدف وزيادة المبيعات",
@@ -42,10 +66,10 @@ const Blog: React.FC = () => {
       date: "2025-01-05",
       category_ar: "التسويق الرقمي",
       category_en: "Digital Marketing",
-      image: "/public/33.jpeg"
+      image: "/33.jpeg"
     },
     {
-      id: 4,
+      id: "4",
       title_ar: "أمان المواقع الإلكترونية: دليل شامل",
       title_en: "Website Security: A Complete Guide",
       excerpt_ar: "كيف تحمي موقعك الإلكتروني من التهديدات السيبرانية والهجمات",
@@ -54,199 +78,293 @@ const Blog: React.FC = () => {
       date: "2024-12-28",
       category_ar: "الأمان",
       category_en: "Security",
-      image: "/public/44.jpeg"
+      image: "/44.jpeg"
     }
   ];
 
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const q = query(collection(db, "blog_posts"), orderBy("date", "desc"));
+      const snapshot = await getDocs(q);
+      if (snapshot.docs.length > 0) {
+        const postsData = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })) as BlogPost[];
+        setPosts(postsData);
+      } else {
+        setPosts(staticPosts);
+      }
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      setPosts(staticPosts);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const categories = [
-    { ar: "جميع المقالات", en: "All Articles" },
-    { ar: "تحسين محركات البحث", en: "SEO" },
-    { ar: "تطوير المواقع", en: "Web Development" },
-    { ar: "التسويق الرقمي", en: "Digital Marketing" },
-    { ar: "الأمان", en: "Security" }
+    { ar: "جميع المقالات", en: "All Articles", value: null },
+    { ar: "تحسين محركات البحث", en: "SEO", value: "SEO" },
+    { ar: "تطوير المواقع", en: "Web Development", value: "Web Development" },
+    { ar: "التسويق الرقمي", en: "Digital Marketing", value: "Digital Marketing" },
+    { ar: "الأمان", en: "Security", value: "Security" }
   ];
+
+  const filteredPosts = posts.filter(post => {
+    const matchesCategory = !selectedCategory || 
+      post.category_en === selectedCategory || 
+      post.category_ar === selectedCategory;
+    
+    const matchesSearch = !searchQuery || 
+      post.title_ar.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.title_en.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt_ar.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.excerpt_en.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesCategory && matchesSearch;
+  });
+
+  const featuredPost = filteredPosts.find(p => p.is_featured) || filteredPosts[0];
+  const otherPosts = filteredPosts.filter(p => p.id !== featuredPost?.id);
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-            >
-              {dir === "rtl" ? (
-                <ArrowRight className="h-5 w-5" />
-              ) : (
-                <ArrowLeft className="h-5 w-5" />
-              )}
-              {dir === "rtl" ? "العودة للرئيسية" : "Back to Home"}
-            </Link>
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-16 overflow-hidden">
+        {/* Background decorations */}
+        <div className="absolute inset-0 bg-[var(--gradient-hero)]" />
+        <div className="absolute inset-0" style={{ background: 'var(--gradient-mesh)' }} />
+        
+        {/* Decorative circles */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-10 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+              <BookOpen className="h-5 w-5 text-primary" />
+              <span className="text-sm font-bold text-primary">
+                {language === "ar" ? "مدونة علو التقنية" : "Olu Tech Blog"}
+              </span>
+            </div>
             
-            <div className="flex items-center gap-4">
-              <img 
-                src="/public/alo.png" 
-                alt="علو Logo" 
-                className="h-8 w-auto" 
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
+              {language === "ar" 
+                ? "اكتشف عالم التقنية معنا" 
+                : "Discover the Tech World with Us"}
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              {language === "ar" 
+                ? "مقالات ونصائح حصرية في التسويق الرقمي، تطوير المواقع، وأحدث التقنيات"
+                : "Exclusive articles and tips on digital marketing, web development, and latest technologies"}
+            </p>
+
+            {/* Search Bar */}
+            <div className="max-w-xl mx-auto relative">
+              <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <input
+                type="text"
+                placeholder={language === "ar" ? "ابحث عن مقال..." : "Search for an article..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pr-12 pl-6 py-4 rounded-2xl border border-border bg-card/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground placeholder:text-muted-foreground"
               />
-              <span className="text-xl font-bold text-primary">علو</span>
             </div>
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
-        <div className="max-w-6xl mx-auto">
-          <div className={`text-center mb-12 ${dir === "rtl" ? "text-right" : "text-left"}`}>
-            <div className="flex items-center justify-center mb-4">
-              <BookOpen className="h-12 w-12 text-primary" />
-            </div>
-            <h1 className="text-4xl font-bold text-primary mb-4">
-              {dir === "rtl" ? "مدونة علو التقنية" : "Olu Tech Blog"}
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              {dir === "rtl" 
-                ? "اكتشف أحدث المقالات والنصائح في عالم التكنولوجيا والتسويق الرقمي"
-                : "Discover the latest articles and tips in technology and digital marketing"
-              }
-            </p>
-          </div>
-
+        <div className="max-w-7xl mx-auto">
+          
           {/* Categories */}
-          <div className="flex flex-wrap gap-2 mb-8 justify-center">
+          <div className="flex flex-wrap gap-3 mb-12 justify-center">
             {categories.map((category, index) => (
               <button
                 key={index}
-                className={`px-4 py-2 rounded-full text-sm border transition-colors ${
-                  index === 0 
-                    ? 'bg-primary text-white border-primary' 
-                    : 'bg-white text-muted-foreground border-border hover:border-primary hover:text-primary'
+                onClick={() => setSelectedCategory(category.value)}
+                className={`px-5 py-2.5 rounded-xl text-sm font-bold border transition-all duration-300 ${
+                  selectedCategory === category.value
+                    ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/25" 
+                    : "bg-card text-muted-foreground border-border hover:border-primary hover:text-primary hover:bg-primary/5"
                 }`}
               >
-                {dir === "rtl" ? category.ar : category.en}
+                {language === "ar" ? category.ar : category.en}
               </button>
             ))}
           </div>
 
-          {/* Featured Article */}
-          <div className="mb-12">
-            <div className="relative bg-gradient-to-r from-primary/10 to-primary/20 rounded-lg overflow-hidden">
-              <div className="grid lg:grid-cols-2 gap-0">
-                <div className="p-8 lg:p-12">
-                  <div className="flex items-center gap-2 mb-4">
-                    <TrendingUp className="h-5 w-5 text-primary" />
-                    <span className="text-sm font-medium text-primary">
-                      {dir === "rtl" ? "مقال مميز" : "Featured Article"}
-                    </span>
-                  </div>
-                  <h2 className={`text-3xl font-bold text-primary mb-4 ${dir === "rtl" ? "text-right" : "text-left"}`}>
-                    {dir === "rtl" ? blogPosts[0].title_ar : blogPosts[0].title_en}
-                  </h2>
-                  <p className={`text-muted-foreground mb-6 leading-relaxed ${dir === "rtl" ? "text-right" : "text-left"}`}>
-                    {dir === "rtl" ? blogPosts[0].excerpt_ar : blogPosts[0].excerpt_en}
-                  </p>
-                  <div className={`flex items-center gap-4 text-sm text-muted-foreground mb-6 ${dir === "rtl" ? "justify-end" : "justify-start"}`}>
-                    <div className="flex items-center gap-1">
-                      <User className="h-4 w-4" />
-                      {blogPosts[0].author}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      {blogPosts[0].date}
-                    </div>
-                  </div>
-                  <button className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors">
-                    {dir === "rtl" ? "اقرأ المزيد" : "Read More"}
-                  </button>
-                </div>
-                <div className="relative h-64 lg:h-auto">
-                  <img 
-                    src={blogPosts[0].image} 
-                    alt={dir === "rtl" ? blogPosts[0].title_ar : blogPosts[0].title_en}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+          {loading ? (
+            <div className="space-y-8">
+              <Skeleton className="h-[400px] w-full rounded-3xl" />
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[1, 2, 3].map(i => (
+                  <Skeleton key={i} className="h-[350px] rounded-2xl" />
+                ))}
               </div>
             </div>
-          </div>
+          ) : (
+            <>
+              {/* Featured Article */}
+              {featuredPost && (
+                <div className="mb-16">
+                  <div className="relative bg-card rounded-3xl overflow-hidden border border-border shadow-xl group hover:shadow-2xl transition-all duration-500">
+                    <div className="grid lg:grid-cols-2 gap-0">
+                      <div className="p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
+                        <div className="flex items-center gap-2 mb-4">
+                          <TrendingUp className="h-5 w-5 text-accent" />
+                          <span className="text-sm font-bold text-accent">
+                            {language === "ar" ? "مقال مميز" : "Featured Article"}
+                          </span>
+                        </div>
+                        <h2 className={`text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-4 leading-tight ${dir === "rtl" ? "text-right" : "text-left"}`}>
+                          {language === "ar" ? featuredPost.title_ar : featuredPost.title_en}
+                        </h2>
+                        <p className={`text-muted-foreground mb-6 leading-relaxed text-lg ${dir === "rtl" ? "text-right" : "text-left"}`}>
+                          {language === "ar" ? featuredPost.excerpt_ar : featuredPost.excerpt_en}
+                        </p>
+                        <div className={`flex items-center gap-4 text-sm text-muted-foreground mb-6 ${dir === "rtl" ? "justify-start" : "justify-start"}`}>
+                          <div className="flex items-center gap-2 bg-muted px-3 py-1.5 rounded-lg">
+                            <User className="h-4 w-4" />
+                            {featuredPost.author}
+                          </div>
+                          <div className="flex items-center gap-2 bg-muted px-3 py-1.5 rounded-lg">
+                            <Calendar className="h-4 w-4" />
+                            {featuredPost.date}
+                          </div>
+                        </div>
+                        <button className="self-start bg-primary text-primary-foreground px-8 py-3 rounded-xl font-bold hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5">
+                          {language === "ar" ? "اقرأ المزيد" : "Read More"}
+                        </button>
+                      </div>
+                      <div className="relative h-64 lg:h-auto min-h-[300px] order-1 lg:order-2 overflow-hidden">
+                        <img 
+                          src={featuredPost.image} 
+                          alt={language === "ar" ? featuredPost.title_ar : featuredPost.title_en}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card/50 to-transparent lg:bg-gradient-to-r" />
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-primary text-primary-foreground px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">
+                            {language === "ar" ? featuredPost.category_ar : featuredPost.category_en}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-          {/* Blog Posts Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.slice(1).map((post) => (
-              <article key={post.id} className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow">
-                <div className="relative h-48 overflow-hidden rounded-t-lg">
-                  <img 
-                    src={post.image} 
-                    alt={dir === "rtl" ? post.title_ar : post.title_en}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-primary text-white px-3 py-1 rounded-full text-xs">
-                      {dir === "rtl" ? post.category_ar : post.category_en}
-                    </span>
-                  </div>
+              {/* Blog Posts Grid */}
+              {otherPosts.length > 0 && (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {otherPosts.map((post, index) => (
+                    <article 
+                      key={post.id} 
+                      className="group bg-card rounded-2xl border border-border overflow-hidden hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="relative h-52 overflow-hidden">
+                        <img 
+                          src={post.image} 
+                          alt={language === "ar" ? post.title_ar : post.title_en}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-primary/90 backdrop-blur-sm text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
+                            {language === "ar" ? post.category_ar : post.category_en}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      <div className="p-6">
+                        <h3 className={`text-xl font-bold text-foreground mb-3 line-clamp-2 group-hover:text-primary transition-colors ${dir === "rtl" ? "text-right" : "text-left"}`}>
+                          {language === "ar" ? post.title_ar : post.title_en}
+                        </h3>
+                        <p className={`text-muted-foreground mb-4 line-clamp-2 leading-relaxed ${dir === "rtl" ? "text-right" : "text-left"}`}>
+                          {language === "ar" ? post.excerpt_ar : post.excerpt_en}
+                        </p>
+                        
+                        <div className={`flex items-center justify-between text-xs text-muted-foreground mb-4`}>
+                          <div className="flex items-center gap-1">
+                            <User className="h-3.5 w-3.5" />
+                            {post.author}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-3.5 w-3.5" />
+                            {post.date}
+                          </div>
+                        </div>
+                        
+                        <button className="w-full bg-primary/10 text-primary py-2.5 rounded-xl font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+                          {language === "ar" ? "اقرأ المقال" : "Read Article"}
+                        </button>
+                      </div>
+                    </article>
+                  ))}
                 </div>
-                
-                <div className="p-6">
-                  <h3 className={`text-xl font-semibold text-primary mb-3 line-clamp-2 ${dir === "rtl" ? "text-right" : "text-left"}`}>
-                    {dir === "rtl" ? post.title_ar : post.title_en}
+              )}
+
+              {filteredPosts.length === 0 && (
+                <div className="text-center py-16">
+                  <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {language === "ar" ? "لا توجد مقالات" : "No articles found"}
                   </h3>
-                  <p className={`text-muted-foreground mb-4 line-clamp-3 ${dir === "rtl" ? "text-right" : "text-left"}`}>
-                    {dir === "rtl" ? post.excerpt_ar : post.excerpt_en}
+                  <p className="text-muted-foreground">
+                    {language === "ar" ? "جرب البحث بكلمات مختلفة" : "Try searching with different keywords"}
                   </p>
-                  
-                  <div className={`flex items-center justify-between text-sm text-muted-foreground mb-4 ${dir === "rtl" ? "flex-row-reverse" : ""}`}>
-                    <div className="flex items-center gap-1">
-                      <User className="h-4 w-4" />
-                      {post.author}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      {post.date}
-                    </div>
-                  </div>
-                  
-                  <button className="w-full bg-primary/5 text-primary py-2 rounded-lg hover:bg-primary/10 transition-colors">
-                    {dir === "rtl" ? "اقرأ المقال" : "Read Article"}
-                  </button>
                 </div>
-              </article>
-            ))}
-          </div>
+              )}
+            </>
+          )}
 
           {/* Newsletter Signup */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg p-8">
-              <h2 className="text-2xl font-bold text-primary mb-4">
-                {dir === "rtl" ? "اشترك في نشرتنا الإخبارية" : "Subscribe to Our Newsletter"}
-              </h2>
-              <p className="text-muted-foreground mb-6">
-                {dir === "rtl" 
-                  ? "احصل على أحدث المقالات والنصائح التقنية مباشرة في بريدك الإلكتروني"
-                  : "Get the latest articles and tech tips delivered directly to your inbox"
-                }
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder={dir === "rtl" ? "عنوان بريدك الإلكتروني" : "Your email address"}
-                  className="flex-1 px-4 py-2 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <button className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
-                  {dir === "rtl" ? "اشتراك" : "Subscribe"}
-                </button>
+          <div className="mt-20">
+            <div className="relative bg-card rounded-3xl p-8 md:p-12 border border-border overflow-hidden">
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full blur-3xl" />
+              
+              <div className="relative z-10 text-center max-w-2xl mx-auto">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  {language === "ar" ? "اشترك في نشرتنا الإخبارية" : "Subscribe to Our Newsletter"}
+                </h2>
+                <p className="text-muted-foreground mb-8">
+                  {language === "ar" 
+                    ? "احصل على أحدث المقالات والنصائح التقنية مباشرة في بريدك الإلكتروني"
+                    : "Get the latest articles and tech tips delivered directly to your inbox"}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
+                  <input
+                    type="email"
+                    placeholder={language === "ar" ? "عنوان بريدك الإلكتروني" : "Your email address"}
+                    className="flex-1 px-5 py-3 border border-border rounded-xl bg-background focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  />
+                  <button className="bg-primary text-primary-foreground px-8 py-3 rounded-xl font-bold hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 whitespace-nowrap">
+                    {language === "ar" ? "اشتراك" : "Subscribe"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Tags */}
-          <div className="mt-12 text-center">
-            <h3 className="text-lg font-semibold text-primary mb-4">
-              {dir === "rtl" ? "الكلمات المفتاحية" : "Popular Tags"}
+          <div className="mt-16 text-center">
+            <h3 className="text-lg font-bold text-foreground mb-6">
+              {language === "ar" ? "الكلمات المفتاحية الشائعة" : "Popular Tags"}
             </h3>
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center">
               {[
                 { ar: "تطوير المواقع", en: "Web Development" },
                 { ar: "SEO", en: "SEO" },
@@ -257,16 +375,18 @@ const Blog: React.FC = () => {
               ].map((tag, index) => (
                 <span 
                   key={index}
-                  className="px-3 py-1 bg-muted text-muted-foreground text-sm rounded-full hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-muted text-muted-foreground text-sm rounded-xl hover:bg-primary/10 hover:text-primary transition-all duration-300 cursor-pointer border border-transparent hover:border-primary/20"
                 >
-                  <Tag className="h-3 w-3 inline mr-1" />
-                  {dir === "rtl" ? tag.ar : tag.en}
+                  <Tag className="h-3.5 w-3.5" />
+                  {language === "ar" ? tag.ar : tag.en}
                 </span>
               ))}
             </div>
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };
