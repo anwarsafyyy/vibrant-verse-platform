@@ -180,6 +180,7 @@ const PortfolioSection: React.FC = () => {
           <Carousel 
             setApi={setApi} 
             className="flex-1" 
+            dir={dir}
             opts={{
               loop: true,
               align: "start",
