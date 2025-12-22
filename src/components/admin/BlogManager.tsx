@@ -310,13 +310,7 @@ export const BlogManager = () => {
               </div>
               <div className="space-y-2">
                 <Label>الصورة</Label>
-                <div className="flex gap-2">
-                  <Input
-                    value={formData.image}
-                    onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-                    placeholder="رابط الصورة"
-                    className="flex-1"
-                  />
+                <div className="space-y-3">
                   <input
                     type="file"
                     ref={fileInputRef}
@@ -329,17 +323,35 @@ export const BlogManager = () => {
                     variant="outline"
                     onClick={() => fileInputRef.current?.click()}
                     disabled={uploading}
+                    className="w-full h-24 border-dashed border-2 flex flex-col items-center justify-center gap-2"
                   >
                     {uploading ? (
-                      <div className="animate-spin h-4 w-4 border-2 border-primary border-t-transparent rounded-full" />
+                      <>
+                        <div className="animate-spin h-6 w-6 border-2 border-primary border-t-transparent rounded-full" />
+                        <span className="text-sm">جاري الرفع...</span>
+                      </>
                     ) : (
-                      <Upload className="h-4 w-4" />
+                      <>
+                        <Upload className="h-6 w-6" />
+                        <span className="text-sm">اضغط لرفع صورة</span>
+                      </>
                     )}
                   </Button>
+                  {formData.image && (
+                    <div className="relative">
+                      <img src={formData.image} alt="Preview" className="h-32 w-full object-cover rounded" />
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        className="absolute top-2 left-2"
+                        onClick={() => setFormData(prev => ({ ...prev, image: '' }))}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  )}
                 </div>
-                {formData.image && (
-                  <img src={formData.image} alt="Preview" className="h-20 w-32 object-cover rounded mt-2" />
-                )}
               </div>
             </div>
 
