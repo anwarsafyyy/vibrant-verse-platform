@@ -180,7 +180,12 @@ const PortfolioSection: React.FC = () => {
           <Carousel 
             setApi={setApi} 
             className="flex-1" 
-            opts={{ loop: true, align: "start" }}
+            opts={{
+              loop: true,
+              align: "start",
+              // Fix blank slides in RTL: Embla needs explicit direction.
+              direction: dir === "rtl" ? "rtl" : "ltr",
+            }}
             plugins={[autoplayPlugin.current]}
           >
             <CarouselContent>
