@@ -235,19 +235,9 @@ const PortfolioSection: React.FC = () => {
                       </div>
                       
                       {/* Right Side - Content */}
-                      <div className="text-left order-2 lg:order-2 px-4 sm:px-0">
+                      <div className="text-right order-2 lg:order-2 px-4 sm:px-0" dir="rtl">
                         {/* Product logo and name */}
                         <div className="flex items-center gap-3 md:gap-4 justify-start mb-3 md:mb-4">
-                          <div>
-                            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
-                              {language === 'ar' 
-                                ? (item.title_ar || item.title) 
-                                : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
-                            </h3>
-                            <p className="text-xs sm:text-sm text-muted-foreground">
-                              {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-                            </p>
-                          </div>
                           {item.logo_url ? (
                             <img
                               src={item.logo_url}
@@ -259,6 +249,16 @@ const PortfolioSection: React.FC = () => {
                               <span className="text-lg md:text-2xl font-bold text-primary">{(item.title_ar || item.title || '').charAt(0)}</span>
                             </div>
                           )}
+                          <div>
+                            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+                              {language === 'ar' 
+                                ? (item.title_ar || item.title) 
+                                : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
+                            </h3>
+                            <p className="text-xs sm:text-sm text-muted-foreground">
+                              {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            </p>
+                          </div>
                         </div>
 
                         {/* Contact button */}
