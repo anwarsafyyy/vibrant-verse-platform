@@ -29,59 +29,6 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Fallback static posts
-  const staticPosts: BlogPost[] = [
-    {
-      id: "1",
-      title_ar: "أهمية تحسين محركات البحث في 2025",
-      title_en: "The Importance of SEO in 2025",
-      excerpt_ar: "كيف تحسن ترتيب موقعك في محركات البحث وتزيد من حركة الزوار الطبيعية",
-      excerpt_en: "How to improve your website ranking in search engines and increase organic traffic",
-      author: "فريق علو",
-      date: "2025-01-15",
-      category_ar: "تحسين محركات البحث",
-      category_en: "SEO",
-      image: "/11.jpeg",
-      is_featured: true
-    },
-    {
-      id: "2",
-      title_ar: "اتجاهات تطوير المواقع الحديثة",
-      title_en: "Modern Web Development Trends",
-      excerpt_ar: "استكشف أحدث التقنيات والأدوات في عالم تطوير المواقع الإلكترونية",
-      excerpt_en: "Explore the latest technologies and tools in web development",
-      author: "فريق علو",
-      date: "2025-01-10",
-      category_ar: "تطوير المواقع",
-      category_en: "Web Development",
-      image: "/22.jpeg"
-    },
-    {
-      id: "3",
-      title_ar: "استراتيجيات التسويق الرقمي الفعالة",
-      title_en: "Effective Digital Marketing Strategies",
-      excerpt_ar: "طرق مبتكرة للوصول إلى جمهورك المستهدف وزيادة المبيعات",
-      excerpt_en: "Innovative ways to reach your target audience and increase sales",
-      author: "فريق علو",
-      date: "2025-01-05",
-      category_ar: "التسويق الرقمي",
-      category_en: "Digital Marketing",
-      image: "/33.jpeg"
-    },
-    {
-      id: "4",
-      title_ar: "أمان المواقع الإلكترونية: دليل شامل",
-      title_en: "Website Security: A Complete Guide",
-      excerpt_ar: "كيف تحمي موقعك الإلكتروني من التهديدات السيبرانية والهجمات",
-      excerpt_en: "How to protect your website from cyber threats and attacks",
-      author: "فريق علو",
-      date: "2024-12-28",
-      category_ar: "الأمان",
-      category_en: "Security",
-      image: "/44.jpeg"
-    }
-  ];
-
   useEffect(() => {
     fetchPosts();
   }, []);
@@ -90,18 +37,14 @@ const Blog: React.FC = () => {
     try {
       const q = query(collection(db, "blog_posts"), orderBy("date", "desc"));
       const snapshot = await getDocs(q);
-      if (snapshot.docs.length > 0) {
-        const postsData = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as BlogPost[];
-        setPosts(postsData);
-      } else {
-        setPosts(staticPosts);
-      }
+      const postsData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })) as BlogPost[];
+      setPosts(postsData);
     } catch (error) {
       console.error("Error fetching posts:", error);
-      setPosts(staticPosts);
+      setPosts([]);
     } finally {
       setLoading(false);
     }
