@@ -142,7 +142,7 @@ const PortfolioSection: React.FC = () => {
             </div>
           </div>
           
-          <div className="text-right">
+          <div className={dir === "rtl" ? "text-right" : "text-left"}>
             <span className="text-primary font-bold text-base md:text-lg">
               {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
             </span>
@@ -156,7 +156,7 @@ const PortfolioSection: React.FC = () => {
 
         {/* Description - Long Text with consistent line spacing */}
         <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : ''}`}>
-          <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl">
+          <p className={`text-base md:text-lg text-muted-foreground leading-loose max-w-4xl ${dir === "rtl" ? "text-right" : "text-left"}`}>
             {language === 'ar' 
               ? 'نقدم مجموعة متنوعة من المنتجات والحلول الرقمية المبتكرة التي تساعد عملاءنا على تحقيق أهدافهم وتطوير أعمالهم بكفاءة عالية.'
               : 'We offer a diverse range of innovative digital products and solutions that help our clients achieve their goals and develop their business efficiently.'
@@ -191,7 +191,7 @@ const PortfolioSection: React.FC = () => {
             <CarouselContent>
               {loading ? (
                 <CarouselItem className="basis-full">
-                  <div className="grid lg:grid-cols-2 gap-12 items-center" dir="ltr">
+                  <div className="grid lg:grid-cols-2 gap-12 items-center" dir={dir}>
                     <Skeleton className="h-[500px] w-full rounded-3xl" />
                     <div className="space-y-4">
                       <Skeleton className="h-16 w-16 rounded-full" />
@@ -208,7 +208,7 @@ const PortfolioSection: React.FC = () => {
                     className={`basis-full ${isVisible ? 'animate-fade-in' : ''}`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir={dir}>
                       {/* Left Side - Tablet Mockup with Image */}
                       <div className="relative order-1 lg:order-1">
                         {/* Decorative golden frame - hidden on small screens */}
@@ -225,7 +225,7 @@ const PortfolioSection: React.FC = () => {
                             <img
                               src={item.image_url} 
                               alt={item.title} 
-                              className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-cover object-top"
+                              className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-contain bg-background"
                             />
                           </div>
                           
@@ -235,9 +235,9 @@ const PortfolioSection: React.FC = () => {
                       </div>
                       
                       {/* Right Side - Content */}
-                      <div className="text-right order-2 lg:order-2 px-4 sm:px-0">
+                      <div className={`${dir === "rtl" ? "text-right" : "text-left"} order-2 lg:order-2 px-4 sm:px-0`}>
                         {/* Product logo and name */}
-                        <div className="flex items-center gap-3 md:gap-4 justify-end mb-3 md:mb-4">
+                        <div className={`flex items-center gap-3 md:gap-4 ${dir === "rtl" ? "justify-end" : "justify-start"} mb-3 md:mb-4`}>
                           <div>
                             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                               {language === 'ar' 
@@ -249,7 +249,11 @@ const PortfolioSection: React.FC = () => {
                             </p>
                           </div>
                           {item.logo_url ? (
-                            <img src={item.logo_url} alt={item.title_ar || item.title} className="w-12 h-12 md:w-16 md:h-16 rounded-full object-cover border-2 border-border flex-shrink-0" />
+                            <img
+                              src={item.logo_url}
+                              alt={item.title_ar || item.title}
+                              className="w-12 h-12 md:w-16 md:h-16 rounded-full object-contain bg-background p-2 border-2 border-border flex-shrink-0"
+                            />
                           ) : (
                             <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border flex-shrink-0">
                               <span className="text-lg md:text-2xl font-bold text-primary">{(item.title_ar || item.title || '').charAt(0)}</span>
