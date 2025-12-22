@@ -147,6 +147,20 @@ export const BlogManager = () => {
     }
   };
 
+  const handleDeleteAll = async () => {
+    if (!confirm('هل أنت متأكد من حذف جميع المقالات؟ هذا الإجراء لا يمكن التراجع عنه!')) return;
+    
+    try {
+      const promises = posts.map(post => deleteDoc(doc(db, 'blog_posts', post.id)));
+      await Promise.all(promises);
+      toast({ title: 'تم حذف جميع المقالات بنجاح' });
+      fetchPosts();
+    } catch (error) {
+      console.error('Error deleting all posts:', error);
+      toast({ title: 'خطأ في حذف المقالات', variant: 'destructive' });
+    }
+  };
+
   const resetForm = () => {
     setEditingPost(null);
     setFormData({
@@ -172,7 +186,15 @@ export const BlogManager = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">إدارة المدونة</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold">إدارة المدونة</h1>
+        {posts.length > 0 && (
+          <Button variant="destructive" onClick={handleDeleteAll}>
+            <Trash2 className="h-4 w-4 ml-2" />
+            حذف جميع المقالات
+          </Button>
+        )}
+      </div>
 
       {/* Form */}
       <Card>
