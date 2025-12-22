@@ -142,7 +142,7 @@ const PortfolioSection: React.FC = () => {
             </div>
           </div>
           
-          <div className={dir === "rtl" ? "text-right" : "text-left"}>
+          <div className="text-left" dir="ltr">
             <span className="text-primary font-bold text-base md:text-lg">
               {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
             </span>
@@ -156,7 +156,7 @@ const PortfolioSection: React.FC = () => {
 
         {/* Description - Long Text with consistent line spacing */}
         <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : ''}`}>
-          <p className={`text-base md:text-lg text-muted-foreground leading-loose max-w-4xl ${dir === "rtl" ? "text-right" : "text-left"}`}>
+          <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl text-left" dir="ltr">
             {language === 'ar' 
               ? 'نقدم مجموعة متنوعة من المنتجات والحلول الرقمية المبتكرة التي تساعد عملاءنا على تحقيق أهدافهم وتطوير أعمالهم بكفاءة عالية.'
               : 'We offer a diverse range of innovative digital products and solutions that help our clients achieve their goals and develop their business efficiently.'
@@ -208,7 +208,7 @@ const PortfolioSection: React.FC = () => {
                     className={`basis-full ${isVisible ? 'animate-fade-in' : ''}`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir={dir}>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
                       {/* Left Side - Tablet Mockup with Image */}
                       <div className="relative order-1 lg:order-1">
                         {/* Decorative golden frame - hidden on small screens */}
@@ -235,9 +235,9 @@ const PortfolioSection: React.FC = () => {
                       </div>
                       
                       {/* Right Side - Content */}
-                      <div className={`${dir === "rtl" ? "text-right" : "text-left"} order-2 lg:order-2 px-4 sm:px-0`}>
+                      <div className="text-left order-2 lg:order-2 px-4 sm:px-0">
                         {/* Product logo and name */}
-                        <div className={`flex items-center gap-3 md:gap-4 ${dir === "rtl" ? "justify-end" : "justify-start"} mb-3 md:mb-4`}>
+                        <div className="flex items-center gap-3 md:gap-4 justify-start mb-3 md:mb-4">
                           <div>
                             <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
                               {language === 'ar' 
