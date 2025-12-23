@@ -185,9 +185,12 @@ const Blog: React.FC = () => {
                             {featuredPost.date}
                           </div>
                         </div>
-                        <button className="self-start bg-primary text-primary-foreground px-8 py-3 rounded-xl font-bold hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5">
+                        <Link 
+                          to={`/blog/${featuredPost.id}`}
+                          className="self-start bg-primary text-primary-foreground px-8 py-3 rounded-xl font-bold hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5 inline-block"
+                        >
                           {language === "ar" ? "اقرأ المزيد" : "Read More"}
-                        </button>
+                        </Link>
                       </div>
                       <div className="relative h-64 lg:h-auto min-h-[300px] order-1 lg:order-2 overflow-hidden">
                         <img 
@@ -249,9 +252,12 @@ const Blog: React.FC = () => {
                           </div>
                         </div>
                         
-                        <button className="w-full bg-primary/10 text-primary py-2.5 rounded-xl font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-300">
+                        <Link 
+                          to={`/blog/${post.id}`}
+                          className="w-full bg-primary/10 text-primary py-2.5 rounded-xl font-bold hover:bg-primary hover:text-primary-foreground transition-all duration-300 block text-center"
+                        >
                           {language === "ar" ? "اقرأ المقال" : "Read Article"}
-                        </button>
+                        </Link>
                       </div>
                     </article>
                   ))}

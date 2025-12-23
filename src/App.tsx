@@ -13,6 +13,7 @@ import TermsOfUse from "./pages/TermsOfUse";
 import CancellationPolicy from "./pages/CancellationPolicy";
 import AboutCompany from "./pages/AboutCompany";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import { LanguageProvider } from "@/hooks/useLanguage";
 
 // Admin components
@@ -64,6 +65,7 @@ const App = () => (
                 <Route path="/cancellation-policy" element={<CancellationPolicy />} />
                 <Route path="/about-company" element={<AboutCompany />} />
                 <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:id" element={<BlogPost />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
