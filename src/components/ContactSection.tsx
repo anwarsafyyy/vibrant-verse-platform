@@ -105,7 +105,7 @@ const ContactSection: React.FC = () => {
                 >
                   <div className="flex-1 text-right">
                     <p className="text-sm text-muted-foreground font-medium">{item.label}</p>
-                    <p className="text-foreground font-bold">{item.value}</p>
+                    <p className={`text-foreground font-bold ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>{item.value}</p>
                   </div>
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
                     <item.icon className="w-5 h-5" />
