@@ -116,7 +116,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
-                  <span className="text-sm leading-relaxed">{item.text}</span>
+                  <span className={`text-sm leading-relaxed ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>{item.text}</span>
                   <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <item.icon className="h-4 w-4" />
                   </div>

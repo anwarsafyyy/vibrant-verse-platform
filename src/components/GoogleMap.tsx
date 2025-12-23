@@ -48,7 +48,7 @@ const GoogleMap: React.FC = () => {
               <h3 className="font-semibold text-olu-purple-dark mb-2">
                 {language === 'ar' ? 'الهاتف' : 'Phone'}
               </h3>
-              <p className="text-muted-foreground">+966535656226</p>
+              <p className="text-muted-foreground" dir="ltr">+966535656226</p>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-sm border">
