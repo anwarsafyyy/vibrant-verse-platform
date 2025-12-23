@@ -281,13 +281,6 @@ const PortfolioSection: React.FC = () => {
                             : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description)}
                         </p>
                         
-                        {/* Read More Link */}
-                        <a 
-                          href="#" 
-                          className="inline-flex items-center gap-2 text-primary font-bold text-base md:text-lg hover:gap-4 transition-all duration-300"
-                        >
-                          <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
-                        </a>
                       </div>
                     </div>
                   </CarouselItem>
