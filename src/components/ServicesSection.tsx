@@ -248,17 +248,6 @@ const ServicesSection: React.FC = () => {
             <ChevronLeft className="w-5 h-5" />
           </button>
         </div>
-        
-        {/* View All Services Link */}
-        <div className="flex mt-12 justify-start">
-          <a 
-            href="#" 
-            className="group flex items-center gap-2 text-primary font-bold text-lg hover:gap-4 transition-all duration-300"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>{language === 'ar' ? 'عرض الجميع' : 'View All'}</span>
-          </a>
-        </div>
       </div>
     </section>
   );
