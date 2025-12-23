@@ -149,14 +149,6 @@ const AboutSection: React.FC = () => {
                 : "We collaborate with clients throughout their digital journey, from initial development to backend infrastructure management. By prioritizing exceptional customer service and tailoring solutions to meet specific business needs."
               }
             </p>
-            
-            {/* Read More Link */}
-            <a 
-              href="#services" 
-              className="inline-flex items-center gap-2 text-primary font-bold text-base md:text-lg hover:gap-4 transition-all duration-300"
-            >
-              <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
-            </a>
           </div>
         </div>
       </div>
