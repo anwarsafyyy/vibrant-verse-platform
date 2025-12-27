@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { 
   Globe, Code, Cpu, BarChart, MoreHorizontal, LucideIcon,
   Monitor, Smartphone, Shield, Zap, Camera, Headphones,
@@ -43,12 +43,38 @@ const serviceTranslations: Record<string, { title: string; description: string }
   'الاستشارات التقنية': { title: 'Technical Consulting', description: 'Expert technical consulting to help your business thrive.' },
 };
 
+// Parallax hook
+const useParallax = (speed: number = 0.5) => {
+  const [offset, setOffset] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        const scrolled = window.innerHeight - rect.top;
+        if (scrolled > 0) {
+          setOffset(scrolled * speed * 0.1);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [speed]);
+
+  return { offset, elementRef };
+};
+
 const ServicesSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(1);
   const [isVisible, setIsVisible] = useState(false);
+  const { offset: decorOffset1, elementRef: decorRef1 } = useParallax(0.4);
+  const { offset: decorOffset2, elementRef: decorRef2 } = useParallax(0.6);
+  const { offset: decorOffset3, elementRef: decorRef3 } = useParallax(0.3);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -107,11 +133,27 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-12 lg:py-16 relative overflow-hidden bg-background">
-      {/* Decorative diamond shapes */}
-      <div className="absolute top-32 left-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block" />
-      <div className="absolute top-1/2 right-16 w-8 h-8 border-2 border-primary/20 rotate-45 hidden lg:block" />
+    <section id="services" className="py-12 lg:py-16 relative overflow-hidden animate-gradient-flow">
+      {/* Animated gradient orbs */}
+      <div className="absolute top-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
+      
+      {/* Decorative diamond shapes with parallax */}
+      <div 
+        ref={decorRef1}
+        className="absolute top-32 left-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `translateY(${decorOffset1}px) rotate(45deg)` }}
+      />
+      <div 
+        ref={decorRef2}
+        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `translateY(${-decorOffset2}px) rotate(45deg)` }}
+      />
+      <div 
+        ref={decorRef3}
+        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-primary/20 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `translateY(${decorOffset3}px) rotate(45deg)` }}
+      />
       
       <div className="container mx-auto px-4">
         {/* Unified Section Header */}
