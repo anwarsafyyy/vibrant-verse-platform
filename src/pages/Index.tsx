@@ -20,13 +20,6 @@ const Index = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
-      
-      {/* Divider after Hero */}
-      <SCurveDivider 
-        fillColor="hsl(var(--background))" 
-        bgColor="hsl(220 20% 97%)"
-      />
-      
       <AboutSection />
       
       {/* Divider after About */}
