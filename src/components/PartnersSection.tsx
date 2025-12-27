@@ -1,10 +1,9 @@
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-
 
 interface Partner {
   id: string;
@@ -15,7 +14,7 @@ interface Partner {
 }
 
 const PartnersSection: React.FC = () => {
-  const { t, dir, language } = useLanguage();
+  const { language } = useLanguage();
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
@@ -51,134 +50,110 @@ const PartnersSection: React.FC = () => {
     fetchPartners();
   }, []);
 
-  const defaultPartners = ['VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft'];
+  const defaultPartners = [
+    { name: 'VMware', color: '#5e5d5d' },
+    { name: 'SAP', color: '#0057c2' },
+    { name: 'Construx', color: '#00a651' },
+    { name: 'Juniper', color: '#00a3e0' },
+    { name: 'Oracle', color: '#c74634' },
+    { name: 'Microsoft', color: '#00a4ef' },
+  ];
+
+  // Positions for orbital layout - scattered around the orbit
+  const orbitPositions = [
+    { top: '10%', left: '50%', transform: 'translateX(-50%)' },
+    { top: '30%', left: '15%' },
+    { top: '30%', right: '15%' },
+    { top: '55%', left: '8%' },
+    { top: '55%', right: '8%' },
+    { top: '75%', left: '30%' },
+    { top: '75%', right: '30%' },
+    { top: '85%', left: '50%', transform: 'translateX(-50%)' },
+  ];
+
+  const displayPartners = partners.length > 0 
+    ? partners 
+    : defaultPartners.map((p, i) => ({ id: `default-${i}`, name: p.name, logo_url: '', order_index: i, created_at: null, color: p.color }));
 
   return (
-    <section id="partners" className="py-12 lg:py-16 relative overflow-hidden">
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-50 via-fuchsia-50 to-pink-50 dark:from-violet-950/20 dark:via-fuchsia-950/20 dark:to-pink-950/20" />
+    <section id="partners" className="py-16 lg:py-24 relative overflow-hidden bg-[#0a1628]">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1e3a] via-[#0a1628] to-[#071020]" />
       
-      {/* Floating orbs */}
-      <div className="absolute top-20 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
-      
-      {/* Decorative elements */}
-      <div className="absolute top-32 right-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block" />
+      {/* Orbital rings */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] lg:w-[700px] lg:h-[700px] border border-white/10 rounded-full animate-spin-slow" style={{ animationDuration: '60s' }} />
+        <div className="absolute w-[400px] h-[400px] md:w-[650px] md:h-[650px] lg:w-[900px] lg:h-[900px] border border-white/5 rounded-full animate-spin-slow" style={{ animationDuration: '80s', animationDirection: 'reverse' }} />
+        <div className="absolute w-[500px] h-[500px] md:w-[800px] md:h-[800px] lg:w-[1100px] lg:h-[1100px] border border-white/[0.03] rounded-full animate-spin-slow" style={{ animationDuration: '100s' }} />
+      </div>
+
+      {/* Small decorative dots on orbits */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="absolute w-2 h-2 bg-white/30 rounded-full animate-spin-slow" style={{ animationDuration: '20s', transformOrigin: '250px center' }} />
+        <div className="absolute w-1.5 h-1.5 bg-white/20 rounded-full animate-spin-slow" style={{ animationDuration: '30s', animationDirection: 'reverse', transformOrigin: '350px center' }} />
+      </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Unified Section Header */}
-        <div className={`flex items-center gap-4 mb-8 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          {/* Diamond icon container */}
-          <div className="relative">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
-              <svg className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-              </svg>
-            </div>
-          </div>
-          
-          <div className="text-right">
-            <span className="text-primary font-bold text-base md:text-lg">
-              {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
-            </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-              <span className="olu-text-gradient">
-                {language === 'ar' ? 'المنشآت الرائدة' : 'Leading Organizations'}
-              </span>
-            </h2>
-          </div>
+        {/* Section Title */}
+        <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+            {language === 'ar' ? 'معتمد من كبرى المؤسسات في المنطقة' : 'Trusted by Leading Organizations'}
+          </h2>
         </div>
 
-        {/* Description */}
-        <div className={`mb-10 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-          <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl">
-            {language === 'ar' 
-              ? 'العديد من الشركات التي تثق بحلولنا لتحسين عملياتها معنا. نفخر بشراكاتنا مع المؤسسات الرائدة في مختلف القطاعات.'
-              : 'Many companies trust our solutions to improve their operations with us. We are proud of our partnerships with leading organizations across various sectors.'
-            }
-          </p>
-        </div>
-
-        {/* Partners Display - Animated Grid */}
-        <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
+        {/* Partners Orbital Display */}
+        <div className={`relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {Array(6).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-6 border border-border/50">
-                  <Skeleton className="w-full h-20" />
-                </div>
-              ))}
+            <div className="flex items-center justify-center h-full">
+              <div className="grid grid-cols-3 gap-8">
+                {Array(6).fill(0).map((_, index) => (
+                  <Skeleton key={`skeleton-${index}`} className="w-20 h-20 rounded-full bg-white/10" />
+                ))}
+              </div>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {partners.length > 0 ? (
-                partners.map((partner, index) => {
-                  // Different animation styles for variety
-                  const animations = [
-                    'animate-float',
-                    'animate-pulse-soft',
-                    'animate-bounce-subtle',
-                  ];
-                  const animation = animations[index % animations.length];
-                  const delay = index * 0.2;
-                  
-                  return (
-                    <div
-                      key={partner.id}
-                      className={`group relative bg-card/90 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden ${animation}`}
-                      style={{ animationDelay: `${delay}s` }}
-                    >
-                      {/* Subtle glow on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
+            <>
+              {displayPartners.slice(0, 8).map((partner, index) => {
+                const position = orbitPositions[index] || orbitPositions[index % orbitPositions.length];
+                const animationDelay = index * 0.3;
+                const floatDuration = 3 + (index % 3);
+                
+                return (
+                  <div
+                    key={partner.id}
+                    className="absolute animate-float"
+                    style={{
+                      ...position,
+                      animationDelay: `${animationDelay}s`,
+                      animationDuration: `${floatDuration}s`,
+                    }}
+                  >
+                    <div className="relative group">
+                      {/* Glow effect */}
+                      <div className="absolute inset-0 bg-white/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
                       
-                      {/* Content */}
-                      <div className="relative z-10 flex items-center justify-center h-20">
-                        <img
-                          src={partner.logo_url}
-                          alt={`${partner.name} Logo`}
-                          className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-110"
-                        />
+                      {/* Logo container */}
+                      <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-black/50 transition-transform duration-500 group-hover:scale-110 border-2 border-white/50">
+                        {partner.logo_url ? (
+                          <img
+                            src={partner.logo_url}
+                            alt={`${partner.name} Logo`}
+                            className="w-3/4 h-3/4 object-contain"
+                          />
+                        ) : (
+                          <span 
+                            className="text-sm md:text-base lg:text-lg font-bold text-center px-2"
+                            style={{ color: (partner as any).color || '#333' }}
+                          >
+                            {partner.name}
+                          </span>
+                        )}
                       </div>
                     </div>
-                  );
-                })
-              ) : (
-                defaultPartners.map((name, index) => {
-                  const animations = [
-                    'animate-float',
-                    'animate-pulse-soft',
-                    'animate-bounce-subtle',
-                  ];
-                  const animation = animations[index % animations.length];
-                  const delay = index * 0.2;
-                  const colors = [
-                    'text-red-500',
-                    'text-blue-600',
-                    'text-green-600',
-                    'text-purple-600',
-                    'text-orange-500',
-                    'text-cyan-600',
-                  ];
-                  
-                  return (
-                    <div
-                      key={`${name}-${index}`}
-                      className={`group relative bg-card/90 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden ${animation}`}
-                      style={{ animationDelay: `${delay}s` }}
-                    >
-                      {/* Subtle glow on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-                      
-                      {/* Content */}
-                      <div className="relative z-10 flex items-center justify-center h-20">
-                        <span className={`text-xl md:text-2xl font-bold ${colors[index]} group-hover:scale-110 transition-transform duration-300`}>{name}</span>
-                      </div>
-                    </div>
-                  );
-                })
-              )}
-            </div>
+                  </div>
+                );
+              })}
+            </>
           )}
         </div>
       </div>
