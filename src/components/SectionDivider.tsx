@@ -36,12 +36,16 @@ const SectionDivider: React.FC<SectionDividerProps> = ({
 };
 
 // Wave divider with double curve
-export const WaveDivider: React.FC<SectionDividerProps> = ({ 
+export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; gradientColors?: string[] }> = ({ 
   className = "", 
   fillColor = "hsl(var(--background))",
   bgColor = "transparent",
-  flip = false
+  flip = false,
+  gradientId,
+  gradientColors
 }) => {
+  const useGradient = gradientId && gradientColors && gradientColors.length >= 2;
+  
   return (
     <div 
       className={`relative w-full overflow-hidden ${className}`}
@@ -55,9 +59,22 @@ export const WaveDivider: React.FC<SectionDividerProps> = ({
         preserveAspectRatio="none"
         style={{ marginBottom: '-1px' }}
       >
+        {useGradient && (
+          <defs>
+            <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="0%">
+              {gradientColors.map((color, index) => (
+                <stop 
+                  key={index} 
+                  offset={`${(index / (gradientColors.length - 1)) * 100}%`} 
+                  stopColor={color} 
+                />
+              ))}
+            </linearGradient>
+          </defs>
+        )}
         <path
           d="M0 100C240 100 240 40 480 40C720 40 720 100 960 100C1200 100 1200 40 1440 40V0H0V100Z"
-          fill={fillColor}
+          fill={useGradient ? `url(#${gradientId})` : fillColor}
         />
       </svg>
     </div>
