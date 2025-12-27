@@ -211,12 +211,12 @@ const PortfolioSection: React.FC = () => {
                 </CarouselItem>
               ) : portfolioItems.length > 0 ? (
                 portfolioItems.map((item, index) => {
-                  // Different gradient colors for each product
+                  // Different gradient colors matching logo (purple, pink, magenta)
                   const gradients = [
-                    'from-violet-500 via-purple-500 to-fuchsia-500',
-                    'from-cyan-500 via-blue-500 to-indigo-500',
-                    'from-emerald-500 via-teal-500 to-cyan-500',
-                    'from-orange-500 via-amber-500 to-yellow-500',
+                    'from-violet-600 via-purple-500 to-fuchsia-500',
+                    'from-purple-600 via-fuchsia-500 to-pink-500',
+                    'from-fuchsia-600 via-pink-500 to-rose-400',
+                    'from-indigo-600 via-violet-500 to-purple-500',
                   ];
                   const gradient = gradients[index % gradients.length];
                   
