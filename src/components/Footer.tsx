@@ -58,11 +58,11 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-gradient-purple text-white relative">
+    <footer className="text-white relative" style={{ background: 'linear-gradient(180deg, #071020 0%, #050a14 100%)' }}>
       {/* Back to top button */}
       <Button 
         onClick={scrollToTop}
-        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300"
+        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300"
         size="icon"
       >
         <ArrowUp className="w-5 h-5" />
@@ -91,14 +91,14 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-bold mb-6 relative inline-block">
               {dir === "rtl" ? "روابط مهمة" : "Important Links"}
-              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-blue-400 rounded-full" />
             </h4>
             <ul className="space-y-3">
               {links.map(link => (
                 <li key={link.href}>
                   <a 
                     href={link.href} 
-                    className="text-sm opacity-70 hover:opacity-100 hover:text-primary transition-all duration-300"
+                    className="text-sm opacity-70 hover:opacity-100 hover:text-blue-400 transition-all duration-300"
                   >
                     {dir === "rtl" ? link.ar : link.en}
                   </a>
@@ -111,7 +111,7 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-bold mb-6 relative inline-block">
               {dir === "rtl" ? "تواصل معنا" : "Contact Us"}
-              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-blue-400 rounded-full" />
             </h4>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
@@ -129,27 +129,27 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="text-lg font-bold mb-6 relative inline-block">
               {dir === "rtl" ? "تابعنا" : "Follow Us"}
-              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-primary rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-blue-400 rounded-full" />
             </h4>
             <div className="flex gap-3 mb-6 justify-end">
               {/* TikTok */}
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
                 {getSocialIcon('tiktok')}
               </a>
               {/* LinkedIn */}
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
                 {getSocialIcon('linkedin')}
               </a>
               {/* Instagram */}
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
                 {getSocialIcon('instagram')}
               </a>
               {/* Twitter/X */}
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
                 {getSocialIcon('twitter')}
               </a>
               {/* WhatsApp */}
-              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-primary hover:scale-110 transition-all duration-300">
+              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
                 {getSocialIcon('whatsapp')}
               </a>
             </div>
@@ -172,11 +172,11 @@ const Footer: React.FC = () => {
               }
             </p>
             <div className="flex items-center gap-4 text-sm opacity-50">
-              <a href="/privacy-policy" className="hover:opacity-100 hover:text-primary transition-all">
+              <a href="/privacy-policy" className="hover:opacity-100 hover:text-blue-400 transition-all">
                 {dir === "rtl" ? "الخصوصية" : "Privacy"}
               </a>
               <span>•</span>
-              <a href="/terms-of-use" className="hover:opacity-100 hover:text-primary transition-all">
+              <a href="/terms-of-use" className="hover:opacity-100 hover:text-blue-400 transition-all">
                 {dir === "rtl" ? "الشروط" : "Terms"}
               </a>
             </div>

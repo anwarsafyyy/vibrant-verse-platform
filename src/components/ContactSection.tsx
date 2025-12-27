@@ -99,11 +99,11 @@ const ContactSection: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-12 lg:py-16 relative overflow-hidden animate-gradient-flow">
+    <section id="contact" className="py-12 lg:py-16 relative overflow-hidden">
       {/* Animated gradient orbs */}
-      <div className="absolute top-20 right-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-pink-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-20 right-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 rounded-full blur-3xl" />
       
       {/* Decorative elements with parallax */}
       <div 
@@ -112,13 +112,7 @@ const ContactSection: React.FC = () => {
         style={{ transform: `translateY(${decorOffset1}px)` }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="url(#gradient1)" strokeWidth="2" />
-          <defs>
-            <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(262, 83%, 58%)" />
-              <stop offset="100%" stopColor="hsl(330, 81%, 60%)" />
-            </linearGradient>
-          </defs>
+          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="#3b82f6" strokeWidth="2" />
         </svg>
       </div>
       <div 
@@ -127,20 +121,13 @@ const ContactSection: React.FC = () => {
         style={{ transform: `translateY(${-decorOffset2}px)` }}
       >
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="url(#gradient2)" strokeWidth="2" />
-          <defs>
-            <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="hsl(330, 81%, 60%)" />
-              <stop offset="100%" stopColor="hsl(292, 84%, 61%)" />
-            </linearGradient>
-          </defs>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#60a5fa" strokeWidth="2" />
         </svg>
       </div>
 
       {/* Floating diamonds */}
-      <div className="absolute top-40 left-16 w-6 h-6 border-2 border-violet-500/30 rotate-45 rounded-md hidden lg:block animate-bounce-soft" />
-      <div className="absolute bottom-40 right-16 w-8 h-8 border-2 border-fuchsia-500/30 rotate-45 rounded-lg hidden lg:block animate-bounce-soft" style={{ animationDelay: '1s' }} />
-      <div className="absolute top-1/3 right-1/4 w-4 h-4 border-2 border-pink-500/30 rotate-45 rounded hidden lg:block animate-pulse-soft" />
+      <div className="absolute top-40 left-16 w-6 h-6 border-2 border-blue-400/30 rotate-45 rounded-md hidden lg:block animate-bounce-soft" />
+      <div className="absolute bottom-40 right-16 w-8 h-8 border-2 border-blue-400/30 rotate-45 rounded-lg hidden lg:block animate-bounce-soft" style={{ animationDelay: '1s' }} />
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
@@ -148,20 +135,19 @@ const ContactSection: React.FC = () => {
           <div className={`text-right lg:order-2 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section label with gradient */}
             <div className="flex items-center gap-3 mb-6">
-              <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-violet-600 via-purple-500 to-fuchsia-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <div className="relative w-12 h-12 rounded-xl bg-blue-500 flex items-center justify-center shadow-lg shadow-blue-500/30">
                 <MessageSquare className="w-6 h-6 text-white" />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-white/20 via-transparent to-transparent" />
               </div>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-500 font-bold tracking-wider uppercase text-sm">
+              <span className="text-blue-400 font-bold tracking-wider uppercase text-sm">
                 {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
-              <span className="olu-text-gradient">{t("contact.title")}</span>
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 text-white">
+              {t("contact.title")}
             </h2>
             
-            <p className="text-lg text-muted-foreground max-w-lg mb-10 leading-relaxed">
+            <p className="text-lg text-white/60 max-w-lg mb-10 leading-relaxed">
               {t("contact.subtitle")}
             </p>
             
@@ -170,23 +156,18 @@ const ContactSection: React.FC = () => {
               {contactInfo.map((item, index) => (
                 <div 
                   key={index}
-                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-card border border-border overflow-hidden transition-all duration-500 hover:border-transparent hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 overflow-hidden transition-all duration-500 hover:border-blue-400/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                   style={{ animationDelay: `${(index + 1) * 150}ms` }}
                 >
-                  {/* Gradient border on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
-                  <div className="absolute inset-[2px] bg-card rounded-[14px] z-10" />
-                  
                   {/* Content */}
                   <div className="relative z-20 flex-1 text-right">
-                    <p className="text-sm text-muted-foreground font-medium">{item.label}</p>
-                    <p className={`text-foreground font-bold group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r ${item.gradient} transition-all duration-300 ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>
+                    <p className="text-sm text-white/50 font-medium">{item.label}</p>
+                    <p className={`text-white font-bold group-hover:text-blue-400 transition-all duration-300 ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>
                       {item.value}
                     </p>
                   </div>
                   <div className={`relative z-20 w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
                     <item.icon className="w-6 h-6" />
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-white/20 via-transparent to-transparent" />
                   </div>
                 </div>
               ))}
@@ -206,32 +187,30 @@ const ContactSection: React.FC = () => {
           {/* Left Side - Form with enhanced styling */}
           <div className={`relative group lg:order-1 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
             {/* Animated glow effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 rounded-[26px] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-700" />
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 rounded-[26px] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-700" />
             
             {/* Form container */}
-            <div className="relative bg-card rounded-3xl p-8 lg:p-10 border border-border shadow-2xl overflow-hidden">
+            <div className="relative bg-[#0d1e3a] rounded-3xl p-8 lg:p-10 border border-white/10 shadow-2xl overflow-hidden">
               {/* Decorative gradient corners */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-violet-500/10 via-fuchsia-500/10 to-transparent rounded-full blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-pink-500/10 via-purple-500/10 to-transparent rounded-full blur-2xl" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-400/10 rounded-full blur-2xl" />
               
-              <h3 className="text-2xl font-bold mb-6 text-right relative z-10">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-fuchsia-500">
-                  {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a Message'}
-                </span>
+              <h3 className="text-2xl font-bold mb-6 text-right relative z-10 text-white">
+                {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a Message'}
               </h3>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 relative z-10">
                   <FormField control={form.control} name="name" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground font-bold text-right block">
+                      <FormLabel className="text-white font-bold text-right block">
                         {t("contact.name")}
                       </FormLabel>
                       <FormControl>
                         <Input 
                           placeholder={t("contact.namePlaceholder")} 
                           {...field} 
-                          className="rounded-xl border-border focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 bg-background text-lg text-right transition-all duration-300"
+                          className="rounded-xl border-white/10 bg-white/5 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 h-14 text-white text-lg text-right transition-all duration-300 placeholder:text-white/30"
                         />
                       </FormControl>
                       <FormMessage />
@@ -240,7 +219,7 @@ const ContactSection: React.FC = () => {
                   
                   <FormField control={form.control} name="email" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground font-bold text-right block">
+                      <FormLabel className="text-white font-bold text-right block">
                         {t("contact.email")}
                       </FormLabel>
                       <FormControl>
@@ -248,7 +227,7 @@ const ContactSection: React.FC = () => {
                           type="email" 
                           placeholder={t("contact.emailPlaceholder")} 
                           {...field} 
-                          className="rounded-xl border-border focus:border-primary focus:ring-2 focus:ring-primary/20 h-14 bg-background text-lg text-right transition-all duration-300"
+                          className="rounded-xl border-white/10 bg-white/5 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 h-14 text-white text-lg text-right transition-all duration-300 placeholder:text-white/30"
                         />
                       </FormControl>
                       <FormMessage />
@@ -257,13 +236,13 @@ const ContactSection: React.FC = () => {
                   
                   <FormField control={form.control} name="message" render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-foreground font-bold text-right block">
+                      <FormLabel className="text-white font-bold text-right block">
                         {t("contact.message")}
                       </FormLabel>
                       <FormControl>
                         <Textarea 
                           placeholder={t("contact.messagePlaceholder")} 
-                          className="min-h-[140px] rounded-xl border-border focus:border-primary focus:ring-2 focus:ring-primary/20 bg-background text-lg text-right transition-all duration-300"
+                          className="min-h-[140px] rounded-xl border-white/10 bg-white/5 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 text-white text-lg text-right transition-all duration-300 placeholder:text-white/30"
                           {...field}
                         />
                       </FormControl>
@@ -275,7 +254,7 @@ const ContactSection: React.FC = () => {
                     type="submit" 
                     disabled={isSubmitting} 
                     size="lg" 
-                    className="w-full bg-gradient-to-r from-violet-600 via-purple-500 to-fuchsia-500 hover:from-violet-700 hover:via-purple-600 hover:to-fuchsia-600 font-bold h-14 text-lg rounded-xl shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-300 hover:-translate-y-1"
+                    className="w-full bg-blue-500 hover:bg-blue-400 font-bold h-14 text-lg rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all duration-300 hover:-translate-y-1"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
