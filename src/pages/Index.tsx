@@ -20,6 +20,14 @@ const Index = () => {
     <main className="min-h-screen bg-background">
       <Navbar />
       <HeroSection />
+      
+      {/* Divider before About */}
+      <SCurveDivider 
+        fillColor="hsl(var(--background))" 
+        bgColor="hsl(220 20% 97%)"
+        flip
+      />
+      
       <AboutSection />
       
       {/* Divider after About */}
