@@ -9,28 +9,28 @@ const HeroSection: React.FC = () => {
   const { getHeroContent, getSetting } = useSiteContent();
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-white sm:bg-gradient-to-b sm:from-[#0a1628] sm:via-[#0d1e3a] sm:to-[#0a1628]">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-white md:bg-gradient-to-b md:from-[#0a1628] md:via-[#0d1e3a] md:to-[#0a1628]">
       {/* Decorative Background Elements - Hidden on mobile */}
       {/* Large blue circle - left */}
-      <div className="hidden sm:block absolute left-[-5%] top-[40%] w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 bg-blue-500/20 rounded-full blur-3xl" />
+      <div className="hidden md:block absolute left-[-5%] top-[40%] w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 bg-blue-500/20 rounded-full blur-3xl" />
       
       {/* Large light curved shape - top left */}
-      <div className="hidden sm:block absolute left-0 top-0 w-[50%] h-[60%] bg-gradient-to-br from-blue-500/10 to-transparent rounded-br-[50%]" />
+      <div className="hidden md:block absolute left-0 top-0 w-[50%] h-[60%] bg-gradient-to-br from-blue-500/10 to-transparent rounded-br-[50%]" />
       
       {/* Small green circle - left */}
-      <div className="hidden sm:block absolute left-[8%] top-[75%] w-4 h-4 md:w-6 md:h-6 bg-emerald-400 rounded-full" />
+      <div className="hidden md:block absolute left-[8%] top-[75%] w-4 h-4 md:w-6 md:h-6 bg-emerald-400 rounded-full" />
       
       {/* Small blue dot - top center */}
-      <div className="hidden sm:block absolute left-[30%] top-[15%] w-2 h-2 md:w-3 md:h-3 bg-blue-400/60 rounded-full" />
+      <div className="hidden md:block absolute left-[30%] top-[15%] w-2 h-2 md:w-3 md:h-3 bg-blue-400/60 rounded-full" />
       
       {/* Light teal circle - right */}
-      <div className="hidden sm:block absolute right-[5%] bottom-[10%] w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 bg-teal-400/20 rounded-full blur-2xl" />
+      <div className="hidden md:block absolute right-[5%] bottom-[10%] w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 bg-teal-400/20 rounded-full blur-2xl" />
       
       {/* Light blue circle - top right */}
-      <div className="hidden sm:block absolute right-[20%] top-[20%] w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-blue-400/15 rounded-full blur-2xl" />
+      <div className="hidden md:block absolute right-[20%] top-[20%] w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-blue-400/15 rounded-full blur-2xl" />
       
       {/* Small light blue circle */}
-      <div className="hidden sm:block absolute right-[8%] top-[35%] w-12 h-12 md:w-16 md:h-16 bg-blue-300/20 rounded-full blur-xl" />
+      <div className="hidden md:block absolute right-[8%] top-[35%] w-12 h-12 md:w-16 md:h-16 bg-blue-300/20 rounded-full blur-xl" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div dir="ltr" className="flex flex-col lg:flex-row items-center justify-between min-h-screen pt-60 sm:pt-48 pb-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
@@ -122,7 +122,7 @@ const HeroSection: React.FC = () => {
 
           {/* Right Side - Text Content */}
           <div dir="rtl" className="w-full lg:w-1/2 text-center lg:text-right order-1 lg:order-2">
-            <h1 className="font-black leading-[1.1] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6 text-blue-900 sm:text-white">
+            <h1 className="font-black leading-[1.1] text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6 text-blue-900 md:text-white">
               {language === 'ar' 
                 ? (getHeroContent('title_ar', 'ar') || 'نبني المستقبل الرقمي معك')
                 : (getHeroContent('title_en', 'en') || 'Building the Digital Future with You')
@@ -130,7 +130,7 @@ const HeroSection: React.FC = () => {
               <span className="inline-block mr-2">👋</span>
             </h1>
             
-            <p className="text-blue-700/80 sm:text-white/70 text-base sm:text-lg md:text-xl leading-relaxed mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 lg:mr-0">
+            <p className="text-blue-700/80 md:text-white/70 text-base sm:text-lg md:text-xl leading-relaxed mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 lg:mr-0">
               {language === 'ar' 
                 ? (getHeroContent('subtitle_ar', 'ar') || 'نحو مستقبل رقمي أكثر نجاحًا — نوفّر لك حلولًا تقنية تجمع بين الابتكار والكفاءة لتصنع الفرق في عالم الأعمال.')
                 : (getHeroContent('subtitle_en', 'en') || 'Towards a more successful digital future — we provide you with technological solutions that combine innovation and efficiency to make a difference in the business world.')
@@ -140,13 +140,13 @@ const HeroSection: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-end">
               <a 
                 href="#contact" 
-                className="inline-block px-8 py-4 bg-blue-600 sm:bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-500 sm:hover:bg-blue-400 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1"
+                className="inline-block px-8 py-4 bg-blue-600 md:bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-500 md:hover:bg-blue-400 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-1"
               >
                 {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </a>
               <a 
                 href="#about" 
-                className="inline-block px-8 py-4 bg-transparent text-blue-700 sm:text-white/80 font-bold text-lg hover:text-blue-900 sm:hover:text-white transition-all duration-300"
+                className="inline-block px-8 py-4 bg-transparent text-blue-700 md:text-white/80 font-bold text-lg hover:text-blue-900 md:hover:text-white transition-all duration-300"
               >
                 {language === 'ar' ? 'تعرف علينا' : 'Get Started'}
               </a>

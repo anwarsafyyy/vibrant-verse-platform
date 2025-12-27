@@ -18,7 +18,7 @@ const Index = () => {
   useDynamicHead();
   
   return (
-    <main className="min-h-screen relative" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0d1e3a 100%)' }}>
+    <main className="min-h-screen relative bg-white md:bg-background md:bg-gradient-hero">
       <AnimatedBackground />
       <Navbar />
       <HeroSection />
