@@ -53,8 +53,8 @@ const Navbar: React.FC = () => {
           {/* Navbar */}
           <div className={`flex-1 flex items-center justify-between transition-all duration-500 -mr-4 ${
             isScrolled 
-              ? 'bg-gradient-to-r from-blue-950/95 via-blue-900/95 to-blue-950/95 backdrop-blur-xl shadow-xl shadow-blue-900/40 rounded-2xl px-6 py-3 border border-blue-400/20' 
-              : 'bg-gradient-to-r from-blue-950/80 via-blue-900/80 to-blue-950/80 backdrop-blur-md rounded-2xl px-6 py-3 shadow-lg border border-blue-500/10'
+              ? 'bg-white/95 backdrop-blur-xl shadow-xl shadow-gray-200/50 rounded-2xl px-6 py-3 border border-gray-200' 
+              : 'bg-white/90 backdrop-blur-md rounded-2xl px-6 py-3 shadow-lg border border-gray-100'
           }`}>
             
             {/* Desktop Menu */}
@@ -63,20 +63,20 @@ const Navbar: React.FC = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="relative px-4 py-2.5 text-sm font-bold text-blue-100/90 hover:text-white rounded-xl transition-all duration-300 hover:bg-blue-500/20 group"
+                  className="relative px-4 py-2.5 text-sm font-bold text-blue-900 hover:text-blue-600 rounded-xl transition-all duration-300 hover:bg-blue-50 group"
                 >
                   {item.label}
-                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-400 to-blue-300 group-hover:w-3/4 transition-all duration-300 rounded-full"></span>
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-400 group-hover:w-3/4 transition-all duration-300 rounded-full"></span>
                 </a>
               ))}
             </div>
 
             {/* Mobile Title - Only visible on mobile */}
             <div className="lg:hidden flex items-center gap-2">
-              <span className="text-sm font-bold bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent">
+              <span className="text-sm font-bold text-blue-900">
                 {language === 'ar' ? 'علو للتقنية' : 'OLU Tech'}
               </span>
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-blue-300 animate-pulse shadow-lg shadow-blue-400/50"></div>
+              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-600 to-blue-400 animate-pulse shadow-lg shadow-blue-400/50"></div>
             </div>
 
             {/* Right Actions */}
@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
               {/* CTA Button - Desktop */}
               <a 
                 href="#contact"
-                className="hidden lg:flex items-center px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-xl font-bold text-sm hover:from-blue-400 hover:to-blue-300 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-105 border border-blue-300/20"
+                className="hidden lg:flex items-center px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-bold text-sm hover:from-blue-500 hover:to-blue-400 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-105"
               >
                 {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </a>
@@ -94,7 +94,7 @@ const Navbar: React.FC = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden rounded-xl text-blue-100 hover:text-white hover:bg-blue-500/30 border border-blue-400/30 transition-all duration-300"
+                className="lg:hidden rounded-xl text-blue-900 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 transition-all duration-300"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
