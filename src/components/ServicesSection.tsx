@@ -266,36 +266,23 @@ const ServicesSection: React.FC = () => {
               </div>
             ) : services.length > 0 ? (
               <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`}>
-                {getVisibleServices().map(({ service, isActive }, index) => {
+                {getVisibleServices().map(({ service }, index) => {
                   const IconComponent = getIcon(service.icon);
                   return (
                     <Card3D 
                       key={service.id}
-                      className={`group relative p-8 rounded-3xl cursor-pointer ${
-                        isActive 
-                          ? 'bg-primary/10 border-2 border-primary shadow-xl shadow-primary/10' 
-                          : 'bg-card border-2 border-dashed border-border hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/20'
-                      } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                      className={`group relative p-8 rounded-3xl cursor-pointer bg-card border-2 border-dashed border-border hover:border-primary hover:shadow-2xl hover:shadow-primary/20 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                       style={{ animationDelay: `${index * 100}ms` }}
-                      onClick={() => setActiveIndex(services.indexOf(service))}
                     >
                       {/* Diamond Icon Container */}
                       <div className="flex justify-center mb-8">
-                        <div className={`relative w-20 h-20 rotate-45 rounded-xl flex items-center justify-center transition-all duration-500 ${
-                          isActive 
-                            ? 'bg-primary shadow-lg shadow-primary/30' 
-                            : 'border-2 border-dashed border-primary/40 group-hover:border-primary group-hover:bg-primary/5'
-                        }`}>
-                          <IconComponent className={`w-8 h-8 -rotate-45 transition-colors duration-300 ${
-                            isActive ? 'text-white' : 'text-primary'
-                          }`} />
+                        <div className="relative w-20 h-20 rotate-45 rounded-xl flex items-center justify-center transition-all duration-500 border-2 border-dashed border-primary/40 group-hover:border-primary group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/30">
+                          <IconComponent className="w-8 h-8 -rotate-45 transition-colors duration-300 text-primary group-hover:text-white" />
                         </div>
                       </div>
                       
                       {/* Title */}
-                      <h3 className={`text-xl font-bold mb-4 text-center transition-colors ${
-                        isActive ? 'text-primary' : 'text-foreground group-hover:text-primary'
-                      }`}>
+                      <h3 className="text-xl font-bold mb-4 text-center transition-colors text-foreground group-hover:text-primary">
                         {language === 'ar' 
                           ? (service.title_ar || service.title) 
                           : (service.title_en || serviceTranslations[service.title_ar || service.title || '']?.title || service.title_ar || service.title)}
@@ -310,11 +297,7 @@ const ServicesSection: React.FC = () => {
                       
                       {/* Arrow Link */}
                       <div className="flex justify-center">
-                        <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${
-                          isActive 
-                            ? 'border-primary text-primary' 
-                            : 'border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary'
-                        }`}>
+                        <div className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary group-hover:bg-primary/10">
                           <ChevronLeft className="w-5 h-5" />
                         </div>
                       </div>
