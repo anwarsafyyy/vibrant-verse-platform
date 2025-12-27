@@ -120,24 +120,31 @@ const PortfolioSection: React.FC = () => {
   const totalItems = portfolioItems.length || 4;
 
   return (
-    <section id="portfolio" className="py-12 lg:py-16 relative overflow-hidden bg-[#faf8f5]">
+    <section id="portfolio" className="py-12 lg:py-16 relative overflow-hidden animate-gradient-flow">
+      {/* Animated gradient orbs */}
+      <div className="absolute top-20 left-1/4 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl" />
+      
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}
-        className="absolute bottom-20 left-8 w-14 h-14 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 z-20 hidden lg:flex"
+        className="absolute bottom-20 left-8 w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/30 hover:shadow-xl hover:-translate-y-1 hover:scale-110 transition-all duration-300 z-20 hidden lg:flex"
       >
         <ArrowUp className="w-6 h-6" />
       </button>
 
-      {/* Decorative diamond */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-primary/20 rotate-45 rounded-xl hidden lg:block" />
+      {/* Decorative elements */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-primary/20 rotate-45 rounded-xl hidden lg:block animate-pulse-soft" />
+      <div className="absolute top-40 right-20 w-8 h-8 border-2 border-accent/30 rotate-45 rounded-lg hidden lg:block" />
+      <div className="absolute top-60 left-16 w-6 h-6 border-2 border-cyan-500/30 rotate-45 rounded-md hidden lg:block" />
       
       <div className="container mx-auto px-4">
         {/* Unified Section Header */}
         <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : ''}`}>
           {/* Diamond icon container */}
           <div className="relative">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary via-accent to-orange-500 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
               <Briefcase className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" />
             </div>
           </div>
@@ -171,7 +178,7 @@ const PortfolioSection: React.FC = () => {
             variant="ghost" 
             size="icon"
             onClick={() => api?.scrollNext()}
-            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg"
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent text-white hover:scale-110 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 shadow-lg border-0"
           >
             <ChevronRight className="w-6 h-6" />
           </Button>
@@ -203,88 +210,130 @@ const PortfolioSection: React.FC = () => {
                   </div>
                 </CarouselItem>
               ) : portfolioItems.length > 0 ? (
-                portfolioItems.map((item, index) => (
-                  <CarouselItem 
-                    key={item.id} 
-                    className={`basis-full ${isVisible ? 'animate-fade-in' : ''}`}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
-                      {/* Left Side - Tablet Mockup with Image */}
-                      <div className="relative order-1 lg:order-1">
-                        {/* Decorative golden frame - hidden on small screens */}
-                        <div className="absolute -top-4 -left-4 md:-top-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-t-4 md:border-t-[6px] border-l-4 md:border-l-[6px] border-primary rounded-tl-xl md:rounded-tl-[2rem] z-10 hidden sm:block" />
-                        <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-b-4 md:border-b-[6px] border-l-4 md:border-l-[6px] border-primary rounded-bl-xl md:rounded-bl-[2rem] z-10 hidden sm:block" />
-                        
-                        {/* Tablet container */}
-                        <div className="relative bg-slate-800 rounded-xl md:rounded-[2rem] p-2 md:p-3 shadow-xl md:shadow-2xl mx-4 sm:mx-0">
-                          {/* Tablet camera */}
-                          <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 bg-slate-600 rounded-full" />
+                portfolioItems.map((item, index) => {
+                  // Different gradient colors for each product
+                  const gradients = [
+                    'from-violet-500 via-purple-500 to-fuchsia-500',
+                    'from-cyan-500 via-blue-500 to-indigo-500',
+                    'from-emerald-500 via-teal-500 to-cyan-500',
+                    'from-orange-500 via-amber-500 to-yellow-500',
+                  ];
+                  const gradient = gradients[index % gradients.length];
+                  
+                  return (
+                    <CarouselItem 
+                      key={item.id} 
+                      className={`basis-full ${isVisible ? 'animate-fade-in' : ''}`}
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
+                        {/* Left Side - Enhanced Mockup with Image */}
+                        <div className="relative order-1 lg:order-1 group">
+                          {/* Animated glow effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity duration-700 rounded-3xl`} />
                           
-                          {/* Screen */}
-                          <div className="relative rounded-lg md:rounded-2xl overflow-hidden bg-white">
-                            <img
-                              src={item.image_url} 
-                              alt={item.title} 
-                              className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-contain bg-background"
-                            />
+                          {/* Decorative corner frames with gradient */}
+                          <div className={`absolute -top-4 -left-4 md:-top-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-t-4 md:border-t-[6px] border-l-4 md:border-l-[6px] border-transparent bg-gradient-to-br ${gradient} bg-clip-border rounded-tl-xl md:rounded-tl-[2rem] z-10 hidden sm:block`} style={{ borderImage: `linear-gradient(135deg, var(--tw-gradient-stops)) 1` }} />
+                          <div className={`absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-b-4 md:border-b-[6px] border-l-4 md:border-l-[6px] border-primary rounded-bl-xl md:rounded-bl-[2rem] z-10 hidden sm:block`} />
+                          
+                          {/* Modern device container */}
+                          <div className="relative bg-gradient-to-br from-slate-800 via-slate-900 to-black rounded-xl md:rounded-[2rem] p-2 md:p-3 shadow-2xl mx-4 sm:mx-0 group-hover:scale-[1.02] group-hover:shadow-3xl transition-all duration-500">
+                            {/* Shine effect on device */}
+                            <div className="absolute inset-0 rounded-xl md:rounded-[2rem] bg-gradient-to-tr from-white/10 via-transparent to-transparent pointer-events-none" />
+                            
+                            {/* Device camera */}
+                            <div className="absolute top-2 md:top-4 left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 bg-slate-600 rounded-full" />
+                            
+                            {/* Screen with gradient border */}
+                            <div className="relative rounded-lg md:rounded-2xl overflow-hidden">
+                              <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                              <div className="relative m-[2px] rounded-lg md:rounded-2xl overflow-hidden bg-white">
+                                <img
+                                  src={item.image_url} 
+                                  alt={item.title} 
+                                  className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] object-contain bg-background group-hover:scale-105 transition-transform duration-700"
+                                />
+                              </div>
+                            </div>
+                            
+                            {/* Side button */}
+                            <div className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 w-0.5 md:w-1 h-8 md:h-12 bg-slate-600 rounded-full" />
                           </div>
                           
-                          {/* Home button */}
-                          <div className="absolute -right-1 md:-right-2 top-1/2 -translate-y-1/2 w-0.5 md:w-1 h-8 md:h-12 bg-slate-600 rounded-full" />
+                          {/* Floating tech badges */}
+                          <div className={`absolute -top-2 -right-2 md:top-4 md:right-4 px-3 py-1.5 bg-gradient-to-r ${gradient} text-white text-xs font-bold rounded-full shadow-lg animate-bounce-soft hidden sm:block`}>
+                            {language === 'ar' ? 'جديد' : 'New'}
+                          </div>
                         </div>
-                      </div>
-                      
-                      {/* Right Side - Content */}
-                      <div className="text-right order-2 lg:order-2 px-4 sm:px-0" dir="rtl">
-                        {/* Product logo and name */}
-                        <div className="flex items-center gap-3 md:gap-4 justify-start mb-3 md:mb-4">
-                          {item.logo_url ? (
-                            <img
-                              src={item.logo_url}
-                              alt={item.title_ar || item.title}
-                              className="w-12 h-12 md:w-16 md:h-16 rounded-full object-contain bg-background p-2 border-2 border-border flex-shrink-0"
-                            />
-                          ) : (
-                            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center border-2 border-border flex-shrink-0">
-                              <span className="text-lg md:text-2xl font-bold text-primary">{(item.title_ar || item.title || '').charAt(0)}</span>
+                        
+                        {/* Right Side - Enhanced Content */}
+                        <div className="text-right order-2 lg:order-2 px-4 sm:px-0" dir="rtl">
+                          {/* Product logo and name with gradient background */}
+                          <div className="flex items-center gap-3 md:gap-4 justify-start mb-4 md:mb-6">
+                            <div className={`relative p-1 rounded-full bg-gradient-to-br ${gradient}`}>
+                              {item.logo_url ? (
+                                <img
+                                  src={item.logo_url}
+                                  alt={item.title_ar || item.title}
+                                  className="w-14 h-14 md:w-18 md:h-18 rounded-full object-contain bg-background p-2 flex-shrink-0"
+                                />
+                              ) : (
+                                <div className="w-14 h-14 md:w-18 md:h-18 rounded-full bg-background flex items-center justify-center flex-shrink-0">
+                                  <span className="text-xl md:text-2xl font-bold text-primary">{(item.title_ar || item.title || '').charAt(0)}</span>
+                                </div>
+                              )}
                             </div>
-                          )}
-                          <div>
-                            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground">
+                            <div>
+                              <h3 className={`text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r ${gradient} bg-clip-text text-transparent`}>
+                                {language === 'ar' 
+                                  ? (item.title_ar || item.title) 
+                                  : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
+                              </h3>
+                              <p className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
+                                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                {language === 'ar' ? 'متاح الآن' : 'Available Now'}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* CTA Buttons */}
+                          <div className="flex gap-3 mb-6">
+                            <Button className={`bg-gradient-to-r ${gradient} hover:opacity-90 text-white px-6 py-3 rounded-xl font-bold text-sm md:text-base shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}>
+                              {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
+                            </Button>
+                            <Button variant="outline" className="border-2 border-primary/30 text-primary hover:bg-primary/10 px-6 py-3 rounded-xl font-bold text-sm md:text-base">
+                              {language === 'ar' ? 'معرفة المزيد' : 'Learn More'}
+                            </Button>
+                          </div>
+                          
+                          {/* Description with styled container */}
+                          <div className="relative p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 mb-6">
+                            <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-2xl`} />
+                            <h4 className="text-lg md:text-xl font-bold mb-3 text-foreground">
+                              {language === 'ar' ? 'نبذة عن المنتج' : 'About Product'}
+                            </h4>
+                            <p className="text-base md:text-lg text-muted-foreground leading-loose relative z-10">
                               {language === 'ar' 
-                                ? (item.title_ar || item.title) 
-                                : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
-                            </h3>
-                            <p className="text-xs sm:text-sm text-muted-foreground">
-                              {language === 'ar' ? 'آخر تحديث:' : 'Last update:'} {new Date().toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                                ? (item.description_ar || item.description) 
+                                : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description)}
                             </p>
                           </div>
+                          
+                          {/* Features/Tech badges */}
+                          {item.technologies && item.technologies.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                              {item.technologies.slice(0, 4).map((tech, i) => (
+                                <span key={i} className={`px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r ${gradient} bg-opacity-10 text-foreground border border-primary/20`}>
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
-
-                        {/* Contact button */}
-                        <Button className="mb-4 md:mb-6 bg-primary hover:bg-primary/90 text-primary-foreground px-4 md:px-6 py-2 rounded-lg font-bold text-sm md:text-base">
-                          {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
-                        </Button>
-                        
-                        {/* Product title repeated */}
-                        <h4 className="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-foreground">
-                          {language === 'ar' 
-                            ? (item.title_ar || item.title) 
-                            : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
-                        </h4>
-                        
-                        {/* Description - Long Text with consistent line spacing */}
-                        <p className="text-base md:text-lg text-muted-foreground leading-loose mb-4 md:mb-6">
-                          {language === 'ar' 
-                            ? (item.description_ar || item.description) 
-                            : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description)}
-                        </p>
-                        
                       </div>
-                    </div>
-                  </CarouselItem>
-                ))
+                    </CarouselItem>
+                  );
+                })
               ) : (
                 <CarouselItem className="basis-full">
                   <div className="text-center py-24 text-muted-foreground">
@@ -300,7 +349,7 @@ const PortfolioSection: React.FC = () => {
             variant="ghost" 
             size="icon"
             onClick={() => api?.scrollPrev()}
-            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300 shadow-lg"
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-accent text-white hover:scale-110 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 shadow-lg border-0"
           >
             <ChevronLeft className="w-6 h-6" />
           </Button>
