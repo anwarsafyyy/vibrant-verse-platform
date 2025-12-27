@@ -35,14 +35,15 @@ const SectionDivider: React.FC<SectionDividerProps> = ({
   );
 };
 
-// Wave divider with double curve
-export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; gradientColors?: string[] }> = ({ 
+// Wave divider with double curve and animation
+export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; gradientColors?: string[]; animated?: boolean }> = ({ 
   className = "", 
   fillColor = "hsl(var(--background))",
   bgColor = "transparent",
   flip = false,
   gradientId,
-  gradientColors
+  gradientColors,
+  animated = true
 }) => {
   const useGradient = gradientId && gradientColors && gradientColors.length >= 2;
   
@@ -55,7 +56,7 @@ export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; 
         viewBox="0 0 1440 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-full h-auto block ${flip ? 'rotate-180' : ''}`}
+        className={`w-full h-[60px] md:h-[80px] block ${flip ? 'rotate-180' : ''}`}
         preserveAspectRatio="none"
         style={{ marginBottom: '-1px' }}
       >
@@ -66,8 +67,17 @@ export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; 
                 <stop 
                   key={index} 
                   offset={`${(index / (gradientColors.length - 1)) * 100}%`} 
-                  stopColor={color} 
-                />
+                  stopColor={color}
+                >
+                  {animated && (
+                    <animate
+                      attributeName="stop-color"
+                      values={`${color};${gradientColors[(index + 1) % gradientColors.length]};${color}`}
+                      dur="4s"
+                      repeatCount="indefinite"
+                    />
+                  )}
+                </stop>
               ))}
             </linearGradient>
           </defs>
@@ -75,7 +85,19 @@ export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; 
         <path
           d="M0 100C240 100 240 40 480 40C720 40 720 100 960 100C1200 100 1200 40 1440 40V0H0V100Z"
           fill={useGradient ? `url(#${gradientId})` : fillColor}
-        />
+          className={animated ? "animate-pulse-soft" : ""}
+        >
+          {animated && (
+            <animate
+              attributeName="d"
+              values="M0 100C240 100 240 40 480 40C720 40 720 100 960 100C1200 100 1200 40 1440 40V0H0V100Z;
+                      M0 100C240 100 240 50 480 50C720 50 720 100 960 100C1200 100 1200 50 1440 50V0H0V100Z;
+                      M0 100C240 100 240 40 480 40C720 40 720 100 960 100C1200 100 1200 40 1440 40V0H0V100Z"
+              dur="6s"
+              repeatCount="indefinite"
+            />
+          )}
+        </path>
       </svg>
     </div>
   );
