@@ -75,84 +75,131 @@ const PartnersSection: React.FC = () => {
     ? partners 
     : defaultPartners.map((p, i) => ({ id: `default-${i}`, name: p.name, logo_url: '', order_index: i, created_at: null, color: p.color }));
 
-  return (
-    <section id="partners" className="py-16 lg:py-24 relative overflow-hidden bg-[#0a1628]">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0d1e3a] via-[#0a1628] to-[#071020]" />
-      
-      {/* Orbital rings */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] lg:w-[700px] lg:h-[700px] border border-white/10 rounded-full animate-spin-slow" style={{ animationDuration: '60s' }} />
-        <div className="absolute w-[400px] h-[400px] md:w-[650px] md:h-[650px] lg:w-[900px] lg:h-[900px] border border-white/5 rounded-full animate-spin-slow" style={{ animationDuration: '80s', animationDirection: 'reverse' }} />
-        <div className="absolute w-[500px] h-[500px] md:w-[800px] md:h-[800px] lg:w-[1100px] lg:h-[1100px] border border-white/[0.03] rounded-full animate-spin-slow" style={{ animationDuration: '100s' }} />
-      </div>
+  // Calculate positions on circular orbit
+  const getOrbitPosition = (index: number, total: number, radius: number) => {
+    const angle = (index * 360) / total;
+    return { angle, radius };
+  };
 
-      {/* Small decorative dots on orbits */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="absolute w-2 h-2 bg-white/30 rounded-full animate-spin-slow" style={{ animationDuration: '20s', transformOrigin: '250px center' }} />
-        <div className="absolute w-1.5 h-1.5 bg-white/20 rounded-full animate-spin-slow" style={{ animationDuration: '30s', animationDirection: 'reverse', transformOrigin: '350px center' }} />
+  return (
+    <section id="partners" className="py-16 lg:py-24 relative overflow-hidden bg-background">
+      {/* Subtle background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Title */}
         <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            {language === 'ar' ? 'معتمد من كبرى المؤسسات في المنطقة' : 'Trusted by Leading Organizations'}
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+            {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
           </h2>
+          <p className="mt-4 text-muted-foreground text-lg">
+            {language === 'ar' ? 'المنشآت الرائدة التي نفتخر بشراكتها' : 'Leading organizations we are proud to partner with'}
+          </p>
         </div>
 
-        {/* Partners Orbital Display */}
-        <div className={`relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+        {/* Partners Circular Orbit Display */}
+        <div className={`relative flex items-center justify-center ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`} style={{ height: '500px' }}>
           {loading ? (
             <div className="flex items-center justify-center h-full">
               <div className="grid grid-cols-3 gap-8">
                 {Array(6).fill(0).map((_, index) => (
-                  <Skeleton key={`skeleton-${index}`} className="w-20 h-20 rounded-full bg-white/10" />
+                  <Skeleton key={`skeleton-${index}`} className="w-20 h-20 rounded-full bg-muted" />
                 ))}
               </div>
             </div>
           ) : (
             <>
-              {displayPartners.slice(0, 8).map((partner, index) => {
-                const position = orbitPositions[index] || orbitPositions[index % orbitPositions.length];
-                const animationDelay = index * 0.3;
-                const floatDuration = 3 + (index % 3);
-                
-                return (
-                  <div
-                    key={partner.id}
-                    className="absolute animate-float"
-                    style={{
-                      ...position,
-                      animationDelay: `${animationDelay}s`,
-                      animationDuration: `${floatDuration}s`,
-                    }}
-                  >
-                    <div className="relative group">
-                      {/* Glow effect */}
-                      <div className="absolute inset-0 bg-white/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
-                      
-                      {/* Logo container */}
-                      <div className="relative w-20 h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-black/50 transition-transform duration-500 group-hover:scale-110 border-2 border-white/50">
-                        {partner.logo_url ? (
-                          <img
-                            src={partner.logo_url}
-                            alt={`${partner.name} Logo`}
-                            className="w-3/4 h-3/4 object-contain"
-                          />
-                        ) : (
-                          <span 
-                            className="text-sm md:text-base lg:text-lg font-bold text-center px-2"
-                            style={{ color: (partner as any).color || '#333' }}
-                          >
-                            {partner.name}
-                          </span>
-                        )}
+              {/* Orbit ring */}
+              <div 
+                className="absolute border-2 border-primary/20 rounded-full animate-spin-slow"
+                style={{ 
+                  width: '400px', 
+                  height: '400px',
+                  animationDuration: '60s'
+                }}
+              />
+              
+              {/* Second orbit ring */}
+              <div 
+                className="absolute border border-primary/10 rounded-full animate-spin-slow"
+                style={{ 
+                  width: '450px', 
+                  height: '450px',
+                  animationDuration: '80s',
+                  animationDirection: 'reverse'
+                }}
+              />
+
+              {/* Rotating container for partners */}
+              <div 
+                className="absolute animate-spin-slow"
+                style={{ 
+                  width: '400px', 
+                  height: '400px',
+                  animationDuration: '30s'
+                }}
+              >
+                {displayPartners.slice(0, 8).map((partner, index) => {
+                  const total = Math.min(displayPartners.length, 8);
+                  const { angle, radius } = getOrbitPosition(index, total, 200);
+                  
+                  return (
+                    <div
+                      key={partner.id}
+                      className="absolute"
+                      style={{
+                        left: '50%',
+                        top: '50%',
+                        transform: `rotate(${angle}deg) translateX(${radius}px) rotate(-${angle}deg)`,
+                        marginLeft: '-40px',
+                        marginTop: '-40px',
+                      }}
+                    >
+                      {/* Counter-rotate to keep logos upright */}
+                      <div 
+                        className="animate-spin-slow"
+                        style={{ 
+                          animationDuration: '30s',
+                          animationDirection: 'reverse'
+                        }}
+                      >
+                        <div className="relative group">
+                          {/* Glow effect */}
+                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
+                          
+                          {/* Logo container */}
+                          <div className="relative w-20 h-20 md:w-24 md:h-24 bg-card rounded-full flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-110 border-2 border-border">
+                            {partner.logo_url ? (
+                              <img
+                                src={partner.logo_url}
+                                alt={`${partner.name} Logo`}
+                                className="w-3/4 h-3/4 object-contain"
+                              />
+                            ) : (
+                              <span 
+                                className="text-sm md:text-base font-bold text-center px-2"
+                                style={{ color: (partner as any).color || 'hsl(var(--foreground))' }}
+                              >
+                                {partner.name}
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+
+              {/* Center decoration */}
+              <div className="absolute w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center border border-primary/30">
+                <div className="w-8 h-8 bg-primary/20 rounded-full animate-pulse" />
+              </div>
             </>
           )}
         </div>
