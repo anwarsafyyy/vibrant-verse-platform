@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+
 
 interface Partner {
   id: string;
@@ -19,7 +19,6 @@ const PartnersSection: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -52,23 +51,7 @@ const PartnersSection: React.FC = () => {
     fetchPartners();
   }, []);
 
-  // Double the partners for seamless infinite scroll
-  const displayPartners = partners.length > 0 ? [...partners, ...partners] : [];
-
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-    }
-  };
-
   const defaultPartners = ['VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft'];
-  const displayDefaultPartners = [...defaultPartners, ...defaultPartners];
 
   return (
     <section id="partners" className="py-12 lg:py-16 relative overflow-hidden bg-[#faf8f5]">
@@ -106,67 +89,81 @@ const PartnersSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Partners Display */}
+        {/* Partners Display - Grid Layout */}
         <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
           {loading ? (
-            <div className="flex gap-4 overflow-x-auto pb-4">
-              {Array(5).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-4 border border-border/50 flex-shrink-0">
-                  <Skeleton className="w-24 h-12" />
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {Array(6).fill(0).map((_, index) => (
+                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-6 border border-border/50">
+                  <Skeleton className="w-full h-16" />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="relative">
-              {/* Gradient masks for smooth edges - Desktop only */}
-              <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#faf8f5] to-transparent z-10 pointer-events-none" />
-              <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#faf8f5] to-transparent z-10 pointer-events-none" />
-              
-              {/* Scrolling container - Desktop: auto animate, Mobile: manual scroll */}
-              <div 
-                ref={scrollContainerRef}
-                className="flex gap-4 overflow-x-auto lg:overflow-hidden pb-4 lg:pb-0 scrollbar-hide lg:animate-marquee lg:hover:pause-animation"
-              >
-                {displayPartners.length > 0 ? (
-                  displayPartners.map((partner, index) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {partners.length > 0 ? (
+                partners.map((partner, index) => {
+                  const gradients = [
+                    'from-violet-600 via-purple-500 to-fuchsia-500',
+                    'from-purple-600 via-fuchsia-500 to-pink-500',
+                    'from-fuchsia-600 via-pink-500 to-rose-400',
+                    'from-indigo-600 via-violet-500 to-purple-500',
+                    'from-pink-600 via-rose-500 to-fuchsia-400',
+                    'from-violet-500 via-fuchsia-500 to-pink-400',
+                  ];
+                  const gradient = gradients[index % gradients.length];
+                  
+                  return (
                     <div
-                      key={`${partner.id}-${index}`}
-                      className="group bg-card rounded-xl px-6 py-4 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center flex-shrink-0 min-w-[120px]"
+                      key={partner.id}
+                      className="group relative bg-card rounded-2xl p-6 border border-border/50 hover:border-transparent transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden"
+                      style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <img
-                        src={partner.logo_url}
-                        alt={`${partner.name} Logo`}
-                        className="w-20 h-10 md:w-28 md:h-14 object-contain transition-all duration-500 group-hover:scale-110"
-                      />
+                      {/* Gradient border on hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
+                      <div className="absolute inset-[2px] bg-card rounded-[14px] z-10" />
+                      
+                      {/* Content */}
+                      <div className="relative z-20 flex items-center justify-center h-16">
+                        <img
+                          src={partner.logo_url}
+                          alt={`${partner.name} Logo`}
+                          className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
+                        />
+                      </div>
                     </div>
-                  ))
-                ) : (
-                  displayDefaultPartners.map((name, index) => (
+                  );
+                })
+              ) : (
+                defaultPartners.map((name, index) => {
+                  const gradients = [
+                    'from-violet-600 via-purple-500 to-fuchsia-500',
+                    'from-purple-600 via-fuchsia-500 to-pink-500',
+                    'from-fuchsia-600 via-pink-500 to-rose-400',
+                    'from-indigo-600 via-violet-500 to-purple-500',
+                    'from-pink-600 via-rose-500 to-fuchsia-400',
+                    'from-violet-500 via-fuchsia-500 to-pink-400',
+                  ];
+                  const gradient = gradients[index % gradients.length];
+                  
+                  return (
                     <div
                       key={`${name}-${index}`}
-                      className="group bg-card rounded-xl px-6 py-4 border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-xl flex items-center justify-center flex-shrink-0 min-w-[120px]"
+                      className="group relative bg-card rounded-2xl p-6 border border-border/50 hover:border-transparent transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden"
+                      style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <span className="text-lg font-bold text-muted-foreground/50 whitespace-nowrap">{name}</span>
+                      {/* Gradient border on hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
+                      <div className="absolute inset-[2px] bg-card rounded-[14px] z-10" />
+                      
+                      {/* Content */}
+                      <div className="relative z-20 flex items-center justify-center h-16">
+                        <span className="text-lg font-bold text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">{name}</span>
+                      </div>
                     </div>
-                  ))
-                )}
-              </div>
-
-              {/* Mobile Navigation Arrows */}
-              <div className="flex lg:hidden justify-center gap-4 mt-6">
-                <button 
-                  onClick={scrollRight}
-                  className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={scrollLeft}
-                  className="w-12 h-12 rounded-full border-2 border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-              </div>
+                  );
+                })
+              )}
             </div>
           )}
         </div>
