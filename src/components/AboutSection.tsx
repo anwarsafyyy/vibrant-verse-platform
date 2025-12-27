@@ -104,7 +104,11 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-background">
+    <section id="about" className="py-12 lg:py-16 relative overflow-hidden animate-gradient-flow">
+      {/* Animated gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
+      
       {/* Decorative diamond shapes */}
       <div className="absolute top-20 right-1/3 w-8 h-8 border-2 border-primary/30 rotate-45 hidden lg:block" />
       <div className="absolute top-40 left-20 w-6 h-6 border-2 border-primary/20 rotate-45 hidden lg:block" />
