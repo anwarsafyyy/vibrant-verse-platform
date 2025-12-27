@@ -53,8 +53,8 @@ const Navbar: React.FC = () => {
           {/* Navbar */}
           <div className={`flex-1 flex items-center justify-between transition-all duration-500 -mr-4 ${
             isScrolled 
-              ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-black/10 rounded-xl px-4 py-2' 
-              : 'bg-white/80 backdrop-blur-md rounded-xl px-4 py-2 shadow-md'
+              ? 'bg-[#0a1628]/95 backdrop-blur-xl shadow-lg shadow-black/30 rounded-xl px-4 py-2 border border-white/10' 
+              : 'bg-[#0a1628]/80 backdrop-blur-md rounded-xl px-4 py-2 shadow-md border border-white/5'
           }`}>
             
             {/* Desktop Menu */}
@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
                 <a
                   key={item.href}
                   href={item.href}
-                  className="px-4 py-2 text-sm font-bold text-foreground/70 hover:text-primary rounded-xl transition-all duration-300 hover:bg-primary/5"
+                  className="px-4 py-2 text-sm font-bold text-white/80 hover:text-white rounded-xl transition-all duration-300 hover:bg-white/10"
                 >
                   {item.label}
                 </a>
@@ -72,10 +72,10 @@ const Navbar: React.FC = () => {
 
             {/* Mobile Title - Only visible on mobile */}
             <div className="lg:hidden flex items-center gap-2">
-              <span className="text-sm font-bold text-foreground/80">
+              <span className="text-sm font-bold text-white/80">
                 {language === 'ar' ? 'علو للتقنية' : 'OLU Tech'}
               </span>
-              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></div>
             </div>
 
             {/* Right Actions */}
@@ -85,7 +85,7 @@ const Navbar: React.FC = () => {
               {/* CTA Button - Desktop */}
               <a 
                 href="#contact"
-                className="hidden lg:flex items-center px-6 py-2.5 bg-foreground text-background rounded-xl font-bold text-sm hover:bg-foreground/90 transition-all duration-300 hover:shadow-lg"
+                className="hidden lg:flex items-center px-6 py-2.5 bg-blue-500 text-white rounded-xl font-bold text-sm hover:bg-blue-400 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30"
               >
                 {language === 'ar' ? 'تواصل معنا' : 'Contact Us'}
               </a>
@@ -93,7 +93,7 @@ const Navbar: React.FC = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="lg:hidden rounded-xl text-foreground hover:bg-primary/10 border border-border/50"
+                className="lg:hidden rounded-xl text-white hover:bg-white/10 border border-white/20"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
