@@ -122,6 +122,10 @@ export default {
 					'0%, 100%': { transform: 'translateY(0)' },
 					'50%': { transform: 'translateY(-10px)' }
 				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0) scale(1)' },
+					'50%': { transform: 'translateY(-8px) scale(1.02)' }
+				},
 				'spin-slow': {
 					'from': { transform: 'rotate(0deg)' },
 					'to': { transform: 'rotate(360deg)' }
@@ -141,6 +145,7 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-soft': 'pulse-soft 3s ease-in-out infinite',
 				'bounce-soft': 'bounce-soft 2s ease-in-out infinite',
+				'bounce-subtle': 'bounce-subtle 3s ease-in-out infinite',
 				'spin-slow': 'spin-slow 20s linear infinite',
 				'marquee': 'marquee 25s linear infinite',
 			},

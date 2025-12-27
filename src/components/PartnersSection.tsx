@@ -100,96 +100,79 @@ const PartnersSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Partners Display - Hexagon-style Grid */}
+        {/* Partners Display - Animated Grid */}
         <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
           {loading ? (
-            <div className="flex flex-wrap justify-center gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {Array(6).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="w-40 h-40 bg-card rounded-3xl border border-border/50">
-                  <Skeleton className="w-full h-full rounded-3xl" />
+                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-6 border border-border/50">
+                  <Skeleton className="w-full h-20" />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {partners.length > 0 ? (
                 partners.map((partner, index) => {
-                  const gradients = [
-                    'from-violet-500 to-purple-600',
-                    'from-purple-500 to-fuchsia-600',
-                    'from-fuchsia-500 to-pink-600',
-                    'from-indigo-500 to-violet-600',
-                    'from-pink-500 to-rose-600',
-                    'from-rose-500 to-orange-500',
+                  // Different animation styles for variety
+                  const animations = [
+                    'animate-float',
+                    'animate-pulse-soft',
+                    'animate-bounce-subtle',
                   ];
-                  const gradient = gradients[index % gradients.length];
+                  const animation = animations[index % animations.length];
+                  const delay = index * 0.2;
                   
                   return (
                     <div
                       key={partner.id}
-                      className="group relative w-36 h-36 md:w-44 md:h-44 cursor-pointer"
-                      style={{ animationDelay: `${index * 100}ms` }}
+                      className={`group relative bg-card/90 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden ${animation}`}
+                      style={{ animationDelay: `${delay}s` }}
                     >
-                      {/* Glow effect */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-all duration-500 scale-90 group-hover:scale-100`} />
+                      {/* Subtle glow on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
                       
-                      {/* Card */}
-                      <div className="relative w-full h-full bg-card/80 backdrop-blur-sm rounded-3xl border border-border/50 group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-3 overflow-hidden">
-                        {/* Inner gradient on hover */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                        
-                        {/* Shine effect */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full" style={{ transition: 'transform 0.8s, opacity 0.3s' }} />
-                        
-                        {/* Content */}
-                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
-                          <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
-                            <img
-                              src={partner.logo_url}
-                              alt={`${partner.name} Logo`}
-                              className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
-                            />
-                          </div>
-                          <span className="mt-2 text-xs md:text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center line-clamp-1">{partner.name}</span>
-                        </div>
+                      {/* Content */}
+                      <div className="relative z-10 flex items-center justify-center h-20">
+                        <img
+                          src={partner.logo_url}
+                          alt={`${partner.name} Logo`}
+                          className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-110"
+                        />
                       </div>
                     </div>
                   );
                 })
               ) : (
                 defaultPartners.map((name, index) => {
-                  const gradients = [
-                    'from-violet-500 to-purple-600',
-                    'from-purple-500 to-fuchsia-600',
-                    'from-fuchsia-500 to-pink-600',
-                    'from-indigo-500 to-violet-600',
-                    'from-pink-500 to-rose-600',
-                    'from-rose-500 to-orange-500',
+                  const animations = [
+                    'animate-float',
+                    'animate-pulse-soft',
+                    'animate-bounce-subtle',
                   ];
-                  const gradient = gradients[index % gradients.length];
-                  const icons = ['🏢', '💼', '🌐', '⚡', '🔷', '🚀'];
+                  const animation = animations[index % animations.length];
+                  const delay = index * 0.2;
+                  const colors = [
+                    'text-red-500',
+                    'text-blue-600',
+                    'text-green-600',
+                    'text-purple-600',
+                    'text-orange-500',
+                    'text-cyan-600',
+                  ];
                   
                   return (
                     <div
                       key={`${name}-${index}`}
-                      className="group relative w-36 h-36 md:w-44 md:h-44 cursor-pointer"
-                      style={{ animationDelay: `${index * 100}ms` }}
+                      className={`group relative bg-card/90 backdrop-blur-sm rounded-2xl p-6 border border-border/30 hover:border-primary/50 transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden ${animation}`}
+                      style={{ animationDelay: `${delay}s` }}
                     >
-                      {/* Glow effect */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-all duration-500 scale-90 group-hover:scale-100`} />
+                      {/* Subtle glow on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
                       
-                      {/* Card */}
-                      <div className="relative w-full h-full bg-card/80 backdrop-blur-sm rounded-3xl border border-border/50 group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-3 overflow-hidden">
-                        {/* Inner gradient on hover */}
-                        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                        
-                        {/* Content */}
-                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
-                          <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-2 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
-                            <span className="text-2xl md:text-3xl">{icons[index]}</span>
-                          </div>
-                          <span className="text-sm md:text-base font-bold text-muted-foreground group-hover:text-foreground transition-colors text-center">{name}</span>
-                        </div>
+                      {/* Content */}
+                      <div className="relative z-10 flex items-center justify-center h-20">
+                        <span className={`text-xl md:text-2xl font-bold ${colors[index]} group-hover:scale-110 transition-transform duration-300`}>{name}</span>
                       </div>
                     </div>
                   );
