@@ -12,12 +12,14 @@ import PortfolioSection from "@/components/PortfolioSection";
 import GoogleMap from "@/components/GoogleMap";
 import { useDynamicHead } from "@/hooks/useDynamicHead";
 import { SCurveDivider } from "@/components/SectionDivider";
+import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Index = () => {
   useDynamicHead();
   
   return (
-    <main className="min-h-screen bg-background">
+    <main className="min-h-screen bg-background relative">
+      <AnimatedBackground />
       <Navbar />
       <HeroSection />
       
