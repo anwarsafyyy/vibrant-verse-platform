@@ -268,37 +268,62 @@ const ServicesSection: React.FC = () => {
               <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`}>
                 {getVisibleServices().map(({ service }, index) => {
                   const IconComponent = getIcon(service.icon);
+                  // Different gradient colors for each card
+                  const gradients = [
+                    'from-violet-500 via-purple-500 to-fuchsia-500',
+                    'from-cyan-500 via-blue-500 to-indigo-500',
+                    'from-emerald-500 via-teal-500 to-cyan-500',
+                    'from-orange-500 via-amber-500 to-yellow-500',
+                    'from-pink-500 via-rose-500 to-red-500',
+                    'from-indigo-500 via-violet-500 to-purple-500',
+                  ];
+                  const gradient = gradients[index % gradients.length];
+                  
                   return (
                     <Card3D 
                       key={service.id}
-                      className={`group relative p-8 rounded-3xl cursor-pointer bg-card border-2 border-dashed border-border hover:border-primary hover:shadow-2xl hover:shadow-primary/20 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                      className={`group relative overflow-hidden rounded-3xl cursor-pointer bg-card border border-border/50 hover:border-transparent transition-all duration-500 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      {/* Diamond Icon Container */}
-                      <div className="flex justify-center mb-8">
-                        <div className="relative w-20 h-20 rotate-45 rounded-xl flex items-center justify-center transition-all duration-500 border-2 border-dashed border-primary/40 group-hover:border-primary group-hover:bg-primary group-hover:shadow-lg group-hover:shadow-primary/30">
-                          <IconComponent className="w-8 h-8 -rotate-45 transition-colors duration-300 text-primary group-hover:text-white" />
+                      {/* Gradient border on hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
+                      <div className="absolute inset-[2px] bg-card rounded-[22px] z-10" />
+                      
+                      {/* Content */}
+                      <div className="relative z-20 p-8">
+                        {/* Floating particles effect */}
+                        <div className={`absolute top-4 right-4 w-20 h-20 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-2xl group-hover:opacity-30 group-hover:scale-150 transition-all duration-700`} />
+                        <div className={`absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-br ${gradient} opacity-5 rounded-full blur-xl group-hover:opacity-20 group-hover:scale-125 transition-all duration-500`} />
+                        
+                        {/* Icon Container with gradient */}
+                        <div className="flex justify-center mb-6">
+                          <div className={`relative w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-500 bg-gradient-to-br ${gradient} shadow-lg group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-xl`}>
+                            <IconComponent className="w-9 h-9 text-white drop-shadow-md" />
+                            {/* Shine effect */}
+                            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-white/30 via-transparent to-transparent" />
+                          </div>
                         </div>
-                      </div>
-                      
-                      {/* Title */}
-                      <h3 className="text-xl font-bold mb-4 text-center transition-colors text-foreground group-hover:text-primary">
-                        {language === 'ar' 
-                          ? (service.title_ar || service.title) 
-                          : (service.title_en || serviceTranslations[service.title_ar || service.title || '']?.title || service.title_ar || service.title)}
-                      </h3>
-                      
-                      {/* Description */}
-                      <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6">
-                        {language === 'ar' 
-                          ? (service.description_ar || service.description) 
-                          : (service.description_en || serviceTranslations[service.title_ar || service.title || '']?.description || service.description_ar || service.description)}
-                      </p>
-                      
-                      {/* Arrow Link */}
-                      <div className="flex justify-center">
-                        <div className="w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 border-primary/30 text-primary/50 group-hover:border-primary group-hover:text-primary group-hover:bg-primary/10">
-                          <ChevronLeft className="w-5 h-5" />
+                        
+                        {/* Title */}
+                        <h3 className="text-xl font-bold mb-3 text-center transition-colors text-foreground group-hover:text-primary">
+                          {language === 'ar' 
+                            ? (service.title_ar || service.title) 
+                            : (service.title_en || serviceTranslations[service.title_ar || service.title || '']?.title || service.title_ar || service.title)}
+                        </h3>
+                        
+                        {/* Description */}
+                        <p className="text-muted-foreground leading-relaxed text-center line-clamp-3 mb-6 text-sm">
+                          {language === 'ar' 
+                            ? (service.description_ar || service.description) 
+                            : (service.description_en || serviceTranslations[service.title_ar || service.title || '']?.description || service.description_ar || service.description)}
+                        </p>
+                        
+                        {/* CTA Button */}
+                        <div className="flex justify-center">
+                          <div className={`px-6 py-2.5 rounded-full bg-gradient-to-r ${gradient} text-white text-sm font-medium opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 shadow-lg flex items-center gap-2`}>
+                            <span>{language === 'ar' ? 'اكتشف المزيد' : 'Learn More'}</span>
+                            <ChevronLeft className="w-4 h-4 rtl:rotate-0 ltr:rotate-180" />
+                          </div>
                         </div>
                       </div>
                     </Card3D>
