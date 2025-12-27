@@ -112,13 +112,13 @@ const Navbar: React.FC = () => {
             : '-translate-y-full opacity-0 pointer-events-none'
         }`}
       >
-        <div className="bg-gradient-to-b from-blue-950 via-blue-900 to-blue-950/98 backdrop-blur-xl shadow-2xl shadow-blue-900/50 pt-28 pb-6 px-4 border-b border-blue-400/20">
+        <div className="bg-white backdrop-blur-xl shadow-2xl shadow-blue-900/20 pt-28 pb-6 px-4 border-b border-blue-100">
           <nav className="flex flex-col gap-2 max-w-md mx-auto">
             {navItems.map((item, index) => (
               <a
                 key={item.href}
                 href={item.href}
-                className={`text-base font-bold py-3 px-5 text-blue-100 hover:text-white hover:bg-blue-500/30 rounded-xl transition-all duration-300 text-right transform border border-transparent hover:border-blue-400/20 ${
+                className={`text-base font-bold py-3 px-5 text-blue-900 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 text-right transform border border-transparent hover:border-blue-100 ${
                   mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
                 }`}
                 style={{ transitionDelay: mobileMenuOpen ? `${index * 75}ms` : '0ms' }}
@@ -133,7 +133,7 @@ const Navbar: React.FC = () => {
           <div className="max-w-md mx-auto mt-4 px-4">
             <a 
               href="#contact"
-              className={`flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-xl font-bold text-base hover:from-blue-400 hover:to-blue-300 transition-all duration-500 transform shadow-lg shadow-blue-500/30 border border-blue-300/20 ${
+              className={`flex items-center justify-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-xl font-bold text-base hover:from-blue-500 hover:to-blue-400 transition-all duration-500 transform shadow-lg shadow-blue-500/30 ${
                 mobileMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
               }`}
               style={{ transitionDelay: mobileMenuOpen ? `${navItems.length * 75}ms` : '0ms' }}
