@@ -65,50 +65,35 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-3 lg:py-4 relative overflow-hidden bg-background">
+    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-20 right-20 w-40 h-40 opacity-5 -z-10">
+      <div className="absolute top-20 right-20 w-40 h-40 opacity-10 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="hsl(var(--primary))" strokeWidth="2" />
-        </svg>
-      </div>
-      <div className="absolute bottom-20 left-10 w-32 h-32 opacity-5 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="hsl(var(--accent))" strokeWidth="2" />
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#3b82f6" strokeWidth="2" />
         </svg>
       </div>
       
       <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-2 lg:gap-3">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Right - Header */}
           <div className={`text-right ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section label */}
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <HelpCircle className="w-5 h-5 text-primary" />
+              <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                <HelpCircle className="w-5 h-5 text-blue-400" />
               </div>
-              <span className="text-primary font-bold tracking-wider uppercase text-sm">
+              <span className="text-blue-400 font-bold tracking-wider uppercase text-sm">
                 {language === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
               </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
-              <span className="olu-text-gradient">{t("faq.title")}</span>
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 text-white">
+              {t("faq.title")}
             </h2>
             
-            <p className="text-lg text-muted-foreground leading-relaxed mb-8">
+            <p className="text-lg text-white/60 leading-relaxed mb-8">
               {t("faq.description")}
             </p>
-            
-            {/* Decorative illustration */}
-            <div className="hidden lg:block relative w-full max-w-sm aspect-square opacity-20">
-              <svg viewBox="0 0 200 200" className="w-full h-full text-primary">
-                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                <polygon points="100,20 180,80 150,180 50,180 20,80" fill="none" stroke="currentColor" strokeWidth="0.5" />
-              </svg>
-            </div>
           </div>
 
           {/* Right - FAQs */}
@@ -116,9 +101,9 @@ const FAQSection: React.FC = () => {
             {loading ? (
               <div className="space-y-4">
                 {Array(4).fill(0).map((_, index) => (
-                  <div key={`faq-skeleton-${index}`} className="border border-border rounded-2xl p-6 bg-card">
-                    <Skeleton className="h-6 w-3/4 mb-3" />
-                    <Skeleton className="h-4 w-full" />
+                  <div key={`faq-skeleton-${index}`} className="border border-white/10 rounded-2xl p-6 bg-white/5">
+                    <Skeleton className="h-6 w-3/4 mb-3 bg-white/10" />
+                    <Skeleton className="h-4 w-full bg-white/10" />
                   </div>
                 ))}
               </div>
@@ -128,20 +113,20 @@ const FAQSection: React.FC = () => {
                   <AccordionItem 
                     key={faq.id} 
                     value={`item-${index}`} 
-                    className="border border-border rounded-2xl px-6 bg-card hover:border-primary/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-primary/30 data-[state=open]:bg-primary/5"
+                    className="border border-white/10 rounded-2xl px-6 bg-white/5 hover:border-blue-400/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-blue-400/30 data-[state=open]:bg-blue-500/10"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 hover:text-primary transition-colors gap-4 text-right">
+                    <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 text-white hover:text-blue-400 transition-colors gap-4 text-right">
                       <span>{language === 'ar' ? faq.question_ar : faq.question_en}</span>
                     </AccordionTrigger>
-                    <AccordionContent className="text-base text-muted-foreground pb-6 leading-relaxed text-right pr-11">
+                    <AccordionContent className="text-base text-white/60 pb-6 leading-relaxed text-right pr-11">
                       {language === 'ar' ? faq.answer_ar : faq.answer_en}
                     </AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
             ) : (
-              <div className="text-center py-16 text-muted-foreground">
+              <div className="text-center py-16 text-white/60">
                 {t("faq.noQuestions") || (language === 'ar' ? 'لا توجد أسئلة متاحة' : 'No questions available')}
               </div>
             )}
