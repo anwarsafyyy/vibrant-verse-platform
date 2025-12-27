@@ -54,10 +54,21 @@ const PartnersSection: React.FC = () => {
   const defaultPartners = ['VMware', 'SAP', 'Construx', 'Juniper', 'Oracle', 'Microsoft'];
 
   return (
-    <section id="partners" className="py-12 lg:py-16 relative overflow-hidden bg-[#faf8f5]">
-      <div className="container mx-auto px-4">
+    <section id="partners" className="py-12 lg:py-16 relative overflow-hidden">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-50 via-fuchsia-50 to-pink-50 dark:from-violet-950/20 dark:via-fuchsia-950/20 dark:to-pink-950/20" />
+      
+      {/* Floating orbs */}
+      <div className="absolute top-20 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
+      
+      {/* Decorative elements */}
+      <div className="absolute top-32 right-20 w-6 h-6 border-2 border-primary/30 rotate-45 hidden lg:block" />
+      <div className="absolute bottom-40 left-32 w-4 h-4 border-2 border-primary/20 rotate-45 hidden lg:block" />
+      
+      <div className="container mx-auto px-4 relative z-10">
         {/* Unified Section Header */}
-        <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className={`flex items-center gap-4 mb-8 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Diamond icon container */}
           <div className="relative">
             <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary to-accent rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-primary/30">
@@ -79,8 +90,8 @@ const PartnersSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Description - Long Text with consistent line spacing */}
-        <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+        {/* Description */}
+        <div className={`mb-10 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
           <p className="text-base md:text-lg text-muted-foreground leading-loose max-w-4xl">
             {language === 'ar' 
               ? 'العديد من الشركات التي تثق بحلولنا لتحسين عملياتها معنا. نفخر بشراكاتنا مع المؤسسات الرائدة في مختلف القطاعات.'
@@ -89,47 +100,58 @@ const PartnersSection: React.FC = () => {
           </p>
         </div>
 
-        {/* Partners Display - Grid Layout */}
+        {/* Partners Display - Hexagon-style Grid */}
         <div className={`${isVisible ? 'animate-fade-in stagger-3' : 'opacity-0'}`}>
           {loading ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
               {Array(6).fill(0).map((_, index) => (
-                <div key={`skeleton-${index}`} className="bg-card rounded-2xl p-6 border border-border/50">
-                  <Skeleton className="w-full h-16" />
+                <div key={`skeleton-${index}`} className="w-40 h-40 bg-card rounded-3xl border border-border/50">
+                  <Skeleton className="w-full h-full rounded-3xl" />
                 </div>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
               {partners.length > 0 ? (
                 partners.map((partner, index) => {
                   const gradients = [
-                    'from-violet-600 via-purple-500 to-fuchsia-500',
-                    'from-purple-600 via-fuchsia-500 to-pink-500',
-                    'from-fuchsia-600 via-pink-500 to-rose-400',
-                    'from-indigo-600 via-violet-500 to-purple-500',
-                    'from-pink-600 via-rose-500 to-fuchsia-400',
-                    'from-violet-500 via-fuchsia-500 to-pink-400',
+                    'from-violet-500 to-purple-600',
+                    'from-purple-500 to-fuchsia-600',
+                    'from-fuchsia-500 to-pink-600',
+                    'from-indigo-500 to-violet-600',
+                    'from-pink-500 to-rose-600',
+                    'from-rose-500 to-orange-500',
                   ];
                   const gradient = gradients[index % gradients.length];
                   
                   return (
                     <div
                       key={partner.id}
-                      className="group relative bg-card rounded-2xl p-6 border border-border/50 hover:border-transparent transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden"
+                      className="group relative w-36 h-36 md:w-44 md:h-44 cursor-pointer"
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      {/* Gradient border on hover */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
-                      <div className="absolute inset-[2px] bg-card rounded-[14px] z-10" />
+                      {/* Glow effect */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-all duration-500 scale-90 group-hover:scale-100`} />
                       
-                      {/* Content */}
-                      <div className="relative z-20 flex items-center justify-center h-16">
-                        <img
-                          src={partner.logo_url}
-                          alt={`${partner.name} Logo`}
-                          className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
-                        />
+                      {/* Card */}
+                      <div className="relative w-full h-full bg-card/80 backdrop-blur-sm rounded-3xl border border-border/50 group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-3 overflow-hidden">
+                        {/* Inner gradient on hover */}
+                        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                        
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -translate-x-full group-hover:translate-x-full" style={{ transition: 'transform 0.8s, opacity 0.3s' }} />
+                        
+                        {/* Content */}
+                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
+                          <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center">
+                            <img
+                              src={partner.logo_url}
+                              alt={`${partner.name} Logo`}
+                              className="max-w-full max-h-full object-contain transition-all duration-500 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
+                            />
+                          </div>
+                          <span className="mt-2 text-xs md:text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors text-center line-clamp-1">{partner.name}</span>
+                        </div>
                       </div>
                     </div>
                   );
@@ -137,28 +159,37 @@ const PartnersSection: React.FC = () => {
               ) : (
                 defaultPartners.map((name, index) => {
                   const gradients = [
-                    'from-violet-600 via-purple-500 to-fuchsia-500',
-                    'from-purple-600 via-fuchsia-500 to-pink-500',
-                    'from-fuchsia-600 via-pink-500 to-rose-400',
-                    'from-indigo-600 via-violet-500 to-purple-500',
-                    'from-pink-600 via-rose-500 to-fuchsia-400',
-                    'from-violet-500 via-fuchsia-500 to-pink-400',
+                    'from-violet-500 to-purple-600',
+                    'from-purple-500 to-fuchsia-600',
+                    'from-fuchsia-500 to-pink-600',
+                    'from-indigo-500 to-violet-600',
+                    'from-pink-500 to-rose-600',
+                    'from-rose-500 to-orange-500',
                   ];
                   const gradient = gradients[index % gradients.length];
+                  const icons = ['🏢', '💼', '🌐', '⚡', '🔷', '🚀'];
                   
                   return (
                     <div
                       key={`${name}-${index}`}
-                      className="group relative bg-card rounded-2xl p-6 border border-border/50 hover:border-transparent transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2 overflow-hidden"
+                      className="group relative w-36 h-36 md:w-44 md:h-44 cursor-pointer"
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      {/* Gradient border on hover */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} />
-                      <div className="absolute inset-[2px] bg-card rounded-[14px] z-10" />
+                      {/* Glow effect */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-40 transition-all duration-500 scale-90 group-hover:scale-100`} />
                       
-                      {/* Content */}
-                      <div className="relative z-20 flex items-center justify-center h-16">
-                        <span className="text-lg font-bold text-muted-foreground/50 group-hover:text-primary transition-colors duration-300">{name}</span>
+                      {/* Card */}
+                      <div className="relative w-full h-full bg-card/80 backdrop-blur-sm rounded-3xl border border-border/50 group-hover:border-primary/50 transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-3 overflow-hidden">
+                        {/* Inner gradient on hover */}
+                        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                        
+                        {/* Content */}
+                        <div className="relative z-10 flex flex-col items-center justify-center h-full p-4">
+                          <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center mb-2 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                            <span className="text-2xl md:text-3xl">{icons[index]}</span>
+                          </div>
+                          <span className="text-sm md:text-base font-bold text-muted-foreground group-hover:text-foreground transition-colors text-center">{name}</span>
+                        </div>
                       </div>
                     </div>
                   );
