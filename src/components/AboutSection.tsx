@@ -168,10 +168,10 @@ const AboutSection: React.FC = () => {
                 return (
                   <div 
                     key={index}
-                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card hover:border-primary/30 hover:shadow-lg transition-all duration-300 text-center"
+                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl border-2 border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl border-2 border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
                     <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 tabular-nums" dir="ltr">
