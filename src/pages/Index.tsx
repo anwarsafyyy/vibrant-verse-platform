@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 import PortfolioSection from "@/components/PortfolioSection";
 import GoogleMap from "@/components/GoogleMap";
 import { useDynamicHead } from "@/hooks/useDynamicHead";
-import { SCurveDivider } from "@/components/SectionDivider";
+import { WaveDivider } from "@/components/SectionDivider";
 import AnimatedBackground from "@/components/AnimatedBackground";
 
 const Index = () => {
@@ -23,17 +23,38 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       
+      <WaveDivider fillColor="#0d1e3a" className="hidden md:block -mt-1" />
+      <WaveDivider fillColor="#f0f7ff" className="md:hidden -mt-1" />
+      
       <AboutSection />
+      
+      <WaveDivider fillColor="#0a1628" className="hidden md:block -mt-1" flip />
+      <WaveDivider fillColor="#ffffff" className="md:hidden -mt-1" flip />
       
       <ServicesSection />
       
+      <WaveDivider fillColor="#0d1e3a" className="hidden md:block -mt-1" />
+      <WaveDivider fillColor="#f0f7ff" className="md:hidden -mt-1" />
+      
       <PortfolioSection />
+      
+      <WaveDivider fillColor="#0a1628" className="hidden md:block -mt-1" flip />
+      <WaveDivider fillColor="#ffffff" className="md:hidden -mt-1" flip />
       
       <PartnersSection />
       
+      <WaveDivider fillColor="#0d1e3a" className="hidden md:block -mt-1" />
+      <WaveDivider fillColor="#f0f7ff" className="md:hidden -mt-1" />
+      
       <FAQSection />
       
+      <WaveDivider fillColor="#0a1628" className="hidden md:block -mt-1" flip />
+      <WaveDivider fillColor="#ffffff" className="md:hidden -mt-1" flip />
+      
       <ContactSection />
+      
+      <WaveDivider fillColor="#0d1e3a" className="hidden md:block -mt-1" />
+      <WaveDivider fillColor="#e5e7eb" className="md:hidden -mt-1" />
       
       <GoogleMap />
       <Footer />
