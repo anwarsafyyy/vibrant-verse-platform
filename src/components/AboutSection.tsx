@@ -1,13 +1,46 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { ArrowUp, Users, Briefcase, Calendar, Cpu, Smartphone, Award, UserCheck } from "lucide-react";
+
+// Counter animation hook
+const useCountUp = (end: number, duration: number = 2000, start: boolean = false) => {
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    if (!start) return;
+    
+    let startTime: number;
+    let animationFrame: number;
+    
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * end));
+      
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+    
+    animationFrame = requestAnimationFrame(animate);
+    
+    return () => cancelAnimationFrame(animationFrame);
+  }, [end, duration, start]);
+  
+  return count;
+};
 
 const AboutSection: React.FC = () => {
   const { t, language } = useLanguage();
   const { getAboutContent } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
+  const [startCounting, setStartCounting] = useState(false);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -21,28 +54,50 @@ const AboutSection: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Separate observer for stats to trigger counting animation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setStartCounting(true);
+      },
+      { threshold: 0.3 }
+    );
+    if (statsRef.current) observer.observe(statsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Counter values
+  const clientsCount = useCountUp(100, 2000, startCounting);
+  const projectsCount = useCountUp(50, 2000, startCounting);
+  const yearsCount = useCountUp(4, 1500, startCounting);
+  const techCount = useCountUp(25, 2000, startCounting);
+
   const stats = [
     { 
-      value: '+100', 
+      value: clientsCount,
+      prefix: '+',
       label: language === 'ar' ? 'عملاء راضون' : 'Happy Clients',
       icon: UserCheck 
     },
     { 
-      value: '+50', 
+      value: projectsCount,
+      prefix: '+',
       label: language === 'ar' ? 'مشاريع مكتملة' : 'Completed Projects',
       icon: Briefcase 
     },
     { 
-      value: '+4', 
+      value: yearsCount,
+      prefix: '+',
       label: language === 'ar' ? 'سنوات خبرة' : 'Years Experience',
       icon: Calendar 
     },
     { 
-      value: '+25', 
+      value: techCount,
+      prefix: '+',
       label: language === 'ar' ? 'تقنيات مستخدمة' : 'Technologies Used',
       icon: Cpu 
     },
@@ -107,7 +162,7 @@ const AboutSection: React.FC = () => {
           {/* Right Side - Content */}
           <div className={`text-right order-1 lg:order-2 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
+            <div ref={statsRef} className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
                 return (
@@ -119,8 +174,8 @@ const AboutSection: React.FC = () => {
                     <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl border-2 border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                       <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
                     </div>
-                    <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5">
-                      {stat.value}
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 tabular-nums" dir="ltr">
+                      {stat.prefix}{stat.value}
                     </div>
                     <div className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed">
                       {stat.label}
