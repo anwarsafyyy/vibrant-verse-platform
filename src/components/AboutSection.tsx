@@ -35,12 +35,37 @@ const useCountUp = (end: number, duration: number = 2000, start: boolean = false
   return count;
 };
 
+// Parallax hook
+const useParallax = (speed: number = 0.5) => {
+  const [offset, setOffset] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        const scrolled = window.innerHeight - rect.top;
+        if (scrolled > 0) {
+          setOffset(scrolled * speed * 0.1);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [speed]);
+
+  return { offset, elementRef };
+};
+
 const AboutSection: React.FC = () => {
   const { t, language } = useLanguage();
   const { getAboutContent } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
+  const { offset: imageOffset, elementRef: imageRef } = useParallax(0.3);
+  const { offset: decorOffset, elementRef: decorRef } = useParallax(0.5);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -146,18 +171,31 @@ const AboutSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start" dir="ltr">
           
-          {/* Left Side - Image with decorative frame */}
-          <div className={`relative order-2 lg:order-1 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-            {/* Decorative corner elements */}
-            <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-16 sm:h-16 border-t-2 sm:border-t-4 border-l-2 sm:border-l-4 border-primary rounded-tl-xl sm:rounded-tl-3xl z-10" />
-            <div className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 w-10 h-10 sm:w-16 sm:h-16 border-b-2 sm:border-b-4 border-r-2 sm:border-r-4 border-primary rounded-br-xl sm:rounded-br-3xl z-10" />
+          {/* Left Side - Image with decorative frame and parallax */}
+          <div 
+            ref={imageRef}
+            className={`relative order-2 lg:order-1 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+          >
+            {/* Decorative corner elements with parallax */}
+            <div 
+              ref={decorRef}
+              className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-16 sm:h-16 border-t-2 sm:border-t-4 border-l-2 sm:border-l-4 border-primary rounded-tl-xl sm:rounded-tl-3xl z-10 transition-transform duration-100"
+              style={{ transform: `translateY(${-decorOffset}px)` }}
+            />
+            <div 
+              className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 w-10 h-10 sm:w-16 sm:h-16 border-b-2 sm:border-b-4 border-r-2 sm:border-r-4 border-primary rounded-br-xl sm:rounded-br-3xl z-10 transition-transform duration-100"
+              style={{ transform: `translateY(${decorOffset}px)` }}
+            />
             
-            {/* Main image container */}
-            <div className="relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl mx-2 sm:mx-0">
+            {/* Main image container with parallax */}
+            <div 
+              className="relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl mx-2 sm:mx-0 transition-transform duration-100"
+              style={{ transform: `translateY(${imageOffset}px)` }}
+            >
               <img 
                 src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" 
                 alt="Dashboard analytics"
-                className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] object-cover"
+                className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-300 hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
