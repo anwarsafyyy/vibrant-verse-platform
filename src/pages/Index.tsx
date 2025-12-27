@@ -18,74 +18,22 @@ const Index = () => {
   useDynamicHead();
   
   return (
-    <main className="min-h-screen bg-background relative">
+    <main className="min-h-screen relative" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0d1e3a 100%)' }}>
       <AnimatedBackground />
       <Navbar />
       <HeroSection />
       
-      {/* Divider before About */}
-      <SCurveDivider 
-        fillColor="hsl(var(--background))" 
-        bgColor="hsl(220 20% 97%)"
-        flip
-      />
-      
       <AboutSection />
       
-      {/* Divider after About */}
-      <SCurveDivider 
-        fillColor="hsl(var(--card))" 
-        bgColor="hsl(var(--background))"
-        flip
-      />
-      
-      <div className="bg-card">
-        <ServicesSection />
-      </div>
-      
-      {/* Divider after Services */}
-      <SCurveDivider 
-        fillColor="hsl(var(--background))" 
-        bgColor="hsl(var(--card))"
-      />
+      <ServicesSection />
       
       <PortfolioSection />
       
-      {/* Divider after Portfolio */}
-      <SCurveDivider 
-        fillColor="hsl(var(--card))" 
-        bgColor="hsl(var(--background))"
-        flip
-      />
-      
-      <div className="bg-card">
-        <PartnersSection />
-      </div>
-      
-      {/* Divider after Partners */}
-      <SCurveDivider 
-        fillColor="hsl(var(--background))" 
-        bgColor="hsl(var(--card))"
-      />
+      <PartnersSection />
       
       <FAQSection />
       
-      {/* Divider after FAQ */}
-      <SCurveDivider 
-        fillColor="hsl(var(--card))" 
-        bgColor="hsl(var(--background))"
-        flip
-      />
-      
-      <div className="bg-card">
-        <ContactSection />
-      </div>
-      
-      {/* Divider before Map */}
-      <SCurveDivider 
-        fillColor="hsl(var(--muted))" 
-        bgColor="hsl(var(--card))"
-      />
+      <ContactSection />
       
       <GoogleMap />
       <Footer />
