@@ -53,8 +53,8 @@ const Navbar: React.FC = () => {
           {/* Navbar */}
           <div className={`flex-1 flex items-center justify-between transition-all duration-500 -mr-4 ${
             isScrolled 
-              ? 'bg-white/95 backdrop-blur-xl shadow-xl shadow-gray-200/50 rounded-2xl px-6 py-3 border border-gray-200' 
-              : 'bg-white/90 backdrop-blur-md rounded-2xl px-6 py-3 shadow-lg border border-gray-100'
+              ? 'bg-white/98 backdrop-blur-xl shadow-2xl shadow-blue-900/20 rounded-2xl px-6 py-3 border border-gray-200/80 ring-1 ring-blue-100/50' 
+              : 'bg-white/90 backdrop-blur-md rounded-2xl px-6 py-3 shadow-lg shadow-gray-200/40 border border-gray-100'
           }`}>
             
             {/* Desktop Menu */}
