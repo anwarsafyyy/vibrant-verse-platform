@@ -87,22 +87,61 @@ const PartnersSection: React.FC = () => {
   };
 
   return (
-    <section id="partners" className="py-16 lg:py-24 relative overflow-hidden bg-background">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-5">
+    <section id="partners" className="py-16 lg:py-24 relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #071020 50%, #0a1628 100%)' }}>
+      {/* Animated floating particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-white/20 rounded-full animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Animated glowing orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div 
+          className="absolute w-64 h-64 rounded-full blur-3xl animate-pulse"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+            top: '10%',
+            left: '10%',
+            animationDuration: '4s'
+          }}
+        />
+        <div 
+          className="absolute w-96 h-96 rounded-full blur-3xl animate-pulse"
+          style={{ 
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%)',
+            bottom: '10%',
+            right: '10%',
+            animationDuration: '6s',
+            animationDelay: '2s'
+          }}
+        />
+      </div>
+
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)`,
-          backgroundSize: '40px 40px'
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
         }} />
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Title */}
         <div className={`text-center mb-16 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
             {language === 'ar' ? 'شركاؤنا' : 'Our Partners'}
           </h2>
-          <p className="mt-4 text-muted-foreground text-lg">
+          <p className="mt-4 text-white/60 text-lg">
             {language === 'ar' ? 'المنشآت الرائدة التي نفتخر بشراكتها' : 'Leading organizations we are proud to partner with'}
           </p>
         </div>
@@ -121,34 +160,59 @@ const PartnersSection: React.FC = () => {
             <>
               {/* Inner orbit ring */}
               <div 
-                className="absolute border-2 border-primary/20 rounded-full animate-spin-slow"
+                className="absolute border-2 border-blue-400/20 rounded-full animate-spin-slow"
                 style={{ 
                   width: '300px', 
                   height: '300px',
-                  animationDuration: '60s'
+                  animationDuration: '60s',
+                  boxShadow: '0 0 30px rgba(59, 130, 246, 0.1)'
                 }}
               />
               
               {/* Outer orbit ring */}
               <div 
-                className="absolute border-2 border-primary/15 rounded-full animate-spin-slow"
+                className="absolute border-2 border-blue-400/15 rounded-full animate-spin-slow"
                 style={{ 
                   width: '520px', 
                   height: '520px',
                   animationDuration: '80s',
-                  animationDirection: 'reverse'
+                  animationDirection: 'reverse',
+                  boxShadow: '0 0 40px rgba(99, 102, 241, 0.1)'
                 }}
               />
 
               {/* Decorative outer ring */}
               <div 
-                className="absolute border border-primary/10 rounded-full animate-spin-slow"
+                className="absolute border border-blue-400/10 rounded-full animate-spin-slow"
                 style={{ 
                   width: '580px', 
                   height: '580px',
                   animationDuration: '100s'
                 }}
               />
+
+              {/* Small orbiting dots */}
+              <div 
+                className="absolute animate-spin-slow"
+                style={{ 
+                  width: '300px', 
+                  height: '300px',
+                  animationDuration: '15s'
+                }}
+              >
+                <div className="absolute w-2 h-2 bg-blue-400/50 rounded-full" style={{ top: 0, left: '50%', transform: 'translateX(-50%)' }} />
+              </div>
+              <div 
+                className="absolute animate-spin-slow"
+                style={{ 
+                  width: '520px', 
+                  height: '520px',
+                  animationDuration: '20s',
+                  animationDirection: 'reverse'
+                }}
+              >
+                <div className="absolute w-1.5 h-1.5 bg-indigo-400/40 rounded-full" style={{ top: 0, left: '50%', transform: 'translateX(-50%)' }} />
+              </div>
 
               {/* Inner rotating container for partners */}
               <div 
@@ -183,8 +247,8 @@ const PartnersSection: React.FC = () => {
                         }}
                       >
                         <div className="relative group">
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
-                          <div className="relative w-[72px] h-[72px] md:w-20 md:h-20 bg-card rounded-full flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-110 border-2 border-border">
+                          <div className="absolute inset-0 bg-blue-400/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
+                          <div className="relative w-[72px] h-[72px] md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-lg shadow-black/30 transition-transform duration-500 group-hover:scale-110 border-2 border-white/50">
                             {partner.logo_url ? (
                               <img
                                 src={partner.logo_url}
@@ -240,8 +304,8 @@ const PartnersSection: React.FC = () => {
                         }}
                       >
                         <div className="relative group">
-                          <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
-                          <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] bg-card rounded-full flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-110 border-2 border-border">
+                          <div className="absolute inset-0 bg-blue-400/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
+                          <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] bg-white rounded-full flex items-center justify-center shadow-lg shadow-black/30 transition-transform duration-500 group-hover:scale-110 border-2 border-white/50">
                             {partner.logo_url ? (
                               <img
                                 src={partner.logo_url}
@@ -265,8 +329,10 @@ const PartnersSection: React.FC = () => {
               </div>
 
               {/* Center decoration */}
-              <div className="absolute w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center border-2 border-primary/30">
-                <div className="w-10 h-10 bg-primary/20 rounded-full animate-pulse" />
+              <div className="absolute w-24 h-24 rounded-full flex items-center justify-center" style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)' }}>
+                <div className="w-16 h-16 rounded-full flex items-center justify-center border-2 border-blue-400/30" style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%)' }}>
+                  <div className="w-8 h-8 bg-blue-400/30 rounded-full animate-pulse" />
+                </div>
               </div>
             </>
           )}
