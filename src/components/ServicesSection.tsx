@@ -66,6 +66,69 @@ const useParallax = (speed: number = 0.5) => {
   return { offset, elementRef };
 };
 
+// 3D Card component with tilt effect
+const Card3D: React.FC<{
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+}> = ({ children, className = '', style, onClick }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [transform, setTransform] = useState('');
+  const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const rotateX = (y - centerY) / 10;
+    const rotateY = (centerX - x) / 10;
+    
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
+    setGlare({
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+      opacity: 0.15
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setTransform('perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)');
+    setGlare({ x: 50, y: 50, opacity: 0 });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={`relative ${className}`}
+      style={{
+        ...style,
+        transform,
+        transition: 'transform 0.15s ease-out',
+        transformStyle: 'preserve-3d',
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+    >
+      {children}
+      {/* Glare effect */}
+      <div
+        className="absolute inset-0 rounded-3xl pointer-events-none"
+        style={{
+          background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(255,255,255,${glare.opacity}) 0%, transparent 60%)`,
+          transition: 'opacity 0.15s ease-out',
+        }}
+      />
+    </div>
+  );
+};
+
 const ServicesSection: React.FC = () => {
   const { t, dir, language } = useLanguage();
   const [services, setServices] = useState<Service[]>([]);
@@ -206,12 +269,12 @@ const ServicesSection: React.FC = () => {
                 {getVisibleServices().map(({ service, isActive }, index) => {
                   const IconComponent = getIcon(service.icon);
                   return (
-                    <div 
+                    <Card3D 
                       key={service.id}
-                      className={`group relative p-8 rounded-3xl transition-all duration-500 cursor-pointer ${
+                      className={`group relative p-8 rounded-3xl cursor-pointer ${
                         isActive 
-                          ? 'bg-primary/10 border-2 border-primary shadow-xl shadow-primary/10 scale-[1.02]' 
-                          : 'bg-card border-2 border-dashed border-border hover:border-primary/40 hover:shadow-lg'
+                          ? 'bg-primary/10 border-2 border-primary shadow-xl shadow-primary/10' 
+                          : 'bg-card border-2 border-dashed border-border hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/20'
                       } ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                       style={{ animationDelay: `${index * 100}ms` }}
                       onClick={() => setActiveIndex(services.indexOf(service))}
@@ -255,7 +318,7 @@ const ServicesSection: React.FC = () => {
                           <ChevronLeft className="w-5 h-5" />
                         </div>
                       </div>
-                    </div>
+                    </Card3D>
                   );
                 })}
               </div>
