@@ -207,20 +207,36 @@ const AboutSection: React.FC = () => {
             <div ref={statsRef} className="grid grid-cols-2 gap-3 sm:gap-4 mb-8">
               {stats.map((stat, index) => {
                 const IconComponent = stat.icon;
+                const gradients = [
+                  'from-violet-600 via-purple-500 to-fuchsia-500',
+                  'from-purple-600 via-fuchsia-500 to-pink-500',
+                  'from-fuchsia-600 via-pink-500 to-rose-400',
+                  'from-indigo-600 via-violet-500 to-purple-500',
+                ];
+                const gradient = gradients[index % gradients.length];
+                
                 return (
                   <div 
                     key={index}
-                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer"
+                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-border bg-card hover:border-transparent hover:shadow-2xl hover:shadow-primary/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer relative overflow-hidden"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl border-2 border-primary/30 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
-                    </div>
-                    <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 tabular-nums" dir="ltr">
-                      {stat.prefix}{stat.value}
-                    </div>
-                    <div className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed">
-                      {stat.label}
+                    {/* Gradient border on hover */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl sm:rounded-2xl`} />
+                    <div className="absolute inset-[2px] bg-card rounded-[10px] sm:rounded-[14px] z-10" />
+                    
+                    <div className="relative z-20">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl flex items-center justify-center bg-gradient-to-br ${gradient} shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                        <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white drop-shadow-md" />
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-tr from-white/30 via-transparent to-transparent" />
+                      </div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-0.5 tabular-nums" dir="ltr">
+                        {stat.prefix}{stat.value}
+                      </div>
+                      <div className="text-xs sm:text-sm text-muted-foreground font-medium leading-relaxed">
+                        {stat.label}
+                      </div>
                     </div>
                   </div>
                 );
