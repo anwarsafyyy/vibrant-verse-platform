@@ -328,10 +328,15 @@ const PartnersSection: React.FC = () => {
                 })}
               </div>
 
-              {/* Center decoration */}
-              <div className="absolute w-24 h-24 rounded-full flex items-center justify-center" style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%)' }}>
-                <div className="w-16 h-16 rounded-full flex items-center justify-center border-2 border-blue-400/30" style={{ background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(99, 102, 241, 0.1) 100%)' }}>
-                  <div className="w-8 h-8 bg-blue-400/30 rounded-full animate-pulse" />
+              {/* Center - Olu Logo */}
+              <div className="absolute flex items-center justify-center">
+                <div className="absolute w-32 h-32 rounded-full animate-pulse" style={{ background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%)' }} />
+                <div className="relative w-24 h-24 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-500/30 border-2 border-white/80">
+                  <img 
+                    src="/olu-logo.png" 
+                    alt="Olu Logo" 
+                    className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                  />
                 </div>
               </div>
             </>
