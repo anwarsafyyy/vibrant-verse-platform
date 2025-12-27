@@ -56,7 +56,7 @@ export const WaveDivider: React.FC<SectionDividerProps & { gradientId?: string; 
         viewBox="0 0 1440 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className={`w-full h-[30px] md:h-[40px] block ${flip ? 'rotate-180' : ''}`}
+        className={`w-full h-[15px] md:h-[20px] block ${flip ? 'rotate-180' : ''}`}
         preserveAspectRatio="none"
         style={{ marginBottom: '-1px' }}
       >
