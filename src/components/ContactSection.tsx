@@ -156,7 +156,7 @@ const ContactSection: React.FC = () => {
               {contactInfo.map((item, index) => (
                 <div 
                   key={index}
-                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 overflow-hidden transition-all duration-500 hover:border-blue-400/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-[hsl(262,45%,35%)] backdrop-blur-sm border border-purple-400/20 overflow-hidden transition-all duration-500 hover:border-purple-300/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                   style={{ animationDelay: `${(index + 1) * 150}ms` }}
                 >
                   {/* Content */}
@@ -190,7 +190,7 @@ const ContactSection: React.FC = () => {
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-500 rounded-[26px] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-700" />
             
             {/* Form container */}
-            <div className="relative bg-[#0d1e3a] rounded-3xl p-8 lg:p-10 border border-white/10 shadow-2xl overflow-hidden">
+            <div className="relative bg-[hsl(262,45%,35%)] rounded-3xl p-8 lg:p-10 border border-purple-400/20 shadow-2xl overflow-hidden">
               {/* Decorative gradient corners */}
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-blue-400/10 rounded-full blur-2xl" />

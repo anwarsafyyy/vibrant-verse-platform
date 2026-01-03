@@ -101,7 +101,7 @@ const FAQSection: React.FC = () => {
             {loading ? (
               <div className="space-y-4">
                 {Array(4).fill(0).map((_, index) => (
-                  <div key={`faq-skeleton-${index}`} className="border border-white/10 rounded-2xl p-6 bg-white/5">
+                  <div key={`faq-skeleton-${index}`} className="border border-purple-400/20 rounded-2xl p-6 bg-[hsl(262,45%,35%)]">
                     <Skeleton className="h-6 w-3/4 mb-3 bg-white/10" />
                     <Skeleton className="h-4 w-full bg-white/10" />
                   </div>
@@ -113,7 +113,7 @@ const FAQSection: React.FC = () => {
                   <AccordionItem 
                     key={faq.id} 
                     value={`item-${index}`} 
-                    className="border border-white/10 rounded-2xl px-6 bg-white/5 hover:border-blue-400/30 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-blue-400/30 data-[state=open]:bg-blue-500/10"
+                    className="border border-purple-400/20 rounded-2xl px-6 bg-[hsl(262,45%,35%)] hover:border-purple-300/50 transition-all duration-300 data-[state=open]:shadow-lg data-[state=open]:border-purple-300/50 data-[state=open]:bg-[hsl(262,45%,40%)]"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <AccordionTrigger className="text-lg font-bold hover:no-underline py-6 text-white hover:text-blue-400 transition-colors gap-4 text-right">
