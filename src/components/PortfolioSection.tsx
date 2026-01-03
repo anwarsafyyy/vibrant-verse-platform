@@ -305,7 +305,7 @@ const PortfolioSection: React.FC = () => {
                           </div>
                           
                           {/* Description with styled container */}
-                          <div className="relative p-6 rounded-2xl bg-card/50 backdrop-blur-sm border border-border/50 mb-6">
+                          <div className="relative p-6 rounded-2xl bg-[hsl(262,45%,35%)] backdrop-blur-sm border border-purple-400/20 mb-6">
                             <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-2xl`} />
                             <h4 className="text-lg md:text-xl font-bold mb-3 text-foreground">
                               {language === 'ar' ? 'نبذة عن المنتج' : 'About Product'}

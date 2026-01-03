@@ -74,7 +74,7 @@ const DigitalTransformationSection: React.FC = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6">
               {stats.map((stat) => (
-                <div key={stat.id} className="text-center bg-blue-800/30 backdrop-blur-sm rounded-xl p-4 border border-blue-500/20">
+                <div key={stat.id} className="text-center bg-[hsl(262,45%,35%)] backdrop-blur-sm rounded-xl p-4 border border-purple-400/20">
                   <div className="text-3xl font-bold bg-gradient-to-r from-blue-200 to-white bg-clip-text text-transparent mb-2">
                     {stat.value}
                   </div>
