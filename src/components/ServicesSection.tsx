@@ -280,12 +280,12 @@ const ServicesSection: React.FC = () => {
                   return (
                     <Card3D 
                       key={service.id}
-                      className={`group relative overflow-hidden rounded-3xl cursor-pointer bg-white/5 backdrop-blur-sm border border-white/10 hover:border-transparent transition-all duration-500 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                      className={`group relative overflow-hidden rounded-3xl cursor-pointer bg-[hsl(262,45%,35%)] backdrop-blur-sm border border-purple-400/20 hover:border-purple-300/50 transition-all duration-500 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       {/* Gradient border on hover */}
                       <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl`} />
-                      <div className="absolute inset-[2px] bg-[#0d1e3a] rounded-[22px] z-10" />
+                      <div className="absolute inset-[2px] bg-[hsl(262,45%,35%)] rounded-[22px] z-10" />
                       
                       {/* Content */}
                       <div className="relative z-20 p-8">

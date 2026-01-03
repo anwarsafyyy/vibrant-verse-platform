@@ -216,12 +216,12 @@ const AboutSection: React.FC = () => {
                 return (
                   <div 
                     key={index}
-                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-blue-400/50 hover:shadow-2xl hover:shadow-blue-500/20 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer relative overflow-hidden"
+                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-400/20 bg-[hsl(262,45%,35%)] backdrop-blur-sm hover:border-purple-300/50 hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer relative overflow-hidden"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {/* Gradient border on hover */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl sm:rounded-2xl`} />
-                    <div className="absolute inset-[2px] bg-[#0d1e3a] rounded-[10px] sm:rounded-[14px] z-10" />
+                    <div className="absolute inset-[2px] bg-[hsl(262,45%,35%)] rounded-[10px] sm:rounded-[14px] z-10" />
                     
                     <div className="relative z-20">
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl flex items-center justify-center bg-gradient-to-br ${gradient} shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
