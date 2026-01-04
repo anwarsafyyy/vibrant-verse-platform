@@ -13,24 +13,24 @@
 
 @layer base {
   :root {
-    /* Light mode - Lavender (lighter purple from image) */
-    --background: 262 47% 78%;
-    --foreground: 262 50% 15%;
+    /* Light mode - White background */
+    --background: 0 0% 100%;
+    --foreground: 220 20% 20%;
 
     --card: 262 45% 35%;
     --card-foreground: 0 0% 100%;
 
-    --popover: 262 45% 35%;
-    --popover-foreground: 0 0% 100%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
 
     --primary: 262 47% 40%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 262 35% 72%;
-    --secondary-foreground: 262 50% 18%;
+    --secondary: 220 15% 95%;
+    --secondary-foreground: 220 20% 20%;
 
-    --muted: 262 30% 70%;
-    --muted-foreground: 262 30% 30%;
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 15% 45%;
 
     --accent: 262 50% 45%;
     --accent-foreground: 0 0% 100%;
@@ -38,32 +38,32 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 262 35% 65%;
-    --input: 262 35% 65%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
     --ring: 262 47% 40%;
 
     --radius: 1rem;
     
-    /* Lavender purple gradients */
+    /* White theme gradients */
     --gradient-primary: linear-gradient(135deg, hsl(262 47% 40%) 0%, hsl(262 50% 50%) 50%, hsl(262 45% 38%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(262 47% 40% / 0.15) 0%, hsl(262 50% 50% / 0.15) 100%);
-    --gradient-hero: linear-gradient(180deg, hsl(262 47% 78%) 0%, hsl(262 45% 70%) 50%, hsl(262 47% 78%) 100%);
-    --gradient-mesh: radial-gradient(at 0% 0%, hsl(262 47% 40% / 0.12) 0px, transparent 50%), 
-                     radial-gradient(at 100% 0%, hsl(262 50% 50% / 0.1) 0px, transparent 50%),
-                     radial-gradient(at 50% 100%, hsl(262 45% 38% / 0.08) 0px, transparent 50%);
-    --gradient-purple: linear-gradient(135deg, hsl(262 47% 78%) 0%, hsl(262 45% 70%) 50%, hsl(262 47% 78%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(262 47% 40% / 0.1) 0%, hsl(262 50% 50% / 0.1) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(220 20% 98%) 50%, hsl(0 0% 100%) 100%);
+    --gradient-mesh: radial-gradient(at 0% 0%, hsl(262 47% 40% / 0.08) 0px, transparent 50%), 
+                     radial-gradient(at 100% 0%, hsl(262 50% 50% / 0.06) 0px, transparent 50%),
+                     radial-gradient(at 50% 100%, hsl(262 45% 38% / 0.04) 0px, transparent 50%);
+    --gradient-purple: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(220 20% 98%) 50%, hsl(0 0% 100%) 100%);
     --gradient-card: linear-gradient(135deg, hsl(262 45% 35%) 0%, hsl(262 47% 40%) 100%);
     --gradient-glow: linear-gradient(135deg, hsl(262 47% 40%) 0%, hsl(262 50% 50%) 100%);
     
-    /* Purple shadows and glow */
-    --shadow-sm: 0 1px 3px 0 hsl(262 50% 20% / 0.15);
-    --shadow-md: 0 4px 6px -1px hsl(262 50% 20% / 0.2);
-    --shadow-lg: 0 10px 15px -3px hsl(262 50% 20% / 0.25);
-    --shadow-xl: 0 20px 25px -5px hsl(262 50% 20% / 0.3);
-    --shadow-2xl: 0 25px 50px -12px hsl(262 50% 20% / 0.35);
-    --shadow-glow: 0 0 40px hsl(262 47% 40% / 0.4);
-    --shadow-glow-sm: 0 0 20px hsl(262 47% 40% / 0.3);
-    --shadow-glow-lg: 0 0 60px hsl(262 47% 40% / 0.5);
+    /* Light shadows */
+    --shadow-sm: 0 1px 3px 0 hsl(220 20% 20% / 0.08);
+    --shadow-md: 0 4px 6px -1px hsl(220 20% 20% / 0.1);
+    --shadow-lg: 0 10px 15px -3px hsl(220 20% 20% / 0.12);
+    --shadow-xl: 0 20px 25px -5px hsl(220 20% 20% / 0.15);
+    --shadow-2xl: 0 25px 50px -12px hsl(220 20% 20% / 0.2);
+    --shadow-glow: 0 0 40px hsl(262 47% 40% / 0.25);
+    --shadow-glow-sm: 0 0 20px hsl(262 47% 40% / 0.2);
+    --shadow-glow-lg: 0 0 60px hsl(262 47% 40% / 0.3);
   }
 
   .dark {
