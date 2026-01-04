@@ -24,98 +24,60 @@ const Index = () => {
       <HeroSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         gradientId="wave1" 
-        gradientColors={['#60a5fa', '#93c5fd', '#3b82f6']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        gradientId="wave1m" 
-        gradientColors={['#dbeafe', '#bfdbfe', '#93c5fd']} 
+        gradientColors={['#c4b5fd', '#a78bfa', '#8b5cf6']} 
       />
       
       <AboutSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         flip 
         gradientId="wave2" 
-        gradientColors={['#3b82f6', '#60a5fa', '#93c5fd']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        flip 
-        gradientId="wave2m" 
-        gradientColors={['#93c5fd', '#bfdbfe', '#dbeafe']} 
+        gradientColors={['#8b5cf6', '#a78bfa', '#c4b5fd']} 
       />
       
       <ServicesSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         gradientId="wave3" 
-        gradientColors={['#60a5fa', '#3b82f6', '#93c5fd']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        gradientId="wave3m" 
-        gradientColors={['#bfdbfe', '#93c5fd', '#60a5fa']} 
+        gradientColors={['#a78bfa', '#8b5cf6', '#c4b5fd']} 
       />
       
       <PortfolioSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         flip 
         gradientId="wave4" 
-        gradientColors={['#93c5fd', '#60a5fa', '#3b82f6']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        flip 
-        gradientId="wave4m" 
-        gradientColors={['#60a5fa', '#93c5fd', '#bfdbfe']} 
+        gradientColors={['#c4b5fd', '#a78bfa', '#8b5cf6']} 
       />
       
       <PartnersSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         gradientId="wave5" 
-        gradientColors={['#60a5fa', '#93c5fd', '#3b82f6']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        gradientId="wave5m" 
-        gradientColors={['#dbeafe', '#bfdbfe', '#93c5fd']} 
+        gradientColors={['#a78bfa', '#c4b5fd', '#8b5cf6']} 
       />
       
       <FAQSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         flip 
         gradientId="wave6" 
-        gradientColors={['#3b82f6', '#60a5fa', '#93c5fd']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        flip 
-        gradientId="wave6m" 
-        gradientColors={['#93c5fd', '#bfdbfe', '#dbeafe']} 
+        gradientColors={['#8b5cf6', '#a78bfa', '#c4b5fd']} 
       />
       
       <ContactSection />
       
       <WaveDivider 
-        className="hidden md:block -mt-1" 
+        className="-mt-1" 
         gradientId="wave7" 
-        gradientColors={['#60a5fa', '#3b82f6', '#93c5fd']} 
-      />
-      <WaveDivider 
-        className="md:hidden -mt-1" 
-        gradientId="wave7m" 
-        gradientColors={['#e5e7eb', '#d1d5db', '#9ca3af']} 
+        gradientColors={['#a78bfa', '#8b5cf6', '#c4b5fd']} 
       />
       
       <GoogleMap />
