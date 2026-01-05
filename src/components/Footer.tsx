@@ -120,11 +120,11 @@ const Footer: React.FC = () => {
             </h4>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
-                <li key={i} className="flex flex-row-reverse items-start gap-3 text-gray-700 hover:text-[hsl(262,45%,35%)] transition-colors">
+                <li key={i} className="flex items-start gap-3 text-gray-700 hover:text-[hsl(262,45%,35%)] transition-colors">
                   <div className="w-8 h-8 rounded-lg bg-[hsl(262,45%,35%)]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <item.icon className="h-4 w-4 text-[hsl(262,45%,35%)]" />
                   </div>
-                  <span className={`text-sm leading-relaxed ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>{item.text}</span>
+                  <span className={`text-sm leading-relaxed text-right ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>{item.text}</span>
                 </li>
               ))}
             </ul>
