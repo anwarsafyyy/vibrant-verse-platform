@@ -58,11 +58,17 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="text-gray-800 relative" style={{ background: 'hsl(250, 40%, 75%)' }}>
+    <footer className="text-gray-800 relative overflow-hidden" style={{ background: 'hsl(250, 50%, 85%)' }}>
+      {/* Decorative Background Circles */}
+      <div className="absolute left-[-8%] top-[10%] w-40 h-40 md:w-56 md:h-56 bg-[hsl(250,40%,75%)] rounded-full opacity-50" />
+      <div className="absolute right-[-5%] bottom-[20%] w-32 h-32 md:w-44 md:h-44 bg-[hsl(250,40%,75%)] rounded-full opacity-45" />
+      <div className="absolute right-[20%] top-[5%] w-20 h-20 md:w-28 md:h-28 bg-[hsl(320,50%,82%)] rounded-full opacity-50" />
+      <div className="absolute left-[30%] bottom-[10%] w-24 h-24 md:w-32 md:h-32 bg-[hsl(170,45%,78%)] rounded-full opacity-45" />
+      
       {/* Back to top button */}
       <Button 
         onClick={scrollToTop}
-        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-300"
+        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-300 z-10"
         size="icon"
       >
         <ArrowUp className="w-5 h-5" />
