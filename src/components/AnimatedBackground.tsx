@@ -26,7 +26,7 @@ const techIcons = [
 
 const AnimatedBackground: React.FC = () => {
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-10">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
       {/* Static Tech Icons */}
       {techIcons.map((item, index) => {
         const { Icon, ...position } = item;
