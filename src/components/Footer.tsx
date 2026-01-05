@@ -170,10 +170,10 @@ const Footer: React.FC = () => {
         {/* Divider */}
         <div className="border-t border-[hsl(262,45%,35%)]/20 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-600 text-sm text-center md:text-right">
+            <p className="text-gray-600 text-sm text-center md:text-right flex items-center gap-1">
               {language === 'ar' 
-                ? (getFooterContent('copyright_text_ar', 'ar') || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات.")
-                : (getFooterContent('copyright_text_en', 'en') || "All rights reserved © 2025 OLU IT Company.")
+                ? <>جميع الحقوق محفوظة | صُنع بـ <span className="text-red-500">❤</span> بواسطة OLU-IT</>
+                : <>All rights reserved | Made with <span className="text-red-500">❤</span> by OLU-IT</>
               }
             </p>
             <div className="flex items-center gap-4 text-sm text-gray-600">
