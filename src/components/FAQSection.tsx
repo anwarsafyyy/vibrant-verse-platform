@@ -90,27 +90,11 @@ const FAQSection: React.FC = () => {
 
   return (
     <section id="faq" className="py-12 lg:py-16 relative overflow-hidden bg-white" ref={decorRef}>
-      {/* Decorative diamond shapes with parallax */}
-      <div 
-        className="absolute top-16 right-1/4 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.5}px)` }}
-      />
-      <div 
-        className="absolute top-32 left-16 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.4}px)` }}
-      />
-      <div 
-        className="absolute bottom-24 right-16 w-7 h-7 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.35}px)` }}
-      />
-      <div 
-        className="absolute top-1/2 left-1/3 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.6}px)` }}
-      />
-      <div 
-        className="absolute bottom-40 left-20 w-9 h-9 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.45}px)` }}
-      />
+      {/* Decorative Background Circles */}
+      <div className="absolute left-[-5%] top-[20%] w-36 h-36 md:w-48 md:h-48 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
+      <div className="absolute right-[-6%] bottom-[10%] w-28 h-28 md:w-40 md:h-40 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
+      <div className="absolute right-[25%] top-[10%] w-18 h-18 md:w-26 md:h-26 bg-[hsl(320,50%,80%)] rounded-full opacity-40" />
+      <div className="absolute left-[20%] bottom-[25%] w-20 h-20 md:w-28 md:h-28 bg-[hsl(170,45%,75%)] rounded-full opacity-35" />
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
