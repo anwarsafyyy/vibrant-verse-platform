@@ -13,6 +13,7 @@ import Autoplay from "embla-carousel-autoplay";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Parallax hook
 const useParallax = (speed: number = 0.5) => {
@@ -65,6 +66,7 @@ const productTranslations: Record<string, { title: string; description: string }
 
 const PortfolioSection: React.FC = () => {
   const { language } = useLanguage();
+  const isMobile = useIsMobile();
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [api, setApi] = useState<CarouselApi>();
@@ -207,7 +209,7 @@ const PortfolioSection: React.FC = () => {
             opts={{
               loop: true,
               align: "start",
-              slidesToScroll: 3,
+              slidesToScroll: isMobile ? 1 : 3,
             }}
             plugins={[autoplayPlugin.current]}
           >
