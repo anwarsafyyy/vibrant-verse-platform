@@ -10,7 +10,8 @@ import {
   Image,
   Link,
   LogOut,
-  BookOpen
+  BookOpen,
+  Newspaper
 } from 'lucide-react';
 import { auth } from '@/lib/firebase';
 import { signOut } from 'firebase/auth';
@@ -23,6 +24,7 @@ const menuItems = [
   { title: 'من نحن', url: '/admin/about', icon: FileText },
   { title: 'الخدمات', url: '/admin/services', icon: Briefcase },
   { title: 'المنتجات', url: '/admin/portfolio', icon: Briefcase },
+  { title: 'أخبار الشركة', url: '/admin/news', icon: Newspaper },
   { title: 'المدونة', url: '/admin/blog', icon: BookOpen },
   { title: 'الشركاء', url: '/admin/partners', icon: Users },
   { title: 'الأسئلة الشائعة', url: '/admin/faqs', icon: HelpCircle },

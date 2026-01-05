@@ -1,9 +1,10 @@
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Newspaper, ChevronLeft, ChevronRight, Calendar, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { getCollection } from "@/lib/firebaseHelpers";
 import {
   Carousel,
   CarouselContent,
@@ -13,42 +14,68 @@ import {
 
 interface NewsItem {
   id: string;
-  title: string;
-  titleEn: string;
-  description: string;
-  descriptionEn: string;
-  image: string;
+  title_ar: string;
+  title_en: string;
+  description_ar: string;
+  description_en: string;
+  image_url: string;
   date: string;
+  order_index: number;
+  is_active: boolean;
 }
+
+// Static fallback news data
+const fallbackNews: NewsItem[] = [
+  {
+    id: "1",
+    title_ar: "توقيع مذكرة تعاون إستراتيجية",
+    title_en: "Strategic Cooperation Agreement",
+    description_ar: "وقعت شركة (علو | Olu) مذكرة تعاون مع شركة (أجنحة الطيران) لتعزيز الإبتكار والعمل المشترك في تنفيذ مشاريع تقنية رائدة تخدم رؤيتنا للمستقبل.",
+    description_en: "Olu Company signed a cooperation agreement with Fly Wings Company to enhance innovation and joint work in implementing pioneering technical projects that serve our vision for the future.",
+    image_url: "/news/news1.jpeg",
+    date: "2024-01-15",
+    order_index: 0,
+    is_active: true
+  },
+  {
+    id: "2",
+    title_ar: "توقيع مذكرة تعاون",
+    title_en: "Cooperation Memorandum",
+    description_ar: "شركة علو توقّع مذكرة تعاون مع شركة منصب العُمانية للتعاون في تطوير الحلول التقنية وتعزيز الشراكة بين البلدين.",
+    description_en: "Olu Company signs a cooperation memorandum with Omani Mansab Company to cooperate in developing technical solutions and strengthening partnership between the two countries.",
+    image_url: "/news/news2.jpeg",
+    date: "2024-02-20",
+    order_index: 1,
+    is_active: true
+  },
+];
 
 const CompanyNewsSection: React.FC = () => {
   const { language } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [newsItems, setNewsItems] = useState<NewsItem[]>(fallbackNews);
+  const [loading, setLoading] = useState(true);
   const isMobile = useIsMobile();
 
-  // Static news data for now
-  const newsItems: NewsItem[] = [
-    {
-      id: "1",
-      title: "توقيع مذكرة تعاون إستراتيجية",
-      titleEn: "Strategic Cooperation Agreement",
-      description: "وقعت شركة (علو | Olu) مذكرة تعاون مع شركة (أجنحة الطيران) لتعزيز الإبتكار والعمل المشترك في تنفيذ مشاريع تقنية رائدة تخدم رؤيتنا للمستقبل.",
-      descriptionEn: "Olu Company signed a cooperation agreement with Fly Wings Company to enhance innovation and joint work in implementing pioneering technical projects that serve our vision for the future.",
-      image: "/news/news1.jpeg",
-      date: "2024-01-15"
-    },
-    {
-      id: "2",
-      title: "توقيع مذكرة تعاون",
-      titleEn: "Cooperation Memorandum",
-      description: "شركة علو توقّع مذكرة تعاون مع شركة منصب العُمانية للتعاون في تطوير الحلول التقنية وتعزيز الشراكة بين البلدين.",
-      descriptionEn: "Olu Company signs a cooperation memorandum with Omani Mansab Company to cooperate in developing technical solutions and strengthening partnership between the two countries.",
-      image: "/news/news2.jpeg",
-      date: "2024-02-20"
-    },
-  ];
+  // Fetch news from Firebase
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const data = await getCollection<NewsItem>('company_news', [], 'order_index', 'asc');
+        if (data && data.length > 0) {
+          const activeNews = data.filter(item => item.is_active !== false);
+          setNewsItems(activeNews.length > 0 ? activeNews : fallbackNews);
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNews();
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -124,8 +151,8 @@ const CompanyNewsSection: React.FC = () => {
                     {/* Image Container */}
                     <div className="relative h-64 md:h-80 overflow-hidden">
                       <img 
-                        src={news.image} 
-                        alt={language === 'ar' ? news.title : news.titleEn}
+                        src={news.image_url} 
+                        alt={language === 'ar' ? news.title_ar : news.title_en}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       {/* Gradient Overlay */}
@@ -142,7 +169,7 @@ const CompanyNewsSection: React.FC = () => {
                       {/* Title on Image */}
                       <div className="absolute bottom-0 left-0 right-0 p-6">
                         <h3 className="text-xl md:text-2xl font-bold text-white mb-2 text-right leading-relaxed">
-                          {language === 'ar' ? news.title : news.titleEn}
+                          {language === 'ar' ? news.title_ar : news.title_en}
                         </h3>
                       </div>
                     </div>
@@ -150,7 +177,7 @@ const CompanyNewsSection: React.FC = () => {
                     {/* Content */}
                     <div className="p-6 bg-gradient-to-b from-white to-purple-50/50">
                       <p className="text-gray-600 text-sm md:text-base leading-relaxed text-right mb-4 line-clamp-3">
-                        {language === 'ar' ? news.description : news.descriptionEn}
+                        {language === 'ar' ? news.description_ar : news.description_en}
                       </p>
                       
                       {/* Read More Button */}

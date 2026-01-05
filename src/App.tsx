@@ -30,6 +30,7 @@ import { SocialLinksManager } from "./components/admin/SocialLinksManager";
 import { FooterContentManager } from "./components/admin/FooterContentManager";
 import { SiteSettingsManager } from "./components/admin/SiteSettingsManager";
 import { BlogManager } from "./components/admin/BlogManager";
+import { NewsManager } from "./components/admin/NewsManager";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
                   <Route path="about" element={<AboutContentManager />} />
                   <Route path="services" element={<ServicesManager />} />
                   <Route path="portfolio" element={<PortfolioManager />} />
+                  <Route path="news" element={<NewsManager />} />
                   <Route path="blog" element={<BlogManager />} />
                   <Route path="partners" element={<PartnersManager />} />
                   <Route path="faqs" element={<FAQManager />} />
