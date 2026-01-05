@@ -45,7 +45,6 @@ const Footer: React.FC = () => {
   const links = [
     { href: "/privacy-policy", ar: "سياسة الخصوصية", en: "Privacy Policy" },
     { href: "/terms-of-use", ar: "شروط الاستخدام", en: "Terms of Use" },
-    { href: "/cancellation-policy", ar: "سياسة الإلغاء", en: "Cancellation Policy" },
     { href: "/about-company", ar: "عن الشركة", en: "About the Company" },
     { href: "/blog", ar: "المدونة", en: "Blog" }
   ];
