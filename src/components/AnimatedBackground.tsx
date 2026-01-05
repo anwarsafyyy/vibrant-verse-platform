@@ -33,7 +33,7 @@ const AnimatedBackground: React.FC = () => {
         return (
           <div
             key={index}
-            className="absolute text-[hsl(262,45%,35%)]/30"
+            className="absolute text-[hsl(262,45%,35%)]/15"
             style={{
               ...position,
             }}
