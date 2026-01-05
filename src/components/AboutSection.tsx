@@ -95,11 +95,11 @@ const AboutSection: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Counter values
-  const clientsCount = useCountUp(100, 2000, startCounting);
-  const projectsCount = useCountUp(50, 2000, startCounting);
-  const yearsCount = useCountUp(4, 1500, startCounting);
-  const techCount = useCountUp(25, 2000, startCounting);
+  // Counter values (doubled)
+  const clientsCount = useCountUp(200, 2000, startCounting);
+  const projectsCount = useCountUp(100, 2000, startCounting);
+  const yearsCount = useCountUp(8, 1500, startCounting);
+  const techCount = useCountUp(50, 2000, startCounting);
 
   const stats = [
     { 
@@ -130,25 +130,25 @@ const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-white" ref={decorRef}>
-      {/* Decorative diamond shapes with parallax */}
+      {/* Decorative diamond shapes with parallax and float animation */}
       <div 
-        className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100" 
+        className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-all duration-300 animate-[float_4s_ease-in-out_infinite]" 
         style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.5}px)` }}
       />
       <div 
-        className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100" 
+        className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-all duration-300 animate-[float_5s_ease-in-out_infinite_0.5s]" 
         style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.3}px)` }}
       />
       <div 
-        className="absolute bottom-40 right-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100" 
+        className="absolute bottom-40 right-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-all duration-300 animate-[float_4.5s_ease-in-out_infinite_1s]" 
         style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.4}px)` }}
       />
       <div 
-        className="absolute top-1/2 left-1/4 w-10 h-10 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-100" 
+        className="absolute top-1/2 left-1/4 w-10 h-10 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-all duration-300 animate-[float_5.5s_ease-in-out_infinite_0.3s]" 
         style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.6}px)` }}
       />
       <div 
-        className="absolute bottom-20 left-1/3 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-100" 
+        className="absolute bottom-20 left-1/3 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-all duration-300 animate-[float_4s_ease-in-out_infinite_0.7s]" 
         style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.35}px)` }}
       />
       
