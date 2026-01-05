@@ -129,11 +129,28 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Decorative diamond shapes */}
-      <div className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block" />
-      <div className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-40 right-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block" />
+    <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-white" ref={decorRef}>
+      {/* Decorative diamond shapes with parallax */}
+      <div 
+        className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.5}px)` }}
+      />
+      <div 
+        className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.3}px)` }}
+      />
+      <div 
+        className="absolute bottom-40 right-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.4}px)` }}
+      />
+      <div 
+        className="absolute top-1/2 left-1/4 w-10 h-10 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.6}px)` }}
+      />
+      <div 
+        className="absolute bottom-20 left-1/3 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.35}px)` }}
+      />
       
       {/* Back to top button */}
       <button 
