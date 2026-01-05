@@ -22,6 +22,7 @@ const menuItems = [
   { title: 'لوحة التحكم', url: '/admin/dashboard', icon: LayoutDashboard },
   { title: 'المحتوى الرئيسي', url: '/admin/hero', icon: Image },
   { title: 'من نحن', url: '/admin/about', icon: FileText },
+  { title: 'الإحصائيات', url: '/admin/stats', icon: Briefcase },
   { title: 'الخدمات', url: '/admin/services', icon: Briefcase },
   { title: 'المنتجات', url: '/admin/portfolio', icon: Briefcase },
   { title: 'أخبار الشركة', url: '/admin/news', icon: Newspaper },
