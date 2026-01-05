@@ -58,11 +58,11 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="text-white relative" style={{ background: 'linear-gradient(180deg, #071020 0%, #050a14 100%)' }}>
+    <footer className="text-gray-800 relative" style={{ background: 'hsl(250, 40%, 75%)' }}>
       {/* Back to top button */}
       <Button 
         onClick={scrollToTop}
-        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-blue-500 text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300"
+        className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-300"
         size="icon"
       >
         <ArrowUp className="w-5 h-5" />
@@ -76,10 +76,10 @@ const Footer: React.FC = () => {
               <img 
                 src={getSetting('logo_url', 'ar')} 
                 alt="Logo" 
-                className="h-40 w-auto mb-6 brightness-0 invert opacity-90"
+                className="h-40 w-auto mb-6"
               />
             )}
-            <p className="opacity-70 leading-relaxed text-sm">
+            <p className="text-gray-700 leading-relaxed text-sm">
               {language === 'ar' 
                 ? (getFooterContent('company_description_ar', 'ar') || "نبني مستقبلاً رقمياً أفضل من خلال حلول تقنية مبتكرة.")
                 : (getFooterContent('company_description_en', 'en') || "Building a better digital future through innovative tech solutions.")
@@ -89,16 +89,16 @@ const Footer: React.FC = () => {
           
           {/* Important Links */}
           <div>
-            <h4 className="text-lg font-bold mb-6 relative inline-block">
+            <h4 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
               {dir === "rtl" ? "روابط مهمة" : "Important Links"}
-              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-blue-400 rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-[hsl(262,45%,35%)] rounded-full" />
             </h4>
             <ul className="space-y-3">
               {links.map(link => (
                 <li key={link.href}>
                   <a 
                     href={link.href} 
-                    className="text-sm opacity-70 hover:opacity-100 hover:text-blue-400 transition-all duration-300"
+                    className="text-sm text-gray-700 hover:text-[hsl(262,45%,35%)] transition-all duration-300"
                   >
                     {dir === "rtl" ? link.ar : link.en}
                   </a>
@@ -109,16 +109,16 @@ const Footer: React.FC = () => {
           
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-bold mb-6 relative inline-block">
+            <h4 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
               {dir === "rtl" ? "تواصل معنا" : "Contact Us"}
-              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-blue-400 rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-[hsl(262,45%,35%)] rounded-full" />
             </h4>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
-                <li key={i} className="flex items-start gap-3 opacity-70 hover:opacity-100 transition-opacity">
+                <li key={i} className="flex items-start gap-3 text-gray-700 hover:text-[hsl(262,45%,35%)] transition-colors">
                   <span className={`text-sm leading-relaxed ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>{item.text}</span>
-                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <item.icon className="h-4 w-4" />
+                  <div className="w-8 h-8 rounded-lg bg-[hsl(262,45%,35%)]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <item.icon className="h-4 w-4 text-[hsl(262,45%,35%)]" />
                   </div>
                 </li>
               ))}
@@ -127,33 +127,33 @@ const Footer: React.FC = () => {
           
           {/* Social & Newsletter */}
           <div>
-            <h4 className="text-lg font-bold mb-6 relative inline-block">
+            <h4 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
               {dir === "rtl" ? "تابعنا" : "Follow Us"}
-              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-blue-400 rounded-full" />
+              <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-[hsl(262,45%,35%)] rounded-full" />
             </h4>
             <div className="flex gap-3 mb-6 justify-end">
               {/* TikTok */}
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
                 {getSocialIcon('tiktok')}
               </a>
               {/* LinkedIn */}
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
                 {getSocialIcon('linkedin')}
               </a>
               {/* Instagram */}
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
                 {getSocialIcon('instagram')}
               </a>
               {/* Twitter/X */}
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
                 {getSocialIcon('twitter')}
               </a>
               {/* WhatsApp */}
-              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center hover:bg-blue-500 hover:scale-110 transition-all duration-300">
+              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
                 {getSocialIcon('whatsapp')}
               </a>
             </div>
-            <p className="text-sm opacity-70 leading-relaxed">
+            <p className="text-sm text-gray-700 leading-relaxed">
               {dir === "rtl" 
                 ? "نحن شركة متخصصة في تطوير المواقع وبناء تجارب رقمية مبتكرة تعكس هوية علامتك وتُبرز حضورك الرقمي بأعلى مستويات الاحتراف." 
                 : "We are a company specialized in website development and building innovative digital experiences that reflect your brand identity and highlight your digital presence with the highest levels of professionalism."
@@ -163,20 +163,20 @@ const Footer: React.FC = () => {
         </div>
         
         {/* Divider */}
-        <div className="border-t border-white/10 pt-8">
+        <div className="border-t border-[hsl(262,45%,35%)]/20 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="opacity-50 text-sm text-center md:text-right">
+            <p className="text-gray-600 text-sm text-center md:text-right">
               {language === 'ar' 
                 ? (getFooterContent('copyright_text_ar', 'ar') || "جميع الحقوق محفوظة © 2025 شركة علو لتقنية المعلومات.")
                 : (getFooterContent('copyright_text_en', 'en') || "All rights reserved © 2025 OLU IT Company.")
               }
             </p>
-            <div className="flex items-center gap-4 text-sm opacity-50">
-              <a href="/privacy-policy" className="hover:opacity-100 hover:text-blue-400 transition-all">
+            <div className="flex items-center gap-4 text-sm text-gray-600">
+              <a href="/privacy-policy" className="hover:text-[hsl(262,45%,35%)] transition-all">
                 {dir === "rtl" ? "الخصوصية" : "Privacy"}
               </a>
               <span>•</span>
-              <a href="/terms-of-use" className="hover:opacity-100 hover:text-blue-400 transition-all">
+              <a href="/terms-of-use" className="hover:text-[hsl(262,45%,35%)] transition-all">
                 {dir === "rtl" ? "الشروط" : "Terms"}
               </a>
             </div>
