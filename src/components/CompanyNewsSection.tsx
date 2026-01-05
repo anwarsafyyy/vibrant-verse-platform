@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Newspaper, ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { Newspaper, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getCollection } from "@/lib/firebaseHelpers";
@@ -98,14 +98,6 @@ const CompanyNewsSection: React.FC = () => {
     });
   }, [api]);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   return (
     <section id="news" className="py-12 lg:py-16 relative overflow-hidden bg-white">
@@ -157,14 +149,6 @@ const CompanyNewsSection: React.FC = () => {
                       />
                       {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-[hsl(262,45%,25%)] via-transparent to-transparent opacity-90" />
-                      
-                      {/* Date Badge */}
-                      <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-2 shadow-lg">
-                        <Calendar className="w-4 h-4 text-purple-600" />
-                        <span className="text-sm font-medium text-gray-700">
-                          {formatDate(news.date)}
-                        </span>
-                      </div>
                       
                       {/* Title on Image */}
                       <div className="absolute bottom-0 left-0 right-0 p-6">
