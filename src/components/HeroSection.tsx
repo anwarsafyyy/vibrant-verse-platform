@@ -39,7 +39,7 @@ const HeroSection: React.FC = () => {
           <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start order-2 lg:order-1">
             <div className="relative">
               {/* Phone Frame */}
-              <div className="relative w-56 h-[420px] sm:w-64 sm:h-[480px] md:w-72 md:h-[540px] lg:w-80 lg:h-[600px] bg-white rounded-[2.5rem] shadow-2xl shadow-purple-500/20 border-8 border-gray-100 overflow-hidden">
+              <div className="relative w-56 h-[420px] sm:w-64 sm:h-[480px] md:w-72 md:h-[540px] lg:w-80 lg:h-[600px] bg-white rounded-[2.5rem] shadow-2xl shadow-purple-500/25 border-4 border-purple-300/50 overflow-hidden ring-4 ring-purple-200/30">
                 {/* Phone Notch */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-gray-200 rounded-b-2xl z-10" />
                 
