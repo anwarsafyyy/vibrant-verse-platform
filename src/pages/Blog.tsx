@@ -85,9 +85,6 @@ const Blog: React.FC = () => {
         <div className="absolute inset-0 bg-[var(--gradient-hero)]" />
         <div className="absolute inset-0" style={{ background: 'var(--gradient-mesh)' }} />
         
-        {/* Decorative circles */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
@@ -118,7 +115,7 @@ const Blog: React.FC = () => {
                 placeholder={language === "ar" ? "ابحث عن مقال..." : "Search for an article..."}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pr-12 pl-6 py-4 rounded-2xl border border-border bg-card/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground placeholder:text-muted-foreground"
+                className="w-full pr-12 pl-6 py-4 rounded-2xl border border-border bg-card/80 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground placeholder:text-muted-foreground"
               />
             </div>
           </div>
@@ -227,7 +224,7 @@ const Blog: React.FC = () => {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
                         <div className="absolute top-4 left-4">
-                          <span className="bg-primary/90 backdrop-blur-sm text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
+                          <span className="bg-primary/90 text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
                             {language === "ar" ? post.category_ar : post.category_en}
                           </span>
                         </div>
@@ -281,9 +278,6 @@ const Blog: React.FC = () => {
           {/* Newsletter Signup */}
           <div className="mt-20">
             <div className="relative bg-card rounded-3xl p-8 md:p-12 border border-border overflow-hidden">
-              {/* Background decoration */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-              <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/10 rounded-full blur-3xl" />
               
               <div className="relative z-10 text-center max-w-2xl mx-auto">
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">

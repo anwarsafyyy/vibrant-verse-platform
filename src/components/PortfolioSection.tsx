@@ -121,11 +121,6 @@ const PortfolioSection: React.FC = () => {
 
   return (
     <section id="portfolio" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Animated gradient orbs */}
-      <div className="absolute top-20 left-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl" />
-      
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}
@@ -227,8 +222,6 @@ const PortfolioSection: React.FC = () => {
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center" dir="ltr">
                         {/* Left Side - Enhanced Mockup with Image */}
                         <div className="relative order-1 lg:order-1 group">
-                          {/* Animated glow effect */}
-                          <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-20 blur-3xl group-hover:opacity-40 transition-opacity duration-700 rounded-3xl`} />
                           
                           {/* Decorative corner frames with gradient */}
                           <div className={`absolute -top-4 -left-4 md:-top-6 md:-left-6 w-16 h-16 md:w-24 md:h-24 border-t-4 md:border-t-[6px] border-l-4 md:border-l-[6px] border-transparent bg-gradient-to-br ${gradient} bg-clip-border rounded-tl-xl md:rounded-tl-[2rem] z-10 hidden sm:block`} style={{ borderImage: `linear-gradient(135deg, var(--tw-gradient-stops)) 1` }} />
@@ -305,8 +298,7 @@ const PortfolioSection: React.FC = () => {
                           </div>
                           
                           {/* Description with styled container */}
-                          <div className="relative p-6 rounded-2xl bg-[hsl(262,45%,35%)] backdrop-blur-sm border border-purple-400/20 mb-6">
-                            <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-2xl`} />
+                          <div className="relative p-6 rounded-2xl bg-[hsl(262,45%,35%)] border border-purple-400/20 mb-6">
                             <h4 className="text-lg md:text-xl font-bold mb-3 text-foreground">
                               {language === 'ar' ? 'نبذة عن المنتج' : 'About Product'}
                             </h4>

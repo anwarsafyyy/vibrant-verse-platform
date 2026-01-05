@@ -53,8 +53,8 @@ const Navbar: React.FC = () => {
           {/* Navbar */}
           <div className={`flex-1 flex items-center justify-between transition-all duration-500 -mr-4 ${
             isScrolled 
-              ? 'bg-white/98 backdrop-blur-xl shadow-2xl shadow-blue-900/20 rounded-2xl px-6 py-3 border border-gray-200/80 ring-1 ring-blue-100/50' 
-              : 'bg-white/90 backdrop-blur-md rounded-2xl px-6 py-3 shadow-lg shadow-gray-200/40 border border-gray-100'
+              ? 'bg-white shadow-2xl rounded-2xl px-6 py-3 border border-gray-200/80 ring-1 ring-blue-100/50' 
+              : 'bg-white/90 rounded-2xl px-6 py-3 shadow-lg shadow-gray-200/40 border border-gray-100'
           }`}>
             
             {/* Desktop Menu */}
@@ -112,7 +112,7 @@ const Navbar: React.FC = () => {
             : '-translate-y-full opacity-0 pointer-events-none'
         }`}
       >
-        <div className="bg-white backdrop-blur-xl shadow-2xl shadow-blue-900/20 pt-28 pb-6 px-4 border-b border-blue-100">
+        <div className="bg-white shadow-2xl pt-28 pb-6 px-4 border-b border-blue-100">
           <nav className="flex flex-col gap-2 max-w-md mx-auto">
             {navItems.map((item, index) => (
               <a
@@ -147,7 +147,7 @@ const Navbar: React.FC = () => {
       
       {/* Overlay */}
       <div 
-        className={`lg:hidden fixed inset-0 bg-blue-950/40 backdrop-blur-sm z-30 transition-opacity duration-300 ${
+        className={`lg:hidden fixed inset-0 bg-blue-950/40 z-30 transition-opacity duration-300 ${
           mobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={() => setMobileMenuOpen(false)}

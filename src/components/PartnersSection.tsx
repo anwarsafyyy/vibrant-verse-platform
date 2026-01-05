@@ -104,28 +104,6 @@ const PartnersSection: React.FC = () => {
         ))}
       </div>
 
-      {/* Animated glowing orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div 
-          className="absolute w-64 h-64 rounded-full blur-3xl animate-pulse"
-          style={{ 
-            background: 'radial-gradient(circle, rgba(147, 51, 234, 0.1) 0%, transparent 70%)',
-            top: '10%',
-            left: '10%',
-            animationDuration: '4s'
-          }}
-        />
-        <div 
-          className="absolute w-96 h-96 rounded-full blur-3xl animate-pulse"
-          style={{ 
-            background: 'radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%)',
-            bottom: '10%',
-            right: '10%',
-            animationDuration: '6s',
-            animationDelay: '2s'
-          }}
-        />
-      </div>
 
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
@@ -247,8 +225,7 @@ const PartnersSection: React.FC = () => {
                         }}
                       >
                         <div className="relative group">
-                          <div className="absolute inset-0 bg-purple-400/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
-                          <div className="relative w-[72px] h-[72px] md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20 transition-transform duration-500 group-hover:scale-110 border-2 border-purple-200/50">
+                          <div className="relative w-[72px] h-[72px] md:w-20 md:h-20 bg-white rounded-full flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-110 border-2 border-purple-200/50">
                             {partner.logo_url ? (
                               <img
                                 src={partner.logo_url}
@@ -304,8 +281,7 @@ const PartnersSection: React.FC = () => {
                         }}
                       >
                         <div className="relative group">
-                          <div className="absolute inset-0 bg-purple-400/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-150" />
-                          <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] bg-white rounded-full flex items-center justify-center shadow-lg shadow-purple-500/20 transition-transform duration-500 group-hover:scale-110 border-2 border-purple-200/50">
+                          <div className="relative w-16 h-16 md:w-[72px] md:h-[72px] bg-white rounded-full flex items-center justify-center shadow-lg transition-transform duration-500 group-hover:scale-110 border-2 border-purple-200/50">
                             {partner.logo_url ? (
                               <img
                                 src={partner.logo_url}
@@ -330,8 +306,7 @@ const PartnersSection: React.FC = () => {
 
               {/* Center - Olu Logo */}
               <div className="absolute flex items-center justify-center">
-                <div className="absolute w-32 h-32 rounded-full animate-pulse" style={{ background: 'radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, transparent 70%)' }} />
-                <div className="relative w-24 h-24 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-purple-500/25 border-2 border-purple-200/50">
+                <div className="relative w-24 h-24 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl border-2 border-purple-200/50">
                   <img 
                     src="/olu-logo.png" 
                     alt="Olu Logo" 
