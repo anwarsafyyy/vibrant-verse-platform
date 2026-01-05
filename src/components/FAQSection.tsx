@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import {
   Accordion,
@@ -22,11 +22,35 @@ interface FAQ {
   order_index: number;
 }
 
+// Parallax hook
+const useParallax = (speed: number = 0.5) => {
+  const [offset, setOffset] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        const scrolled = window.innerHeight - rect.top;
+        if (scrolled > 0) {
+          setOffset(scrolled * speed * 0.1);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [speed]);
+
+  return { offset, elementRef };
+};
+
 const FAQSection: React.FC = () => {
   const { t, language, dir } = useLanguage();
   const [faqs, setFaqs] = useState<FAQ[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const { offset: decorOffset, elementRef: decorRef } = useParallax(0.4);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -65,13 +89,28 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-20 w-40 h-40 opacity-10 -z-10">
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#a855f7" strokeWidth="2" />
-        </svg>
-      </div>
+    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden bg-white" ref={decorRef}>
+      {/* Decorative diamond shapes with parallax */}
+      <div 
+        className="absolute top-16 right-1/4 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.5}px)` }}
+      />
+      <div 
+        className="absolute top-32 left-16 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.4}px)` }}
+      />
+      <div 
+        className="absolute bottom-24 right-16 w-7 h-7 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.35}px)` }}
+      />
+      <div 
+        className="absolute top-1/2 left-1/3 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.6}px)` }}
+      />
+      <div 
+        className="absolute bottom-40 left-20 w-9 h-9 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100" 
+        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.45}px)` }}
+      />
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">

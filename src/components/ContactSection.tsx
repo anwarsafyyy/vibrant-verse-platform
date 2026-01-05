@@ -100,29 +100,33 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Decorative elements with parallax */}
+      {/* Decorative diamond shapes with parallax */}
       <div 
         ref={decorRef1}
-        className="absolute bottom-20 left-20 w-48 h-48 opacity-20 -z-10 transition-transform duration-100"
-        style={{ transform: `translateY(${decorOffset1}px)` }}
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <polygon points="50,5 95,30 95,70 50,95 5,70 5,30" fill="none" stroke="#a855f7" strokeWidth="2" />
-        </svg>
-      </div>
+        className="absolute top-20 right-1/4 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `rotate(45deg) translateY(${decorOffset1 * 0.5}px)` }}
+      />
+      <div 
+        className="absolute top-32 left-16 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `rotate(45deg) translateY(${-decorOffset1 * 0.4}px)` }}
+      />
       <div 
         ref={decorRef2}
-        className="absolute top-20 right-20 w-32 h-32 opacity-20 -z-10 transition-transform duration-100"
-        style={{ transform: `translateY(${-decorOffset2}px)` }}
-      >
-        <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#c084fc" strokeWidth="2" />
-        </svg>
-      </div>
-
-      {/* Floating diamonds */}
-      <div className="absolute top-40 left-16 w-6 h-6 border-2 border-purple-400/30 rotate-45 rounded-md hidden lg:block animate-bounce-soft" />
-      <div className="absolute bottom-40 right-16 w-8 h-8 border-2 border-purple-400/30 rotate-45 rounded-lg hidden lg:block animate-bounce-soft" style={{ animationDelay: '1s' }} />
+        className="absolute bottom-24 right-16 w-7 h-7 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `rotate(45deg) translateY(${decorOffset2 * 0.35}px)` }}
+      />
+      <div 
+        className="absolute top-1/2 left-1/3 w-10 h-10 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `rotate(45deg) translateY(${-decorOffset2 * 0.6}px)` }}
+      />
+      <div 
+        className="absolute bottom-40 left-20 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `rotate(45deg) translateY(${decorOffset1 * 0.45}px)` }}
+      />
+      <div 
+        className="absolute top-40 right-1/3 w-9 h-9 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `rotate(45deg) translateY(${decorOffset2 * 0.3}px)` }}
+      />
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
