@@ -93,6 +93,7 @@ const PortfolioSection: React.FC = () => {
 
   useEffect(() => {
     const fetchPortfolioItems = async () => {
+      console.log("🔍 Starting to fetch portfolio items...");
       try {
         const [itemsRes, legacyRes] = await Promise.allSettled([
           getDocs(query(collection(db, "portfolio_items"), orderBy("order_index", "asc"))),
@@ -102,15 +103,21 @@ const PortfolioSection: React.FC = () => {
         const itemsData: PortfolioItem[] = [];
 
         if (itemsRes.status === "fulfilled") {
+          console.log("📦 portfolio_items collection:", itemsRes.value.size, "items");
           itemsRes.value.forEach((doc) => {
             itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
           });
+        } else {
+          console.log("❌ portfolio_items failed:", itemsRes.reason);
         }
 
         if (legacyRes.status === "fulfilled") {
+          console.log("📦 portfolio collection (legacy):", legacyRes.value.size, "items");
           legacyRes.value.forEach((doc) => {
             itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
           });
+        } else {
+          console.log("❌ portfolio failed:", legacyRes.reason);
         }
 
         const deduped = Array.from(
@@ -119,10 +126,11 @@ const PortfolioSection: React.FC = () => {
           (a, b) => (Number(a.order_index ?? 9999) || 9999) - (Number(b.order_index ?? 9999) || 9999)
         );
 
-        console.log("Portfolio items fetched:", deduped.length, deduped);
+        console.log("✅ Total unique portfolio items:", deduped.length);
+        console.log("📋 Items:", deduped.map(i => i.title_ar || i.title));
         setPortfolioItems(deduped);
       } catch (error) {
-        console.error("Failed to fetch portfolio items:", error);
+        console.error("❌ Failed to fetch portfolio items:", error);
       } finally {
         setLoading(false);
       }
@@ -195,6 +203,7 @@ const PortfolioSection: React.FC = () => {
           <Carousel 
             setApi={setApi} 
             className="w-full max-w-6xl mx-auto"
+            dir="ltr"
             opts={{
               loop: true,
               align: "start",
