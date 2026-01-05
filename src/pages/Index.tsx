@@ -10,8 +10,10 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import PortfolioSection from "@/components/PortfolioSection";
 import GoogleMap from "@/components/GoogleMap";
+import CompanyNewsSection from "@/components/CompanyNewsSection";
 import { useDynamicHead } from "@/hooks/useDynamicHead";
 import { WaveDivider } from "@/components/SectionDivider";
+
 const Index = () => {
   useDynamicHead();
   
@@ -52,10 +54,19 @@ const Index = () => {
         gradientColors={['#c4b5fd', '#a78bfa', '#8b5cf6']} 
       />
       
+      <CompanyNewsSection />
+      
+      <WaveDivider 
+        className="-mt-1" 
+        gradientId="wave4b" 
+        gradientColors={['#a78bfa', '#8b5cf6', '#c4b5fd']} 
+      />
+      
       <PartnersSection />
       
       <WaveDivider 
         className="-mt-1" 
+        flip 
         gradientId="wave5" 
         gradientColors={['#a78bfa', '#c4b5fd', '#8b5cf6']} 
       />
@@ -64,7 +75,6 @@ const Index = () => {
       
       <WaveDivider 
         className="-mt-1" 
-        flip 
         gradientId="wave6" 
         gradientColors={['#8b5cf6', '#a78bfa', '#c4b5fd']} 
       />
@@ -73,6 +83,7 @@ const Index = () => {
       
       <WaveDivider 
         className="-mt-1" 
+        flip 
         gradientId="wave7" 
         gradientColors={['#a78bfa', '#8b5cf6', '#c4b5fd']} 
       />
