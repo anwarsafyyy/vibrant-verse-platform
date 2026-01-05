@@ -83,7 +83,7 @@ export const AboutContentManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">محتوى من نحن</h1>
+        <h1 className="text-2xl font-bold text-black">محتوى من نحن</h1>
         <Button onClick={handleSave} disabled={saving}>
           <Save className="w-4 h-4 ml-2" />
           {saving ? 'جاري الحفظ...' : 'حفظ'}
@@ -92,19 +92,19 @@ export const AboutContentManager = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>تعديل المحتوى</CardTitle>
+          <CardTitle className="text-black">تعديل المحتوى</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">العنوان (عربي)</label>
+              <label className="text-sm font-medium text-black">العنوان (عربي)</label>
               <Input
                 value={formData.title_ar || ''}
                 onChange={(e) => setFormData({ ...formData, title_ar: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">العنوان (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">العنوان (إنجليزي)</label>
               <Input
                 value={formData.title_en || ''}
                 onChange={(e) => setFormData({ ...formData, title_en: e.target.value })}
@@ -113,14 +113,14 @@ export const AboutContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">العنوان الفرعي (عربي)</label>
+              <label className="text-sm font-medium text-black">العنوان الفرعي (عربي)</label>
               <Input
                 value={formData.subtitle_ar || ''}
                 onChange={(e) => setFormData({ ...formData, subtitle_ar: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">العنوان الفرعي (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">العنوان الفرعي (إنجليزي)</label>
               <Input
                 value={formData.subtitle_en || ''}
                 onChange={(e) => setFormData({ ...formData, subtitle_en: e.target.value })}
@@ -129,7 +129,7 @@ export const AboutContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">الوصف (عربي)</label>
+              <label className="text-sm font-medium text-black">الوصف (عربي)</label>
               <Textarea
                 value={formData.description_ar || ''}
                 onChange={(e) => setFormData({ ...formData, description_ar: e.target.value })}
@@ -137,7 +137,7 @@ export const AboutContentManager = () => {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">الوصف (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">الوصف (إنجليزي)</label>
               <Textarea
                 value={formData.description_en || ''}
                 onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
@@ -147,14 +147,14 @@ export const AboutContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">نص الزر (عربي)</label>
+              <label className="text-sm font-medium text-black">نص الزر (عربي)</label>
               <Input
                 value={formData.cta_text_ar || ''}
                 onChange={(e) => setFormData({ ...formData, cta_text_ar: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">نص الزر (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">نص الزر (إنجليزي)</label>
               <Input
                 value={formData.cta_text_en || ''}
                 onChange={(e) => setFormData({ ...formData, cta_text_en: e.target.value })}
@@ -162,7 +162,7 @@ export const AboutContentManager = () => {
             </div>
           </div>
           <div>
-            <label className="text-sm font-medium">رابط الصورة</label>
+            <label className="text-sm font-medium text-black">رابط الصورة</label>
             <Input
               value={formData.image_url || ''}
               onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}

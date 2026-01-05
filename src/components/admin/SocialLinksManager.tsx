@@ -88,7 +88,7 @@ export const SocialLinksManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">روابط التواصل الاجتماعي</h1>
+        <h1 className="text-2xl font-bold text-black">روابط التواصل الاجتماعي</h1>
         <Button onClick={handleAdd}>
           <Plus className="w-4 h-4 ml-2" />
           إضافة رابط
@@ -98,12 +98,12 @@ export const SocialLinksManager = () => {
       {editingId && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId === 'new' ? 'إضافة رابط جديد' : 'تعديل الرابط'}</CardTitle>
+            <CardTitle className="text-black">{editingId === 'new' ? 'إضافة رابط جديد' : 'تعديل الرابط'}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">المنصة</label>
+                <label className="text-sm font-medium text-black">المنصة</label>
                 <Input
                   value={formData.platform || ''}
                   onChange={(e) => setFormData({ ...formData, platform: e.target.value })}
@@ -111,7 +111,7 @@ export const SocialLinksManager = () => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الأيقونة</label>
+                <label className="text-sm font-medium text-black">الأيقونة</label>
                 <Input
                   value={formData.icon || ''}
                   onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
@@ -120,7 +120,7 @@ export const SocialLinksManager = () => {
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium">الرابط</label>
+              <label className="text-sm font-medium text-black">الرابط</label>
               <Input
                 value={formData.url || ''}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
@@ -128,7 +128,7 @@ export const SocialLinksManager = () => {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">الترتيب</label>
+              <label className="text-sm font-medium text-black">الترتيب</label>
               <Input
                 type="number"
                 value={formData.order_index || 0}
@@ -154,8 +154,8 @@ export const SocialLinksManager = () => {
           <Card key={link.id}>
             <CardContent className="flex items-center justify-between p-4">
               <div>
-                <h3 className="font-semibold">{link.platform}</h3>
-                <p className="text-sm text-muted-foreground">{link.url}</p>
+                <h3 className="font-semibold text-black">{link.platform}</h3>
+                <p className="text-sm text-black/70">{link.url}</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={() => handleEdit(link)}>

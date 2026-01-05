@@ -100,7 +100,7 @@ export const ServicesManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">إدارة الخدمات</h1>
+        <h1 className="text-2xl font-bold text-black">إدارة الخدمات</h1>
         <Button onClick={handleAdd}>
           <Plus className="w-4 h-4 ml-2" />
           إضافة خدمة
@@ -110,19 +110,19 @@ export const ServicesManager = () => {
       {editingId && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId === 'new' ? 'إضافة خدمة جديدة' : 'تعديل الخدمة'}</CardTitle>
+            <CardTitle className="text-black">{editingId === 'new' ? 'إضافة خدمة جديدة' : 'تعديل الخدمة'}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">العنوان (عربي)</label>
+                <label className="text-sm font-medium text-black">العنوان (عربي)</label>
                 <Input
                   value={formData.title_ar || ''}
                   onChange={(e) => setFormData({ ...formData, title_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">العنوان (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">العنوان (إنجليزي)</label>
                 <Input
                   value={formData.title_en || ''}
                   onChange={(e) => setFormData({ ...formData, title_en: e.target.value })}
@@ -131,14 +131,14 @@ export const ServicesManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">الوصف (عربي)</label>
+                <label className="text-sm font-medium text-black">الوصف (عربي)</label>
                 <Textarea
                   value={formData.description_ar || ''}
                   onChange={(e) => setFormData({ ...formData, description_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الوصف (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">الوصف (إنجليزي)</label>
                 <Textarea
                   value={formData.description_en || ''}
                   onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
@@ -147,7 +147,7 @@ export const ServicesManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">الأيقونة</label>
+                <label className="text-sm font-medium text-black">الأيقونة</label>
                 <Input
                   value={formData.icon || ''}
                   onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
@@ -155,7 +155,7 @@ export const ServicesManager = () => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الترتيب</label>
+                <label className="text-sm font-medium text-black">الترتيب</label>
                 <Input
                   type="number"
                   value={formData.order_index || 0}
@@ -182,8 +182,8 @@ export const ServicesManager = () => {
           <Card key={service.id}>
             <CardContent className="flex items-center justify-between p-4">
               <div>
-                <h3 className="font-semibold">{service.title_ar || (service as any).title}</h3>
-                <p className="text-sm text-muted-foreground">{service.description_ar || (service as any).description}</p>
+                <h3 className="font-semibold text-black">{service.title_ar || (service as any).title}</h3>
+                <p className="text-sm text-black/70">{service.description_ar || (service as any).description}</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={() => handleEdit(service)}>

@@ -83,7 +83,7 @@ export const FooterContentManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">محتوى الفوتر</h1>
+        <h1 className="text-2xl font-bold text-black">محتوى الفوتر</h1>
         <Button onClick={handleSave} disabled={saving}>
           <Save className="w-4 h-4 ml-2" />
           {saving ? 'جاري الحفظ...' : 'حفظ'}
@@ -92,12 +92,12 @@ export const FooterContentManager = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>معلومات الشركة</CardTitle>
+          <CardTitle className="text-black">معلومات الشركة</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">وصف الشركة (عربي)</label>
+              <label className="text-sm font-medium text-black">وصف الشركة (عربي)</label>
               <Textarea
                 value={formData.company_description_ar || ''}
                 onChange={(e) => setFormData({ ...formData, company_description_ar: e.target.value })}
@@ -105,7 +105,7 @@ export const FooterContentManager = () => {
               />
             </div>
             <div>
-              <label className="text-sm font-medium">وصف الشركة (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">وصف الشركة (إنجليزي)</label>
               <Textarea
                 value={formData.company_description_en || ''}
                 onChange={(e) => setFormData({ ...formData, company_description_en: e.target.value })}
@@ -115,14 +115,14 @@ export const FooterContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">العنوان (عربي)</label>
+              <label className="text-sm font-medium text-black">العنوان (عربي)</label>
               <Input
                 value={formData.address_ar || ''}
                 onChange={(e) => setFormData({ ...formData, address_ar: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">العنوان (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">العنوان (إنجليزي)</label>
               <Input
                 value={formData.address_en || ''}
                 onChange={(e) => setFormData({ ...formData, address_en: e.target.value })}
@@ -131,14 +131,14 @@ export const FooterContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">الهاتف</label>
+              <label className="text-sm font-medium text-black">الهاتف</label>
               <Input
                 value={formData.phone || ''}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">البريد الإلكتروني</label>
+              <label className="text-sm font-medium text-black">البريد الإلكتروني</label>
               <Input
                 value={formData.email || ''}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -147,14 +147,14 @@ export const FooterContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">ساعات العمل (عربي)</label>
+              <label className="text-sm font-medium text-black">ساعات العمل (عربي)</label>
               <Input
                 value={formData.working_hours_ar || ''}
                 onChange={(e) => setFormData({ ...formData, working_hours_ar: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">ساعات العمل (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">ساعات العمل (إنجليزي)</label>
               <Input
                 value={formData.working_hours_en || ''}
                 onChange={(e) => setFormData({ ...formData, working_hours_en: e.target.value })}
@@ -163,14 +163,14 @@ export const FooterContentManager = () => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">نص حقوق الملكية (عربي)</label>
+              <label className="text-sm font-medium text-black">نص حقوق الملكية (عربي)</label>
               <Input
                 value={formData.copyright_text_ar || ''}
                 onChange={(e) => setFormData({ ...formData, copyright_text_ar: e.target.value })}
               />
             </div>
             <div>
-              <label className="text-sm font-medium">نص حقوق الملكية (إنجليزي)</label>
+              <label className="text-sm font-medium text-black">نص حقوق الملكية (إنجليزي)</label>
               <Input
                 value={formData.copyright_text_en || ''}
                 onChange={(e) => setFormData({ ...formData, copyright_text_en: e.target.value })}

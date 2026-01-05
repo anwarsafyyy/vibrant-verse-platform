@@ -91,7 +91,7 @@ export const FAQManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">إدارة الأسئلة الشائعة</h1>
+        <h1 className="text-2xl font-bold text-black">إدارة الأسئلة الشائعة</h1>
         <Button onClick={handleAdd}>
           <Plus className="w-4 h-4 ml-2" />
           إضافة سؤال
@@ -101,19 +101,19 @@ export const FAQManager = () => {
       {editingId && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId === 'new' ? 'إضافة سؤال جديد' : 'تعديل السؤال'}</CardTitle>
+            <CardTitle className="text-black">{editingId === 'new' ? 'إضافة سؤال جديد' : 'تعديل السؤال'}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">السؤال (عربي)</label>
+                <label className="text-sm font-medium text-black">السؤال (عربي)</label>
                 <Input
                   value={formData.question_ar || ''}
                   onChange={(e) => setFormData({ ...formData, question_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">السؤال (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">السؤال (إنجليزي)</label>
                 <Input
                   value={formData.question_en || ''}
                   onChange={(e) => setFormData({ ...formData, question_en: e.target.value })}
@@ -122,7 +122,7 @@ export const FAQManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">الإجابة (عربي)</label>
+                <label className="text-sm font-medium text-black">الإجابة (عربي)</label>
                 <Textarea
                   value={formData.answer_ar || ''}
                   onChange={(e) => setFormData({ ...formData, answer_ar: e.target.value })}
@@ -130,7 +130,7 @@ export const FAQManager = () => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الإجابة (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">الإجابة (إنجليزي)</label>
                 <Textarea
                   value={formData.answer_en || ''}
                   onChange={(e) => setFormData({ ...formData, answer_en: e.target.value })}
@@ -139,7 +139,7 @@ export const FAQManager = () => {
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium">الترتيب</label>
+              <label className="text-sm font-medium text-black">الترتيب</label>
               <Input
                 type="number"
                 value={formData.order_index || 0}
@@ -165,8 +165,8 @@ export const FAQManager = () => {
           <Card key={faq.id}>
             <CardContent className="flex items-center justify-between p-4">
               <div>
-                <h3 className="font-semibold">{faq.question_ar}</h3>
-                <p className="text-sm text-muted-foreground">{faq.answer_ar?.slice(0, 100)}...</p>
+                <h3 className="font-semibold text-black">{faq.question_ar}</h3>
+                <p className="text-sm text-black/70">{faq.answer_ar?.slice(0, 100)}...</p>
               </div>
               <div className="flex gap-2">
                 <Button variant="outline" size="sm" onClick={() => handleEdit(faq)}>

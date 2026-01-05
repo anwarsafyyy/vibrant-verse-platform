@@ -128,7 +128,7 @@ export const PortfolioManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">إدارة المنتجات</h1>
+        <h1 className="text-2xl font-bold text-black">إدارة المنتجات</h1>
         <Button onClick={handleAdd}>
           <Plus className="w-4 h-4 ml-2" />
           إضافة منتج
@@ -138,19 +138,19 @@ export const PortfolioManager = () => {
       {editingId && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId === 'new' ? 'إضافة منتج جديد' : 'تعديل المنتج'}</CardTitle>
+            <CardTitle className="text-black">{editingId === 'new' ? 'إضافة منتج جديد' : 'تعديل المنتج'}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">العنوان (عربي)</label>
+                <label className="text-sm font-medium text-black">العنوان (عربي)</label>
                 <Input
                   value={formData.title_ar || ''}
                   onChange={(e) => setFormData({ ...formData, title_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">العنوان (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">العنوان (إنجليزي)</label>
                 <Input
                   value={formData.title_en || ''}
                   onChange={(e) => setFormData({ ...formData, title_en: e.target.value })}
@@ -159,14 +159,14 @@ export const PortfolioManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">الوصف (عربي)</label>
+                <label className="text-sm font-medium text-black">الوصف (عربي)</label>
                 <Textarea
                   value={formData.description_ar || ''}
                   onChange={(e) => setFormData({ ...formData, description_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الوصف (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">الوصف (إنجليزي)</label>
                 <Textarea
                   value={formData.description_en || ''}
                   onChange={(e) => setFormData({ ...formData, description_en: e.target.value })}
@@ -175,7 +175,7 @@ export const PortfolioManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">صورة المنتج</label>
+                <label className="text-sm font-medium text-black">صورة المنتج</label>
                 <div className="space-y-2">
                   <input
                     type="file"
@@ -204,13 +204,13 @@ export const PortfolioManager = () => {
                     <div className="flex items-center gap-2 p-2 bg-muted rounded">
                       <Image className="w-4 h-4" />
                       <img src={formData.image_url} alt="Preview" className="w-12 h-12 object-cover rounded" />
-                      <span className="text-xs text-muted-foreground truncate flex-1">تم رفع الصورة</span>
+                      <span className="text-xs text-black/70 truncate flex-1">تم رفع الصورة</span>
                     </div>
                   )}
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium">رابط المنتج</label>
+                <label className="text-sm font-medium text-black">رابط المنتج</label>
                 <Input
                   value={formData.link || ''}
                   onChange={(e) => setFormData({ ...formData, link: e.target.value })}
@@ -219,14 +219,14 @@ export const PortfolioManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">التصنيف</label>
+                <label className="text-sm font-medium text-black">التصنيف</label>
                 <Input
                   value={formData.category || ''}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الترتيب</label>
+                <label className="text-sm font-medium text-black">الترتيب</label>
                 <Input
                   type="number"
                   value={formData.order_index || 0}
@@ -257,8 +257,8 @@ export const PortfolioManager = () => {
                   <img src={item.image_url} alt={item.title_ar} className="w-16 h-16 object-cover rounded" />
                 )}
                 <div>
-                  <h3 className="font-semibold">{item.title_ar || (item as any).title}</h3>
-                  <p className="text-sm text-muted-foreground">{(item.description_ar || (item as any).description)?.slice(0, 100)}...</p>
+                  <h3 className="font-semibold text-black">{item.title_ar || (item as any).title}</h3>
+                  <p className="text-sm text-black/70">{(item.description_ar || (item as any).description)?.slice(0, 100)}...</p>
                 </div>
               </div>
               <div className="flex gap-2">
