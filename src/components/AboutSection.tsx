@@ -187,11 +187,10 @@ const AboutSection: React.FC = () => {
               style={{ transform: `translateY(${imageOffset}px)` }}
             >
               <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop" 
-                alt="Dashboard analytics"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" 
+                alt="Team collaboration"
                 className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-300 hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
             </div>
           </div>
           
@@ -221,9 +220,7 @@ const AboutSection: React.FC = () => {
                     
                     <div className="relative z-20">
                       <div className={`w-10 h-10 sm:w-12 sm:h-12 mx-auto mb-2 sm:mb-3 rounded-lg sm:rounded-xl flex items-center justify-center bg-gradient-to-br ${gradient} shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
-                        <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white drop-shadow-md" />
-                        {/* Shine effect */}
-                        <div className="absolute inset-0 rounded-lg sm:rounded-xl bg-gradient-to-tr from-white/30 via-transparent to-transparent" />
+                        <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                       </div>
                       <div className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-0.5 tabular-nums" dir="ltr">
                         {stat.prefix}{stat.value}
