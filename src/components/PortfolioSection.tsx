@@ -119,6 +119,7 @@ const PortfolioSection: React.FC = () => {
           (a, b) => (Number(a.order_index ?? 9999) || 9999) - (Number(b.order_index ?? 9999) || 9999)
         );
 
+        console.log("Portfolio items fetched:", deduped.length, deduped);
         setPortfolioItems(deduped);
       } catch (error) {
         console.error("Failed to fetch portfolio items:", error);
@@ -193,10 +194,11 @@ const PortfolioSection: React.FC = () => {
 
           <Carousel 
             setApi={setApi} 
-            className="w-full max-w-5xl mx-auto"
+            className="w-full max-w-6xl mx-auto"
             opts={{
               loop: true,
-              align: "center",
+              align: "start",
+              slidesToScroll: 1,
             }}
             plugins={[autoplayPlugin.current]}
           >
