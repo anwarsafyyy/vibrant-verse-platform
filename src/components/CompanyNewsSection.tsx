@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { Newspaper, ChevronLeft, ChevronRight, Calendar, ArrowLeft } from "lucide-react";
+import { Newspaper, ChevronLeft, ChevronRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getCollection } from "@/lib/firebaseHelpers";
@@ -176,18 +176,9 @@ const CompanyNewsSection: React.FC = () => {
                     
                     {/* Content */}
                     <div className="p-6 bg-gradient-to-b from-white to-purple-50/50">
-                      <p className="text-gray-600 text-sm md:text-base leading-relaxed text-right mb-4 line-clamp-3">
+                      <p className="text-gray-600 text-sm md:text-base leading-relaxed text-right line-clamp-3">
                         {language === 'ar' ? news.description_ar : news.description_en}
                       </p>
-                      
-                      {/* Read More Button */}
-                      <Button 
-                        variant="ghost" 
-                        className="w-full justify-center gap-2 text-purple-600 hover:text-purple-700 hover:bg-purple-100/50 font-medium group/btn"
-                      >
-                        <span>{language === 'ar' ? 'اقرأ المزيد' : 'Read More'}</span>
-                        <ArrowLeft className="w-4 h-4 transition-transform group-hover/btn:-translate-x-1" />
-                      </Button>
                     </div>
                   </div>
                 </CarouselItem>
