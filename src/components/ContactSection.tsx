@@ -100,33 +100,11 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Decorative diamond shapes with parallax */}
-      <div 
-        ref={decorRef1}
-        className="absolute top-20 right-1/4 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-300"
-        style={{ transform: `rotate(45deg) translateY(${decorOffset1 * 0.5}px)` }}
-      />
-      <div 
-        className="absolute top-32 left-16 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300"
-        style={{ transform: `rotate(45deg) translateY(${-decorOffset1 * 0.4}px)` }}
-      />
-      <div 
-        ref={decorRef2}
-        className="absolute bottom-24 right-16 w-7 h-7 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-300"
-        style={{ transform: `rotate(45deg) translateY(${decorOffset2 * 0.35}px)` }}
-      />
-      <div 
-        className="absolute top-1/2 left-1/3 w-10 h-10 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300"
-        style={{ transform: `rotate(45deg) translateY(${-decorOffset2 * 0.6}px)` }}
-      />
-      <div 
-        className="absolute bottom-40 left-20 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-300"
-        style={{ transform: `rotate(45deg) translateY(${decorOffset1 * 0.45}px)` }}
-      />
-      <div 
-        className="absolute top-40 right-1/3 w-9 h-9 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-300"
-        style={{ transform: `rotate(45deg) translateY(${decorOffset2 * 0.3}px)` }}
-      />
+      {/* Decorative Background Circles */}
+      <div className="absolute right-[-8%] top-[15%] w-40 h-40 md:w-56 md:h-56 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
+      <div className="absolute left-[-5%] bottom-[20%] w-32 h-32 md:w-44 md:h-44 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
+      <div className="absolute left-[35%] top-[5%] w-20 h-20 md:w-28 md:h-28 bg-[hsl(320,50%,80%)] rounded-full opacity-35" />
+      <div className="absolute right-[20%] bottom-[10%] w-18 h-18 md:w-26 md:h-26 bg-[hsl(170,45%,75%)] rounded-full opacity-40" />
       
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">

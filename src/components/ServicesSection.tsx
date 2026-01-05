@@ -197,22 +197,11 @@ const ServicesSection: React.FC = () => {
 
   return (
     <section id="services" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Decorative diamond shapes with parallax */}
-      <div 
-        ref={decorRef1}
-        className="absolute top-32 left-20 w-6 h-6 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100"
-        style={{ transform: `translateY(${decorOffset1}px) rotate(45deg)` }}
-      />
-      <div 
-        ref={decorRef2}
-        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
-        style={{ transform: `translateY(${-decorOffset2}px) rotate(45deg)` }}
-      />
-      <div 
-        ref={decorRef3}
-        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
-        style={{ transform: `translateY(${decorOffset3}px) rotate(45deg)` }}
-      />
+      {/* Decorative Background Circles */}
+      <div className="absolute right-[-8%] top-[20%] w-40 h-40 md:w-56 md:h-56 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
+      <div className="absolute left-[-5%] bottom-[10%] w-28 h-28 md:w-40 md:h-40 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
+      <div className="absolute left-[25%] top-[8%] w-20 h-20 md:w-28 md:h-28 bg-[hsl(320,50%,80%)] rounded-full opacity-35" />
+      <div className="absolute right-[30%] bottom-[5%] w-16 h-16 md:w-24 md:h-24 bg-[hsl(170,45%,75%)] rounded-full opacity-40" />
       
       <div className="container mx-auto px-4">
         {/* Unified Section Header */}

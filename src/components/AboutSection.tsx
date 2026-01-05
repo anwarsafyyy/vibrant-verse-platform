@@ -130,27 +130,11 @@ const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-white" ref={decorRef}>
-      {/* Decorative diamond shapes with parallax */}
-      <div 
-        className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.5}px)` }}
-      />
-      <div 
-        className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.3}px)` }}
-      />
-      <div 
-        className="absolute bottom-40 right-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.4}px)` }}
-      />
-      <div 
-        className="absolute top-1/2 left-1/4 w-10 h-10 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${-decorOffset * 0.6}px)` }}
-      />
-      <div 
-        className="absolute bottom-20 left-1/3 w-5 h-5 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-transform duration-300" 
-        style={{ transform: `rotate(45deg) translateY(${decorOffset * 0.35}px)` }}
-      />
+      {/* Decorative Background Circles */}
+      <div className="absolute left-[-5%] top-[10%] w-32 h-32 md:w-48 md:h-48 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
+      <div className="absolute right-[-3%] bottom-[15%] w-24 h-24 md:w-36 md:h-36 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
+      <div className="absolute right-[20%] top-[5%] w-16 h-16 md:w-24 md:h-24 bg-[hsl(320,50%,80%)] rounded-full opacity-40" />
+      <div className="absolute left-[15%] bottom-[20%] w-20 h-20 md:w-28 md:h-28 bg-[hsl(170,45%,75%)] rounded-full opacity-35" />
       
       {/* Back to top button */}
       <button 
