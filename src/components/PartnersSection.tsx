@@ -1,9 +1,32 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { db } from "@/lib/firebase";
 import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
+
+// Parallax hook
+const useParallax = (speed: number = 0.5) => {
+  const [offset, setOffset] = useState(0);
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (elementRef.current) {
+        const rect = elementRef.current.getBoundingClientRect();
+        const scrolled = window.innerHeight - rect.top;
+        if (scrolled > 0) {
+          setOffset(scrolled * speed * 0.1);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [speed]);
+
+  return { offset, elementRef };
+};
 
 interface Partner {
   id: string;
@@ -18,6 +41,9 @@ const PartnersSection: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
   const [isVisible, setIsVisible] = useState(false);
+  const { offset: decorOffset1, elementRef: decorRef1 } = useParallax(0.4);
+  const { offset: decorOffset2, elementRef: decorRef2 } = useParallax(0.6);
+  const { offset: decorOffset3, elementRef: decorRef3 } = useParallax(0.3);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -88,6 +114,23 @@ const PartnersSection: React.FC = () => {
 
   return (
     <section id="partners" className="py-16 lg:py-24 relative overflow-hidden bg-white">
+      {/* Decorative diamond shapes with parallax */}
+      <div 
+        ref={decorRef1}
+        className="absolute top-32 left-20 w-6 h-6 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `translateY(${decorOffset1}px) rotate(45deg)` }}
+      />
+      <div 
+        ref={decorRef2}
+        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `translateY(${-decorOffset2}px) rotate(45deg)` }}
+      />
+      <div 
+        ref={decorRef3}
+        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
+        style={{ transform: `translateY(${decorOffset3}px) rotate(45deg)` }}
+      />
+
       {/* Animated floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {[...Array(20)].map((_, i) => (
