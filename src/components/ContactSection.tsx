@@ -182,7 +182,7 @@ const ContactSection: React.FC = () => {
                         <Input 
                           placeholder={t("contact.namePlaceholder")} 
                           {...field} 
-                          className="rounded-xl border-white/10 bg-white/5 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 h-14 text-white text-lg text-right transition-all duration-300 placeholder:text-white/30"
+                          className="rounded-xl border-purple-200 bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 h-14 text-gray-800 text-lg text-right transition-all duration-300 placeholder:text-gray-400"
                         />
                       </FormControl>
                       <FormMessage />
@@ -199,7 +199,7 @@ const ContactSection: React.FC = () => {
                           type="email" 
                           placeholder={t("contact.emailPlaceholder")} 
                           {...field} 
-                          className="rounded-xl border-white/10 bg-white/5 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 h-14 text-white text-lg text-right transition-all duration-300 placeholder:text-white/30"
+                          className="rounded-xl border-purple-200 bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 h-14 text-gray-800 text-lg text-right transition-all duration-300 placeholder:text-gray-400"
                         />
                       </FormControl>
                       <FormMessage />
@@ -214,7 +214,7 @@ const ContactSection: React.FC = () => {
                       <FormControl>
                         <Textarea 
                           placeholder={t("contact.messagePlaceholder")} 
-                          className="min-h-[140px] rounded-xl border-white/10 bg-white/5 focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-white text-lg text-right transition-all duration-300 placeholder:text-white/30"
+                          className="min-h-[140px] rounded-xl border-purple-200 bg-white focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 text-gray-800 text-lg text-right transition-all duration-300 placeholder:text-gray-400"
                           {...field}
                         />
                       </FormControl>
