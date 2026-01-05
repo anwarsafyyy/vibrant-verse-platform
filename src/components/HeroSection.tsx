@@ -12,7 +12,7 @@ const HeroSection: React.FC = () => {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
       {/* Decorative Background Elements */}
       {/* Large purple circle - left */}
-      <div className="absolute left-[-5%] top-[40%] w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 bg-[hsl(262,45%,35%)]/30 rounded-full blur-3xl" />
+      <div className="absolute left-[-5%] top-[40%] w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 bg-[hsl(250,40%,75%)] rounded-full blur-3xl" />
       
       {/* Large light curved shape - top left */}
       <div className="absolute left-0 top-0 w-[50%] h-[60%] bg-gradient-to-br from-purple-500/10 to-transparent rounded-br-[50%]" />
