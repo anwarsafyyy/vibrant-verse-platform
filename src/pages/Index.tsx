@@ -12,14 +12,11 @@ import PortfolioSection from "@/components/PortfolioSection";
 import GoogleMap from "@/components/GoogleMap";
 import { useDynamicHead } from "@/hooks/useDynamicHead";
 import { WaveDivider } from "@/components/SectionDivider";
-import AnimatedBackground from "@/components/AnimatedBackground";
-
 const Index = () => {
   useDynamicHead();
   
   return (
     <main className="min-h-screen relative bg-white md:bg-background md:bg-gradient-hero">
-      <AnimatedBackground />
       <Navbar />
       <HeroSection />
       
