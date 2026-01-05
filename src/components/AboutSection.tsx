@@ -130,10 +130,6 @@ const AboutSection: React.FC = () => {
 
   return (
     <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Animated gradient orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
-      
       {/* Decorative diamond shapes */}
       <div className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block" />
       <div className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block" />
@@ -216,7 +212,7 @@ const AboutSection: React.FC = () => {
                 return (
                   <div 
                     key={index}
-                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-400/20 bg-[hsl(262,45%,35%)] backdrop-blur-sm hover:border-purple-300/50 hover:shadow-2xl hover:shadow-purple-500/30 hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer relative overflow-hidden"
+                    className="group p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-purple-400/20 bg-[hsl(262,45%,35%)] hover:border-purple-300/50 hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-300 text-center cursor-pointer relative overflow-hidden"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {/* Gradient border on hover */}

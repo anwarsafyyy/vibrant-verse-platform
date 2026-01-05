@@ -197,10 +197,6 @@ const ServicesSection: React.FC = () => {
 
   return (
     <section id="services" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Animated gradient orbs */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
-      
       {/* Decorative diamond shapes with parallax */}
       <div 
         ref={decorRef1}
@@ -280,7 +276,7 @@ const ServicesSection: React.FC = () => {
                   return (
                     <Card3D 
                       key={service.id}
-                      className={`group relative overflow-hidden rounded-3xl cursor-pointer bg-[hsl(262,45%,35%)] backdrop-blur-sm border border-purple-400/20 hover:border-purple-300/50 transition-all duration-500 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                      className={`group relative overflow-hidden rounded-3xl cursor-pointer bg-[hsl(262,45%,35%)] border border-purple-400/20 hover:border-purple-300/50 transition-all duration-500 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
                       {/* Gradient border on hover */}
@@ -289,9 +285,6 @@ const ServicesSection: React.FC = () => {
                       
                       {/* Content */}
                       <div className="relative z-20 p-8">
-                        {/* Floating particles effect */}
-                        <div className={`absolute top-4 right-4 w-20 h-20 bg-gradient-to-br ${gradient} opacity-10 rounded-full blur-2xl group-hover:opacity-30 group-hover:scale-150 transition-all duration-700`} />
-                        <div className={`absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-br ${gradient} opacity-5 rounded-full blur-xl group-hover:opacity-20 group-hover:scale-125 transition-all duration-500`} />
                         
                         {/* Icon Container with gradient */}
                         <div className="flex justify-center mb-6">

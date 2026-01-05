@@ -100,11 +100,6 @@ const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="py-12 lg:py-16 relative overflow-hidden bg-white">
-      {/* Animated gradient orbs */}
-      <div className="absolute top-20 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-3xl" />
-      
       {/* Decorative elements with parallax */}
       <div 
         ref={decorRef1}
@@ -156,7 +151,7 @@ const ContactSection: React.FC = () => {
               {contactInfo.map((item, index) => (
                 <div 
                   key={index}
-                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-[hsl(262,45%,35%)] backdrop-blur-sm border border-purple-400/20 overflow-hidden transition-all duration-500 hover:border-purple-300/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-[hsl(262,45%,35%)] border border-purple-400/20 overflow-hidden transition-all duration-500 hover:border-purple-300/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                   style={{ animationDelay: `${(index + 1) * 150}ms` }}
                 >
                   {/* Content */}
@@ -186,14 +181,9 @@ const ContactSection: React.FC = () => {
 
           {/* Left Side - Form with enhanced styling */}
           <div className={`relative group lg:order-1 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-            {/* Animated glow effect */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-purple-400 to-purple-500 rounded-[26px] opacity-20 group-hover:opacity-40 blur-xl transition-opacity duration-700" />
             
             {/* Form container */}
             <div className="relative bg-[hsl(262,45%,35%)] rounded-3xl p-8 lg:p-10 border border-purple-400/20 shadow-2xl overflow-hidden">
-              {/* Decorative gradient corners */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl" />
-              <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-400/10 rounded-full blur-2xl" />
               
               <h3 className="text-2xl font-bold mb-6 text-right relative z-10 text-white">
                 {language === 'ar' ? 'أرسل لنا رسالة' : 'Send us a Message'}
