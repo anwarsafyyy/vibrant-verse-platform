@@ -256,7 +256,7 @@ const PortfolioSection: React.FC = () => {
                         <Button 
                           variant="outline" 
                           size="sm" 
-                          className="w-full border-white/30 text-white hover:bg-white hover:text-[hsl(262,45%,35%)] transition-colors"
+                          className="w-full border-white/30 bg-white text-[hsl(262,45%,35%)] hover:bg-purple-100 transition-colors"
                         >
                           <ExternalLink className="w-4 h-4 ml-2" />
                           {language === 'ar' ? 'عرض التفاصيل' : 'View Details'}
