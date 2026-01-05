@@ -179,9 +179,9 @@ const PortfolioSection: React.FC = () => {
               ) : portfolioItems.length > 0 ? (
                 portfolioItems.map((item, index) => (
                   <CarouselItem key={item.id} className="basis-full sm:basis-1/2 lg:basis-1/3 pl-4">
-                    <div className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-[hsl(262,45%,35%)]/30 transition-all duration-300 h-full">
+                    <div className="group bg-[hsl(262,45%,35%)] rounded-2xl border border-purple-400/20 overflow-hidden hover:border-purple-300/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
                       {/* Product Image */}
-                      <div className="relative h-48 bg-gray-50 overflow-hidden">
+                      <div className="relative h-48 bg-white/10 overflow-hidden">
                         <img
                           src={item.image_url} 
                           alt={item.title_ar || item.title} 
@@ -197,12 +197,12 @@ const PortfolioSection: React.FC = () => {
                       
                       {/* Content */}
                       <div className="p-5">
-                        <h3 className="text-lg font-bold text-gray-800 mb-2 text-right">
+                        <h3 className="text-lg font-bold text-white mb-2 text-right group-hover:text-purple-200 transition-colors">
                           {language === 'ar' 
                             ? (item.title_ar || item.title) 
                             : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
                         </h3>
-                        <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 text-right">
+                        <p className="text-sm text-white/60 leading-relaxed mb-4 line-clamp-3 text-right">
                           {language === 'ar' 
                             ? (item.description_ar || item.description) 
                             : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description)}
@@ -212,7 +212,7 @@ const PortfolioSection: React.FC = () => {
                         <Button 
                           variant="outline" 
                           size="sm" 
-                          className="w-full border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-colors"
+                          className="w-full border-white/30 text-white hover:bg-white hover:text-[hsl(262,45%,35%)] transition-colors"
                         >
                           <ExternalLink className="w-4 h-4 ml-2" />
                           {language === 'ar' ? 'عرض التفاصيل' : 'View Details'}
