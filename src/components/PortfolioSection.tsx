@@ -139,27 +139,27 @@ const PortfolioSection: React.FC = () => {
 
   return (
     <section id="portfolio" className="py-16 lg:py-20 relative overflow-hidden bg-white">
-      {/* Decorative diamond shapes with parallax and float animation */}
+      {/* Decorative diamond shapes with parallax */}
       <div 
         ref={decorRef1}
-        className="absolute top-32 left-20 w-6 h-6 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-all duration-300 animate-[float_4s_ease-in-out_infinite]"
+        className="absolute top-32 left-20 w-6 h-6 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-300"
         style={{ transform: `translateY(${decorOffset1}px) rotate(45deg)` }}
       />
       <div 
         ref={decorRef2}
-        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-all duration-300 animate-[float_5s_ease-in-out_infinite_0.5s]"
+        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300"
         style={{ transform: `translateY(${-decorOffset2}px) rotate(45deg)` }}
       />
       <div 
         ref={decorRef3}
-        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-all duration-300 animate-[float_4.5s_ease-in-out_infinite_1s]"
+        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-300"
         style={{ transform: `translateY(${decorOffset3}px) rotate(45deg)` }}
       />
       <div 
-        className="absolute top-20 right-1/4 w-5 h-5 border-2 border-purple-400/25 rotate-45 hidden lg:block transition-all duration-300 animate-[float_5.5s_ease-in-out_infinite_0.3s]"
+        className="absolute top-20 right-1/4 w-5 h-5 border-2 border-purple-400/25 rotate-45 hidden lg:block"
       />
       <div 
-        className="absolute bottom-20 right-1/3 w-7 h-7 border-2 border-purple-400/15 rotate-45 hidden lg:block transition-all duration-300 animate-[float_4s_ease-in-out_infinite_0.7s]"
+        className="absolute bottom-20 right-1/3 w-7 h-7 border-2 border-purple-400/15 rotate-45 hidden lg:block"
       />
       
       <div className="container mx-auto px-4">
