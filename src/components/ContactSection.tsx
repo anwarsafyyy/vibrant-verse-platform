@@ -133,18 +133,19 @@ const ContactSection: React.FC = () => {
               {contactInfo.map((item, index) => (
                 <div 
                   key={index}
-                  className={`group relative flex items-center gap-4 p-5 rounded-2xl bg-[hsl(262,45%,35%)] border border-purple-400/20 overflow-hidden transition-all duration-500 hover:border-purple-300/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+                  className={`group relative flex flex-row-reverse items-center gap-4 p-5 rounded-2xl bg-[hsl(262,45%,35%)] border border-purple-400/20 overflow-hidden transition-all duration-500 hover:border-purple-300/50 hover:shadow-xl cursor-pointer ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
                   style={{ animationDelay: `${(index + 1) * 150}ms` }}
                 >
-                  {/* Content */}
+                  {/* Icon on the right */}
+                  <div className={`relative z-20 w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                    <item.icon className="w-6 h-6" />
+                  </div>
+                  {/* Content on the left */}
                   <div className="relative z-20 flex-1 text-right">
                     <p className="text-sm text-white/50 font-medium">{item.label}</p>
                     <p className={`text-white font-bold group-hover:text-blue-400 transition-all duration-300 ${item.icon === Phone ? 'dir-ltr' : ''}`} dir={item.icon === Phone ? 'ltr' : undefined}>
                       {item.value}
                     </p>
-                  </div>
-                  <div className={`relative z-20 w-14 h-14 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center text-white flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
-                    <item.icon className="w-6 h-6" />
                   </div>
                 </div>
               ))}
