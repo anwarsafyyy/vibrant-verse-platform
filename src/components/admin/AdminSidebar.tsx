@@ -50,7 +50,7 @@ export const AdminSidebar = () => {
   return (
     <aside className="w-64 min-h-screen bg-card border-l border-border">
       <div className="p-4 border-b border-border">
-        <h2 className="font-bold text-lg text-foreground">لوحة التحكم</h2>
+        <h2 className="font-bold text-lg text-black">لوحة التحكم</h2>
       </div>
       
       <nav className="p-4">
@@ -62,8 +62,8 @@ export const AdminSidebar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-primary text-primary-foreground'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                      ? 'bg-primary text-white'
+                      : 'text-black hover:bg-muted hover:text-black'
                   }`
                 }
               >

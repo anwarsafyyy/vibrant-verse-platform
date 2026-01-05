@@ -30,8 +30,8 @@ export const AdminHome = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">مرحباً بك في لوحة التحكم</h1>
-        <p className="text-muted-foreground mt-2">اختر قسماً للبدء في إدارة المحتوى</p>
+        <h1 className="text-3xl font-bold text-black">مرحباً بك في لوحة التحكم</h1>
+        <p className="text-black/70 mt-2">اختر قسماً للبدء في إدارة المحتوى</p>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -45,7 +45,7 @@ export const AdminHome = () => {
               <div className={`w-12 h-12 rounded-full ${link.color} flex items-center justify-center mx-auto mb-3`}>
                 <link.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="font-semibold text-sm">{link.title}</h3>
+              <h3 className="font-semibold text-sm text-black">{link.title}</h3>
             </CardContent>
           </Card>
         ))}
@@ -53,10 +53,10 @@ export const AdminHome = () => {
 
       <Card>
         <CardHeader>
-          <CardTitle>معلومات سريعة</CardTitle>
+          <CardTitle className="text-black">معلومات سريعة</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-2 text-muted-foreground">
+          <ul className="space-y-2 text-black/70">
             <li>• يمكنك إضافة وتعديل وحذف المحتوى من كل قسم</li>
             <li>• جميع التغييرات ستظهر مباشرة في الموقع</li>
             <li>• تأكد من ملء الحقول العربية والإنجليزية للتوافق مع اللغتين</li>

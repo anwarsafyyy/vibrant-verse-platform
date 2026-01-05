@@ -84,7 +84,7 @@ export const SiteSettingsManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">الإعدادات العامة</h1>
+        <h1 className="text-2xl font-bold text-black">الإعدادات العامة</h1>
         <Button onClick={handleAdd}>
           <Plus className="w-4 h-4 ml-2" />
           إضافة إعداد
@@ -94,11 +94,11 @@ export const SiteSettingsManager = () => {
       {editingId && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId === 'new' ? 'إضافة إعداد جديد' : 'تعديل الإعداد'}</CardTitle>
+            <CardTitle className="text-black">{editingId === 'new' ? 'إضافة إعداد جديد' : 'تعديل الإعداد'}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <label className="text-sm font-medium">المفتاح (Key)</label>
+              <label className="text-sm font-medium text-black">المفتاح (Key)</label>
               <Input
                 value={formData.key || ''}
                 onChange={(e) => setFormData({ ...formData, key: e.target.value })}
@@ -107,14 +107,14 @@ export const SiteSettingsManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">القيمة (عربي)</label>
+                <label className="text-sm font-medium text-black">القيمة (عربي)</label>
                 <Input
                   value={formData.value_ar || ''}
                   onChange={(e) => setFormData({ ...formData, value_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">القيمة (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">القيمة (إنجليزي)</label>
                 <Input
                   value={formData.value_en || ''}
                   onChange={(e) => setFormData({ ...formData, value_en: e.target.value })}
@@ -141,7 +141,7 @@ export const SiteSettingsManager = () => {
             <CardContent className="flex items-center justify-between p-4">
               <div>
                 <h3 className="font-semibold font-mono text-primary">{setting.key}</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-black/70">
                   عربي: {setting.value_ar} | English: {setting.value_en}
                 </p>
               </div>

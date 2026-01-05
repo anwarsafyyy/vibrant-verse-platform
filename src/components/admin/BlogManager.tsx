@@ -187,7 +187,7 @@ export const BlogManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">إدارة المدونة</h1>
+        <h1 className="text-2xl font-bold text-black">إدارة المدونة</h1>
         {posts.length > 0 && (
           <Button variant="destructive" onClick={handleDeleteAll}>
             <Trash2 className="h-4 w-4 ml-2" />
@@ -199,13 +199,13 @@ export const BlogManager = () => {
       {/* Form */}
       <Card>
         <CardHeader>
-          <CardTitle>{editingPost ? 'تعديل المقال' : 'إضافة مقال جديد'}</CardTitle>
+          <CardTitle className="text-black">{editingPost ? 'تعديل المقال' : 'إضافة مقال جديد'}</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>العنوان (عربي)</Label>
+                <Label className="text-black">العنوان (عربي)</Label>
                 <Input
                   value={formData.title_ar}
                   onChange={(e) => setFormData(prev => ({ ...prev, title_ar: e.target.value }))}
@@ -214,7 +214,7 @@ export const BlogManager = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>العنوان (إنجليزي)</Label>
+                <Label className="text-black">العنوان (إنجليزي)</Label>
                 <Input
                   value={formData.title_en}
                   onChange={(e) => setFormData(prev => ({ ...prev, title_en: e.target.value }))}
@@ -226,7 +226,7 @@ export const BlogManager = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>الملخص (عربي)</Label>
+                <Label className="text-black">الملخص (عربي)</Label>
                 <Textarea
                   value={formData.excerpt_ar}
                   onChange={(e) => setFormData(prev => ({ ...prev, excerpt_ar: e.target.value }))}
@@ -236,7 +236,7 @@ export const BlogManager = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>الملخص (إنجليزي)</Label>
+                <Label className="text-black">الملخص (إنجليزي)</Label>
                 <Textarea
                   value={formData.excerpt_en}
                   onChange={(e) => setFormData(prev => ({ ...prev, excerpt_en: e.target.value }))}
@@ -249,7 +249,7 @@ export const BlogManager = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>المحتوى الكامل (عربي)</Label>
+                <Label className="text-black">المحتوى الكامل (عربي)</Label>
                 <Textarea
                   value={formData.content_ar}
                   onChange={(e) => setFormData(prev => ({ ...prev, content_ar: e.target.value }))}
@@ -258,7 +258,7 @@ export const BlogManager = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>المحتوى الكامل (إنجليزي)</Label>
+                <Label className="text-black">المحتوى الكامل (إنجليزي)</Label>
                 <Textarea
                   value={formData.content_en}
                   onChange={(e) => setFormData(prev => ({ ...prev, content_en: e.target.value }))}
@@ -270,7 +270,7 @@ export const BlogManager = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label>التصنيف (عربي)</Label>
+                <Label className="text-black">التصنيف (عربي)</Label>
                 <Input
                   value={formData.category_ar}
                   onChange={(e) => setFormData(prev => ({ ...prev, category_ar: e.target.value }))}
@@ -279,7 +279,7 @@ export const BlogManager = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>التصنيف (إنجليزي)</Label>
+                <Label className="text-black">التصنيف (إنجليزي)</Label>
                 <Input
                   value={formData.category_en}
                   onChange={(e) => setFormData(prev => ({ ...prev, category_en: e.target.value }))}
@@ -288,7 +288,7 @@ export const BlogManager = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>الكاتب</Label>
+                <Label className="text-black">الكاتب</Label>
                 <Input
                   value={formData.author}
                   onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
@@ -300,7 +300,7 @@ export const BlogManager = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>التاريخ</Label>
+                <Label className="text-black">التاريخ</Label>
                 <Input
                   type="date"
                   value={formData.date}
@@ -309,7 +309,7 @@ export const BlogManager = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label>الصورة</Label>
+                <Label className="text-black">الصورة</Label>
                 <div className="space-y-3">
                   <input
                     type="file"
@@ -363,7 +363,7 @@ export const BlogManager = () => {
                 onChange={(e) => setFormData(prev => ({ ...prev, is_featured: e.target.checked }))}
                 className="h-4 w-4"
               />
-              <Label htmlFor="is_featured">مقال مميز</Label>
+              <Label htmlFor="is_featured" className="text-black">مقال مميز</Label>
             </div>
 
             <div className="flex gap-2">
@@ -384,11 +384,11 @@ export const BlogManager = () => {
       {/* Posts List */}
       <Card>
         <CardHeader>
-          <CardTitle>المقالات ({posts.length})</CardTitle>
+          <CardTitle className="text-black">المقالات ({posts.length})</CardTitle>
         </CardHeader>
         <CardContent>
           {posts.length === 0 ? (
-            <p className="text-muted-foreground text-center py-8">لا توجد مقالات بعد</p>
+            <p className="text-black/70 text-center py-8">لا توجد مقالات بعد</p>
           ) : (
             <div className="space-y-4">
               {posts.map((post) => (
@@ -408,13 +408,13 @@ export const BlogManager = () => {
                     </div>
                   )}
                   <div className="flex-1">
-                    <h3 className="font-semibold">{post.title_ar}</h3>
-                    <p className="text-sm text-muted-foreground">{post.excerpt_ar?.slice(0, 60)}...</p>
+                    <h3 className="font-semibold text-black">{post.title_ar}</h3>
+                    <p className="text-sm text-black/70">{post.excerpt_ar?.slice(0, 60)}...</p>
                     <div className="flex items-center gap-2 mt-1">
                       <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded">
                         {post.category_ar}
                       </span>
-                      <span className="text-xs text-muted-foreground">{post.date}</span>
+                      <span className="text-xs text-black/70">{post.date}</span>
                       {post.is_featured && (
                         <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">
                           مميز

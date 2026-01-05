@@ -65,13 +65,13 @@ export const ContactInquiries = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">استفسارات التواصل</h1>
-        <span className="text-muted-foreground">{inquiries.length} رسالة</span>
+        <h1 className="text-2xl font-bold text-black">استفسارات التواصل</h1>
+        <span className="text-black/70">{inquiries.length} رسالة</span>
       </div>
 
       {inquiries.length === 0 ? (
         <Card>
-          <CardContent className="p-8 text-center text-muted-foreground">
+          <CardContent className="p-8 text-center text-black/70">
             لا توجد استفسارات حتى الآن
           </CardContent>
         </Card>
@@ -82,8 +82,8 @@ export const ContactInquiries = () => {
               <CardContent className="p-4">
                 <div className="flex items-start justify-between">
                   <div className="space-y-2">
-                    <h3 className="font-semibold text-lg">{inquiry.name}</h3>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <h3 className="font-semibold text-lg text-black">{inquiry.name}</h3>
+                    <div className="flex items-center gap-4 text-sm text-black/70">
                       <span className="flex items-center gap-1">
                         <Mail className="w-4 h-4" />
                         {inquiry.email}
@@ -99,7 +99,7 @@ export const ContactInquiries = () => {
                         {formatDate(inquiry.created_at)}
                       </span>
                     </div>
-                    <p className="text-foreground mt-2 whitespace-pre-wrap">{inquiry.message}</p>
+                    <p className="text-black mt-2 whitespace-pre-wrap">{inquiry.message}</p>
                   </div>
                   <Button variant="destructive" size="sm" onClick={() => handleDelete(inquiry.id)}>
                     <Trash2 className="w-4 h-4" />

@@ -109,7 +109,7 @@ export const PartnersManager = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">إدارة الشركاء</h1>
+        <h1 className="text-2xl font-bold text-black">إدارة الشركاء</h1>
         <Button onClick={handleAdd}>
           <Plus className="w-4 h-4 ml-2" />
           إضافة شريك
@@ -119,19 +119,19 @@ export const PartnersManager = () => {
       {editingId && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId === 'new' ? 'إضافة شريك جديد' : 'تعديل الشريك'}</CardTitle>
+            <CardTitle className="text-black">{editingId === 'new' ? 'إضافة شريك جديد' : 'تعديل الشريك'}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">الاسم (عربي)</label>
+                <label className="text-sm font-medium text-black">الاسم (عربي)</label>
                 <Input
                   value={formData.name_ar || ''}
                   onChange={(e) => setFormData({ ...formData, name_ar: e.target.value })}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">الاسم (إنجليزي)</label>
+                <label className="text-sm font-medium text-black">الاسم (إنجليزي)</label>
                 <Input
                   value={formData.name_en || ''}
                   onChange={(e) => setFormData({ ...formData, name_en: e.target.value })}
@@ -140,7 +140,7 @@ export const PartnersManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium">شعار الشريك</label>
+                <label className="text-sm font-medium text-black">شعار الشريك</label>
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -176,7 +176,7 @@ export const PartnersManager = () => {
                 )}
               </div>
               <div>
-                <label className="text-sm font-medium">رابط الموقع</label>
+                <label className="text-sm font-medium text-black">رابط الموقع</label>
                 <Input
                   value={formData.website_url || ''}
                   onChange={(e) => setFormData({ ...formData, website_url: e.target.value })}
@@ -184,7 +184,7 @@ export const PartnersManager = () => {
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium">الترتيب</label>
+              <label className="text-sm font-medium text-black">الترتيب</label>
               <Input
                 type="number"
                 value={formData.order_index || 0}
@@ -212,7 +212,7 @@ export const PartnersManager = () => {
               {partner.logo_url && (
                 <img src={partner.logo_url} alt={partner.name_ar} className="w-20 h-20 object-contain mx-auto mb-2" />
               )}
-              <h3 className="font-semibold text-sm">{partner.name_ar}</h3>
+              <h3 className="font-semibold text-sm text-black">{partner.name_ar}</h3>
               <div className="flex justify-center gap-2 mt-2">
                 <Button variant="outline" size="sm" onClick={() => handleEdit(partner)}>
                   <Pencil className="w-3 h-3" />
