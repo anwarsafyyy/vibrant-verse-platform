@@ -207,7 +207,7 @@ const PortfolioSection: React.FC = () => {
             opts={{
               loop: true,
               align: "start",
-              slidesToScroll: 1,
+              slidesToScroll: 3,
             }}
             plugins={[autoplayPlugin.current]}
           >
