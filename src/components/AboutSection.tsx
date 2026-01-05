@@ -166,32 +166,113 @@ const AboutSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start" dir="ltr">
           
-          {/* Left Side - Image with decorative frame and parallax */}
+          {/* Left Side - Tablet Mockup with Dashboard */}
           <div 
             ref={imageRef}
-            className={`relative order-2 lg:order-1 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
+            className={`relative order-2 lg:order-1 flex items-center justify-center ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
           >
-            {/* Decorative corner elements with parallax */}
+            {/* Golden decorative curves */}
             <div 
-              ref={decorRef}
-              className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-10 h-10 sm:w-16 sm:h-16 border-t-2 sm:border-t-4 border-l-2 sm:border-l-4 border-primary rounded-tl-xl sm:rounded-tl-3xl z-10 transition-transform duration-100"
-              style={{ transform: `translateY(${-decorOffset}px)` }}
+              className="absolute -bottom-8 -left-4 w-32 h-32 md:w-48 md:h-48 border-4 md:border-8 border-[hsl(45,80%,55%)] rounded-full opacity-80 z-0"
+              style={{ 
+                clipPath: 'polygon(0 50%, 50% 50%, 50% 100%, 0 100%)',
+                transform: `translateY(${decorOffset}px)` 
+              }}
             />
             <div 
-              className="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 w-10 h-10 sm:w-16 sm:h-16 border-b-2 sm:border-b-4 border-r-2 sm:border-r-4 border-primary rounded-br-xl sm:rounded-br-3xl z-10 transition-transform duration-100"
-              style={{ transform: `translateY(${decorOffset}px)` }}
+              className="absolute -bottom-4 left-8 w-24 h-24 md:w-36 md:h-36 border-4 md:border-6 border-[hsl(35,75%,50%)] rounded-full opacity-70 z-0"
+              style={{ 
+                clipPath: 'polygon(0 50%, 50% 50%, 50% 100%, 0 100%)',
+                transform: `translateY(${-decorOffset * 0.5}px)` 
+              }}
             />
             
-            {/* Main image container with parallax */}
+            {/* Tablet Frame */}
             <div 
-              className="relative rounded-xl sm:rounded-2xl md:rounded-3xl overflow-hidden shadow-lg sm:shadow-xl md:shadow-2xl mx-2 sm:mx-0 transition-transform duration-100"
-              style={{ transform: `translateY(${imageOffset}px)` }}
+              className="relative z-10 transition-transform duration-100"
+              style={{ 
+                transform: `perspective(1000px) rotateY(-8deg) rotateX(5deg) translateY(${imageOffset}px)`,
+              }}
             >
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" 
-                alt="Team collaboration"
-                className="w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] object-cover transition-transform duration-300 hover:scale-105"
-              />
+              {/* Tablet outer frame */}
+              <div className="relative bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 rounded-[20px] md:rounded-[32px] p-2 md:p-3 shadow-2xl">
+                {/* Tablet inner bezel */}
+                <div className="relative bg-gray-900 rounded-[16px] md:rounded-[26px] p-1.5 md:p-2">
+                  {/* Camera notch */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-700 rounded-full z-20" />
+                  
+                  {/* Screen */}
+                  <div className="relative bg-[hsl(220,30%,20%)] rounded-[12px] md:rounded-[20px] overflow-hidden w-[280px] sm:w-[340px] md:w-[420px] h-[200px] sm:h-[240px] md:h-[300px]">
+                    {/* Dashboard Header */}
+                    <div className="bg-[hsl(220,35%,18%)] px-3 py-2 flex items-center justify-between border-b border-white/10">
+                      <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg" />
+                        <span className="text-white text-xs font-bold hidden sm:block">لوحة التحكم</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="px-2 py-1 bg-green-500/20 text-green-400 text-[10px] rounded-full">متصل</div>
+                      </div>
+                    </div>
+                    
+                    {/* Dashboard Content */}
+                    <div className="p-2 md:p-3 space-y-2">
+                      {/* Stats Row */}
+                      <div className="grid grid-cols-3 gap-1.5 md:gap-2">
+                        <div className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 rounded-lg p-2 text-center border border-purple-500/20">
+                          <div className="text-white font-bold text-sm md:text-lg">2356</div>
+                          <div className="text-purple-300 text-[8px] md:text-[10px]">الرسائل</div>
+                        </div>
+                        <div className="bg-gradient-to-br from-blue-500/20 to-blue-600/10 rounded-lg p-2 text-center border border-blue-500/20">
+                          <div className="text-white font-bold text-sm md:text-lg">50</div>
+                          <div className="text-blue-300 text-[8px] md:text-[10px]">المحادثات</div>
+                        </div>
+                        <div className="bg-gradient-to-br from-green-500/20 to-green-600/10 rounded-lg p-2 text-center border border-green-500/20">
+                          <div className="text-white font-bold text-sm md:text-lg">20</div>
+                          <div className="text-green-300 text-[8px] md:text-[10px]">الحملات</div>
+                        </div>
+                      </div>
+                      
+                      {/* Chart Area */}
+                      <div className="bg-white/5 rounded-lg p-2 border border-white/10">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-white/60 text-[8px] md:text-[10px]">إحصائيات الرسائل</span>
+                          <div className="flex gap-1">
+                            <span className="w-2 h-2 bg-green-400 rounded-full" />
+                            <span className="w-2 h-2 bg-red-400 rounded-full" />
+                          </div>
+                        </div>
+                        {/* Fake chart lines */}
+                        <div className="h-12 md:h-16 flex items-end gap-0.5">
+                          {[40, 65, 45, 80, 55, 70, 60, 75, 50, 85, 65, 70].map((h, i) => (
+                            <div 
+                              key={i} 
+                              className="flex-1 bg-gradient-to-t from-green-500/50 to-green-400/30 rounded-t-sm"
+                              style={{ height: `${h}%` }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                      
+                      {/* Bottom stats */}
+                      <div className="flex gap-2">
+                        <div className="flex-1 bg-white/5 rounded-lg p-1.5 flex items-center gap-2 border border-white/10">
+                          <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+                            <span className="text-white text-[8px] md:text-[10px] font-bold">85%</span>
+                          </div>
+                          <div className="text-[8px] md:text-[10px] text-white/70">نسبة النجاح</div>
+                        </div>
+                        <div className="flex-1 bg-white/5 rounded-lg p-1.5 text-center border border-white/10">
+                          <div className="text-white font-bold text-xs md:text-sm">2500</div>
+                          <div className="text-white/50 text-[7px] md:text-[8px]">رسائل اليوم</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Tablet stand/reflection */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-gradient-to-b from-gray-800/50 to-transparent rounded-full blur-sm" />
             </div>
           </div>
           
