@@ -178,7 +178,7 @@ const PortfolioSection: React.FC = () => {
                 </CarouselItem>
               ) : portfolioItems.length > 0 ? (
                 portfolioItems.map((item, index) => (
-                  <CarouselItem key={item.id} className="basis-full md:basis-1/2 lg:basis-1/3 pl-4">
+                  <CarouselItem key={item.id} className="basis-full sm:basis-1/2 lg:basis-1/3 pl-4">
                     <div className="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:border-[hsl(262,45%,35%)]/30 transition-all duration-300 h-full">
                       {/* Product Image */}
                       <div className="relative h-48 bg-gray-50 overflow-hidden">
