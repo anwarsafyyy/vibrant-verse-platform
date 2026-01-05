@@ -39,12 +39,12 @@ const HeroSection: React.FC = () => {
           <div className="relative w-full lg:w-1/2 flex justify-center lg:justify-start order-2 lg:order-1">
             <div className="relative">
               {/* Phone Frame */}
-              <div className="relative w-56 h-[420px] sm:w-64 sm:h-[480px] md:w-72 md:h-[540px] lg:w-80 lg:h-[600px] bg-[hsl(262,45%,35%)] rounded-[2.5rem] shadow-2xl shadow-purple-500/30 border-8 border-purple-300/30 overflow-hidden">
+              <div className="relative w-56 h-[420px] sm:w-64 sm:h-[480px] md:w-72 md:h-[540px] lg:w-80 lg:h-[600px] bg-gradient-to-b from-[#a78bfa] to-[#8b5cf6] rounded-[2.5rem] shadow-2xl shadow-purple-500/30 border-8 border-purple-300/40 overflow-hidden">
                 {/* Phone Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-purple-400/50 rounded-b-2xl z-10" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-purple-300/60 rounded-b-2xl z-10" />
                 
                 {/* Phone Screen Content */}
-                <div className="w-full h-full bg-gradient-to-b from-[hsl(262,45%,30%)] to-[hsl(262,45%,35%)] p-4 pt-10 flex flex-col items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-b from-[#a78bfa] to-[#8b5cf6] p-4 pt-10 flex flex-col items-center justify-center">
                   {/* Logo in phone */}
                   <img 
                     src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
@@ -61,9 +61,9 @@ const HeroSection: React.FC = () => {
                   
                   {/* Decorative lines */}
                   <div className="w-full space-y-3 mt-4">
-                    <div className="h-3 bg-white/10 rounded-full w-3/4 mx-auto" />
-                    <div className="h-3 bg-white/10 rounded-full w-1/2 mx-auto" />
-                    <div className="h-3 bg-white/10 rounded-full w-2/3 mx-auto" />
+                    <div className="h-3 bg-white/20 rounded-full w-3/4 mx-auto" />
+                    <div className="h-3 bg-white/20 rounded-full w-1/2 mx-auto" />
+                    <div className="h-3 bg-white/20 rounded-full w-2/3 mx-auto" />
                   </div>
                 </div>
               </div>
