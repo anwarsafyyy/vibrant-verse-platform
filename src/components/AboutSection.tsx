@@ -129,20 +129,20 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="py-12 lg:py-16 relative overflow-hidden">
+    <section id="about" className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Animated gradient orbs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1.5s' }} />
       
       {/* Decorative diamond shapes */}
-      <div className="absolute top-20 right-1/3 w-8 h-8 border-2 border-blue-400/30 rotate-45 hidden lg:block" />
-      <div className="absolute top-40 left-20 w-6 h-6 border-2 border-blue-400/20 rotate-45 hidden lg:block" />
-      <div className="absolute bottom-40 right-20 w-6 h-6 border-2 border-blue-400/20 rotate-45 hidden lg:block" />
+      <div className="absolute top-20 right-1/3 w-8 h-8 border-2 border-purple-400/30 rotate-45 hidden lg:block" />
+      <div className="absolute top-40 left-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block" />
+      <div className="absolute bottom-40 right-20 w-6 h-6 border-2 border-purple-400/20 rotate-45 hidden lg:block" />
       
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}
-        className="absolute bottom-20 left-8 w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 z-20 hidden lg:flex"
+        className="absolute bottom-20 left-8 w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 z-20 hidden lg:flex"
       >
         <ArrowUp className="w-6 h-6" />
       </button>
@@ -152,16 +152,16 @@ const AboutSection: React.FC = () => {
         <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Diamond icon container */}
           <div className="relative">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
               <Users className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" />
             </div>
           </div>
           
           <div className="text-right">
-            <span className="text-blue-400 font-bold text-base md:text-lg">
+            <span className="text-purple-500 font-bold text-base md:text-lg">
               {language === 'ar' ? 'تعرف علينا' : 'Get To Know Us'}
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
               {language === 'ar' ? 'من نحن' : 'About Us'}
             </h2>
           </div>
@@ -242,19 +242,19 @@ const AboutSection: React.FC = () => {
             </div>
             
             {/* Title */}
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-white">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 text-gray-800">
               {language === 'ar' ? 'نبني المستقبل الرقمي' : 'Building Digital Future'}
             </h3>
             
             {/* Description - Long Text with consistent line spacing */}
-            <p className="text-base md:text-lg text-white/70 leading-loose mb-4">
+            <p className="text-base md:text-lg text-gray-600 leading-loose mb-4">
               {language === 'ar' 
                 ? "شركة علو متخصصة في تطوير المواقع والتطبيقات والحلول التقنية المبتكرة. نعمل مع عملائنا لتحويل أفكارهم إلى حقيقة رقمية تساعدهم على تحقيق أهدافهم."
                 : "OLU Company specializes in developing websites, applications, and innovative technical solutions. We work with our clients to transform their ideas into digital reality that helps them achieve their goals."
               }
             </p>
             
-            <p className="text-base md:text-lg text-white/50 leading-loose mb-6">
+            <p className="text-base md:text-lg text-gray-500 leading-loose mb-6">
               {language === 'ar' 
                 ? "نحن نتعاون مع العملاء على مدار رحلتهم الرقمية، بدءًا من التطوير الأولي إلى إدارة البنية التحتية الخلفية. من خلال إعطاء الأولوية لخدمة العملاء الاستثنائية وتخصيص الحلول لتلبية احتياجات الأعمال المحددة."
                 : "We collaborate with clients throughout their digital journey, from initial development to backend infrastructure management. By prioritizing exceptional customer service and tailoring solutions to meet specific business needs."

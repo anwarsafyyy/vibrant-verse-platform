@@ -196,25 +196,25 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-12 lg:py-16 relative overflow-hidden">
+    <section id="services" className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Animated gradient orbs */}
-      <div className="absolute top-0 right-1/4 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-0 right-1/4 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
       
       {/* Decorative diamond shapes with parallax */}
       <div 
         ref={decorRef1}
-        className="absolute top-32 left-20 w-6 h-6 border-2 border-blue-400/30 rotate-45 hidden lg:block transition-transform duration-100"
+        className="absolute top-32 left-20 w-6 h-6 border-2 border-purple-400/30 rotate-45 hidden lg:block transition-transform duration-100"
         style={{ transform: `translateY(${decorOffset1}px) rotate(45deg)` }}
       />
       <div 
         ref={decorRef2}
-        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-blue-400/20 rotate-45 hidden lg:block transition-transform duration-100"
+        className="absolute bottom-40 left-32 w-4 h-4 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
         style={{ transform: `translateY(${-decorOffset2}px) rotate(45deg)` }}
       />
       <div 
         ref={decorRef3}
-        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-blue-400/20 rotate-45 hidden lg:block transition-transform duration-100"
+        className="absolute top-1/2 right-16 w-8 h-8 border-2 border-purple-400/20 rotate-45 hidden lg:block transition-transform duration-100"
         style={{ transform: `translateY(${decorOffset3}px) rotate(45deg)` }}
       />
       
@@ -223,16 +223,16 @@ const ServicesSection: React.FC = () => {
         <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           {/* Diamond icon container */}
           <div className="relative">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
               <Layers className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" />
             </div>
           </div>
           
           <div className="text-right">
-            <span className="text-blue-400 font-bold text-base md:text-lg">
+            <span className="text-purple-500 font-bold text-base md:text-lg">
               {language === 'ar' ? 'خدماتنا' : 'Our Services'}
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
               {language === 'ar' ? 'ما نقدمه' : 'What We Offer'}
             </h2>
           </div>
@@ -243,7 +243,7 @@ const ServicesSection: React.FC = () => {
           {/* Right Arrow (Next in RTL) */}
           <button 
             onClick={handleNext}
-            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-blue-400/30 items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300 shadow-lg"
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-purple-400/30 items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white hover:border-purple-500 transition-all duration-300 shadow-lg"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -329,7 +329,7 @@ const ServicesSection: React.FC = () => {
                 })}
               </div>
             ) : (
-              <div className="text-center py-16 text-white/60">
+              <div className="text-center py-16 text-gray-500">
                 {language === 'ar' ? 'لا توجد خدمات متاحة' : 'No services available'}
               </div>
             )}
@@ -338,7 +338,7 @@ const ServicesSection: React.FC = () => {
           {/* Left Arrow (Prev in RTL) */}
           <button 
             onClick={handlePrev}
-            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-blue-400/30 items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white hover:border-blue-500 transition-all duration-300 shadow-lg"
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-purple-400/30 items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white hover:border-purple-500 transition-all duration-300 shadow-lg"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -348,13 +348,13 @@ const ServicesSection: React.FC = () => {
         <div className="flex lg:hidden justify-center gap-4 mt-8">
           <button 
             onClick={handleNext}
-            className="w-12 h-12 rounded-full border-2 border-blue-400/30 flex items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
+            className="w-12 h-12 rounded-full border-2 border-purple-400/30 flex items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white transition-all duration-300"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
           <button 
             onClick={handlePrev}
-            className="w-12 h-12 rounded-full border-2 border-blue-400/30 flex items-center justify-center text-blue-400 hover:bg-blue-500 hover:text-white transition-all duration-300"
+            className="w-12 h-12 rounded-full border-2 border-purple-400/30 flex items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white transition-all duration-300"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
