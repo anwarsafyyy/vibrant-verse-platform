@@ -280,14 +280,14 @@ const PortfolioSection: React.FC = () => {
           {/* Pagination Dots */}
           {!loading && portfolioItems.length > 1 && (
             <div className="flex justify-center items-center gap-3 mt-8">
-              {/* Mobile Navigation */}
+              {/* Mobile Navigation - Right Arrow (Next) */}
               <Button 
                 variant="ghost" 
                 size="icon"
-                onClick={() => api?.scrollPrev()}
+                onClick={() => api?.scrollNext()}
                 className="lg:hidden w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)]"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4" />
               </Button>
               
               {/* Dots */}
@@ -305,14 +305,14 @@ const PortfolioSection: React.FC = () => {
                 ))}
               </div>
               
-              {/* Mobile Navigation */}
+              {/* Mobile Navigation - Left Arrow (Previous) */}
               <Button 
                 variant="ghost" 
                 size="icon"
-                onClick={() => api?.scrollNext()}
+                onClick={() => api?.scrollPrev()}
                 className="lg:hidden w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)]"
               >
-                <ChevronRight className="w-4 h-4" />
+                <ChevronLeft className="w-4 h-4" />
               </Button>
             </div>
           )}
