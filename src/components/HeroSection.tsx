@@ -10,18 +10,24 @@ const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-white">
-      {/* Decorative Background Circles - 4 circles with different sizes */}
-      {/* Large circle - top left */}
+      {/* Decorative Background Circles - 6 circles with different sizes and colors */}
+      {/* Large lavender circle - top left */}
       <div className="absolute left-[-10%] top-[20%] w-48 h-48 md:w-72 md:h-72 lg:w-96 lg:h-96 bg-[hsl(250,40%,75%)] rounded-full opacity-60" />
       
-      {/* Medium circle - bottom right */}
+      {/* Medium lavender circle - bottom right */}
       <div className="absolute right-[-5%] bottom-[10%] w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 bg-[hsl(250,40%,75%)] rounded-full opacity-50" />
       
-      {/* Small circle - top right */}
+      {/* Small lavender circle - top right */}
       <div className="absolute right-[15%] top-[10%] w-20 h-20 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
       
-      {/* Extra small circle - bottom left */}
+      {/* Extra small lavender circle - bottom left */}
       <div className="absolute left-[10%] bottom-[25%] w-16 h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 bg-[hsl(250,40%,75%)] rounded-full opacity-45" />
+      
+      {/* New pink circle - center right */}
+      <div className="absolute right-[25%] top-[45%] w-24 h-24 md:w-36 md:h-36 lg:w-48 lg:h-48 bg-[hsl(320,50%,80%)] rounded-full opacity-50" />
+      
+      {/* New mint/teal circle - bottom center */}
+      <div className="absolute left-[40%] bottom-[5%] w-20 h-20 md:w-28 md:h-28 lg:w-36 lg:h-36 bg-[hsl(170,45%,75%)] rounded-full opacity-45" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div dir="ltr" className="flex flex-col lg:flex-row items-center justify-between min-h-screen pt-60 sm:pt-48 pb-20 md:py-28 lg:py-32 gap-8 lg:gap-12">
