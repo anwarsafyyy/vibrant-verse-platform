@@ -120,40 +120,40 @@ const PortfolioSection: React.FC = () => {
   const totalItems = portfolioItems.length || 4;
 
   return (
-    <section id="portfolio" className="py-12 lg:py-16 relative overflow-hidden">
+    <section id="portfolio" className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Animated gradient orbs */}
-      <div className="absolute top-20 left-1/4 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse-soft" />
-      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-20 left-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse-soft" />
+      <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '2s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/5 rounded-full blur-3xl" />
       
       {/* Back to top button */}
       <button 
         onClick={scrollToTop}
-        className="absolute bottom-20 left-8 w-14 h-14 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/30 hover:shadow-xl hover:-translate-y-1 hover:scale-110 transition-all duration-300 z-20 hidden lg:flex"
+        className="absolute bottom-20 left-8 w-14 h-14 bg-purple-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:-translate-y-1 hover:scale-110 transition-all duration-300 z-20 hidden lg:flex"
       >
         <ArrowUp className="w-6 h-6" />
       </button>
 
       {/* Decorative elements */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-blue-400/20 rotate-45 rounded-xl hidden lg:block animate-pulse-soft" />
-      <div className="absolute top-40 right-20 w-8 h-8 border-2 border-blue-400/30 rotate-45 rounded-lg hidden lg:block" />
-      <div className="absolute top-60 left-16 w-6 h-6 border-2 border-blue-400/30 rotate-45 rounded-md hidden lg:block" />
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-20 h-20 border-4 border-purple-400/20 rotate-45 rounded-xl hidden lg:block animate-pulse-soft" />
+      <div className="absolute top-40 right-20 w-8 h-8 border-2 border-purple-400/30 rotate-45 rounded-lg hidden lg:block" />
+      <div className="absolute top-60 left-16 w-6 h-6 border-2 border-purple-400/30 rotate-45 rounded-md hidden lg:block" />
       
       <div className="container mx-auto px-4">
         {/* Unified Section Header */}
         <div className={`flex items-center gap-4 mb-12 ${isVisible ? 'animate-fade-in' : ''}`}>
           {/* Diamond icon container */}
           <div className="relative">
-            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-blue-600 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/30">
+            <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-500 to-purple-600 rotate-45 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
               <Briefcase className="w-6 h-6 md:w-7 md:h-7 text-white -rotate-45" />
             </div>
           </div>
           
           <div className="text-left" dir="ltr">
-            <span className="text-blue-400 font-bold text-base md:text-lg">
+            <span className="text-purple-500 font-bold text-base md:text-lg">
               {language === 'ar' ? 'منتجاتنا' : 'Our Products'}
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">
               {language === 'ar' ? 'أعمالنا' : 'Our Work'}
             </h2>
           </div>
@@ -161,7 +161,7 @@ const PortfolioSection: React.FC = () => {
 
         {/* Description - Long Text with consistent line spacing */}
         <div className={`mb-12 ${isVisible ? 'animate-fade-in stagger-2' : ''}`}>
-          <p className="text-base md:text-lg text-white/60 leading-loose max-w-4xl text-left" dir="ltr">
+          <p className="text-base md:text-lg text-gray-600 leading-loose max-w-4xl text-left" dir="ltr">
             {language === 'ar' 
               ? 'نقدم مجموعة متنوعة من المنتجات والحلول الرقمية المبتكرة التي تساعد عملاءنا على تحقيق أهدافهم وتطوير أعمالهم بكفاءة عالية.'
               : 'We offer a diverse range of innovative digital products and solutions that help our clients achieve their goals and develop their business efficiently.'
@@ -176,7 +176,7 @@ const PortfolioSection: React.FC = () => {
             variant="ghost" 
             size="icon"
             onClick={() => api?.scrollNext()}
-            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full bg-blue-500 text-white hover:bg-blue-400 hover:scale-110 hover:shadow-xl hover:shadow-blue-500/30 transition-all duration-300 shadow-lg border-0"
+            className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full bg-purple-500 text-white hover:bg-purple-400 hover:scale-110 hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 shadow-lg border-0"
           >
             <ChevronRight className="w-6 h-6" />
           </Button>

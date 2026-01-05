@@ -65,11 +65,11 @@ const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden">
+    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Decorative elements */}
       <div className="absolute top-20 right-20 w-40 h-40 opacity-10 -z-10">
         <svg viewBox="0 0 100 100" className="w-full h-full">
-          <circle cx="50" cy="50" r="40" fill="none" stroke="#3b82f6" strokeWidth="2" />
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#a855f7" strokeWidth="2" />
         </svg>
       </div>
       
@@ -79,19 +79,19 @@ const FAQSection: React.FC = () => {
           <div className={`text-right ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
             {/* Section label */}
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                <HelpCircle className="w-5 h-5 text-blue-400" />
+              <div className="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
+                <HelpCircle className="w-5 h-5 text-purple-500" />
               </div>
-              <span className="text-blue-400 font-bold tracking-wider uppercase text-sm">
+              <span className="text-purple-500 font-bold tracking-wider uppercase text-sm">
                 {language === 'ar' ? 'الأسئلة الشائعة' : 'FAQ'}
               </span>
             </div>
             
-            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 text-white">
+            <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold mb-6 text-gray-800">
               {t("faq.title")}
             </h2>
             
-            <p className="text-lg text-white/60 leading-relaxed mb-8">
+            <p className="text-lg text-gray-600 leading-relaxed mb-8">
               {t("faq.description")}
             </p>
           </div>
@@ -126,7 +126,7 @@ const FAQSection: React.FC = () => {
                 ))}
               </Accordion>
             ) : (
-              <div className="text-center py-16 text-white/60">
+              <div className="text-center py-16 text-gray-500">
                 {t("faq.noQuestions") || (language === 'ar' ? 'لا توجد أسئلة متاحة' : 'No questions available')}
               </div>
             )}
