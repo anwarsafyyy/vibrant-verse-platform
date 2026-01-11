@@ -81,13 +81,16 @@ const useParallax = (speed: number = 0.5) => {
 
 const AboutSection: React.FC = () => {
   const { t, language } = useLanguage();
-  const { getAboutContent } = useSiteContent();
+  const { getAboutContent, aboutContent } = useSiteContent();
   const [isVisible, setIsVisible] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
   const [statsData, setStatsData] = useState<StatData[]>([]);
   const statsRef = useRef<HTMLDivElement>(null);
   const { offset: imageOffset, elementRef: imageRef } = useParallax(0.3);
   const { offset: decorOffset, elementRef: decorRef } = useParallax(0.5);
+  
+  // Get dynamic image from Firebase
+  const dynamicImage = aboutContent?.image_url;
 
   // Fetch stats from Firebase
   useEffect(() => {
@@ -216,7 +219,7 @@ const AboutSection: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start" dir="ltr">
           
-          {/* Left Side - Tablet Mockup with Dashboard */}
+          {/* Left Side - Dynamic Image or Tablet Mockup */}
           <div 
             ref={imageRef}
             className={`relative order-2 lg:order-1 flex items-center justify-center py-8 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}
@@ -237,112 +240,137 @@ const AboutSection: React.FC = () => {
               }}
             />
             
-            {/* Tablet Frame */}
-            <div 
-              className="relative z-10 transition-transform duration-300 hover:scale-[1.02]"
-              style={{ 
-                transform: `perspective(1200px) rotateY(-10deg) rotateX(5deg) translateY(${imageOffset}px)`,
-              }}
-            >
-              {/* Shadow underneath */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 rounded-[50%] blur-xl" />
-              
-              {/* Tablet outer frame - Silver/Space Gray */}
-              <div className="relative bg-gradient-to-br from-gray-300 via-gray-200 to-gray-400 rounded-[24px] md:rounded-[40px] p-[3px] md:p-[5px] shadow-2xl shadow-black/30">
-                {/* Tablet inner bezel - Dark */}
-                <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[22px] md:rounded-[36px] p-2 md:p-3">
-                  {/* Camera */}
-                  <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-gray-700 rounded-full z-20 ring-1 ring-gray-600" />
-                  
-                  {/* Screen */}
-                  <div className="relative bg-gradient-to-br from-[hsl(220,40%,15%)] to-[hsl(220,35%,12%)] rounded-[16px] md:rounded-[28px] overflow-hidden w-[320px] sm:w-[380px] md:w-[480px] lg:w-[520px] h-[230px] sm:h-[280px] md:h-[340px] lg:h-[370px]">
-                    {/* Dashboard Header */}
-                    <div className="bg-[hsl(220,45%,12%)] px-4 py-2.5 md:py-3 flex items-center justify-between border-b border-white/10">
-                      <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
-                          <span className="text-white text-xs md:text-sm font-bold">علو</span>
-                        </div>
-                        <span className="text-white text-sm md:text-base font-bold">لوحة التحكم</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <div className="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full border border-green-500/30">● متصل</div>
-                      </div>
-                    </div>
+            {/* Conditional Rendering: Dynamic Image or Tablet Mockup */}
+            {dynamicImage ? (
+              /* Dynamic Image Display */
+              <div 
+                className="relative z-10 transition-transform duration-300 hover:scale-[1.02]"
+                style={{ 
+                  transform: `perspective(1200px) rotateY(-10deg) rotateX(5deg) translateY(${imageOffset}px)`,
+                }}
+              >
+                {/* Shadow underneath */}
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 rounded-[50%] blur-xl" />
+                
+                {/* Image Frame */}
+                <div className="relative bg-gradient-to-br from-gray-300 via-gray-200 to-gray-400 rounded-[24px] md:rounded-[40px] p-[3px] md:p-[5px] shadow-2xl shadow-black/30">
+                  <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[22px] md:rounded-[36px] p-2 md:p-3">
+                    <img 
+                      src={dynamicImage} 
+                      alt={language === 'ar' ? 'صورة من نحن' : 'About us image'}
+                      className="rounded-[16px] md:rounded-[28px] w-[320px] sm:w-[380px] md:w-[480px] lg:w-[520px] h-[230px] sm:h-[280px] md:h-[340px] lg:h-[370px] object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* Default Tablet Mockup */
+              <div 
+                className="relative z-10 transition-transform duration-300 hover:scale-[1.02]"
+                style={{ 
+                  transform: `perspective(1200px) rotateY(-10deg) rotateX(5deg) translateY(${imageOffset}px)`,
+                }}
+              >
+                {/* Shadow underneath */}
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/20 rounded-[50%] blur-xl" />
+                
+                {/* Tablet outer frame - Silver/Space Gray */}
+                <div className="relative bg-gradient-to-br from-gray-300 via-gray-200 to-gray-400 rounded-[24px] md:rounded-[40px] p-[3px] md:p-[5px] shadow-2xl shadow-black/30">
+                  {/* Tablet inner bezel - Dark */}
+                  <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[22px] md:rounded-[36px] p-2 md:p-3">
+                    {/* Camera */}
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-gray-700 rounded-full z-20 ring-1 ring-gray-600" />
                     
-                    {/* Dashboard Content */}
-                    <div className="p-3 md:p-4 space-y-3">
-                      {/* Stats Row */}
-                      <div className="grid grid-cols-4 gap-2 md:gap-3">
-                        <div className="bg-gradient-to-br from-purple-600/30 to-purple-800/20 rounded-xl p-2.5 md:p-3 text-center border border-purple-500/30 backdrop-blur-sm">
-                          <div className="text-white font-bold text-base md:text-xl">2356</div>
-                          <div className="text-purple-300 text-[9px] md:text-xs">إجمالي الرسائل</div>
+                    {/* Screen */}
+                    <div className="relative bg-gradient-to-br from-[hsl(220,40%,15%)] to-[hsl(220,35%,12%)] rounded-[16px] md:rounded-[28px] overflow-hidden w-[320px] sm:w-[380px] md:w-[480px] lg:w-[520px] h-[230px] sm:h-[280px] md:h-[340px] lg:h-[370px]">
+                      {/* Dashboard Header */}
+                      <div className="bg-[hsl(220,45%,12%)] px-4 py-2.5 md:py-3 flex items-center justify-between border-b border-white/10">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/30">
+                            <span className="text-white text-xs md:text-sm font-bold">علو</span>
+                          </div>
+                          <span className="text-white text-sm md:text-base font-bold">لوحة التحكم</span>
                         </div>
-                        <div className="bg-gradient-to-br from-blue-600/30 to-blue-800/20 rounded-xl p-2.5 md:p-3 text-center border border-blue-500/30 backdrop-blur-sm">
-                          <div className="text-white font-bold text-base md:text-xl">50</div>
-                          <div className="text-blue-300 text-[9px] md:text-xs">المحادثات</div>
-                        </div>
-                        <div className="bg-gradient-to-br from-emerald-600/30 to-emerald-800/20 rounded-xl p-2.5 md:p-3 text-center border border-emerald-500/30 backdrop-blur-sm">
-                          <div className="text-white font-bold text-base md:text-xl">20</div>
-                          <div className="text-emerald-300 text-[9px] md:text-xs">الحملات</div>
-                        </div>
-                        <div className="bg-gradient-to-br from-amber-600/30 to-amber-800/20 rounded-xl p-2.5 md:p-3 text-center border border-amber-500/30 backdrop-blur-sm">
-                          <div className="text-white font-bold text-base md:text-xl">95%</div>
-                          <div className="text-amber-300 text-[9px] md:text-xs">معدل النجاح</div>
+                        <div className="flex items-center gap-2">
+                          <div className="px-3 py-1 bg-green-500/20 text-green-400 text-xs rounded-full border border-green-500/30">● متصل</div>
                         </div>
                       </div>
                       
-                      {/* Chart Area */}
-                      <div className="bg-white/5 rounded-xl p-3 md:p-4 border border-white/10 backdrop-blur-sm">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-white font-medium text-xs md:text-sm">إحصائيات الرسائل المرسلة</span>
-                          <div className="flex gap-3 items-center">
-                            <div className="flex items-center gap-1">
-                              <span className="w-2.5 h-2.5 bg-green-400 rounded-full" />
-                              <span className="text-white/60 text-[9px] md:text-xs">ناجحة</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <span className="w-2.5 h-2.5 bg-red-400 rounded-full" />
-                              <span className="text-white/60 text-[9px] md:text-xs">فاشلة</span>
-                            </div>
+                      {/* Dashboard Content */}
+                      <div className="p-3 md:p-4 space-y-3">
+                        {/* Stats Row */}
+                        <div className="grid grid-cols-4 gap-2 md:gap-3">
+                          <div className="bg-gradient-to-br from-purple-600/30 to-purple-800/20 rounded-xl p-2.5 md:p-3 text-center border border-purple-500/30 backdrop-blur-sm">
+                            <div className="text-white font-bold text-base md:text-xl">2356</div>
+                            <div className="text-purple-300 text-[9px] md:text-xs">إجمالي الرسائل</div>
+                          </div>
+                          <div className="bg-gradient-to-br from-blue-600/30 to-blue-800/20 rounded-xl p-2.5 md:p-3 text-center border border-blue-500/30 backdrop-blur-sm">
+                            <div className="text-white font-bold text-base md:text-xl">50</div>
+                            <div className="text-blue-300 text-[9px] md:text-xs">المحادثات</div>
+                          </div>
+                          <div className="bg-gradient-to-br from-emerald-600/30 to-emerald-800/20 rounded-xl p-2.5 md:p-3 text-center border border-emerald-500/30 backdrop-blur-sm">
+                            <div className="text-white font-bold text-base md:text-xl">20</div>
+                            <div className="text-emerald-300 text-[9px] md:text-xs">الحملات</div>
+                          </div>
+                          <div className="bg-gradient-to-br from-amber-600/30 to-amber-800/20 rounded-xl p-2.5 md:p-3 text-center border border-amber-500/30 backdrop-blur-sm">
+                            <div className="text-white font-bold text-base md:text-xl">95%</div>
+                            <div className="text-amber-300 text-[9px] md:text-xs">معدل النجاح</div>
                           </div>
                         </div>
-                        {/* Chart visualization */}
-                        <div className="h-16 md:h-24 flex items-end gap-1 relative">
-                          {/* Grid lines */}
-                          <div className="absolute inset-0 flex flex-col justify-between">
-                            {[0, 1, 2, 3].map((_, i) => (
-                              <div key={i} className="border-t border-white/5 w-full" />
+                        
+                        {/* Chart Area */}
+                        <div className="bg-white/5 rounded-xl p-3 md:p-4 border border-white/10 backdrop-blur-sm">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-white font-medium text-xs md:text-sm">إحصائيات الرسائل المرسلة</span>
+                            <div className="flex gap-3 items-center">
+                              <div className="flex items-center gap-1">
+                                <span className="w-2.5 h-2.5 bg-green-400 rounded-full" />
+                                <span className="text-white/60 text-[9px] md:text-xs">ناجحة</span>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <span className="w-2.5 h-2.5 bg-red-400 rounded-full" />
+                                <span className="text-white/60 text-[9px] md:text-xs">فاشلة</span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* Chart visualization */}
+                          <div className="h-16 md:h-24 flex items-end gap-1 relative">
+                            {/* Grid lines */}
+                            <div className="absolute inset-0 flex flex-col justify-between">
+                              {[0, 1, 2, 3].map((_, i) => (
+                                <div key={i} className="border-t border-white/5 w-full" />
+                              ))}
+                            </div>
+                            {/* Bars */}
+                            {[45, 70, 55, 85, 60, 78, 65, 82, 58, 90, 72, 80, 68, 88].map((h, i) => (
+                              <div 
+                                key={i} 
+                                className="flex-1 bg-gradient-to-t from-green-500 via-green-400 to-emerald-300 rounded-t-md relative z-10 shadow-sm shadow-green-500/20"
+                                style={{ height: `${h}%` }}
+                              />
                             ))}
                           </div>
-                          {/* Bars */}
-                          {[45, 70, 55, 85, 60, 78, 65, 82, 58, 90, 72, 80, 68, 88].map((h, i) => (
-                            <div 
-                              key={i} 
-                              className="flex-1 bg-gradient-to-t from-green-500 via-green-400 to-emerald-300 rounded-t-md relative z-10 shadow-sm shadow-green-500/20"
-                              style={{ height: `${h}%` }}
-                            />
-                          ))}
                         </div>
-                      </div>
-                      
-                      {/* Bottom Row */}
-                      <div className="grid grid-cols-2 gap-2 md:gap-3">
-                        <div className="bg-white/5 rounded-xl p-2.5 md:p-3 flex items-center gap-3 border border-white/10">
-                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 flex items-center justify-center shadow-lg">
-                            <span className="text-white text-xs md:text-sm font-bold">2500</span>
+                        
+                        {/* Bottom Row */}
+                        <div className="grid grid-cols-2 gap-2 md:gap-3">
+                          <div className="bg-white/5 rounded-xl p-2.5 md:p-3 flex items-center gap-3 border border-white/10">
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 flex items-center justify-center shadow-lg">
+                              <span className="text-white text-xs md:text-sm font-bold">2500</span>
+                            </div>
+                            <div>
+                              <div className="text-white font-medium text-xs md:text-sm">رسائل اليوم</div>
+                              <div className="text-green-400 text-[9px] md:text-xs">↑ 12% من أمس</div>
+                            </div>
                           </div>
-                          <div>
-                            <div className="text-white font-medium text-xs md:text-sm">رسائل اليوم</div>
-                            <div className="text-green-400 text-[9px] md:text-xs">↑ 12% من أمس</div>
-                          </div>
-                        </div>
-                        <div className="bg-white/5 rounded-xl p-2.5 md:p-3 flex items-center gap-3 border border-white/10">
-                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg">
-                            <span className="text-white text-xs md:text-sm font-bold">50</span>
-                          </div>
-                          <div>
-                            <div className="text-white font-medium text-xs md:text-sm">رسائل قيد الإرسال</div>
-                            <div className="text-blue-400 text-[9px] md:text-xs">جاري المعالجة...</div>
+                          <div className="bg-white/5 rounded-xl p-2.5 md:p-3 flex items-center gap-3 border border-white/10">
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg">
+                              <span className="text-white text-xs md:text-sm font-bold">50</span>
+                            </div>
+                            <div>
+                              <div className="text-white font-medium text-xs md:text-sm">رسائل قيد الإرسال</div>
+                              <div className="text-blue-400 text-[9px] md:text-xs">جاري المعالجة...</div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -350,7 +378,7 @@ const AboutSection: React.FC = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           
           {/* Right Side - Content */}
