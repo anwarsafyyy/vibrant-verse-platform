@@ -193,66 +193,86 @@ export const AboutContentManager = () => {
               />
             </div>
           </div>
-          <div>
-            <label className="text-sm font-medium text-black mb-2 block">صورة القسم</label>
-            <div className="space-y-4">
-              {/* Image Preview */}
-              {formData.image_url && (
-                <div className="relative w-full max-w-md aspect-video rounded-lg overflow-hidden border border-gray-200">
-                  <img 
-                    src={formData.image_url} 
-                    alt="About section" 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              
-              {/* Upload Button */}
-              <div className="flex items-center gap-4">
-                <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleImageUpload}
-                  accept="image/*"
-                  className="hidden"
+          {/* Image Upload Section - More Prominent */}
+          <div className="border-2 border-dashed border-purple-300 rounded-xl p-6 bg-purple-50/50">
+            <label className="text-lg font-bold text-black mb-4 block">صورة قسم من نحن</label>
+            
+            {/* Image Preview */}
+            {formData.image_url && (
+              <div className="relative w-full max-w-lg aspect-video rounded-xl overflow-hidden border-2 border-purple-200 mb-4 shadow-lg">
+                <img 
+                  src={formData.image_url} 
+                  alt="About section" 
+                  className="w-full h-full object-cover"
                 />
-                <Button 
+                <Button
                   type="button"
-                  variant="outline"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={uploading}
+                  variant="destructive"
+                  size="sm"
+                  className="absolute top-2 right-2"
+                  onClick={() => setFormData({ ...formData, image_url: '' })}
                 >
-                  {uploading ? (
-                    <>
-                      <Loader2 className="w-4 h-4 ml-2 animate-spin" />
-                      جاري الرفع...
-                    </>
-                  ) : (
-                    <>
-                      <Upload className="w-4 h-4 ml-2" />
-                      رفع صورة
-                    </>
-                  )}
+                  حذف
                 </Button>
-                
-                {!formData.image_url && (
-                  <div className="flex items-center gap-2 text-gray-400">
-                    <Image className="w-5 h-5" />
-                    <span className="text-sm">لم يتم اختيار صورة</span>
-                  </div>
+              </div>
+            )}
+            
+            {/* Upload Area */}
+            {!formData.image_url && (
+              <div 
+                className="flex flex-col items-center justify-center py-12 px-6 bg-white rounded-xl border-2 border-gray-200 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all mb-4"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                  <Upload className="w-8 h-8 text-purple-600" />
+                </div>
+                <p className="text-lg font-semibold text-gray-700 mb-1">اضغط لاختيار صورة</p>
+                <p className="text-sm text-gray-500">PNG, JPG, WEBP (حد أقصى 5 ميجابايت)</p>
+              </div>
+            )}
+            
+            {/* Hidden File Input */}
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              accept="image/*"
+              className="hidden"
+            />
+            
+            {/* Upload Button */}
+            <div className="flex items-center gap-4">
+              <Button 
+                type="button"
+                variant="default"
+                size="lg"
+                className="bg-purple-600 hover:bg-purple-700"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+              >
+                {uploading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 ml-2 animate-spin" />
+                    جاري الرفع...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="w-5 h-5 ml-2" />
+                    {formData.image_url ? 'تغيير الصورة' : 'اختر صورة'}
+                  </>
                 )}
-              </div>
+              </Button>
+            </div>
 
-              {/* Manual URL Input */}
-              <div>
-                <label className="text-sm text-gray-500 mb-1 block">أو أدخل رابط الصورة يدوياً</label>
-                <Input
-                  value={formData.image_url || ''}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://..."
-                  dir="ltr"
-                />
-              </div>
+            {/* Manual URL Input - Optional */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <label className="text-sm text-gray-500 mb-1 block">أو أدخل رابط الصورة يدوياً (اختياري)</label>
+              <Input
+                value={formData.image_url || ''}
+                onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                placeholder="https://..."
+                dir="ltr"
+              />
             </div>
           </div>
         </CardContent>
