@@ -69,6 +69,7 @@ const Footer: React.FC = () => {
         onClick={scrollToTop}
         className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:-translate-y-1 transition-all duration-300 z-10"
         size="icon"
+        aria-label="العودة للأعلى"
       >
         <ArrowUp className="w-5 h-5" />
       </Button>
@@ -98,10 +99,10 @@ const Footer: React.FC = () => {
           
           {/* Important Links */}
           <div>
-            <h4 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
+            <h3 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
               {dir === "rtl" ? "روابط مهمة" : "Important Links"}
               <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-[hsl(262,45%,35%)] rounded-full" />
-            </h4>
+            </h3>
             <ul className="space-y-3">
               {links.map(link => (
                 <li key={link.href}>
@@ -118,10 +119,10 @@ const Footer: React.FC = () => {
           
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
+            <h3 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
               {dir === "rtl" ? "تواصل معنا" : "Contact Us"}
               <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-[hsl(262,45%,35%)] rounded-full" />
-            </h4>
+            </h3>
             <ul className="space-y-4">
               {contactInfo.map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-gray-700 hover:text-[hsl(262,45%,35%)] transition-colors">
@@ -136,10 +137,10 @@ const Footer: React.FC = () => {
           
           {/* Social & Newsletter */}
           <div>
-            <h4 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
+            <h3 className="text-lg font-bold mb-6 relative inline-block text-[hsl(262,45%,25%)]">
               {dir === "rtl" ? "تابعنا" : "Follow Us"}
               <span className="absolute -bottom-2 left-0 w-8 h-0.5 bg-[hsl(262,45%,35%)] rounded-full" />
-            </h4>
+            </h3>
             <div className="flex gap-3 mb-6 justify-end">
               {/* TikTok */}
               <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300" aria-label="تيك توك">
