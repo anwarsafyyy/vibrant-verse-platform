@@ -263,6 +263,10 @@ const PartnersSection: React.FC = () => {
                                 src={partner.logo_url}
                                 alt={`${partner.name} Logo`}
                                 className="w-3/4 h-3/4 object-contain"
+                                width={60}
+                                height={60}
+                                loading="lazy"
+                                decoding="async"
                               />
                             ) : (
                               <span 
@@ -319,6 +323,10 @@ const PartnersSection: React.FC = () => {
                                 src={partner.logo_url}
                                 alt={`${partner.name} Logo`}
                                 className="w-3/4 h-3/4 object-contain"
+                                width={54}
+                                height={54}
+                                loading="lazy"
+                                decoding="async"
                               />
                             ) : (
                               <span 
@@ -341,8 +349,12 @@ const PartnersSection: React.FC = () => {
                 <div className="relative w-24 h-24 md:w-28 md:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl border-2 border-purple-200/50">
                   <img 
                     src="/olu-logo.png" 
-                    alt="Olu Logo" 
+                    alt="علو Logo" 
                     className="w-16 h-16 md:w-20 md:h-20 object-contain"
+                    width={80}
+                    height={80}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>

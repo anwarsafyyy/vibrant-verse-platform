@@ -229,6 +229,7 @@ const ServicesSection: React.FC = () => {
           <button 
             onClick={handleNext}
             className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-purple-400/30 items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white hover:border-purple-500 transition-all duration-300 shadow-lg"
+            aria-label={language === 'ar' ? 'الخدمة التالية' : 'Next service'}
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -321,6 +322,7 @@ const ServicesSection: React.FC = () => {
           <button 
             onClick={handlePrev}
             className="hidden lg:flex flex-shrink-0 w-14 h-14 rounded-full border-2 border-purple-400/30 items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white hover:border-purple-500 transition-all duration-300 shadow-lg"
+            aria-label={language === 'ar' ? 'الخدمة السابقة' : 'Previous service'}
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
@@ -331,12 +333,14 @@ const ServicesSection: React.FC = () => {
           <button 
             onClick={handleNext}
             className="w-12 h-12 rounded-full border-2 border-purple-400/30 flex items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white transition-all duration-300"
+            aria-label={language === 'ar' ? 'الخدمة التالية' : 'Next service'}
           >
             <ChevronRight className="w-5 h-5" />
           </button>
           <button 
             onClick={handlePrev}
             className="w-12 h-12 rounded-full border-2 border-purple-400/30 flex items-center justify-center text-purple-500 hover:bg-purple-500 hover:text-white transition-all duration-300"
+            aria-label={language === 'ar' ? 'الخدمة السابقة' : 'Previous service'}
           >
             <ChevronLeft className="w-5 h-5" />
           </button>

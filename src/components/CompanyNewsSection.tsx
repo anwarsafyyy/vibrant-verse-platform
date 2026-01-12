@@ -181,6 +181,7 @@ const CompanyNewsSection: React.FC = () => {
                 size="icon"
                 onClick={() => api?.scrollNext()}
                 className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
+                aria-label={language === 'ar' ? 'الخبر التالي' : 'Next news'}
               >
                 <ChevronRight className="w-4 h-4" />
               </Button>
@@ -196,6 +197,7 @@ const CompanyNewsSection: React.FC = () => {
                         ? 'w-8 h-2 bg-[hsl(262,45%,35%)]' 
                         : 'w-2 h-2 bg-[hsl(262,45%,35%)]/30 hover:bg-[hsl(262,45%,35%)]/50'
                     }`}
+                    aria-label={`${language === 'ar' ? 'انتقل للخبر' : 'Go to news'} ${index + 1}`}
                   />
                 ))}
               </div>
@@ -206,6 +208,7 @@ const CompanyNewsSection: React.FC = () => {
                 size="icon"
                 onClick={() => api?.scrollPrev()}
                 className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
+                aria-label={language === 'ar' ? 'الخبر السابق' : 'Previous news'}
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>

@@ -47,7 +47,9 @@ const HeroSection: React.FC = () => {
                     src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
                     alt="علو - شركة برمجة في جازان السعودية" 
                     className="w-56 h-56 md:w-72 md:h-72 object-contain mb-4"
-                    loading="lazy"
+                    width={288}
+                    height={288}
+                    fetchPriority="high"
                     decoding="async"
                   />
                   
