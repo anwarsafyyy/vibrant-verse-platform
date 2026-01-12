@@ -10,10 +10,10 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import { db } from "@/lib/firebase";
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { orderBy } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLazyFirebase } from "@/hooks/useLazyFirebase";
 
 // Parallax hook
 const useParallax = (speed: number = 0.5) => {
@@ -67,11 +67,17 @@ const productTranslations: Record<string, { title: string; description: string }
 const PortfolioSection: React.FC = () => {
   const { language } = useLanguage();
   const isMobile = useIsMobile();
-  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  // Use lazy loading for portfolio items
+  const { data: portfolioItems, loading, isVisible, ref } = useLazyFirebase<PortfolioItem>({
+    collectionName: 'portfolio_items',
+    constraints: [orderBy('order_index', 'asc')],
+    rootMargin: '200px', // Start loading 200px before section comes into view
+  });
+  
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
   
   const { offset: decorOffset1, elementRef: decorRef1 } = useParallax(0.4);
   const { offset: decorOffset2, elementRef: decorRef2 } = useParallax(0.6);
@@ -82,65 +88,6 @@ const PortfolioSection: React.FC = () => {
   );
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    const section = document.getElementById('portfolio');
-    if (section) observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const fetchPortfolioItems = async () => {
-      console.log("🔍 Starting to fetch portfolio items...");
-      try {
-        const [itemsRes, legacyRes] = await Promise.allSettled([
-          getDocs(query(collection(db, "portfolio_items"), orderBy("order_index", "asc"))),
-          getDocs(collection(db, "portfolio")),
-        ]);
-
-        const itemsData: PortfolioItem[] = [];
-
-        if (itemsRes.status === "fulfilled") {
-          console.log("📦 portfolio_items collection:", itemsRes.value.size, "items");
-          itemsRes.value.forEach((doc) => {
-            itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
-          });
-        } else {
-          console.log("❌ portfolio_items failed:", itemsRes.reason);
-        }
-
-        if (legacyRes.status === "fulfilled") {
-          console.log("📦 portfolio collection (legacy):", legacyRes.value.size, "items");
-          legacyRes.value.forEach((doc) => {
-            itemsData.push({ id: doc.id, ...doc.data() } as PortfolioItem);
-          });
-        } else {
-          console.log("❌ portfolio failed:", legacyRes.reason);
-        }
-
-        const deduped = Array.from(
-          new Map(itemsData.map((item) => [item.id, item])).values()
-        ).sort(
-          (a, b) => (Number(a.order_index ?? 9999) || 9999) - (Number(b.order_index ?? 9999) || 9999)
-        );
-
-        console.log("✅ Total unique portfolio items:", deduped.length);
-        console.log("📋 Items:", deduped.map(i => i.title_ar || i.title));
-        setPortfolioItems(deduped);
-      } catch (error) {
-        console.error("❌ Failed to fetch portfolio items:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPortfolioItems();
-  }, []);
-
-  useEffect(() => {
     if (!api) return;
     setCurrent(api.selectedScrollSnap());
     api.on("select", () => {
@@ -149,7 +96,11 @@ const PortfolioSection: React.FC = () => {
   }, [api]);
 
   return (
-    <section id="portfolio" className="py-16 lg:py-20 relative overflow-hidden bg-white">
+    <section 
+      id="portfolio" 
+      ref={ref as React.RefObject<HTMLElement>}
+      className="py-16 lg:py-20 relative overflow-hidden bg-white"
+    >
       {/* Decorative Background Circles */}
       <div className="absolute left-[-6%] top-[15%] w-36 h-36 md:w-52 md:h-52 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
       <div className="absolute right-[-4%] bottom-[20%] w-28 h-28 md:w-40 md:h-40 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
