@@ -82,6 +82,8 @@ const Footer: React.FC = () => {
                 src={getSetting('logo_url', 'ar')} 
                 alt="علو - أفضل شركة برمجة في جازان السعودية" 
                 className="h-40 w-auto mb-6"
+                width={160}
+                height={160}
                 loading="lazy"
                 decoding="async"
               />
@@ -140,23 +142,23 @@ const Footer: React.FC = () => {
             </h4>
             <div className="flex gap-3 mb-6 justify-end">
               {/* TikTok */}
-              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
+              <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300" aria-label="تيك توك">
                 {getSocialIcon('tiktok')}
               </a>
               {/* LinkedIn */}
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300" aria-label="لينكد إن">
                 {getSocialIcon('linkedin')}
               </a>
               {/* Instagram */}
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300" aria-label="انستقرام">
                 {getSocialIcon('instagram')}
               </a>
               {/* Twitter/X */}
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300" aria-label="تويتر">
                 {getSocialIcon('twitter')}
               </a>
               {/* WhatsApp */}
-              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300">
+              <a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-[hsl(262,45%,35%)]/20 text-[hsl(262,45%,35%)] flex items-center justify-center hover:bg-[hsl(262,45%,35%)] hover:text-white hover:scale-110 transition-all duration-300" aria-label="واتساب">
                 {getSocialIcon('whatsapp')}
               </a>
             </div>

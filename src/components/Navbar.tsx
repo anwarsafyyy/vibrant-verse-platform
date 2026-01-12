@@ -39,14 +39,20 @@ const Navbar: React.FC = () => {
             {getSetting('logo_url', 'ar') ? (
               <img 
                 src={getSetting('logo_url', 'ar')} 
-                alt="Logo" 
+                alt="علو - شركة برمجة جازان السعودية" 
                 className="h-24 lg:h-32 w-auto"
+                width={128}
+                height={128}
+                fetchPriority="high"
               />
             ) : (
               <img 
                 src="/olu-logo.png" 
-                alt="Logo" 
+                alt="علو - شركة برمجة جازان السعودية" 
                 className="h-24 lg:h-32 w-auto"
+                width={128}
+                height={128}
+                fetchPriority="high"
               />
             )}
           </a>
@@ -97,6 +103,7 @@ const Navbar: React.FC = () => {
                 size="icon"
                 className="lg:hidden rounded-xl text-blue-900 hover:text-blue-600 hover:bg-blue-50 border border-gray-200 transition-all duration-300"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label={mobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
               >
                 {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </Button>

@@ -187,6 +187,7 @@ const PortfolioSection: React.FC = () => {
               size="icon"
               onClick={() => api?.scrollPrev()}
               className="w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white hover:bg-[hsl(262,45%,40%)] shadow-lg"
+              aria-label={language === 'ar' ? 'المنتج السابق' : 'Previous product'}
             >
               <ChevronLeft className="w-5 h-5" />
             </Button>
@@ -197,6 +198,7 @@ const PortfolioSection: React.FC = () => {
               size="icon"
               onClick={() => api?.scrollNext()}
               className="w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white hover:bg-[hsl(262,45%,40%)] shadow-lg"
+              aria-label={language === 'ar' ? 'المنتج التالي' : 'Next product'}
             >
               <ChevronRight className="w-5 h-5" />
             </Button>
@@ -288,6 +290,7 @@ const PortfolioSection: React.FC = () => {
                 size="icon"
                 onClick={() => api?.scrollNext()}
                 className="lg:hidden w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)]"
+                aria-label={language === 'ar' ? 'المنتج التالي' : 'Next product'}
               >
                 <ChevronRight className="w-4 h-4" />
               </Button>
@@ -303,6 +306,7 @@ const PortfolioSection: React.FC = () => {
                         ? 'bg-[hsl(262,45%,35%)] w-6' 
                         : 'bg-gray-300 w-2 hover:bg-gray-400'
                     }`}
+                    aria-label={`${language === 'ar' ? 'انتقل للمنتج' : 'Go to product'} ${index + 1}`}
                   />
                 ))}
               </div>
@@ -313,6 +317,7 @@ const PortfolioSection: React.FC = () => {
                 size="icon"
                 onClick={() => api?.scrollPrev()}
                 className="lg:hidden w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)]"
+                aria-label={language === 'ar' ? 'المنتج السابق' : 'Previous product'}
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
