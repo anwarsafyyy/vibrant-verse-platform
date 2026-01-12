@@ -144,8 +144,10 @@ const CompanyNewsSection: React.FC = () => {
                     <div className="relative h-64 md:h-80 overflow-hidden">
                       <img 
                         src={news.image_url} 
-                        alt={language === 'ar' ? news.title_ar : news.title_en}
+                        alt={language === 'ar' ? `${news.title_ar} - أخبار شركة علو` : `${news.title_en} - OLU Company News`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        loading="lazy"
+                        decoding="async"
                       />
                       {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-[hsl(262,45%,25%)] via-transparent to-transparent opacity-90" />

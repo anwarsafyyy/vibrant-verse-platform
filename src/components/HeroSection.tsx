@@ -45,8 +45,10 @@ const HeroSection: React.FC = () => {
                   {/* Logo in phone */}
                   <img 
                     src={getSetting('logo_url', 'ar') || '/olu-logo.png'} 
-                    alt="Logo" 
+                    alt="علو - شركة برمجة في جازان السعودية" 
                     className="w-56 h-56 md:w-72 md:h-72 object-contain mb-4"
+                    loading="lazy"
+                    decoding="async"
                   />
                   
                   {/* Checkmark Icon */}

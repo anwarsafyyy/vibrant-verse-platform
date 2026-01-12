@@ -80,8 +80,10 @@ const Footer: React.FC = () => {
             {getSetting('logo_url', 'ar') && (
               <img 
                 src={getSetting('logo_url', 'ar')} 
-                alt="Logo" 
+                alt="علو - أفضل شركة برمجة في جازان السعودية" 
                 className="h-40 w-auto mb-6"
+                loading="lazy"
+                decoding="async"
               />
             )}
             <p className="text-gray-700 leading-relaxed text-sm">
