@@ -1,10 +1,11 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { Newspaper, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { getCollection } from "@/lib/firebaseHelpers";
+import { orderBy } from "firebase/firestore";
+import { useLazyFirebase } from "@/hooks/useLazyFirebase";
 import {
   Carousel,
   CarouselContent,
@@ -52,42 +53,21 @@ const fallbackNews: NewsItem[] = [
 
 const CompanyNewsSection: React.FC = () => {
   const { language } = useLanguage();
-  const [isVisible, setIsVisible] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [newsItems, setNewsItems] = useState<NewsItem[]>(fallbackNews);
-  const [loading, setLoading] = useState(true);
   const isMobile = useIsMobile();
 
-  // Fetch news from Firebase
-  useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const data = await getCollection<NewsItem>('company_news', [], 'order_index', 'asc');
-        if (data && data.length > 0) {
-          const activeNews = data.filter(item => item.is_active !== false);
-          setNewsItems(activeNews.length > 0 ? activeNews : fallbackNews);
-        }
-      } catch (error) {
-        console.error('Error fetching news:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchNews();
-  }, []);
+  // Use lazy loading for news
+  const { data: firebaseNews, loading, isVisible, ref } = useLazyFirebase<NewsItem>({
+    collectionName: 'company_news',
+    constraints: [orderBy('order_index', 'asc')],
+    rootMargin: '200px',
+  });
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    const section = document.getElementById('news');
-    if (section) observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+  // Use fallback if no data from Firebase
+  const newsItems = firebaseNews.length > 0 
+    ? firebaseNews.filter(item => item.is_active !== false)
+    : fallbackNews;
 
   useEffect(() => {
     if (!api) return;
@@ -98,9 +78,8 @@ const CompanyNewsSection: React.FC = () => {
     });
   }, [api]);
 
-
   return (
-    <section id="news" className="py-12 lg:py-16 relative overflow-hidden bg-white">
+    <section id="news" ref={ref as React.RefObject<HTMLElement>} className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Decorative Background Circles */}
       <div className="absolute left-[-5%] top-[10%] w-32 h-32 md:w-48 md:h-48 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
       <div className="absolute right-[-3%] bottom-[15%] w-24 h-24 md:w-36 md:h-36 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />

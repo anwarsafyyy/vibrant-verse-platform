@@ -1,9 +1,9 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import { useLanguage } from "@/hooks/useLanguage";
-import { db } from "@/lib/firebase";
-import { collection, query, orderBy, getDocs } from "firebase/firestore";
+import { orderBy } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useLazyFirebase } from "@/hooks/useLazyFirebase";
 
 // Parallax hook
 const useParallax = (speed: number = 0.5) => {
@@ -38,43 +38,17 @@ interface Partner {
 
 const PartnersSection: React.FC = () => {
   const { language } = useLanguage();
-  const [partners, setPartners] = useState<Partner[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
+  
+  // Use lazy loading for partners
+  const { data: partners, loading, isVisible, ref } = useLazyFirebase<Partner>({
+    collectionName: 'partners',
+    constraints: [orderBy('order_index', 'asc')],
+    rootMargin: '200px', // Start loading 200px before section comes into view
+  });
+  
   const { offset: decorOffset1, elementRef: decorRef1 } = useParallax(0.4);
   const { offset: decorOffset2, elementRef: decorRef2 } = useParallax(0.6);
   const { offset: decorOffset3, elementRef: decorRef3 } = useParallax(0.3);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    const section = document.getElementById('partners');
-    if (section) observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const fetchPartners = async () => {
-      try {
-        const q = query(collection(db, 'partners'), orderBy('order_index', 'asc'));
-        const snapshot = await getDocs(q);
-        const partnersData: Partner[] = [];
-        snapshot.forEach(doc => {
-          partnersData.push({ id: doc.id, ...doc.data() } as Partner);
-        });
-        setPartners(partnersData);
-      } catch (error) {
-        console.error("Failed to fetch partners:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPartners();
-  }, []);
 
   // Inner orbit partners
   const innerOrbitPartners = [
@@ -113,7 +87,7 @@ const PartnersSection: React.FC = () => {
   };
 
   return (
-    <section id="partners" className="py-16 lg:py-24 relative overflow-hidden bg-white">
+    <section id="partners" ref={ref as React.RefObject<HTMLElement>} className="py-16 lg:py-24 relative overflow-hidden bg-white">
       {/* Decorative Background Circles */}
       <div className="absolute right-[-7%] top-[25%] w-44 h-44 md:w-60 md:h-60 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
       <div className="absolute left-[-4%] bottom-[15%] w-32 h-32 md:w-44 md:h-44 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />

@@ -7,10 +7,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { db } from "@/lib/firebase";
-import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import { where, orderBy } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
 import { HelpCircle } from "lucide-react";
+import { useLazyFirebase } from "@/hooks/useLazyFirebase";
 
 interface FAQ {
   id: string;
@@ -47,49 +47,18 @@ const useParallax = (speed: number = 0.5) => {
 
 const FAQSection: React.FC = () => {
   const { t, language, dir } = useLanguage();
-  const [faqs, setFaqs] = useState<FAQ[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isVisible, setIsVisible] = useState(false);
+  
+  // Use lazy loading for FAQs
+  const { data: faqs, loading, isVisible, ref } = useLazyFirebase<FAQ>({
+    collectionName: 'faqs',
+    constraints: [where('is_active', '==', true), orderBy('order_index', 'asc')],
+    rootMargin: '200px',
+  });
+  
   const { offset: decorOffset, elementRef: decorRef } = useParallax(0.4);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setIsVisible(true);
-      },
-      { threshold: 0.1 }
-    );
-    const section = document.getElementById('faq');
-    if (section) observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    fetchFAQs();
-  }, []);
-
-  const fetchFAQs = async () => {
-    try {
-      const q = query(
-        collection(db, 'faqs'),
-        where('is_active', '==', true),
-        orderBy('order_index', 'asc')
-      );
-      const snapshot = await getDocs(q);
-      const faqsData: FAQ[] = [];
-      snapshot.forEach(doc => {
-        faqsData.push({ id: doc.id, ...doc.data() } as FAQ);
-      });
-      setFaqs(faqsData);
-    } catch (error) {
-      console.error("Failed to fetch FAQs:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <section id="faq" className="py-12 lg:py-16 relative overflow-hidden bg-white" ref={decorRef}>
+    <section id="faq" ref={ref as React.RefObject<HTMLElement>} className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Decorative Background Circles */}
       <div className="absolute left-[-5%] top-[20%] w-36 h-36 md:w-48 md:h-48 bg-[hsl(250,40%,75%)] rounded-full opacity-40" />
       <div className="absolute right-[-6%] bottom-[10%] w-28 h-28 md:w-40 md:h-40 bg-[hsl(250,40%,75%)] rounded-full opacity-35" />
