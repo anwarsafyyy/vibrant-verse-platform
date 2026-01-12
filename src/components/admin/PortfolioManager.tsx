@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Plus, Pencil, Trash2, Save, X, Upload, Image } from 'lucide-react';
-import { getCollection, addDocument, updateDocument, deleteDocument, uploadFile } from '@/lib/firebaseHelpers';
+import { Plus, Pencil, Trash2, Save, X } from 'lucide-react';
+import { getCollection, addDocument, updateDocument, deleteDocument } from '@/lib/firebaseHelpers';
+import { ImageUploader } from './ImageUploader';
 
 interface PortfolioItem {
   id: string;
@@ -23,33 +24,9 @@ interface PortfolioItem {
 export const PortfolioManager = () => {
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [uploading, setUploading] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<PortfolioItem>>({});
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      toast({ title: 'يرجى اختيار ملف صورة', variant: 'destructive' });
-      return;
-    }
-
-    setUploading(true);
-    try {
-      const path = `portfolio/${Date.now()}_${file.name}`;
-      const url = await uploadFile(path, file);
-      setFormData({ ...formData, image_url: url });
-      toast({ title: 'تم رفع الصورة بنجاح' });
-    } catch (error) {
-      toast({ title: 'خطأ في رفع الصورة', variant: 'destructive' });
-    } finally {
-      setUploading(false);
-    }
-  };
 
   useEffect(() => {
     fetchItems();
@@ -175,39 +152,13 @@ export const PortfolioManager = () => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium text-black">صورة المنتج</label>
-                <div className="space-y-2">
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleFileUpload}
-                    accept="image/*"
-                    className="hidden"
-                  />
-                  <div className="flex gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={uploading}
-                      className="flex-1"
-                    >
-                      {uploading ? (
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary ml-2" />
-                      ) : (
-                        <Upload className="w-4 h-4 ml-2" />
-                      )}
-                      {uploading ? 'جاري الرفع...' : 'رفع صورة'}
-                    </Button>
-                  </div>
-                  {formData.image_url && (
-                    <div className="flex items-center gap-2 p-2 bg-muted rounded">
-                      <Image className="w-4 h-4" />
-                      <img src={formData.image_url} alt="Preview" className="w-12 h-12 object-cover rounded" />
-                      <span className="text-xs text-black/70 truncate flex-1">تم رفع الصورة</span>
-                    </div>
-                  )}
-                </div>
+                <label className="text-sm font-medium text-black">صورة المنتج (يتم ضغطها تلقائياً)</label>
+                <ImageUploader
+                  currentImageUrl={formData.image_url}
+                  onUploadComplete={(url) => setFormData({ ...formData, image_url: url })}
+                  uploadPath="portfolio"
+                  maxSizeMB={10}
+                />
               </div>
               <div>
                 <label className="text-sm font-medium text-black">رابط المنتج</label>
