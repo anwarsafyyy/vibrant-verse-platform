@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Save, Upload, Image, Loader2 } from 'lucide-react';
-import { getCollection, addDocument, updateDocument, uploadFile } from '@/lib/firebaseHelpers';
+import { Save } from 'lucide-react';
+import { getCollection, addDocument, updateDocument } from '@/lib/firebaseHelpers';
+import { ImageUploader } from './ImageUploader';
 
 interface AboutContent {
   id: string;
@@ -25,10 +26,8 @@ export const AboutContentManager = () => {
   const [content, setContent] = useState<AboutContent | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [formData, setFormData] = useState<Partial<AboutContent>>({});
   const { toast } = useToast();
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetchContent();
@@ -75,36 +74,6 @@ export const AboutContentManager = () => {
       toast({ title: 'حدث خطأ', variant: 'destructive' });
     } finally {
       setSaving(false);
-    }
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      toast({ title: 'يجب اختيار ملف صورة', variant: 'destructive' });
-      return;
-    }
-
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-      toast({ title: 'حجم الصورة يجب أن لا يتجاوز 5 ميجابايت', variant: 'destructive' });
-      return;
-    }
-
-    setUploading(true);
-    try {
-      const fileName = `about/${Date.now()}_${file.name}`;
-      const url = await uploadFile(fileName, file);
-      setFormData({ ...formData, image_url: url });
-      toast({ title: 'تم رفع الصورة بنجاح' });
-    } catch (error) {
-      console.error('Upload error:', error);
-      toast({ title: 'حدث خطأ في رفع الصورة', variant: 'destructive' });
-    } finally {
-      setUploading(false);
     }
   };
 
@@ -193,76 +162,16 @@ export const AboutContentManager = () => {
               />
             </div>
           </div>
-          {/* Image Upload Section - More Prominent */}
+          {/* Image Upload Section - With Auto Compression */}
           <div className="border-2 border-dashed border-purple-300 rounded-xl p-6 bg-purple-50/50">
-            <label className="text-lg font-bold text-black mb-4 block">صورة قسم من نحن</label>
+            <label className="text-lg font-bold text-black mb-4 block">صورة قسم من نحن (يتم ضغطها تلقائياً)</label>
             
-            {/* Image Preview */}
-            {formData.image_url && (
-              <div className="relative w-full max-w-lg aspect-video rounded-xl overflow-hidden border-2 border-purple-200 mb-4 shadow-lg">
-                <img 
-                  src={formData.image_url} 
-                  alt="About section" 
-                  className="w-full h-full object-cover"
-                />
-                <Button
-                  type="button"
-                  variant="destructive"
-                  size="sm"
-                  className="absolute top-2 right-2"
-                  onClick={() => setFormData({ ...formData, image_url: '' })}
-                >
-                  حذف
-                </Button>
-              </div>
-            )}
-            
-            {/* Upload Area */}
-            {!formData.image_url && (
-              <div 
-                className="flex flex-col items-center justify-center py-12 px-6 bg-white rounded-xl border-2 border-gray-200 cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all mb-4"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                  <Upload className="w-8 h-8 text-purple-600" />
-                </div>
-                <p className="text-lg font-semibold text-gray-700 mb-1">اضغط لاختيار صورة</p>
-                <p className="text-sm text-gray-500">PNG, JPG, WEBP (حد أقصى 5 ميجابايت)</p>
-              </div>
-            )}
-            
-            {/* Hidden File Input */}
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageUpload}
-              accept="image/*"
-              className="hidden"
+            <ImageUploader
+              currentImageUrl={formData.image_url}
+              onUploadComplete={(url) => setFormData({ ...formData, image_url: url })}
+              uploadPath="about"
+              maxSizeMB={10}
             />
-            
-            {/* Upload Button */}
-            <div className="flex items-center gap-4">
-              <Button 
-                type="button"
-                variant="default"
-                size="lg"
-                className="bg-purple-600 hover:bg-purple-700"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
-              >
-                {uploading ? (
-                  <>
-                    <Loader2 className="w-5 h-5 ml-2 animate-spin" />
-                    جاري الرفع...
-                  </>
-                ) : (
-                  <>
-                    <Upload className="w-5 h-5 ml-2" />
-                    {formData.image_url ? 'تغيير الصورة' : 'اختر صورة'}
-                  </>
-                )}
-              </Button>
-            </div>
 
             {/* Manual URL Input - Optional */}
             <div className="mt-4 pt-4 border-t border-gray-200">
