@@ -257,8 +257,10 @@ const AboutSection: React.FC = () => {
                   <div className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-[22px] md:rounded-[36px] p-2 md:p-3">
                     <img 
                       src={dynamicImage} 
-                      alt={language === 'ar' ? 'صورة من نحن' : 'About us image'}
+                      alt={language === 'ar' ? 'علو - شركة تطوير مواقع وتطبيقات في جازان السعودية' : 'OLU - Web and App Development Company in Jazan Saudi Arabia'}
                       className="rounded-[16px] md:rounded-[28px] w-[320px] sm:w-[380px] md:w-[480px] lg:w-[520px] h-[230px] sm:h-[280px] md:h-[340px] lg:h-[370px] object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>

@@ -230,13 +230,15 @@ const PortfolioSection: React.FC = () => {
                       <div className="relative h-48 bg-white/10 overflow-hidden">
                         <img
                           src={item.image_url} 
-                          alt={item.title_ar || item.title} 
+                          alt={`${item.title_ar || item.title} - منتج من علو شركة برمجة`} 
                           className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                          loading="lazy"
+                          decoding="async"
                         />
                         {/* Logo Badge */}
                         {item.logo_url && (
                           <div className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center p-1">
-                            <img src={item.logo_url} alt="" className="w-full h-full object-contain" />
+                            <img src={item.logo_url} alt="" className="w-full h-full object-contain" loading="lazy" decoding="async" />
                           </div>
                         )}
                       </div>
