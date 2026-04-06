@@ -14,29 +14,7 @@ import { orderBy } from "firebase/firestore";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLazyFirebase } from "@/hooks/useLazyFirebase";
-
-// Parallax hook
-const useParallax = (speed: number = 0.5) => {
-  const [offset, setOffset] = useState(0);
-  const elementRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (elementRef.current) {
-        const rect = elementRef.current.getBoundingClientRect();
-        const scrolled = window.innerHeight - rect.top;
-        if (scrolled > 0) {
-          setOffset(scrolled * speed * 0.1);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [speed]);
-
-  return { offset, elementRef };
-};
+import { Badge } from "@/components/ui/badge";
 
 interface PortfolioItem {
   id: string;
@@ -51,8 +29,9 @@ interface PortfolioItem {
   description_en?: string;
   image_url: string;
   logo_url?: string;
-  technologies: string[];
+  technologies: string[] | string;
   order_index: number;
+  is_active?: boolean;
   created_at: any;
 }
 
@@ -64,24 +43,30 @@ const productTranslations: Record<string, { title: string; description: string }
   'OLU form': { title: 'OLU Form', description: 'A smart platform for collecting potential customer data and classifying them accurately. It helps you understand your audience, analyze their interests, and organize their data in a way that facilitates tracking opportunities and improving marketing and sales strategies.' },
 };
 
+const FILTER_TABS = [
+  { value: 'all', label_ar: 'الكل', label_en: 'All' },
+  { value: 'mobile_app', label_ar: 'تطبيقات الجوال', label_en: 'Mobile Apps' },
+  { value: 'website', label_ar: 'مواقع ومنصات', label_en: 'Platforms & Sites' },
+];
+
 const PortfolioSection: React.FC = () => {
   const { language } = useLanguage();
   const isMobile = useIsMobile();
-  const sectionRef = useRef<HTMLElement>(null);
+  const [activeFilter, setActiveFilter] = useState('all');
   
-  // Use lazy loading for portfolio items
-  const { data: portfolioItems, loading, isVisible, ref } = useLazyFirebase<PortfolioItem>({
+  const { data: allItems, loading, isVisible, ref } = useLazyFirebase<PortfolioItem>({
     collectionName: 'portfolio_items',
     constraints: [orderBy('order_index', 'asc')],
-    rootMargin: '200px', // Start loading 200px before section comes into view
+    rootMargin: '200px',
   });
   
+  // Filter out inactive and by category
+  const portfolioItems = allItems
+    .filter(item => item.is_active !== false)
+    .filter(item => activeFilter === 'all' || item.category === activeFilter);
+
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  
-  const { offset: decorOffset1, elementRef: decorRef1 } = useParallax(0.4);
-  const { offset: decorOffset2, elementRef: decorRef2 } = useParallax(0.6);
-  const { offset: decorOffset3, elementRef: decorRef3 } = useParallax(0.3);
   
   const autoplayPlugin = useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
@@ -94,6 +79,21 @@ const PortfolioSection: React.FC = () => {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  // Reset carousel when filter changes
+  useEffect(() => {
+    api?.scrollTo(0);
+    setCurrent(0);
+  }, [activeFilter, api]);
+
+  const getDescription = (item: PortfolioItem) => {
+    const raw = language === 'ar'
+      ? (item.description_ar || item.description)
+      : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description);
+    return raw || '';
+  };
+
+  const isHtml = (str: string) => /<[a-z][\s\S]*>/i.test(str);
 
   return (
     <section 
@@ -109,7 +109,7 @@ const PortfolioSection: React.FC = () => {
       
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`text-center mb-12 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+        <div className={`text-center mb-8 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="w-12 h-12 bg-[hsl(262,45%,35%)] rotate-45 rounded-xl flex items-center justify-center">
               <Briefcase className="w-5 h-5 text-white -rotate-45" />
@@ -121,12 +121,29 @@ const PortfolioSection: React.FC = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
             {language === 'ar' ? 'أعمالنا المميزة' : 'Our Featured Work'}
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
             {language === 'ar' 
               ? 'نقدم حلولاً رقمية مبتكرة تساعد عملاءنا على تحقيق أهدافهم'
               : 'We offer innovative digital solutions that help our clients achieve their goals'
             }
           </p>
+
+          {/* Category Filter Tabs */}
+          <div className="flex justify-center gap-2 flex-wrap">
+            {FILTER_TABS.map(tab => (
+              <button
+                key={tab.value}
+                onClick={() => setActiveFilter(tab.value)}
+                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeFilter === tab.value
+                    ? 'bg-[hsl(262,45%,35%)] text-white shadow-md'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
+              >
+                {language === 'ar' ? tab.label_ar : tab.label_en}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Products Carousel */}
@@ -134,8 +151,7 @@ const PortfolioSection: React.FC = () => {
           {/* Navigation Arrows */}
           <div className="hidden lg:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10">
             <Button 
-              variant="ghost" 
-              size="icon"
+              variant="ghost" size="icon"
               onClick={() => api?.scrollPrev()}
               className="w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white hover:bg-[hsl(262,45%,40%)] shadow-lg"
               aria-label={language === 'ar' ? 'المنتج السابق' : 'Previous product'}
@@ -145,8 +161,7 @@ const PortfolioSection: React.FC = () => {
           </div>
           <div className="hidden lg:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10">
             <Button 
-              variant="ghost" 
-              size="icon"
+              variant="ghost" size="icon"
               onClick={() => api?.scrollNext()}
               className="w-12 h-12 rounded-full bg-[hsl(262,45%,35%)] text-white hover:bg-[hsl(262,45%,40%)] shadow-lg"
               aria-label={language === 'ar' ? 'المنتج التالي' : 'Next product'}
@@ -176,52 +191,67 @@ const PortfolioSection: React.FC = () => {
                   </div>
                 </CarouselItem>
               ) : portfolioItems.length > 0 ? (
-                portfolioItems.map((item, index) => (
-                  <CarouselItem key={item.id} className="basis-full sm:basis-1/2 lg:basis-1/3 pl-4">
-                    <div className="group bg-[hsl(262,45%,35%)] rounded-2xl border border-purple-400/20 overflow-hidden hover:border-purple-300/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
-                      {/* Product Image */}
-                      <div className="relative h-48 bg-white/10 overflow-hidden">
-                        <img
-                          src={item.image_url} 
-                          alt={`${item.title_ar || item.title} - منتج من علو شركة برمجة`} 
-                          className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        {/* Logo Badge */}
-                        {item.logo_url && (
-                          <div className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center p-1">
-                            <img src={item.logo_url} alt="" className="w-full h-full object-contain" loading="lazy" decoding="async" />
+                portfolioItems.map((item) => {
+                  const desc = getDescription(item);
+                  const categoryLabel = item.category === 'mobile_app'
+                    ? (language === 'ar' ? 'تطبيق جوال' : 'Mobile App')
+                    : (language === 'ar' ? 'موقع / منصة' : 'Platform / Site');
+
+                  return (
+                    <CarouselItem key={item.id} className="basis-full sm:basis-1/2 lg:basis-1/3 pl-4">
+                      <div className="group bg-[hsl(262,45%,35%)] rounded-2xl border border-purple-400/20 overflow-hidden hover:border-purple-300/50 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 h-full">
+                        {/* Product Image */}
+                        <div className="relative h-48 bg-white/10 overflow-hidden">
+                          <img
+                            src={item.image_url} 
+                            alt={`${item.title_ar || item.title} - منتج من علو شركة برمجة`} 
+                            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                          {item.logo_url && (
+                            <div className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center p-1">
+                              <img src={item.logo_url} alt="" className="w-full h-full object-contain" loading="lazy" decoding="async" />
+                            </div>
+                          )}
+                          {/* Category Badge */}
+                          <div className="absolute top-3 left-3">
+                            <Badge variant="secondary" className="bg-white/90 text-[hsl(262,45%,35%)] text-xs">
+                              {categoryLabel}
+                            </Badge>
                           </div>
-                        )}
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="p-5">
-                        <h3 className="text-lg font-bold text-white mb-2 text-right group-hover:text-purple-200 transition-colors">
-                          {language === 'ar' 
-                            ? (item.title_ar || item.title) 
-                            : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
-                        </h3>
-                        <p className="text-sm text-white/60 leading-relaxed mb-4 line-clamp-3 text-right">
-                          {language === 'ar' 
-                            ? (item.description_ar || item.description) 
-                            : (item.description_en || productTranslations[item.title_ar || item.title || '']?.description || item.description_ar || item.description)}
-                        </p>
+                        </div>
                         
-                        {/* Action Button */}
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          className="w-full border-white/30 bg-white text-[hsl(262,45%,35%)] hover:bg-purple-100 transition-colors"
-                        >
-                          <ExternalLink className="w-4 h-4 ml-2" />
-                          {language === 'ar' ? 'عرض التفاصيل' : 'View Details'}
-                        </Button>
+                        {/* Content */}
+                        <div className="p-5">
+                          <h3 className="text-lg font-bold text-white mb-2 text-right group-hover:text-purple-200 transition-colors">
+                            {language === 'ar' 
+                              ? (item.title_ar || item.title) 
+                              : (item.title_en || productTranslations[item.title_ar || item.title || '']?.title || item.title_ar || item.title)}
+                          </h3>
+                          {isHtml(desc) ? (
+                            <div 
+                              className="text-sm text-white/60 leading-relaxed mb-4 line-clamp-3 text-right prose-invert [&_img]:hidden"
+                              dangerouslySetInnerHTML={{ __html: desc }}
+                            />
+                          ) : (
+                            <p className="text-sm text-white/60 leading-relaxed mb-4 line-clamp-3 text-right">
+                              {desc}
+                            </p>
+                          )}
+                          
+                          <Button 
+                            variant="outline" size="sm" 
+                            className="w-full border-white/30 bg-white text-[hsl(262,45%,35%)] hover:bg-purple-100 transition-colors"
+                          >
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                            {language === 'ar' ? 'عرض التفاصيل' : 'View Details'}
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </CarouselItem>
-                ))
+                    </CarouselItem>
+                  );
+                })
               ) : (
                 <CarouselItem className="basis-full">
                   <div className="text-center py-16 text-gray-500">
@@ -235,10 +265,8 @@ const PortfolioSection: React.FC = () => {
           {/* Pagination Dots */}
           {!loading && portfolioItems.length > 1 && (
             <div className="flex justify-center items-center gap-3 mt-8">
-              {/* Mobile Navigation - Right Arrow (Next) */}
               <Button 
-                variant="ghost" 
-                size="icon"
+                variant="ghost" size="icon"
                 onClick={() => api?.scrollNext()}
                 className="lg:hidden w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)]"
                 aria-label={language === 'ar' ? 'المنتج التالي' : 'Next product'}
@@ -246,7 +274,6 @@ const PortfolioSection: React.FC = () => {
                 <ChevronRight className="w-4 h-4" />
               </Button>
               
-              {/* Dots */}
               <div className="flex gap-2">
                 {portfolioItems.map((_, index) => (
                   <button
@@ -262,10 +289,8 @@ const PortfolioSection: React.FC = () => {
                 ))}
               </div>
               
-              {/* Mobile Navigation - Left Arrow (Previous) */}
               <Button 
-                variant="ghost" 
-                size="icon"
+                variant="ghost" size="icon"
                 onClick={() => api?.scrollPrev()}
                 className="lg:hidden w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)]"
                 aria-label={language === 'ar' ? 'المنتج السابق' : 'Previous product'}
