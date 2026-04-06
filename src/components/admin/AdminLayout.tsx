@@ -29,7 +29,7 @@ export const AdminLayout = () => {
   }
 
   return (
-    <div className="min-h-screen flex bg-background" dir="rtl">
+    <div className="admin-theme min-h-screen flex bg-background" dir="rtl">
       <AdminSidebar />
       <main className="flex-1 p-6 overflow-auto">
         <Outlet />
