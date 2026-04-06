@@ -4,7 +4,7 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { Newspaper, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { orderBy } from "firebase/firestore";
+
 import { useLazyFirebase } from "@/hooks/useLazyFirebase";
 import {
   Carousel,
