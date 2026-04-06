@@ -51,6 +51,8 @@ const fallbackNews: NewsItem[] = [
   },
 ];
 
+const EMPTY_CONSTRAINTS: any[] = [];
+
 const CompanyNewsSection: React.FC = () => {
   const { language } = useLanguage();
   const [api, setApi] = useState<CarouselApi>();
@@ -60,7 +62,7 @@ const CompanyNewsSection: React.FC = () => {
   // Use lazy loading for news
   const { data: rawNews, loading, isVisible, ref } = useLazyFirebase<NewsItem>({
     collectionName: 'company_news',
-    constraints: [],
+    constraints: EMPTY_CONSTRAINTS,
     rootMargin: '200px',
   });
 

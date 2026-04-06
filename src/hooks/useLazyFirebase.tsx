@@ -41,6 +41,9 @@ export function useLazyFirebase<T extends { id?: string }>({
   const [hasFetched, setHasFetched] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
+  const constraintsRef = useRef(constraints);
+  constraintsRef.current = constraints;
+
   const fetchData = useCallback(async () => {
     if (hasFetched) return; // Don't refetch if already fetched
     
@@ -48,7 +51,7 @@ export function useLazyFirebase<T extends { id?: string }>({
     setError(null);
     
     try {
-      const q = query(collection(db, collectionName), ...constraints);
+      const q = query(collection(db, collectionName), ...constraintsRef.current);
       const snapshot = await getDocs(q);
       const items: T[] = [];
       
@@ -64,7 +67,7 @@ export function useLazyFirebase<T extends { id?: string }>({
     } finally {
       setLoading(false);
     }
-  }, [collectionName, constraints, hasFetched]);
+  }, [collectionName, hasFetched]);
 
   // Set up Intersection Observer
   useEffect(() => {
