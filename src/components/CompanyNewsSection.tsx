@@ -83,6 +83,33 @@ const CompanyNewsSection: React.FC = () => {
     });
   }, [api]);
 
+  const renderNewsCard = (news: NewsItem) => (
+    <article className="group relative bg-white rounded-2xl overflow-hidden border border-purple-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 h-full">
+      <div className="relative h-64 md:h-80 overflow-hidden">
+        <img 
+          src={news.image_url} 
+          alt={language === 'ar' ? `${news.title_ar} - أخبار شركة علو` : `${news.title_en} - OLU Company News`}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[hsl(262,45%,25%)] via-transparent to-transparent opacity-90" />
+
+        <div className="absolute bottom-0 left-0 right-0 p-6">
+          <h3 className="text-xl md:text-2xl font-bold text-white mb-2 text-right leading-relaxed">
+            {language === 'ar' ? news.title_ar : news.title_en}
+          </h3>
+        </div>
+      </div>
+
+      <div className="p-6 bg-gradient-to-b from-white to-purple-50/50 h-[calc(100%-16rem)] md:h-[calc(100%-20rem)]">
+        <p className="text-gray-600 text-sm md:text-base leading-relaxed text-right line-clamp-3">
+          {language === 'ar' ? news.description_ar : news.description_en}
+        </p>
+      </div>
+    </article>
+  );
+
   return (
     <section id="news" ref={ref as React.RefObject<HTMLElement>} className="py-12 lg:py-16 relative overflow-hidden bg-white">
       {/* Decorative Background Circles */}
@@ -109,96 +136,74 @@ const CompanyNewsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* News Carousel */}
-        <div className={`relative ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-              slidesToScroll: isMobile ? 1 : 2,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {newsItems.map((news, index) => (
-                <CarouselItem key={news.id} className="pl-4 md:basis-1/2">
-                  <div className="group relative bg-white rounded-2xl overflow-hidden border border-purple-100 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    {/* Image Container */}
-                    <div className="relative h-64 md:h-80 overflow-hidden">
-                      <img 
-                        src={news.image_url} 
-                        alt={language === 'ar' ? `${news.title_ar} - أخبار شركة علو` : `${news.title_en} - OLU Company News`}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[hsl(262,45%,25%)] via-transparent to-transparent opacity-90" />
-                      
-                      {/* Title on Image */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2 text-right leading-relaxed">
-                          {language === 'ar' ? news.title_ar : news.title_en}
-                        </h3>
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="p-6 bg-gradient-to-b from-white to-purple-50/50">
-                      <p className="text-gray-600 text-sm md:text-base leading-relaxed text-right line-clamp-3">
-                        {language === 'ar' ? news.description_ar : news.description_en}
-                      </p>
-                    </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-
-          {/* Navigation */}
-          {newsItems.length > 1 && (
-            <div className="flex justify-center items-center gap-3 mt-8">
-              {/* Right Arrow (Next) */}
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => api?.scrollNext()}
-                className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
-                aria-label={language === 'ar' ? 'الخبر التالي' : 'Next news'}
-              >
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-              
-              {/* Dots */}
-              <div className="flex items-center gap-2">
-                {newsItems.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => api?.scrollTo(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      current === index 
-                        ? 'w-8 h-2 bg-[hsl(262,45%,35%)]' 
-                        : 'w-2 h-2 bg-[hsl(262,45%,35%)]/30 hover:bg-[hsl(262,45%,35%)]/50'
-                    }`}
-                    aria-label={`${language === 'ar' ? 'انتقل للخبر' : 'Go to news'} ${index + 1}`}
-                  />
+        {isMobile ? (
+          <div className={`relative ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: newsItems.length > 1,
+                slidesToScroll: 1,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {newsItems.map((news) => (
+                  <CarouselItem key={news.id} className="pl-4 basis-full">
+                    {renderNewsCard(news)}
+                  </CarouselItem>
                 ))}
+              </CarouselContent>
+            </Carousel>
+
+            {newsItems.length > 1 && (
+              <div className="flex justify-center items-center gap-3 mt-8">
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => api?.scrollNext()}
+                  className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
+                  aria-label={language === 'ar' ? 'الخبر التالي' : 'Next news'}
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
+                
+                <div className="flex items-center gap-2">
+                  {newsItems.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => api?.scrollTo(index)}
+                      className={`transition-all duration-300 rounded-full ${
+                        current === index 
+                          ? 'w-8 h-2 bg-[hsl(262,45%,35%)]' 
+                          : 'w-2 h-2 bg-[hsl(262,45%,35%)]/30 hover:bg-[hsl(262,45%,35%)]/50'
+                      }`}
+                      aria-label={`${language === 'ar' ? 'انتقل للخبر' : 'Go to news'} ${index + 1}`}
+                    />
+                  ))}
+                </div>
+                
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  onClick={() => api?.scrollPrev()}
+                  className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
+                  aria-label={language === 'ar' ? 'الخبر السابق' : 'Previous news'}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </Button>
               </div>
-              
-              {/* Left Arrow (Previous) */}
-              <Button 
-                variant="ghost" 
-                size="icon"
-                onClick={() => api?.scrollPrev()}
-                className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
-                aria-label={language === 'ar' ? 'الخبر السابق' : 'Previous news'}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </Button>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        ) : (
+          <div className={`grid gap-6 md:grid-cols-2 xl:grid-cols-3 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+            {newsItems.map((news) => (
+              <div key={news.id} className="h-full">
+                {renderNewsCard(news)}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
