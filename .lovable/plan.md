@@ -1,40 +1,48 @@
 
 
-# Plan: Upgrade Portfolio Manager with Categories & Rich Text Editor
+# Fix Admin Panel UI — Make Everything Readable
 
-## What We're Building
+## Problem
+The global CSS theme sets `--card` to dark purple (`262 45% 35%`), which means every `Card` component in the admin panel has a purple background. All admin text is `text-black`, making it nearly invisible on purple. The sidebar, form cards, and dashboard cards are all affected.
 
-1. **Category System** — Add a "type" field (`mobile_app` or `website`) to each portfolio item, with a dropdown selector in admin instead of free text
-2. **Category Tabs on Public Site** — Add filter tabs ("الكل" / "تطبيقات الجوال" / "مواقع ومنصات") in the PortfolioSection so visitors can browse each type separately
-3. **Rich Text Editor for Descriptions** — Replace plain Textarea with a TipTap rich text editor supporting bold, italic, lists, headings, and inline image uploads
-4. **Additional Data Fields** — Add `logo_url`, `technologies`, and `is_active` fields to the admin form (currently missing from the manager but referenced in the public section)
+## Solution
+Override the admin panel's color scheme so it uses a clean white/light-gray theme instead of the purple site theme. This is the cleanest approach — one change in the layout wrapper rather than touching every admin component.
 
-## Technical Details
+## Changes
 
-### Files to Create
-- **`src/components/admin/RichTextEditor.tsx`** — TipTap-based rich text editor component with toolbar (bold, italic, headings, lists, image upload via Firebase Storage), outputs HTML string
+### 1. `src/components/admin/AdminLayout.tsx`
+- Wrap the admin layout in a `div` with CSS custom properties overriding the card, background, and foreground colors to white/light values
+- This scopes the fix to admin-only pages without affecting the public site
 
-### Files to Modify
+### 2. `src/index.css`
+- Add an `.admin-theme` class that overrides CSS variables:
+  - `--card: 0 0% 100%` (white)
+  - `--card-foreground: 220 20% 20%` (dark text)
+  - `--background: 220 15% 96%` (light gray page bg)
+  - `--foreground: 220 20% 20%` (dark text)
+  - `--border: 220 15% 88%`
+  - `--muted: 220 15% 92%`
+  - Keep `--primary` as purple for buttons/active states
 
-- **`src/components/admin/PortfolioManager.tsx`**
-  - Change `category` field from free text Input to a Select dropdown with two options: `mobile_app` (تطبيقات جوال) and `website` (مواقع ومنصات)
-  - Replace description Textareas with the new RichTextEditor component
-  - Add `logo_url` field with ImageUploader
-  - Add `technologies` field (comma-separated input)
-  - Add `is_active` toggle switch
-  - Show category badge on each item card in the list
-  - Add filter tabs at the top to filter admin list by category
+### 3. `src/components/admin/AdminSidebar.tsx`
+- Change sidebar background from `bg-card` to explicit `bg-white` with a right border
+- Ensure nav items use proper contrast colors
+- Add scrollable overflow for long menu lists
 
-- **`src/components/PortfolioSection.tsx`**
-  - Add filter tabs ("الكل" / "تطبيقات الجوال" / "مواقع ومنصات") above the carousel
-  - Filter `portfolioItems` based on selected tab
-  - Render description using `dangerouslySetInnerHTML` to support rich text HTML content
-  - Show category badge on each product card
+### 4. `src/components/admin/PortfolioManager.tsx`
+- Remove `variant="light"` from Badge (invalid variant causing potential issues)
+- Ensure inputs and selects have explicit white backgrounds
 
-### New Dependency
-- Install `@tiptap/react`, `@tiptap/starter-kit`, `@tiptap/extension-image` for the rich text editor
+### 5. `src/components/admin/RichTextEditor.tsx`
+- Already uses `bg-white` — no changes needed
 
-### Data Migration
-- Existing items with `category` as free text will be mapped to the new values during edit (admin can re-save each item with the correct category)
-- Existing plain text descriptions will continue to render correctly since they contain no HTML tags
+### 6. `src/components/admin/AdminHome.tsx`
+- Cards will automatically inherit the white theme from the admin wrapper
+- No changes needed
+
+## Result
+- All admin cards will be white with dark text
+- Sidebar will be white with clear navigation
+- Forms, inputs, and editors will all be clearly visible
+- Public site remains unchanged (purple theme intact)
 
