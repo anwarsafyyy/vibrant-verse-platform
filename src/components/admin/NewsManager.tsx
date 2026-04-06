@@ -56,7 +56,9 @@ export const NewsManager = () => {
 
   const fetchItems = async () => {
     try {
-      const data = await getCollection<NewsItem>('company_news', [], 'order_index', 'asc');
+      const data = await getCollection<NewsItem>('company_news');
+      // Sort client-side to include items without order_index
+      data.sort((a, b) => (a.order_index ?? 999) - (b.order_index ?? 999));
       setItems(data);
     } catch (error) {
       toast({ title: 'خطأ في جلب البيانات', variant: 'destructive' });
