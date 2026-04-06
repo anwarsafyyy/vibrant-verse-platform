@@ -58,11 +58,14 @@ const CompanyNewsSection: React.FC = () => {
   const isMobile = useIsMobile();
 
   // Use lazy loading for news
-  const { data: firebaseNews, loading, isVisible, ref } = useLazyFirebase<NewsItem>({
+  const { data: rawNews, loading, isVisible, ref } = useLazyFirebase<NewsItem>({
     collectionName: 'company_news',
-    constraints: [orderBy('order_index', 'asc')],
+    constraints: [],
     rootMargin: '200px',
   });
+
+  // Sort client-side to include items without order_index
+  const firebaseNews = [...rawNews].sort((a, b) => (a.order_index ?? 999) - (b.order_index ?? 999));
 
   // Use fallback if no data from Firebase
   const newsItems = firebaseNews.length > 0 
