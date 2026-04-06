@@ -561,6 +561,22 @@
   transform: translateX(100%);
 }
 
+/* Admin theme override */
+.admin-theme {
+  --background: 220 15% 96%;
+  --foreground: 220 20% 20%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 20%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 20% 20%;
+  --secondary: 220 15% 95%;
+  --secondary-foreground: 220 20% 20%;
+  --muted: 220 15% 92%;
+  --muted-foreground: 220 15% 45%;
+  --border: 220 15% 88%;
+  --input: 220 15% 88%;
+}
+
 /* Footer gradient */
 .bg-gradient-purple {
   background: var(--gradient-purple);

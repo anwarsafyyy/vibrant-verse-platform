@@ -51,13 +51,13 @@ export const AdminSidebar = () => {
   };
 
   return (
-    <aside className="w-64 min-h-screen bg-card border-l border-border">
+    <aside className="w-64 min-h-screen bg-white border-l border-border flex flex-col">
       <div className="p-4 border-b border-border">
-        <h2 className="font-bold text-lg text-black">لوحة التحكم</h2>
+        <h2 className="font-bold text-lg text-foreground">لوحة التحكم</h2>
       </div>
       
-      <nav className="p-4">
-        <ul className="space-y-2">
+      <nav className="p-4 flex-1 overflow-y-auto">
+        <ul className="space-y-1">
           {menuItems.map((item) => (
             <li key={item.url}>
               <NavLink
@@ -65,8 +65,8 @@ export const AdminSidebar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3 py-2 rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-primary text-white'
-                      : 'text-black hover:bg-muted hover:text-black'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'text-foreground hover:bg-muted'
                   }`
                 }
               >

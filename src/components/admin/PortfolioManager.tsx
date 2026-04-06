@@ -223,7 +223,7 @@ export const PortfolioManager = () => {
                     <Badge variant={item.category === 'mobile_app' ? 'default' : 'secondary'}>
                       {getCategoryLabel(item.category)}
                     </Badge>
-                    {item.is_active === false && <Badge variant="light">مخفي</Badge>}
+                    {item.is_active === false && <Badge variant="secondary">مخفي</Badge>}
                   </div>
                   <p className="text-sm text-black/70 line-clamp-1">
                     {(item.description_ar || (item as any).description || '').replace(/<[^>]*>/g, '').slice(0, 100)}
