@@ -136,73 +136,49 @@ const CompanyNewsSection: React.FC = () => {
           </div>
         </div>
 
-        {isMobile ? (
-          <div className={`relative ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-            <Carousel
-              setApi={setApi}
-              opts={{
-                align: "start",
-                loop: newsItems.length > 1,
-                slidesToScroll: 1,
-              }}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4">
-                {newsItems.map((news) => (
-                  <CarouselItem key={news.id} className="pl-4 basis-full">
-                    {renderNewsCard(news)}
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+        <div className={`relative ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "start",
+              loop: newsItems.length > (isMobile ? 1 : 2),
+              slidesToScroll: isMobile ? 1 : 1,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-4">
+              {newsItems.map((news) => (
+                <CarouselItem key={news.id} className="pl-4 basis-full md:basis-1/2 xl:basis-1/3">
+                  {renderNewsCard(news)}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
 
-            {newsItems.length > 1 && (
-              <div className="flex justify-center items-center gap-3 mt-8">
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => api?.scrollNext()}
-                  className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
-                  aria-label={language === 'ar' ? 'الخبر التالي' : 'Next news'}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-                
-                <div className="flex items-center gap-2">
-                  {newsItems.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => api?.scrollTo(index)}
-                      className={`transition-all duration-300 rounded-full ${
-                        current === index 
-                          ? 'w-8 h-2 bg-[hsl(262,45%,35%)]' 
-                          : 'w-2 h-2 bg-[hsl(262,45%,35%)]/30 hover:bg-[hsl(262,45%,35%)]/50'
-                      }`}
-                      aria-label={`${language === 'ar' ? 'انتقل للخبر' : 'Go to news'} ${index + 1}`}
-                    />
-                  ))}
-                </div>
-                
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  onClick={() => api?.scrollPrev()}
-                  className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
-                  aria-label={language === 'ar' ? 'الخبر السابق' : 'Previous news'}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </Button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div className={`grid gap-6 md:grid-cols-2 xl:grid-cols-3 ${isVisible ? 'animate-fade-in stagger-2' : 'opacity-0'}`}>
-            {newsItems.map((news) => (
-              <div key={news.id} className="h-full">
-                {renderNewsCard(news)}
-              </div>
-            ))}
-          </div>
+          {newsItems.length > (isMobile ? 1 : 2) && (
+            <div className="flex justify-center items-center gap-3 mt-8">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => api?.scrollNext()}
+                className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
+                aria-label={language === 'ar' ? 'الخبر التالي' : 'Next news'}
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+              
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => api?.scrollPrev()}
+                className="w-10 h-10 rounded-full border border-[hsl(262,45%,35%)]/30 text-[hsl(262,45%,35%)] hover:bg-[hsl(262,45%,35%)] hover:text-white transition-all"
+                aria-label={language === 'ar' ? 'الخبر السابق' : 'Previous news'}
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+            </div>
+          )
+          }
         )}
       </div>
     </section>
